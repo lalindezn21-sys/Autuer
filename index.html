@@ -1,0 +1,1303 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autuer | Screenplay</title>
+
+<style>
+:root {
+    --bg: #111214;
+    --panel: #181a1e;
+    --panel-2: #202329;
+    --border: #2d3036;
+    --text: #f1f1f1;
+    --muted: #8d929c;
+    --accent: #ffffff;
+    --paper: #f8f7f3;
+    --paper-text: #161616;
+    --paper-muted: #666;
+    --shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+[data-theme="light"] {
+    --bg: #e9e9e7;
+    --panel: #f4f4f2;
+    --panel-2: #ffffff;
+    --border: #d4d4d0;
+    --text: #171717;
+    --muted: #6d6d6d;
+    --accent: #111111;
+    --shadow: 0 20px 60px rgba(0,0,0,.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    height: 62px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+}
+
+.brand-mark {
+    width: 27px;
+    height: 27px;
+    border: 2px solid var(--text);
+    border-radius: 7px;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+}
+
+.document-title {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+    width: 220px;
+    text-align: center;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    font: inherit;
+}
+
+.icon-btn,
+.action-btn {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 7px;
+    transition:
+        background .15s ease,
+        border-color .15s ease,
+        transform .15s ease;
+}
+
+.icon-btn {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+}
+
+.action-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.icon-btn:hover,
+.action-btn:hover {
+    background: var(--panel-2);
+    border-color: var(--muted);
+}
+
+.icon-btn:active,
+.action-btn:active {
+    transform: translateY(1px);
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 18px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+}
+
+.toolbar-group {
+    display: flex;
+    gap: 4px;
+    padding-right: 9px;
+    margin-right: 4px;
+    border-right: 1px solid var(--border);
+}
+
+.toolbar-group:last-child {
+    border-right: 0;
+}
+
+.format-btn {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 6px;
+    padding: 6px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.format-btn:hover {
+    color: var(--text);
+    background: var(--panel-2);
+}
+
+.format-btn.active {
+    color: var(--text);
+    border-color: var(--border);
+    background: var(--panel-2);
+}
+
+/* =========================
+   WORKSPACE
+========================= */
+
+.workspace {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 42px 20px 80px;
+    overflow: auto;
+}
+
+.editor-shell {
+    width: min(816px, 100%);
+}
+
+/* =========================
+   PAPER
+========================= */
+
+.paper {
+    width: 100%;
+    min-height: 1056px;
+    background: var(--paper);
+    color: var(--paper-text);
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.editor {
+    min-height: 1056px;
+    padding:
+        95px
+        90px
+        95px
+        100px;
+    outline: none;
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    letter-spacing: 0;
+    caret-color: #111;
+}
+
+[data-theme="light"] .editor {
+    caret-color: #111;
+}
+
+/* =========================
+   SCREENPLAY ELEMENTS
+========================= */
+
+.scene-heading {
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.action {
+    margin-bottom: 18px;
+}
+
+.character {
+    width: 42%;
+    margin-left: 32%;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.dialogue {
+    width: 64%;
+    margin-left: 18%;
+    margin-bottom: 18px;
+}
+
+.parenthetical {
+    width: 45%;
+    margin-left: 27%;
+    margin-bottom: 0;
+}
+
+.transition {
+    text-align: right;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+}
+
+.screenplay-line {
+    min-height: 18px;
+    outline: none;
+}
+
+.placeholder {
+    color: #999;
+}
+
+/* =========================
+   STATUS BAR
+========================= */
+
+.statusbar {
+    height: 35px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 10px;
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+}
+
+.status-left,
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.modal-backdrop.visible {
+    display: flex;
+}
+
+.modal {
+    width: min(420px, 100%);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+}
+
+.modal h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.modal p {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .topbar {
+        padding: 0 12px;
+    }
+
+    .brand {
+        font-size: 15px;
+    }
+
+    .document-title {
+        width: 130px;
+    }
+
+    .workspace {
+        padding: 20px 0 50px;
+    }
+
+    .paper {
+        min-height: calc(100vh - 145px);
+    }
+
+    .editor {
+        min-height: calc(100vh - 145px);
+        padding:
+            55px
+            35px
+            70px;
+        font-size: 11px;
+    }
+
+    .character {
+        width: 55%;
+        margin-left: 23%;
+    }
+
+    .dialogue {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .parenthetical {
+        width: 60%;
+        margin-left: 20%;
+    }
+
+    .statusbar {
+        padding: 0 10px;
+    }
+}
+
+/* =========================
+   PRINT
+========================= */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .topbar,
+    .toolbar,
+    .statusbar {
+        display: none !important;
+    }
+
+    .workspace {
+        padding: 0;
+        display: block;
+    }
+
+    .paper {
+        box-shadow: none;
+        width: 100%;
+    }
+
+    .editor {
+        min-height: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-mark">A</div>
+            <span>Autuer</span>
+        </div>
+
+        <input
+            id="documentTitle"
+            class="document-title"
+            value="Untitled Screenplay"
+            aria-label="Screenplay title"
+        >
+
+        <div class="topbar-right">
+
+            <button
+                class="action-btn"
+                id="newBtn"
+                title="New screenplay"
+            >
+                New
+            </button>
+
+            <button
+                class="action-btn"
+                id="saveBtn"
+                title="Save screenplay"
+            >
+                Save
+            </button>
+
+            <button
+                class="action-btn"
+                id="exportBtn"
+                title="Export screenplay"
+            >
+                Export
+            </button>
+
+            <button
+                class="icon-btn"
+                id="themeBtn"
+                title="Toggle dark mode"
+                aria-label="Toggle dark mode"
+            >
+                ☾
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- FORMAT TOOLBAR -->
+    <div class="toolbar">
+
+        <div class="toolbar-group">
+
+            <button class="format-btn" data-format="scene">
+                Scene
+            </button>
+
+            <button class="format-btn" data-format="action">
+                Action
+            </button>
+
+            <button class="format-btn" data-format="character">
+                Character
+            </button>
+
+            <button class="format-btn" data-format="dialogue">
+                Dialogue
+            </button>
+
+            <button class="format-btn" data-format="parenthetical">
+                Parenthetical
+            </button>
+
+            <button class="format-btn" data-format="transition">
+                Transition
+            </button>
+
+        </div>
+
+        <div class="toolbar-group">
+
+            <button
+                class="format-btn"
+                id="undoBtn"
+            >
+                Undo
+            </button>
+
+            <button
+                class="format-btn"
+                id="redoBtn"
+            >
+                Redo
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- EDITOR -->
+    <main class="workspace">
+
+        <div class="editor-shell">
+
+            <div class="paper">
+
+                <div
+                    id="editor"
+                    class="editor"
+                    contenteditable="true"
+                    spellcheck="true"
+                    aria-label="Screenplay editor"
+                >
+
+                    <div
+                        class="screenplay-line scene-heading"
+                        data-type="scene"
+                    >FADE IN:</div>
+
+                    <div
+                        class="screenplay-line action"
+                        data-type="action"
+                    >A dark screen.</div>
+
+                    <div
+                        class="screenplay-line action"
+                        data-type="action"
+                    >The distant sound of waves.</div>
+
+                    <div
+                        class="screenplay-line action"
+                        data-type="action"
+                    >Then silence.</div>
+
+                    <div
+                        class="screenplay-line character"
+                        data-type="character"
+                    >INDE</div>
+
+                    <div
+                        class="screenplay-line dialogue"
+                        data-type="dialogue"
+                    >We were never supposed to find this place.</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- STATUS -->
+    <footer class="statusbar">
+
+        <div class="status-left">
+            <span id="saveStatus">Saved</span>
+            <span id="pageCount">1 page</span>
+        </div>
+
+        <div class="status-right">
+            <span id="wordCount">0 words</span>
+            <span>⌘ / Ctrl + S</span>
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- NEW DOCUMENT MODAL -->
+
+<div
+    id="newModal"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+>
+
+    <div class="modal">
+
+        <h2>Start a new screenplay?</h2>
+
+        <p>
+            Your current screenplay is saved locally, but creating a
+            new one will replace the editor contents.
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                class="action-btn"
+                id="cancelNew"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="action-btn"
+                id="confirmNew"
+            >
+                New Screenplay
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+/* =========================================
+   AUTUER SCREENPLAY ENGINE
+========================================= */
+
+const editor = document.getElementById("editor");
+const documentTitle = document.getElementById("documentTitle");
+const saveStatus = document.getElementById("saveStatus");
+const wordCount = document.getElementById("wordCount");
+const pageCount = document.getElementById("pageCount");
+
+const STORAGE_KEY = "autuer_screenplay";
+const THEME_KEY = "autuer_theme";
+
+
+/* =========================================
+   THEME
+========================================= */
+
+function loadTheme() {
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+
+    if (savedTheme === "light") {
+        document.documentElement.dataset.theme = "light";
+    } else {
+        document.documentElement.dataset.theme = "dark";
+    }
+
+}
+
+function toggleTheme() {
+
+    const current =
+        document.documentElement.dataset.theme;
+
+    const next =
+        current === "light" ? "dark" : "light";
+
+    document.documentElement.dataset.theme = next;
+
+    localStorage.setItem(THEME_KEY, next);
+
+    document.getElementById("themeBtn").textContent =
+        next === "light" ? "☀" : "☾";
+}
+
+
+/* =========================================
+   SCREENPLAY FORMATTING
+========================================= */
+
+const formatClasses = [
+    "scene-heading",
+    "action",
+    "character",
+    "dialogue",
+    "parenthetical",
+    "transition"
+];
+
+function applyFormat(type) {
+
+    const selection = window.getSelection();
+
+    if (!selection.rangeCount) {
+        return;
+    }
+
+    let node = selection.anchorNode;
+
+    if (!node) {
+        return;
+    }
+
+    let element =
+        node.nodeType === Node.TEXT_NODE
+            ? node.parentElement
+            : node;
+
+    let line =
+        element.closest(".screenplay-line");
+
+    if (!line) {
+
+        line = document.createElement("div");
+
+        line.className =
+            "screenplay-line action";
+
+        line.dataset.type = "action";
+
+        line.textContent =
+            element.textContent || "";
+
+        element.replaceWith(line);
+
+    }
+
+    formatClasses.forEach(className => {
+        line.classList.remove(className);
+    });
+
+    line.classList.add(
+        type === "scene"
+            ? "scene-heading"
+            : type
+    );
+
+    line.dataset.type = type;
+
+    updateStats();
+    saveDraft();
+
+    placeCaretAtEnd(line);
+}
+
+
+function placeCaretAtEnd(element) {
+
+    const range = document.createRange();
+
+    const selection = window.getSelection();
+
+    range.selectNodeContents(element);
+    range.collapse(false);
+
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    editor.focus();
+}
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+editor.addEventListener("keydown", event => {
+
+    if (event.key !== "Enter") {
+        return;
+    }
+
+    event.preventDefault();
+
+    const selection = window.getSelection();
+
+    if (!selection.rangeCount) {
+        return;
+    }
+
+    let current =
+        selection.anchorNode.parentElement;
+
+    let line =
+        current.closest(".screenplay-line");
+
+    if (!line) {
+        return;
+    }
+
+    const newLine =
+        document.createElement("div");
+
+    newLine.className =
+        "screenplay-line action";
+
+    newLine.dataset.type =
+        "action";
+
+    newLine.innerHTML = "<br>";
+
+    line.after(newLine);
+
+    placeCaretAtEnd(newLine);
+
+    updateStats();
+});
+
+
+/* =========================================
+   AUTOMATIC TAB / ARROW FORMATTING
+========================================= */
+
+editor.addEventListener("keydown", event => {
+
+    if (event.key !== "Tab") {
+        return;
+    }
+
+    event.preventDefault();
+
+    const selection = window.getSelection();
+
+    if (!selection.rangeCount) {
+        return;
+    }
+
+    const element =
+        selection.anchorNode.parentElement;
+
+    const line =
+        element.closest(".screenplay-line");
+
+    if (!line) {
+        return;
+    }
+
+    const types = [
+        "scene",
+        "action",
+        "character",
+        "dialogue",
+        "parenthetical",
+        "transition"
+    ];
+
+    const current =
+        types.indexOf(line.dataset.type);
+
+    const next =
+        types[(current + 1) % types.length];
+
+    applyFormat(next);
+});
+
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+document
+    .querySelectorAll("[data-format]")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            applyFormat(
+                button.dataset.format
+            );
+
+        });
+
+    });
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats() {
+
+    const text =
+        editor.innerText
+            .replace(/\s+/g, " ")
+            .trim();
+
+    const words =
+        text
+            ? text.split(" ").length
+            : 0;
+
+    wordCount.textContent =
+        `${words} ${words === 1 ? "word" : "words"}`;
+
+    const pages =
+        Math.max(1, Math.ceil(words / 250));
+
+    pageCount.textContent =
+        `${pages} ${pages === 1 ? "page" : "pages"}`;
+}
+
+
+/* =========================================
+   SAVE
+========================================= */
+
+function saveDraft() {
+
+    const data = {
+        title: documentTitle.value,
+        content: editor.innerHTML,
+        updatedAt: Date.now()
+    };
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+    saveStatus.textContent = "Saved";
+}
+
+
+function loadDraft() {
+
+    const raw =
+        localStorage.getItem(STORAGE_KEY);
+
+    if (!raw) {
+        return;
+    }
+
+    try {
+
+        const data =
+            JSON.parse(raw);
+
+        if (data.title) {
+            documentTitle.value =
+                data.title;
+        }
+
+        if (data.content) {
+            editor.innerHTML =
+                data.content;
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Autuer: failed to load screenplay.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   AUTOSAVE
+========================================= */
+
+let saveTimer;
+
+function scheduleSave() {
+
+    saveStatus.textContent =
+        "Unsaved changes";
+
+    clearTimeout(saveTimer);
+
+    saveTimer = setTimeout(() => {
+
+        saveDraft();
+
+    }, 700);
+
+}
+
+editor.addEventListener(
+    "input",
+    () => {
+
+        updateStats();
+        scheduleSave();
+
+    }
+);
+
+documentTitle.addEventListener(
+    "input",
+    scheduleSave
+);
+
+
+/* =========================================
+   MANUAL SAVE
+========================================= */
+
+document
+    .getElementById("saveBtn")
+    .addEventListener("click", () => {
+
+        saveDraft();
+
+    });
+
+
+/* =========================================
+   NEW SCREENPLAY
+========================================= */
+
+const newModal =
+    document.getElementById("newModal");
+
+document
+    .getElementById("newBtn")
+    .addEventListener("click", () => {
+
+        newModal.classList.add("visible");
+
+    });
+
+document
+    .getElementById("cancelNew")
+    .addEventListener("click", () => {
+
+        newModal.classList.remove("visible");
+
+    });
+
+document
+    .getElementById("confirmNew")
+    .addEventListener("click", () => {
+
+        documentTitle.value =
+            "Untitled Screenplay";
+
+        editor.innerHTML = `
+            <div
+                class="screenplay-line scene-heading"
+                data-type="scene"
+            >FADE IN:</div>
+
+            <div
+                class="screenplay-line action"
+                data-type="action"
+            ><br></div>
+        `;
+
+        saveDraft();
+        updateStats();
+
+        newModal.classList.remove("visible");
+
+        const firstLine =
+            editor.querySelector(".screenplay-line");
+
+        placeCaretAtEnd(firstLine);
+
+    });
+
+
+/* =========================================
+   EXPORT
+========================================= */
+
+document
+    .getElementById("exportBtn")
+    .addEventListener("click", () => {
+
+        const title =
+            documentTitle.value.trim() ||
+            "Untitled Screenplay";
+
+        const lines =
+            [...editor.querySelectorAll(
+                ".screenplay-line"
+            )];
+
+        const output =
+            lines
+                .map(line => {
+
+                    const type =
+                        line.dataset.type;
+
+                    const text =
+                        line.innerText.trim();
+
+                    if (!text) {
+                        return "";
+                    }
+
+                    switch (type) {
+
+                        case "scene":
+                            return text.toUpperCase();
+
+                        case "character":
+                            return `\n${text.toUpperCase()}`;
+
+                        case "dialogue":
+                            return text;
+
+                        case "parenthetical":
+                            return `(${text.replace(/[()]/g, "")})`;
+
+                        case "transition":
+                            return `\n${text.toUpperCase()}`;
+
+                        default:
+                            return text;
+
+                    }
+
+                })
+                .join("\n\n");
+
+        const blob =
+            new Blob(
+                [output],
+                { type: "text/plain;charset=utf-8" }
+            );
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+        link.download =
+            `${title.replace(/[^\w\s-]/g, "").trim() || "screenplay"}.txt`;
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        URL.revokeObjectURL(url);
+
+    });
+
+
+/* =========================================
+   UNDO / REDO
+========================================= */
+
+document
+    .getElementById("undoBtn")
+    .addEventListener("click", () => {
+
+        document.execCommand("undo");
+        updateStats();
+
+    });
+
+document
+    .getElementById("redoBtn")
+    .addEventListener("click", () => {
+
+        document.execCommand("redo");
+        updateStats();
+
+    });
+
+
+/* =========================================
+   KEYBOARD SHORTCUTS
+========================================= */
+
+document.addEventListener("keydown", event => {
+
+    const modifier =
+        event.metaKey || event.ctrlKey;
+
+    if (!modifier) {
+        return;
+    }
+
+    if (event.key.toLowerCase() === "s") {
+
+        event.preventDefault();
+        saveDraft();
+
+    }
+
+    if (event.key.toLowerCase() === "n") {
+
+        event.preventDefault();
+        newModal.classList.add("visible");
+
+    }
+
+});
+
+
+/* =========================================
+   CLOSE MODAL
+========================================= */
+
+newModal.addEventListener("click", event => {
+
+    if (event.target === newModal) {
+        newModal.classList.remove("visible");
+    }
+
+});
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+loadTheme();
+loadDraft();
+updateStats();
+
+document.getElementById("themeBtn").textContent =
+    document.documentElement.dataset.theme === "light"
+        ? "☀"
+        : "☾";
+
+</script>
+
+</body>
+</html>
+```
