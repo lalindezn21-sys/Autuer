@@ -43,7 +43,6 @@
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    /* Only hide the landing AFTER the dashboard has fully arrived */
     body.hide-landing .landing {
       opacity: 0;
       visibility: hidden;
@@ -117,7 +116,6 @@
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    /* Hide header + top wordmark only after the wipe is complete */
     body.hide-landing .header,
     body.hide-landing .top-auteur {
       opacity: 0;
@@ -207,7 +205,7 @@
     }
 
     /* =========================================================
-       DASHBOARD – slides up as the wipe
+       DASHBOARD – empty except for the thin left line
     ========================================================= */
     .dashboard {
       position: fixed;
@@ -232,243 +230,11 @@
     ========================================================= */
     .column {
       min-height: 100vh;
-      padding: 38px 34px;
       position: relative;
     }
 
     .left-column {
-      border-right: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    /* =========================================================
-       CENTER DASHBOARD
-    ========================================================= */
-    .center-column {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 60px;
-      position: relative;
-    }
-
-    .dashboard-label {
-      position: absolute;
-      top: 34px;
-      left: 40px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #ffffff;
-    }
-
-    /* =========================================================
-       DASHBOARD WORDMARK
-    ========================================================= */
-    .wordmark {
-      position: absolute;
-      top: 30px;
-      left: 34px;
-      display: flex;
-      align-items: baseline;
-      font-size: 21px;
-      font-weight: 500;
-      letter-spacing: -0.04em;
-      color: #ffffff;
-      line-height: 1;
-    }
-
-    .wordmark span {
-      display: inline-block;
-      line-height: 1;
-      vertical-align: baseline;
-    }
-
-    .wordmark span:nth-child(1) {
-      font-family: Georgia, serif;
-      font-style: italic;
-    }
-
-    .wordmark span:nth-child(2) {
-      font-family: "Courier New", monospace;
-    }
-
-    .wordmark span:nth-child(3) {
-      font-family: "Times New Roman", serif;
-      font-weight: bold;
-    }
-
-    .wordmark span:nth-child(4) {
-      font-family: Arial, sans-serif;
-    }
-
-    .wordmark span:nth-child(5) {
-      font-family: Garamond, Georgia, serif;
-      font-style: italic;
-    }
-
-    .wordmark span:nth-child(6) {
-      font-family: "Brush Script MT", "Segoe Script", cursive;
-      transform: translateY(1px);
-    }
-
-    /* =========================================================
-       COLUMN HEADERS
-    ========================================================= */
-    .column-header {
-      margin-top: 65px;
-      margin-bottom: 32px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: #ffffff;
-    }
-
-    /* =========================================================
-       MENU
-    ========================================================= */
-    .menu {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .menu-item {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #ffffff;
-      font-size: 14px;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .menu-item:hover {
-      background: #ffffff;
-      color: #D32F2F;
-    }
-
-    /* =========================================================
-       DIVIDER
-    ========================================================= */
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      margin: 28px 0;
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    /* =========================================================
-       CENTER CONTENT
-    ========================================================= */
-    .center-eyebrow {
-      margin-bottom: 22px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #ffffff;
-    }
-
-    .center-title {
-      margin: 0 0 20px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(42px, 5vw, 72px);
-      font-weight: 400;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: #ffffff;
-    }
-
-    .center-description {
-      max-width: 500px;
-      margin: 0 0 40px;
-      font-size: 14px;
-      line-height: 1.7;
-      color: #ffffff;
-    }
-
-    /* =========================================================
-       BUTTONS
-    ========================================================= */
-    .primary-button,
-    .secondary-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 13px;
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    }
-
-    .primary-button {
-      padding: 14px 25px;
-      background: transparent;
-      color: #ffffff;
-      border: 1px solid #ffffff;
-    }
-
-    .primary-button:hover {
-      background: #ffffff;
-      color: #D32F2F;
-      border-color: #ffffff;
-    }
-
-    .secondary-button {
-      margin-top: 12px;
-      padding: 12px 23px;
-      background: transparent;
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .secondary-button:hover {
-      background: #ffffff;
-      color: #D32F2F;
-      border-color: #ffffff;
-    }
-
-    /* =========================================================
-       PROFILE + STATUS
-    ========================================================= */
-    .profile-area {
-      position: absolute;
-      left: 34px;
-      bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .profile-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: #D32F2F;
-      user-select: none;
-      cursor: pointer;
-      transition: transform 0.15s ease, background-color 0.15s ease;
-    }
-
-    .profile-circle:hover {
-      transform: scale(1.06);
-      background: #f5f5f5;
-    }
-
-    .status {
-      font-size: 11px;
-      color: #ffffff;
-      letter-spacing: 0.03em;
+      border-right: 1px solid rgba(255, 255, 255, 0.35);
     }
 
     /* =========================================================
@@ -514,40 +280,13 @@
 
       .dashboard {
         grid-template-columns: 1fr;
-        overflow-y: auto;
-      }
-
-      .column {
-        min-height: auto;
       }
 
       .left-column {
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-      }
-
-      .center-column {
-        min-height: 80vh;
-        order: -1;
-        padding: 100px 30px;
-      }
-
-      .left-column {
-        padding: 30px;
-      }
-
-      .column-header {
-        margin-top: 20px;
-      }
-
-      .dashboard-label {
-        top: 24px;
-        left: 24px;
-      }
-
-      .profile-area {
-        position: static;
-        margin-top: 30px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+        min-height: 0;
+        height: 60px;
       }
     }
   </style>
@@ -601,48 +340,11 @@
   </section>
 
   <!-- =========================================================
-       DASHBOARD (this whole panel is the wipe)
+       DASHBOARD – only the thin separating line remains
   ========================================================= -->
   <main class="dashboard">
-    <section class="column left-column">
-      <div class="wordmark">
-        <span>A</span><span>u</span><span>t</span><span>e</span><span>u</span><span>r</span>
-      </div>
-
-      <div class="column-header">Library</div>
-      <nav class="menu">
-        <a href="#" class="menu-item">My Scripts</a>
-        <a href="#" class="menu-item">Recent</a>
-        <a href="#" class="menu-item">Drafts</a>
-        <a href="#" class="menu-item">Templates</a>
-      </nav>
-
-      <div class="section-divider"></div>
-
-      <div class="column-header">Projects</div>
-      <nav class="menu">
-        <a href="#" class="menu-item">Favorites</a>
-        <a href="#" class="menu-item">Archives</a>
-      </nav>
-
-      <div class="profile-area">
-        <div class="profile-circle" title="Profile">A</div>
-        <div class="status">All projects saved locally</div>
-      </div>
-    </section>
-
-    <section class="column center-column">
-      <div class="dashboard-label">Dashboard</div>
-
-      <div class="center-eyebrow">Your writing studio</div>
-      <h1 class="center-title">Build your story.</h1>
-      <p class="center-description">
-        Start with a blank page, open an existing screenplay, or use Auteur's creative tools
-        to turn an idea into something worth putting on screen.
-      </p>
-      <a href="#" class="primary-button">+ New Screenplay</a>
-      <a href="#" class="secondary-button">Open Existing Script</a>
-    </section>
+    <section class="column left-column"></section>
+    <section class="column center-column"></section>
   </main>
 
   <!-- =========================================================
@@ -659,10 +361,8 @@
       dashboardActive = true;
       transitionLocked = true;
 
-      // Start the dashboard sliding up
       body.classList.add("dashboard-active");
 
-      // Only hide the landing AFTER the dashboard has fully arrived
       setTimeout(() => {
         body.classList.add("hide-landing");
         transitionLocked = false;
@@ -675,10 +375,7 @@
       dashboardActive = false;
       transitionLocked = true;
 
-      // Show the landing immediately so it’s visible underneath
       body.classList.remove("hide-landing");
-
-      // Then slide the dashboard back down
       body.classList.remove("dashboard-active");
 
       setTimeout(() => {
