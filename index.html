@@ -9,19 +9,15 @@
 
     <style>
         :root {
-            --background: #f2f1ed;
+            --background: #e9e9e9;
             --page: #ffffff;
-            --text: #171717;
-            --muted: #8a8a8a;
-            --shadow: rgba(0, 0, 0, 0.08);
+            --text: #111111;
         }
 
         [data-theme="dark"] {
-            --background: #151515;
+            --background: #111111;
             --page: #1d1d1d;
             --text: #eeeeee;
-            --muted: #888888;
-            --shadow: rgba(0, 0, 0, 0.35);
         }
 
         * {
@@ -37,57 +33,36 @@
 
         body {
             background: var(--background);
-            color: var(--text);
-            font-family: "Courier New", Courier, monospace;
-            transition:
-                background-color 0.25s ease,
-                color 0.25s ease;
+            transition: background 0.25s ease;
         }
 
-        /* -------------------------
-           THEME TOGGLE
-        ------------------------- */
+        /* Dark mode button stays outside the page */
 
         .theme-toggle {
             position: fixed;
-            top: 22px;
-            right: 24px;
+            top: 18px;
+            right: 20px;
 
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
 
-            border: 0;
-            border-radius: 50%;
-
+            border: none;
             background: transparent;
-            color: var(--muted);
 
-            font-family: inherit;
-            font-size: 15px;
+            color: #777;
+            font-size: 14px;
 
             cursor: pointer;
+            opacity: 0.5;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            opacity: 0.55;
-
-            transition:
-                opacity 0.2s ease,
-                background-color 0.2s ease,
-                color 0.2s ease;
+            z-index: 100;
         }
 
         .theme-toggle:hover {
             opacity: 1;
-            background: rgba(128, 128, 128, 0.1);
-            color: var(--text);
         }
 
-        /* -------------------------
-           WRITING AREA
-        ------------------------- */
+        /* The page */
 
         .workspace {
             min-height: 100vh;
@@ -95,34 +70,34 @@
             display: flex;
             justify-content: center;
 
-            padding: 70px 20px;
+            padding: 60px 20px;
         }
 
         .page {
-            width: min(816px, 100%);
+            width: 816px;
             min-height: 1056px;
 
             background: var(--page);
 
             box-shadow:
-                0 12px 40px var(--shadow);
+                0 8px 30px rgba(0, 0, 0, 0.08);
 
             transition:
-                background-color 0.25s ease,
-                box-shadow 0.25s ease;
+                background 0.25s ease;
         }
+
+        /* Invisible writing surface */
 
         .editor {
             width: 100%;
             min-height: 1056px;
 
-            padding:
-                96px
-                96px
-                120px;
+            padding: 96px;
 
             outline: none;
+            border: none;
 
+            background: transparent;
             color: var(--text);
 
             font-family:
@@ -140,42 +115,7 @@
             caret-color: var(--text);
         }
 
-        .editor:empty::before {
-            content: "FADE IN:";
-            color: var(--muted);
-        }
-
-        /* -------------------------
-           AUTOSAVE INDICATOR
-        ------------------------- */
-
-        .save-status {
-            position: fixed;
-            left: 24px;
-            bottom: 20px;
-
-            color: var(--muted);
-
-            font-family:
-                "Courier Prime",
-                "Courier New",
-                Courier,
-                monospace;
-
-            font-size: 10px;
-
-            opacity: 0;
-
-            transition: opacity 0.25s ease;
-        }
-
-        .save-status.visible {
-            opacity: 0.7;
-        }
-
-        /* -------------------------
-           MOBILE
-        ------------------------- */
+        /* Mobile */
 
         @media (max-width: 700px) {
 
@@ -184,35 +124,24 @@
             }
 
             .page {
+                width: 100%;
                 min-height: 100vh;
+
                 box-shadow: none;
             }
 
             .editor {
                 min-height: 100vh;
-
-                padding:
-                    70px
-                    32px
-                    100px;
-
-                font-size: 12px;
+                padding: 70px 35px;
             }
 
             .theme-toggle {
-                top: 16px;
-                right: 16px;
-            }
-
-            .save-status {
-                left: 16px;
-                bottom: 16px;
+                top: 12px;
+                right: 12px;
             }
         }
 
-        /* -------------------------
-           PRINT
-        ------------------------- */
+        /* Printing */
 
         @media print {
 
@@ -235,8 +164,7 @@
                 color: black;
             }
 
-            .theme-toggle,
-            .save-status {
+            .theme-toggle {
                 display: none;
             }
         }
@@ -249,182 +177,99 @@
         id="themeToggle"
         class="theme-toggle"
         aria-label="Toggle dark mode"
-        title="Toggle dark mode"
     >
         ☾
     </button>
 
     <main class="workspace">
 
-        <section class="page">
+        <div class="page">
 
             <div
                 id="editor"
                 class="editor"
                 contenteditable="true"
                 spellcheck="true"
-                role="textbox"
-                aria-label="Screenplay editor"
+                aria-label="Screenplay page"
             ></div>
 
-        </section>
+        </div>
 
     </main>
-
-    <div
-        id="saveStatus"
-        class="save-status"
-        aria-live="polite"
-    >
-        Saved
-    </div>
-
 
     <script>
         const editor = document.getElementById("editor");
         const themeToggle = document.getElementById("themeToggle");
-        const saveStatus = document.getElementById("saveStatus");
 
-        const CONTENT_KEY = "autuer-screenplay-content";
+        const CONTENT_KEY = "autuer-content";
         const THEME_KEY = "autuer-theme";
 
+        /* Load saved screenplay */
 
-        /* =========================
-           THEME
-        ========================= */
+        const savedContent =
+            localStorage.getItem(CONTENT_KEY);
 
-        function loadTheme() {
-            const savedTheme =
-                localStorage.getItem(THEME_KEY);
-
-            if (savedTheme === "dark") {
-                document.documentElement.dataset.theme = "dark";
-                themeToggle.textContent = "☀";
-            } else {
-                document.documentElement.dataset.theme = "light";
-                themeToggle.textContent = "☾";
-            }
+        if (savedContent) {
+            editor.innerHTML = savedContent;
         }
 
-
-        function toggleTheme() {
-            const isDark =
-                document.documentElement.dataset.theme === "dark";
-
-            const nextTheme =
-                isDark ? "light" : "dark";
-
-            document.documentElement.dataset.theme =
-                nextTheme;
-
-            localStorage.setItem(
-                THEME_KEY,
-                nextTheme
-            );
-
-            themeToggle.textContent =
-                nextTheme === "dark" ? "☀" : "☾";
-        }
-
-
-        themeToggle.addEventListener(
-            "click",
-            toggleTheme
-        );
-
-
-        /* =========================
-           SAVE
-        ========================= */
+        /* Autosave */
 
         let saveTimer;
 
-        function showSaved() {
-            saveStatus.classList.add("visible");
+        editor.addEventListener("input", () => {
 
             clearTimeout(saveTimer);
 
             saveTimer = setTimeout(() => {
-                saveStatus.classList.remove("visible");
-            }, 1200);
+
+                localStorage.setItem(
+                    CONTENT_KEY,
+                    editor.innerHTML
+                );
+
+            }, 500);
+
+        });
+
+        /* Dark mode */
+
+        const savedTheme =
+            localStorage.getItem(THEME_KEY);
+
+        if (savedTheme === "dark") {
+            document.documentElement.dataset.theme = "dark";
+            themeToggle.textContent = "☀";
         }
 
+        themeToggle.addEventListener("click", () => {
 
-        function saveContent() {
-            localStorage.setItem(
-                CONTENT_KEY,
-                editor.innerHTML
-            );
+            const dark =
+                document.documentElement.dataset.theme === "dark";
 
-            showSaved();
-        }
+            if (dark) {
 
+                document.documentElement.dataset.theme = "light";
+                themeToggle.textContent = "☾";
 
-        /* =========================
-           LOAD
-        ========================= */
+                localStorage.setItem(
+                    THEME_KEY,
+                    "light"
+                );
 
-        function loadContent() {
-            const savedContent =
-                localStorage.getItem(CONTENT_KEY);
+            } else {
 
-            if (savedContent !== null) {
-                editor.innerHTML = savedContent;
-            }
-        }
+                document.documentElement.dataset.theme = "dark";
+                themeToggle.textContent = "☀";
 
-
-        /* =========================
-           AUTOSAVE
-        ========================= */
-
-        let autosaveTimer;
-
-        editor.addEventListener(
-            "input",
-            () => {
-
-                clearTimeout(autosaveTimer);
-
-                autosaveTimer = setTimeout(
-                    saveContent,
-                    500
+                localStorage.setItem(
+                    THEME_KEY,
+                    "dark"
                 );
 
             }
-        );
 
-
-        /* =========================
-           KEYBOARD SHORTCUT
-        ========================= */
-
-        document.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    (event.metaKey || event.ctrlKey) &&
-                    event.key.toLowerCase() === "s"
-                ) {
-
-                    event.preventDefault();
-
-                    saveContent();
-                }
-
-            }
-        );
-
-
-        /* =========================
-           INITIALIZE
-        ========================= */
-
-        loadTheme();
-        loadContent();
-
-        editor.focus();
+        });
     </script>
 
 </body>
