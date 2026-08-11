@@ -212,7 +212,7 @@
       inset: 0;
       z-index: 10;
       display: grid;
-      grid-template-columns: 1fr 1.8fr 1fr;
+      grid-template-columns: 280px 1fr; /* left sidebar + center */
       background: #000000;
       color: #ffffff;
       min-height: 100vh;
@@ -232,10 +232,6 @@
       border-right: 1px solid rgba(255, 255, 255, 0.25);
     }
 
-    .right-column {
-      border-left: 1px solid rgba(255, 255, 255, 0.25);
-    }
-
     /* =========================================================
        CENTER DASHBOARD
     ========================================================= */
@@ -246,6 +242,19 @@
       align-items: center;
       text-align: center;
       padding: 60px;
+      position: relative;
+    }
+
+    /* “Dashboard” label – top right of center area */
+    .dashboard-label {
+      position: absolute;
+      top: 34px;
+      right: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
     }
 
     /* =========================================================
@@ -405,46 +414,39 @@
     }
 
     /* =========================================================
-       TOOLS
+       PROFILE + STATUS (bottom left)
     ========================================================= */
-    .tool-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 13px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #ffffff;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .tool-item:hover {
-      background: #ffffff;
-      color: #000000;
-    }
-
-    .tool-name {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .tool-description {
-      font-size: 11px;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.62);
-    }
-
-    .tool-item:hover .tool-description {
-      color: #333333;
-    }
-
-    /* =========================================================
-       STATUS
-    ========================================================= */
-    .status {
+    .profile-area {
       position: absolute;
       left: 34px;
       bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #000000;
+      user-select: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .profile-circle:hover {
+      transform: scale(1.06);
+      background: #e0e0e0;
+    }
+
+    .status {
       font-size: 11px;
       color: rgba(255, 255, 255, 0.55);
       letter-spacing: 0.03em;
@@ -500,8 +502,7 @@
         min-height: auto;
       }
 
-      .left-column,
-      .right-column {
+      .left-column {
         border: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.25);
       }
@@ -512,8 +513,7 @@
         padding: 100px 30px;
       }
 
-      .left-column,
-      .right-column {
+      .left-column {
         padding: 30px;
       }
 
@@ -521,7 +521,12 @@
         margin-top: 20px;
       }
 
-      .status {
+      .dashboard-label {
+        top: 24px;
+        right: 24px;
+      }
+
+      .profile-area {
         position: static;
         margin-top: 30px;
       }
@@ -580,6 +585,7 @@
        DASHBOARD
   ========================================================= -->
   <main class="dashboard">
+    <!-- LEFT COLUMN -->
     <section class="column left-column">
       <div class="wordmark">
         <span>A</span><span>u</span><span>t</span><span>e</span><span>u</span><span>r</span>
@@ -601,10 +607,17 @@
         <a href="#" class="menu-item">Archives</a>
       </nav>
 
-      <div class="status">All projects saved locally</div>
+      <!-- Profile circle + status at bottom left -->
+      <div class="profile-area">
+        <div class="profile-circle" title="Profile">A</div>
+        <div class="status">All projects saved locally</div>
+      </div>
     </section>
 
+    <!-- CENTER COLUMN -->
     <section class="column center-column">
+      <div class="dashboard-label">Dashboard</div>
+
       <div class="center-eyebrow">Your writing studio</div>
       <h1 class="center-title">Build your story.</h1>
       <p class="center-description">
@@ -613,46 +626,6 @@
       </p>
       <a href="#" class="primary-button">+ New Screenplay</a>
       <a href="#" class="secondary-button">Open Existing Script</a>
-    </section>
-
-    <section class="column right-column">
-      <div class="column-header">Story Tools</div>
-      <nav class="menu">
-        <a href="#" class="tool-item">
-          <span class="tool-name">Outline</span>
-          <span class="tool-description">Shape the structure of your story.</span>
-        </a>
-        <a href="#" class="tool-item">
-          <span class="tool-name">Beat Board</span>
-          <span class="tool-description">Break your story into its essential beats.</span>
-        </a>
-        <a href="#" class="tool-item">
-          <span class="tool-name">Plot Board</span>
-          <span class="tool-description">Organize scenes, ideas, and story threads.</span>
-        </a>
-        <a href="#" class="tool-item">
-          <span class="tool-name">Characters</span>
-          <span class="tool-description">Develop the people inside your story.</span>
-        </a>
-        <a href="#" class="tool-item">
-          <span class="tool-name">Notes</span>
-          <span class="tool-description">Keep your ideas close while you write.</span>
-        </a>
-      </nav>
-
-      <div class="section-divider"></div>
-
-      <div class="column-header">Writing Tools</div>
-      <nav class="menu">
-        <a href="#" class="tool-item">
-          <span class="tool-name">Format Checker</span>
-          <span class="tool-description">Make sure your screenplay follows proper format.</span>
-        </a>
-        <a href="#" class="tool-item">
-          <span class="tool-name">Free Templates</span>
-          <span class="tool-description">Start faster with ready-to-use templates.</span>
-        </a>
-      </nav>
     </section>
   </main>
 
@@ -671,7 +644,6 @@
       transitionLocked = true;
       body.classList.add("dashboard-active");
 
-      // Short lock just to prevent accidental rapid toggling
       setTimeout(() => {
         transitionLocked = false;
       }, 300);
