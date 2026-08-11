@@ -1,4 +1,4 @@
-```html id="z5r1nc"
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +13,36 @@
             background: white;
             color: white;
         }
+
+        body {
+            min-height: 220vh;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           BLACK SCREEN WIPE
+        ========================= */
+
+        .screen-wipe {
+            position: fixed;
+            inset: 0;
+
+            background: #000000;
+
+            z-index: 1000;
+
+            pointer-events: none;
+
+            transform: translateY(100%);
+
+            transition:
+                transform 0.9s cubic-bezier(.77, 0, .18, 1);
+        }
+
+        body.wiped .screen-wipe {
+            transform: translateY(0);
+        }
+
 
         /* =========================
            STICKY HEADER
@@ -71,8 +101,6 @@
                 background-color 0.2s ease,
                 color 0.2s ease;
         }
-
-        /* Reverse the pill on hover */
 
         .nav-link:hover {
             background: #ffffff;
@@ -267,9 +295,12 @@
 
 <body>
 
-    <!-- =========================
-         STICKY HEADER
-    ========================= -->
+    <!-- BLACK CINEMATIC WIPE -->
+
+    <div class="screen-wipe"></div>
+
+
+    <!-- HEADER -->
 
     <header class="header">
 
@@ -286,9 +317,7 @@
     </header>
 
 
-    <!-- =========================
-         SMALL TOP AUTUER
-    ========================= -->
+    <!-- SMALL TOP AUTUER -->
 
     <div class="top-autuer">
         <span class="letter a">A</span>
@@ -300,9 +329,7 @@
     </div>
 
 
-    <!-- =========================
-         CENTER AUTUER
-    ========================= -->
+    <!-- CENTER AUTUER -->
 
     <div class="center-autuer">
         <div class="a">A</div>
@@ -314,9 +341,7 @@
     </div>
 
 
-    <!-- =========================
-         BOTTOM INTRO
-    ========================= -->
+    <!-- BOTTOM INTRO -->
 
     <div class="intro">
 
@@ -337,6 +362,38 @@
         </p>
 
     </div>
+
+
+    <script>
+        const WIPE_TRIGGER = 120;
+
+        let wiped = false;
+
+        window.addEventListener(
+            "scroll",
+            () => {
+
+                const shouldWipe =
+                    window.scrollY > WIPE_TRIGGER;
+
+                if (shouldWipe && !wiped) {
+
+                    document.body.classList.add("wiped");
+
+                    wiped = true;
+
+                } else if (!shouldWipe && wiped) {
+
+                    document.body.classList.remove("wiped");
+
+                    wiped = false;
+
+                }
+
+            },
+            { passive: true }
+        );
+    </script>
 
 </body>
 </html>
