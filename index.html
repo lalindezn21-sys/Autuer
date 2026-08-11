@@ -40,7 +40,7 @@
       position: relative;
       z-index: 20;
       background: #ffffff;
-      transition: opacity 0.15s ease, visibility 0.15s ease;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
     body.dashboard-active .landing {
@@ -65,7 +65,7 @@
       z-index: 500;
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.15s ease, visibility 0.15s ease;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
     .nav-left,
@@ -113,7 +113,7 @@
       z-index: 490;
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.15s ease, visibility 0.15s ease;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
     body.dashboard-active .header,
@@ -451,40 +451,6 @@
     }
 
     /* =========================================================
-       WIPE
-    ========================================================= */
-    .screen-wipe {
-      position: fixed;
-      inset: 0;
-      background: #000000;
-      z-index: 1000;
-      pointer-events: none;
-      transform: translateY(100%);
-    }
-
-    body.dashboard-active .screen-wipe {
-      animation: wipeForward 1.25s cubic-bezier(.77, 0, .18, 1) forwards;
-    }
-
-    @keyframes wipeForward {
-      0%   { transform: translateY(100%); }
-      45%  { transform: translateY(0); }
-      55%  { transform: translateY(0); }
-      100% { transform: translateY(-100%); }
-    }
-
-    body.returning .screen-wipe {
-      animation: wipeReverse 0.9s cubic-bezier(.77, 0, .18, 1) forwards;
-    }
-
-    @keyframes wipeReverse {
-      0%   { transform: translateY(-100%); }
-      45%  { transform: translateY(0); }
-      55%  { transform: translateY(0); }
-      100% { transform: translateY(100%); }
-    }
-
-    /* =========================================================
        MOBILE
     ========================================================= */
     @media (max-width: 900px) {
@@ -691,11 +657,6 @@
   </main>
 
   <!-- =========================================================
-       WIPE
-  ========================================================= -->
-  <div class="screen-wipe" aria-hidden="true"></div>
-
-  <!-- =========================================================
        JAVASCRIPT
   ========================================================= -->
   <script>
@@ -708,13 +669,12 @@
 
       dashboardActive = true;
       transitionLocked = true;
-
-      body.classList.remove("returning");
       body.classList.add("dashboard-active");
 
+      // Short lock just to prevent accidental rapid toggling
       setTimeout(() => {
         transitionLocked = false;
-      }, 1400);
+      }, 300);
     }
 
     function returnToLanding() {
@@ -722,14 +682,11 @@
 
       dashboardActive = false;
       transitionLocked = true;
-
-      body.classList.add("returning");
       body.classList.remove("dashboard-active");
 
       setTimeout(() => {
-        body.classList.remove("returning");
         transitionLocked = false;
-      }, 1000);
+      }, 300);
     }
 
     window.addEventListener(
