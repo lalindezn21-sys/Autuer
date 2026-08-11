@@ -55,7 +55,7 @@
 
 
         /* =========================================
-           HEADER
+           LANDING HEADER
         ========================================= */
 
         .header {
@@ -74,12 +74,28 @@
             padding: 0 42px;
 
             z-index: 200;
+
+            transition:
+                opacity 0.15s ease,
+                visibility 0.15s ease;
+        }
+
+        /*
+           Header disappears immediately when scrolling.
+        */
+
+        body.scrolling .header {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
         .nav-left,
         .nav-right {
             display: flex;
+
             align-items: center;
+
             gap: 10px;
         }
 
@@ -108,6 +124,11 @@
                 color 0.2s ease;
         }
 
+        /*
+           Hover stays black/white.
+           NO RED.
+        */
+
         .nav-link:hover {
             background: #ffffff;
             color: #000000;
@@ -126,6 +147,7 @@
             right: 0;
 
             display: flex;
+
             justify-content: center;
             align-items: center;
 
@@ -137,6 +159,19 @@
             user-select: none;
 
             z-index: 190;
+
+            transition:
+                opacity 0.15s ease,
+                visibility 0.15s ease;
+        }
+
+        /*
+           Top Autuer disappears immediately on scroll.
+        */
+
+        body.scrolling .top-autuer {
+            opacity: 0;
+            visibility: hidden;
         }
 
 
@@ -166,7 +201,7 @@
 
 
         /* =========================================
-           AUTUER FONTS
+           AUTUER LETTER FONTS
         ========================================= */
 
         .letter {
@@ -251,6 +286,7 @@
 
         /* =========================================
            DASHBOARD
+           ENTIRE DASHBOARD IS CRIMSON
         ========================================= */
 
         .dashboard {
@@ -263,7 +299,9 @@
                 1.8fr
                 1fr;
 
-            background: #ffffff;
+            background: #D00000;
+
+            color: #ffffff;
 
             position: relative;
 
@@ -284,16 +322,16 @@
         }
 
         .left-column {
-            border-right: 1px solid #e5e5e5;
+            border-right: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .right-column {
-            border-left: 1px solid #e5e5e5;
+            border-left: 1px solid rgba(255, 255, 255, 0.25);
         }
 
 
         /* =========================================
-           CENTER
+           CENTER COLUMN
         ========================================= */
 
         .center-column {
@@ -327,6 +365,8 @@
             letter-spacing: -0.04em;
 
             display: flex;
+
+            color: #ffffff;
         }
 
         .wordmark span:nth-child(1) {
@@ -372,12 +412,12 @@
 
             letter-spacing: 0.13em;
 
-            color: #777777;
+            color: rgba(255, 255, 255, 0.65);
         }
 
 
         /* =========================================
-           MENU
+           MENU ITEMS
         ========================================= */
 
         .menu {
@@ -401,7 +441,7 @@
 
             text-decoration: none;
 
-            color: #000000;
+            color: #ffffff;
 
             font-size: 14px;
 
@@ -409,6 +449,11 @@
                 background-color 0.2s ease,
                 color 0.2s ease;
         }
+
+        /*
+           Black hover.
+           Never red.
+        */
 
         .menu-item:hover {
             background: #000000;
@@ -426,14 +471,14 @@
 
             width: 100%;
 
-            background: #e5e5e5;
+            background: rgba(255, 255, 255, 0.25);
 
             margin: 28px 0;
         }
 
 
         /* =========================================
-           CENTER CONTENT
+           CENTER DASHBOARD
         ========================================= */
 
         .center-eyebrow {
@@ -443,7 +488,7 @@
 
             letter-spacing: 0.15em;
 
-            color: #888888;
+            color: rgba(255, 255, 255, 0.65);
 
             margin-bottom: 22px;
         }
@@ -463,6 +508,8 @@
             line-height: 1;
 
             margin: 0 0 20px;
+
+            color: #ffffff;
         }
 
         .center-description {
@@ -472,14 +519,14 @@
 
             line-height: 1.7;
 
-            color: #777777;
+            color: rgba(255, 255, 255, 0.75);
 
             margin: 0 0 40px;
         }
 
 
         /* =========================================
-           BUTTONS
+           PRIMARY BUTTON
         ========================================= */
 
         .primary-button {
@@ -502,15 +549,23 @@
 
             font-weight: 500;
 
+            letter-spacing: 0.02em;
+
             transition:
                 background-color 0.2s ease,
                 color 0.2s ease;
         }
 
         .primary-button:hover {
-            background: #D00000;
-            color: #ffffff;
+            background: #ffffff;
+
+            color: #000000;
         }
+
+
+        /* =========================================
+           SECONDARY BUTTON
+        ========================================= */
 
         .secondary-button {
             margin-top: 12px;
@@ -524,9 +579,9 @@
 
             border-radius: 999px;
 
-            background: #eeeeee;
+            background: rgba(255, 255, 255, 0.15);
 
-            color: #000000;
+            color: #ffffff;
 
             text-decoration: none;
 
@@ -538,8 +593,9 @@
         }
 
         .secondary-button:hover {
-            background: #000000;
-            color: #ffffff;
+            background: #ffffff;
+
+            color: #000000;
         }
 
 
@@ -560,27 +616,34 @@
 
             text-decoration: none;
 
-            color: #000000;
+            color: #ffffff;
 
             transition:
                 background-color 0.2s ease,
                 color 0.2s ease;
         }
 
+        /*
+           Black hover.
+           No red.
+        */
+
         .tool-item:hover {
             background: #000000;
+
             color: #ffffff;
         }
 
         .tool-name {
             font-size: 14px;
+
             font-weight: 500;
         }
 
         .tool-description {
             font-size: 11px;
 
-            color: #888888;
+            color: rgba(255, 255, 255, 0.62);
 
             line-height: 1.4;
         }
@@ -602,58 +665,9 @@
 
             font-size: 11px;
 
-            color: #999999;
+            color: rgba(255, 255, 255, 0.55);
 
             letter-spacing: 0.03em;
-        }
-
-
-        /* =========================================
-           RED TRANSITION WIPE
-        ========================================= */
-
-        .screen-wipe {
-            position: fixed;
-
-            inset: 0;
-
-            background: #D00000;
-
-            z-index: 1000;
-
-            pointer-events: none;
-
-            /*
-                Starts completely below the viewport.
-            */
-            transform: translateY(100%);
-        }
-
-        /*
-            When scrolling, red enters the screen.
-        */
-        body.wiped .screen-wipe {
-            animation: crimsonWipe 1.4s cubic-bezier(.77, 0, .18, 1) forwards;
-        }
-
-        @keyframes crimsonWipe {
-
-            0% {
-                transform: translateY(100%);
-            }
-
-            45% {
-                transform: translateY(0);
-            }
-
-            55% {
-                transform: translateY(0);
-            }
-
-            100% {
-                transform: translateY(-100%);
-            }
-
         }
 
 
@@ -674,11 +688,13 @@
 
             .nav-link {
                 padding: 7px 10px;
+
                 font-size: 11px;
             }
 
             .top-autuer {
                 top: 21px;
+
                 font-size: 20px;
             }
 
@@ -688,6 +704,7 @@
 
             .intro {
                 bottom: 20px;
+
                 width: 90%;
             }
 
@@ -697,6 +714,7 @@
 
             .intro-text {
                 font-size: 11px;
+
                 line-height: 1.55;
             }
 
@@ -711,12 +729,17 @@
             .left-column,
             .right-column {
                 border: none;
-                border-bottom: 1px solid #e5e5e5;
+
+                border-bottom:
+                    1px solid
+                    rgba(255, 255, 255, 0.25);
             }
 
             .center-column {
                 min-height: 80vh;
+
                 order: -1;
+
                 padding: 100px 30px;
             }
 
@@ -731,6 +754,7 @@
 
             .status {
                 position: static;
+
                 margin-top: 30px;
             }
         }
@@ -747,7 +771,8 @@
 
     <section class="landing">
 
-        <!-- HEADER -->
+
+        <!-- STICKY HEADER -->
 
         <header class="header">
 
@@ -834,14 +859,15 @@
 
 
     <!-- =========================================
-         SECOND PAGE / DASHBOARD
+         DASHBOARD
+         CRIMSON PAGE
     ========================================= -->
 
     <main class="dashboard">
 
 
         <!-- =====================================
-             LEFT
+             LEFT COLUMN
              LIBRARY
         ====================================== -->
 
@@ -915,8 +941,7 @@
 
 
         <!-- =====================================
-             CENTER
-             MAIN CREATION AREA
+             CENTER COLUMN
         ====================================== -->
 
         <section class="column center-column">
@@ -952,7 +977,7 @@
 
 
         <!-- =====================================
-             RIGHT
+             RIGHT COLUMN
              STORY TOOLS
         ====================================== -->
 
@@ -1043,7 +1068,6 @@
 
             <nav class="menu">
 
-
                 <a href="#" class="tool-item">
 
                     <span class="tool-name">
@@ -1078,46 +1102,28 @@
 
 
     <!-- =========================================
-         CRIMSON TRANSITION
-    ========================================= -->
-
-    <div class="screen-wipe"></div>
-
-
-
-    <!-- =========================================
-         SCROLL CONTROL
+         SCROLL LOGIC
     ========================================= -->
 
     <script>
 
-        const WIPE_TRIGGER = 120;
-
-        let wiped = false;
+        let scrolling = false;
 
         window.addEventListener(
             "scroll",
 
             () => {
 
-                const shouldWipe =
-                    window.scrollY > WIPE_TRIGGER;
+                /*
+                   Immediately remove the landing
+                   page's sticky elements.
+                */
 
+                if (!scrolling && window.scrollY > 0) {
 
-                if (shouldWipe && !wiped) {
+                    document.body.classList.add("scrolling");
 
-                    document.body.classList.add("wiped");
-
-                    wiped = true;
-
-                }
-
-
-                else if (!shouldWipe && wiped) {
-
-                    document.body.classList.remove("wiped");
-
-                    wiped = false;
+                    scrolling = true;
 
                 }
 
