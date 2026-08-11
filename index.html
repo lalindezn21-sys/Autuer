@@ -205,14 +205,14 @@
     }
 
     /* =========================================================
-       DASHBOARD – empty except for the thin left line
+       DASHBOARD – symmetrical thin lines on both sides
     ========================================================= */
     .dashboard {
       position: fixed;
       inset: 0;
       z-index: 30;
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 280px 1fr 280px;
       background: #D32F2F;
       color: #ffffff;
       min-height: 100vh;
@@ -235,6 +235,10 @@
 
     .left-column {
       border-right: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .right-column {
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
     }
 
     /* =========================================================
@@ -282,11 +286,11 @@
         grid-template-columns: 1fr;
       }
 
-      .left-column {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      .left-column,
+      .right-column {
+        border: none;
         min-height: 0;
-        height: 60px;
+        height: 0;
       }
     }
   </style>
@@ -340,11 +344,12 @@
   </section>
 
   <!-- =========================================================
-       DASHBOARD – only the thin separating line remains
+       DASHBOARD – symmetrical thin lines
   ========================================================= -->
   <main class="dashboard">
     <section class="column left-column"></section>
     <section class="column center-column"></section>
+    <section class="column right-column"></section>
   </main>
 
   <!-- =========================================================
