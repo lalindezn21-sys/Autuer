@@ -1,4 +1,4 @@
-```html id="autuer-main"
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +8,7 @@
     <title>Autuer</title>
 
     <style>
+
         /* =========================================
            GLOBAL
         ========================================= */
@@ -54,7 +55,7 @@
 
 
         /* =========================================
-           STICKY HEADER
+           HEADER
         ========================================= */
 
         .header {
@@ -73,19 +74,13 @@
             padding: 0 42px;
 
             z-index: 200;
-
-            pointer-events: none;
         }
 
         .nav-left,
         .nav-right {
             display: flex;
-
             align-items: center;
-
             gap: 10px;
-
-            pointer-events: auto;
         }
 
         .nav-link {
@@ -171,7 +166,7 @@
 
 
         /* =========================================
-           AUTUER LETTER FONTS
+           AUTUER FONTS
         ========================================= */
 
         .letter {
@@ -255,32 +250,6 @@
 
 
         /* =========================================
-           CRIMSON WIPE
-        ========================================= */
-
-        .screen-wipe {
-            position: fixed;
-
-            inset: 0;
-
-            background: #D00000;
-
-            z-index: 1000;
-
-            pointer-events: none;
-
-            transform: translateY(100%);
-
-            transition:
-                transform 0.9s cubic-bezier(.77, 0, .18, 1);
-        }
-
-        body.wiped .screen-wipe {
-            transform: translateY(0);
-        }
-
-
-        /* =========================================
            DASHBOARD
         ========================================= */
 
@@ -295,6 +264,10 @@
                 1fr;
 
             background: #ffffff;
+
+            position: relative;
+
+            z-index: 1;
         }
 
 
@@ -320,7 +293,7 @@
 
 
         /* =========================================
-           CENTER DASHBOARD
+           CENTER
         ========================================= */
 
         .center-column {
@@ -460,7 +433,7 @@
 
 
         /* =========================================
-           CENTER DASHBOARD CONTENT
+           CENTER CONTENT
         ========================================= */
 
         .center-eyebrow {
@@ -506,7 +479,7 @@
 
 
         /* =========================================
-           PRIMARY BUTTON
+           BUTTONS
         ========================================= */
 
         .primary-button {
@@ -529,8 +502,6 @@
 
             font-weight: 500;
 
-            letter-spacing: 0.02em;
-
             transition:
                 background-color 0.2s ease,
                 color 0.2s ease;
@@ -538,14 +509,8 @@
 
         .primary-button:hover {
             background: #D00000;
-
             color: #ffffff;
         }
-
-
-        /* =========================================
-           SECONDARY BUTTON
-        ========================================= */
 
         .secondary-button {
             margin-top: 12px;
@@ -574,7 +539,6 @@
 
         .secondary-button:hover {
             background: #000000;
-
             color: #ffffff;
         }
 
@@ -605,13 +569,11 @@
 
         .tool-item:hover {
             background: #000000;
-
             color: #ffffff;
         }
 
         .tool-name {
             font-size: 14px;
-
             font-weight: 500;
         }
 
@@ -647,6 +609,55 @@
 
 
         /* =========================================
+           RED TRANSITION WIPE
+        ========================================= */
+
+        .screen-wipe {
+            position: fixed;
+
+            inset: 0;
+
+            background: #D00000;
+
+            z-index: 1000;
+
+            pointer-events: none;
+
+            /*
+                Starts completely below the viewport.
+            */
+            transform: translateY(100%);
+        }
+
+        /*
+            When scrolling, red enters the screen.
+        */
+        body.wiped .screen-wipe {
+            animation: crimsonWipe 1.4s cubic-bezier(.77, 0, .18, 1) forwards;
+        }
+
+        @keyframes crimsonWipe {
+
+            0% {
+                transform: translateY(100%);
+            }
+
+            45% {
+                transform: translateY(0);
+            }
+
+            55% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-100%);
+            }
+
+        }
+
+
+        /* =========================================
            MOBILE
         ========================================= */
 
@@ -663,13 +674,11 @@
 
             .nav-link {
                 padding: 7px 10px;
-
                 font-size: 11px;
             }
 
             .top-autuer {
                 top: 21px;
-
                 font-size: 20px;
             }
 
@@ -679,7 +688,6 @@
 
             .intro {
                 bottom: 20px;
-
                 width: 90%;
             }
 
@@ -689,7 +697,6 @@
 
             .intro-text {
                 font-size: 11px;
-
                 line-height: 1.55;
             }
 
@@ -704,15 +711,12 @@
             .left-column,
             .right-column {
                 border: none;
-
                 border-bottom: 1px solid #e5e5e5;
             }
 
             .center-column {
                 min-height: 80vh;
-
                 order: -1;
-
                 padding: 100px 30px;
             }
 
@@ -727,14 +731,15 @@
 
             .status {
                 position: static;
-
                 margin-top: 30px;
             }
         }
+
     </style>
 </head>
 
 <body>
+
 
     <!-- =========================================
          LANDING PAGE
@@ -742,24 +747,39 @@
 
     <section class="landing">
 
-        <!-- STICKY HEADER -->
+        <!-- HEADER -->
 
         <header class="header">
 
             <nav class="nav-left">
-                <a href="#" class="nav-link">Docs</a>
-                <a href="#" class="nav-link">FAQ</a>
+
+                <a href="#" class="nav-link">
+                    Docs
+                </a>
+
+                <a href="#" class="nav-link">
+                    FAQ
+                </a>
+
             </nav>
 
+
             <nav class="nav-right">
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Features</a>
+
+                <a href="#" class="nav-link">
+                    About
+                </a>
+
+                <a href="#" class="nav-link">
+                    Features
+                </a>
+
             </nav>
 
         </header>
 
 
-        <!-- SMALL TOP AUTUER -->
+        <!-- TOP AUTUER -->
 
         <div class="top-autuer">
 
@@ -787,7 +807,7 @@
         </div>
 
 
-        <!-- LANDING INTRO -->
+        <!-- INTRO -->
 
         <div class="intro">
 
@@ -812,32 +832,37 @@
     </section>
 
 
+
     <!-- =========================================
-         DASHBOARD
+         SECOND PAGE / DASHBOARD
     ========================================= -->
 
     <main class="dashboard">
 
 
         <!-- =====================================
-             LEFT COLUMN
+             LEFT
              LIBRARY
         ====================================== -->
 
         <section class="column left-column">
 
             <div class="wordmark">
+
                 <span>A</span>
                 <span>u</span>
                 <span>t</span>
                 <span>e</span>
                 <span>u</span>
                 <span>r</span>
+
             </div>
+
 
             <div class="column-header">
                 Library
             </div>
+
 
             <nav class="menu">
 
@@ -859,11 +884,14 @@
 
             </nav>
 
+
             <div class="section-divider"></div>
+
 
             <div class="column-header">
                 Projects
             </div>
+
 
             <nav class="menu">
 
@@ -877,6 +905,7 @@
 
             </nav>
 
+
             <div class="status">
                 All projects saved locally
             </div>
@@ -884,9 +913,10 @@
         </section>
 
 
+
         <!-- =====================================
-             CENTER COLUMN
-             MAIN ACTION
+             CENTER
+             MAIN CREATION AREA
         ====================================== -->
 
         <section class="column center-column">
@@ -895,9 +925,11 @@
                 Your writing studio
             </div>
 
+
             <h1 class="center-title">
                 Build your story.
             </h1>
+
 
             <p class="center-description">
                 Start with a blank page, open an existing screenplay,
@@ -905,9 +937,11 @@
                 something worth putting on screen.
             </p>
 
+
             <a href="#" class="primary-button">
                 + New Screenplay
             </a>
+
 
             <a href="#" class="secondary-button">
                 Open Existing Script
@@ -916,9 +950,10 @@
         </section>
 
 
+
         <!-- =====================================
-             RIGHT COLUMN
-             CREATIVE TOOLS
+             RIGHT
+             STORY TOOLS
         ====================================== -->
 
         <section class="column right-column">
@@ -927,7 +962,9 @@
                 Story Tools
             </div>
 
+
             <nav class="menu">
+
 
                 <a href="#" class="tool-item">
 
@@ -995,13 +1032,17 @@
 
             </nav>
 
+
             <div class="section-divider"></div>
+
 
             <div class="column-header">
                 Writing Tools
             </div>
 
+
             <nav class="menu">
+
 
                 <a href="#" class="tool-item">
 
@@ -1035,15 +1076,17 @@
     </main>
 
 
+
     <!-- =========================================
-         CRIMSON WIPE
+         CRIMSON TRANSITION
     ========================================= -->
 
     <div class="screen-wipe"></div>
 
 
+
     <!-- =========================================
-         SCROLL LOGIC
+         SCROLL CONTROL
     ========================================= -->
 
     <script>
@@ -1060,6 +1103,7 @@
                 const shouldWipe =
                     window.scrollY > WIPE_TRIGGER;
 
+
                 if (shouldWipe && !wiped) {
 
                     document.body.classList.add("wiped");
@@ -1067,6 +1111,7 @@
                     wiped = true;
 
                 }
+
 
                 else if (!shouldWipe && wiped) {
 
