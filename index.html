@@ -40,10 +40,11 @@
       position: relative;
       z-index: 20;
       background: #ffffff;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    body.dashboard-active .landing {
+    /* Only hide the landing AFTER the dashboard has fully arrived */
+    body.hide-landing .landing {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -65,7 +66,7 @@
       z-index: 500;
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .nav-left,
@@ -113,11 +114,12 @@
       z-index: 490;
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    body.dashboard-active .header,
-    body.dashboard-active .top-auteur {
+    /* Hide header + top wordmark only after the wipe is complete */
+    body.hide-landing .header,
+    body.hide-landing .top-auteur {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -656,11 +658,15 @@
 
       dashboardActive = true;
       transitionLocked = true;
+
+      // Start the dashboard sliding up
       body.classList.add("dashboard-active");
 
+      // Only hide the landing AFTER the dashboard has fully arrived
       setTimeout(() => {
+        body.classList.add("hide-landing");
         transitionLocked = false;
-      }, 1200);
+      }, 1150);
     }
 
     function returnToLanding() {
@@ -668,11 +674,16 @@
 
       dashboardActive = false;
       transitionLocked = true;
+
+      // Show the landing immediately so it’s visible underneath
+      body.classList.remove("hide-landing");
+
+      // Then slide the dashboard back down
       body.classList.remove("dashboard-active");
 
       setTimeout(() => {
         transitionLocked = false;
-      }, 1200);
+      }, 1150);
     }
 
     window.addEventListener(
