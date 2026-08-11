@@ -5,24 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auteur — Professional Screenwriting</title>
   <style>
-    /* =========================================================
-       DESIGN TOKENS
-    ========================================================= */
     :root {
-      --red: #C62828;
-      --red-dark: #B71C1C;
       --black: #0A0A0A;
       --white: #FFFFFF;
       --gray-50: #FAFAFA;
       --gray-100: #F4F4F5;
       --gray-200: #E4E4E7;
+      --gray-300: #D4D4D8;
       --gray-400: #A1A1AA;
       --gray-500: #71717A;
       --gray-600: #52525B;
       --radius: 10px;
       --radius-pill: 999px;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
       --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -67,14 +63,14 @@
       left: 0;
       right: 0;
       height: 64px;
-      padding: 0 40px;
+      padding: 0 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 500;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
@@ -82,18 +78,19 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .nav-link {
       display: inline-flex;
       align-items: center;
-      padding: 7px 14px;
+      padding: 8px 16px;
       border-radius: var(--radius-pill);
       font-size: 13px;
       font-weight: 500;
-      color: var(--gray-600);
+      color: var(--gray-500);
       text-decoration: none;
+      letter-spacing: 0.01em;
       transition: all var(--transition);
     }
 
@@ -105,7 +102,7 @@
     /* Top wordmark */
     .top-auteur {
       position: fixed;
-      top: 20px;
+      top: 21px;
       left: 0;
       right: 0;
       display: flex;
@@ -134,10 +131,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 88px;
-      line-height: 0.82;
+      font-size: 96px;
+      line-height: 0.8;
       user-select: none;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
     .letter { display: inline-block; }
@@ -148,100 +145,61 @@
     .u2 { font-family: Garamond, Georgia, serif; font-style: italic; }
     .r { font-family: cursive; }
 
-    /* Intro + cards */
+    /* Bottom tagline */
     .intro {
       position: absolute;
       left: 50%;
-      bottom: 48px;
+      bottom: 64px;
       transform: translateX(-50%);
-      width: min(980px, 92%);
+      width: min(640px, 90%);
       text-align: center;
     }
 
     .intro-title {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--gray-500);
-      margin-bottom: 28px;
+      color: var(--gray-400);
+      margin-bottom: 12px;
     }
 
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .feature-card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: 14px;
-      padding: 20px 18px;
-      text-align: left;
-      transition: all var(--transition);
-    }
-
-    .feature-card:hover {
-      border-color: var(--gray-400);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .feature-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: var(--gray-100);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      margin-bottom: 14px;
-      color: var(--black);
-    }
-
-    .feature-title {
-      font-size: 13.5px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      letter-spacing: -0.01em;
-    }
-
-    .feature-desc {
-      font-size: 12.5px;
-      line-height: 1.55;
-      color: var(--gray-500);
+    .intro-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--gray-600);
+      font-weight: 400;
+      max-width: 420px;
+      margin: 0 auto;
     }
 
     /* Scroll hint */
     .scroll-hint {
       position: absolute;
-      bottom: 18px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 11px;
       color: var(--gray-400);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       display: flex;
       align-items: center;
-      gap: 6px;
-      opacity: 0.7;
+      gap: 8px;
+      opacity: 0.6;
     }
 
-    .scroll-hint span {
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      border-right: 1.5px solid var(--gray-400);
-      border-bottom: 1.5px solid var(--gray-400);
+    .scroll-hint .arrow {
+      width: 6px;
+      height: 6px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
       transform: rotate(45deg);
-      animation: bounce 1.6s infinite;
+      animation: bounce 1.8s infinite;
     }
 
     @keyframes bounce {
       0%, 100% { transform: rotate(45deg) translateY(0); }
-      50% { transform: rotate(45deg) translateY(4px); }
+      50% { transform: rotate(45deg) translateY(3px); }
     }
 
     /* =========================================================
@@ -252,7 +210,7 @@
       inset: 0;
       z-index: 30;
       display: grid;
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 248px 1fr;
       background: var(--white);
       transform: translateY(100%);
       transition: transform 1.15s cubic-bezier(0.77, 0, 0.18, 1);
@@ -268,17 +226,16 @@
       color: var(--white);
       display: flex;
       flex-direction: column;
-      padding: 28px 20px;
-      position: relative;
+      padding: 32px 18px 24px;
     }
 
     .sidebar-wordmark {
       display: flex;
       align-items: baseline;
-      font-size: 20px;
+      font-size: 19px;
       letter-spacing: -0.03em;
-      margin-bottom: 48px;
-      padding-left: 8px;
+      margin-bottom: 52px;
+      padding-left: 10px;
     }
 
     .sidebar-wordmark span {
@@ -294,39 +251,38 @@
     .sidebar-wordmark span:nth-child(6) { font-family: cursive; transform: translateY(1px); }
 
     .nav-section {
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
     .nav-label {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.28);
       padding: 0 12px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
+      gap: 11px;
+      padding: 9px 12px;
       border-radius: 8px;
       font-size: 13.5px;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.65);
       text-decoration: none;
       transition: all var(--transition);
-      cursor: pointer;
     }
 
     .nav-item:hover {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.07);
       color: var(--white);
     }
 
     .nav-item.active {
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.1);
       color: var(--white);
       font-weight: 500;
     }
@@ -334,13 +290,15 @@
     .nav-item svg {
       width: 16px;
       height: 16px;
-      opacity: 0.7;
+      stroke-width: 1.7;
+      opacity: 0.75;
+      flex-shrink: 0;
     }
 
     .sidebar-footer {
       margin-top: auto;
       padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid rgba(255,255,255,0.07);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -348,22 +306,22 @@
     }
 
     .avatar {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: var(--white);
       color: var(--black);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       transition: transform var(--transition);
     }
 
     .avatar:hover {
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
 
     .user-meta {
@@ -379,21 +337,20 @@
 
     .user-status {
       font-size: 11px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.35);
     }
 
-    /* Main workspace */
+    /* Workspace */
     .workspace {
       display: flex;
       flex-direction: column;
       background: var(--gray-50);
-      position: relative;
       overflow: hidden;
     }
 
     .workspace-header {
       height: 64px;
-      padding: 0 32px;
+      padding: 0 36px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -404,7 +361,8 @@
     .workspace-title {
       font-size: 14px;
       font-weight: 500;
-      color: var(--gray-600);
+      color: var(--gray-500);
+      letter-spacing: 0.01em;
     }
 
     .workspace-actions {
@@ -417,7 +375,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: var(--radius-pill);
       font-size: 13px;
       font-weight: 500;
@@ -433,7 +391,7 @@
     }
 
     .btn-primary:hover {
-      background: #222;
+      background: #1a1a1a;
     }
 
     .btn-secondary {
@@ -445,6 +403,7 @@
     .btn-secondary:hover {
       border-color: var(--gray-400);
       color: var(--black);
+      background: var(--white);
     }
 
     /* Empty state */
@@ -455,36 +414,43 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 40px;
+      padding: 48px 32px;
     }
 
     .empty-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       background: var(--white);
       border: 1px solid var(--gray-200);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       box-shadow: var(--shadow-sm);
+    }
+
+    .empty-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--gray-400);
+      stroke-width: 1.5;
     }
 
     .empty-title {
       font-size: 22px;
       font-weight: 600;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
       margin-bottom: 10px;
+      color: var(--black);
     }
 
     .empty-desc {
-      font-size: 14px;
+      font-size: 14.5px;
       color: var(--gray-500);
-      max-width: 360px;
+      max-width: 340px;
       line-height: 1.6;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .empty-actions {
@@ -496,32 +462,19 @@
        MOBILE
     ========================================================= */
     @media (max-width: 900px) {
-      .header { padding: 0 16px; height: 56px; }
-      .nav-link { padding: 6px 10px; font-size: 12px; }
+      .header { padding: 0 20px; height: 56px; }
+      .nav-link { padding: 6px 12px; font-size: 12px; }
       .top-auteur { top: 16px; font-size: 18px; }
-      .center-auteur { font-size: 56px; }
+      .center-auteur { font-size: 64px; }
 
-      .intro { bottom: 28px; width: 94%; }
-      .intro-title { margin-bottom: 16px; font-size: 11px; }
-      .feature-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .feature-card { padding: 14px 12px; }
-      .feature-title { font-size: 12.5px; }
-      .feature-desc { font-size: 11.5px; }
+      .intro { bottom: 48px; }
+      .intro-title { font-size: 11px; }
+      .intro-text { font-size: 14px; }
       .scroll-hint { display: none; }
 
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        display: none; /* simplified for mobile demo */
-      }
-
-      .workspace-header { padding: 0 16px; }
-    }
-
-    @media (max-width: 520px) {
-      .feature-grid { grid-template-columns: 1fr; }
+      .dashboard { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .workspace-header { padding: 0 20px; }
     }
   </style>
 </head>
@@ -560,39 +513,18 @@
 
     <div class="intro">
       <div class="intro-title">Your story starts here</div>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">¶</div>
-          <div class="feature-title">Professional Formatting</div>
-          <div class="feature-desc">Industry-standard screenplay format from the first page.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">◎</div>
-          <div class="feature-title">Beat & Outline Tools</div>
-          <div class="feature-desc">Shape structure and key beats before writing a word.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">▦</div>
-          <div class="feature-title">Plot Boards & Characters</div>
-          <div class="feature-desc">Organize scenes, arcs, and profiles in one place.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">✎</div>
-          <div class="feature-title">Built-in Notes</div>
-          <div class="feature-desc">Keep research and ideas right beside your script.</div>
-        </div>
-      </div>
+      <p class="intro-text">
+        A free, professional screenwriting workspace for writers and filmmakers.
+      </p>
     </div>
 
     <div class="scroll-hint">
-      Scroll to enter <span></span>
+      Scroll to enter <div class="arrow"></div>
     </div>
   </section>
 
   <!-- ==================== DASHBOARD ==================== -->
   <main class="dashboard">
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-wordmark">
         <span>A</span><span>u</span><span>t</span><span>e</span><span>u</span><span>r</span>
@@ -601,19 +533,19 @@
       <div class="nav-section">
         <div class="nav-label">Library</div>
         <a class="nav-item active" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           My Scripts
         </a>
         <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Recent
         </a>
         <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           Drafts
         </a>
         <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
           Templates
         </a>
       </div>
@@ -621,19 +553,19 @@
       <div class="nav-section">
         <div class="nav-label">Tools</div>
         <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h10M4 18h14"/></svg>
           Outline
         </a>
         <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           Plot Board
         </a>
         <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Characters
         </a>
         <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
           Notes
         </a>
       </div>
@@ -647,32 +579,37 @@
       </div>
     </aside>
 
-    <!-- Workspace -->
     <section class="workspace">
       <div class="workspace-header">
         <div class="workspace-title">Dashboard</div>
         <div class="workspace-actions">
           <a href="#" class="btn btn-secondary">Open Script</a>
-          <a href="#" class="btn btn-primary">+ New Screenplay</a>
+          <a href="#" class="btn btn-primary">New Screenplay</a>
         </div>
       </div>
 
       <div class="empty-state">
-        <div class="empty-icon">📄</div>
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
         <h1 class="empty-title">Start a new story</h1>
         <p class="empty-desc">
-          Create a blank screenplay or open an existing project.  
-          Everything stays on your device.
+          Create a blank screenplay or open an existing project. Everything stays on your device.
         </p>
         <div class="empty-actions">
-          <a href="#" class="btn btn-primary">+ New Screenplay</a>
+          <a href="#" class="btn btn-primary">New Screenplay</a>
           <a href="#" class="btn btn-secondary">Browse Templates</a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ==================== JS ==================== -->
   <script>
     const body = document.body;
     let dashboardActive = false;
