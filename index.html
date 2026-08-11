@@ -1,54 +1,65 @@
-```html id="a9k4vz"
+```html id="autuer-main"
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Autuer</title>
 
     <style>
-        html,
-        body {
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
             margin: 0;
-            width: 100%;
-            min-height: 100%;
-            background: white;
-            color: white;
+            padding: 0;
+            scroll-behavior: smooth;
         }
 
         body {
-            min-height: 220vh;
+            margin: 0;
+            padding: 0;
+
+            background: #ffffff;
+            color: #000000;
+
+            font-family:
+                "Helvetica Neue",
+                Helvetica,
+                Arial,
+                sans-serif;
+
             overflow-x: hidden;
         }
 
-        /* =========================
-           RED SCREEN WIPE
-        ========================= */
 
-        .screen-wipe {
-            position: fixed;
-            inset: 0;
+        /* =========================================
+           LANDING PAGE
+        ========================================= */
 
-            background: #D00000;
+        .landing {
+            height: 100vh;
+            width: 100%;
 
-            z-index: 1000;
-            pointer-events: none;
+            position: relative;
 
-            transform: translateY(100%);
-
-            transition:
-                transform 0.9s cubic-bezier(.77, 0, .18, 1);
-        }
-
-        body.wiped .screen-wipe {
-            transform: translateY(0);
+            background: #ffffff;
         }
 
 
-        /* =========================
+        /* =========================================
            STICKY HEADER
-        ========================= */
+        ========================================= */
 
         .header {
             position: fixed;
+
             top: 0;
             left: 0;
             right: 0;
@@ -61,24 +72,25 @@
 
             padding: 0 42px;
 
-            z-index: 100;
+            z-index: 200;
 
-            font-family:
-                "Trebuchet MS",
-                "Helvetica Neue",
-                Helvetica,
-                sans-serif;
+            pointer-events: none;
         }
 
         .nav-left,
         .nav-right {
             display: flex;
+
             align-items: center;
+
             gap: 10px;
+
+            pointer-events: auto;
         }
 
         .nav-link {
             display: inline-flex;
+
             align-items: center;
             justify-content: center;
 
@@ -107,12 +119,13 @@
         }
 
 
-        /* =========================
+        /* =========================================
            TOP AUTUER
-        ========================= */
+        ========================================= */
 
         .top-autuer {
             position: fixed;
+
             top: 25px;
             left: 0;
             right: 0;
@@ -128,20 +141,23 @@
 
             user-select: none;
 
-            z-index: 90;
+            z-index: 190;
         }
 
 
-        /* =========================
+        /* =========================================
            CENTER AUTUER
-        ========================= */
+        ========================================= */
 
         .center-autuer {
-            position: fixed;
+            position: absolute;
+
             inset: 0;
 
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
             justify-content: center;
 
@@ -151,14 +167,12 @@
             line-height: 0.85;
 
             user-select: none;
-
-            z-index: 1;
         }
 
 
-        /* =========================
+        /* =========================================
            AUTUER LETTER FONTS
-        ========================= */
+        ========================================= */
 
         .letter {
             display: inline-block;
@@ -193,12 +207,12 @@
         }
 
 
-        /* =========================
-           BOTTOM INTRO
-        ========================= */
+        /* =========================================
+           LANDING INTRO
+        ========================================= */
 
         .intro {
-            position: fixed;
+            position: absolute;
 
             left: 50%;
             bottom: 30px;
@@ -210,12 +224,6 @@
             text-align: center;
 
             color: #000000;
-
-            font-family:
-                "Trebuchet MS",
-                "Helvetica Neue",
-                Helvetica,
-                sans-serif;
 
             user-select: none;
 
@@ -229,6 +237,7 @@
             font-weight: 600;
 
             letter-spacing: 0.08em;
+
             text-transform: uppercase;
         }
 
@@ -238,7 +247,6 @@
             max-width: 720px;
 
             font-size: 13px;
-            font-weight: 400;
 
             line-height: 1.7;
 
@@ -246,11 +254,403 @@
         }
 
 
-        /* =========================
-           MOBILE
-        ========================= */
+        /* =========================================
+           CRIMSON WIPE
+        ========================================= */
 
-        @media (max-width: 700px) {
+        .screen-wipe {
+            position: fixed;
+
+            inset: 0;
+
+            background: #D00000;
+
+            z-index: 1000;
+
+            pointer-events: none;
+
+            transform: translateY(100%);
+
+            transition:
+                transform 0.9s cubic-bezier(.77, 0, .18, 1);
+        }
+
+        body.wiped .screen-wipe {
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           DASHBOARD
+        ========================================= */
+
+        .dashboard {
+            min-height: 100vh;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1.8fr
+                1fr;
+
+            background: #ffffff;
+        }
+
+
+        /* =========================================
+           DASHBOARD COLUMNS
+        ========================================= */
+
+        .column {
+            min-height: 100vh;
+
+            padding: 38px 34px;
+
+            position: relative;
+        }
+
+        .left-column {
+            border-right: 1px solid #e5e5e5;
+        }
+
+        .right-column {
+            border-left: 1px solid #e5e5e5;
+        }
+
+
+        /* =========================================
+           CENTER DASHBOARD
+        ========================================= */
+
+        .center-column {
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 60px;
+        }
+
+
+        /* =========================================
+           DASHBOARD WORDMARK
+        ========================================= */
+
+        .wordmark {
+            position: absolute;
+
+            top: 30px;
+            left: 34px;
+
+            font-size: 21px;
+
+            font-weight: 500;
+
+            letter-spacing: -0.04em;
+
+            display: flex;
+        }
+
+        .wordmark span:nth-child(1) {
+            font-family: Georgia, serif;
+            font-style: italic;
+        }
+
+        .wordmark span:nth-child(2) {
+            font-family: "Courier New", monospace;
+        }
+
+        .wordmark span:nth-child(3) {
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+        }
+
+        .wordmark span:nth-child(4) {
+            font-family: Arial, sans-serif;
+        }
+
+        .wordmark span:nth-child(5) {
+            font-family: Garamond, Georgia, serif;
+            font-style: italic;
+        }
+
+        .wordmark span:nth-child(6) {
+            font-family: cursive;
+        }
+
+
+        /* =========================================
+           COLUMN HEADERS
+        ========================================= */
+
+        .column-header {
+            margin-top: 65px;
+
+            margin-bottom: 32px;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.13em;
+
+            color: #777777;
+        }
+
+
+        /* =========================================
+           MENU
+        ========================================= */
+
+        .menu {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+        .menu-item {
+            display: flex;
+
+            align-items: center;
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            color: #000000;
+
+            font-size: 14px;
+
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .menu-item:hover {
+            background: #000000;
+
+            color: #ffffff;
+        }
+
+
+        /* =========================================
+           DIVIDER
+        ========================================= */
+
+        .section-divider {
+            height: 1px;
+
+            width: 100%;
+
+            background: #e5e5e5;
+
+            margin: 28px 0;
+        }
+
+
+        /* =========================================
+           CENTER DASHBOARD CONTENT
+        ========================================= */
+
+        .center-eyebrow {
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.15em;
+
+            color: #888888;
+
+            margin-bottom: 22px;
+        }
+
+        .center-title {
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: clamp(42px, 5vw, 72px);
+
+            font-weight: 400;
+
+            letter-spacing: -0.04em;
+
+            line-height: 1;
+
+            margin: 0 0 20px;
+        }
+
+        .center-description {
+            max-width: 500px;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            color: #777777;
+
+            margin: 0 0 40px;
+        }
+
+
+        /* =========================================
+           PRIMARY BUTTON
+        ========================================= */
+
+        .primary-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 14px 25px;
+
+            border-radius: 999px;
+
+            background: #000000;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.02em;
+
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .primary-button:hover {
+            background: #D00000;
+
+            color: #ffffff;
+        }
+
+
+        /* =========================================
+           SECONDARY BUTTON
+        ========================================= */
+
+        .secondary-button {
+            margin-top: 12px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 12px 23px;
+
+            border-radius: 999px;
+
+            background: #eeeeee;
+
+            color: #000000;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .secondary-button:hover {
+            background: #000000;
+
+            color: #ffffff;
+        }
+
+
+        /* =========================================
+           STORY TOOLS
+        ========================================= */
+
+        .tool-item {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+
+            padding: 13px 14px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            color: #000000;
+
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .tool-item:hover {
+            background: #000000;
+
+            color: #ffffff;
+        }
+
+        .tool-name {
+            font-size: 14px;
+
+            font-weight: 500;
+        }
+
+        .tool-description {
+            font-size: 11px;
+
+            color: #888888;
+
+            line-height: 1.4;
+        }
+
+        .tool-item:hover .tool-description {
+            color: #cccccc;
+        }
+
+
+        /* =========================================
+           STATUS
+        ========================================= */
+
+        .status {
+            position: absolute;
+
+            bottom: 32px;
+            left: 34px;
+
+            font-size: 11px;
+
+            color: #999999;
+
+            letter-spacing: 0.03em;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 900px) {
 
             .header {
                 padding: 0 15px;
@@ -263,11 +663,13 @@
 
             .nav-link {
                 padding: 7px 10px;
+
                 font-size: 11px;
             }
 
             .top-autuer {
                 top: 21px;
+
                 font-size: 20px;
             }
 
@@ -277,6 +679,7 @@
 
             .intro {
                 bottom: 20px;
+
                 width: 90%;
             }
 
@@ -286,7 +689,46 @@
 
             .intro-text {
                 font-size: 11px;
+
                 line-height: 1.55;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .column {
+                min-height: auto;
+            }
+
+            .left-column,
+            .right-column {
+                border: none;
+
+                border-bottom: 1px solid #e5e5e5;
+            }
+
+            .center-column {
+                min-height: 80vh;
+
+                order: -1;
+
+                padding: 100px 30px;
+            }
+
+            .left-column,
+            .right-column {
+                padding: 30px;
+            }
+
+            .column-header {
+                margin-top: 20px;
+            }
+
+            .status {
+                position: static;
+
+                margin-top: 30px;
             }
         }
     </style>
@@ -294,84 +736,325 @@
 
 <body>
 
-    <!-- RED CINEMATIC WIPE -->
+    <!-- =========================================
+         LANDING PAGE
+    ========================================= -->
+
+    <section class="landing">
+
+        <!-- STICKY HEADER -->
+
+        <header class="header">
+
+            <nav class="nav-left">
+                <a href="#" class="nav-link">Docs</a>
+                <a href="#" class="nav-link">FAQ</a>
+            </nav>
+
+            <nav class="nav-right">
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Features</a>
+            </nav>
+
+        </header>
+
+
+        <!-- SMALL TOP AUTUER -->
+
+        <div class="top-autuer">
+
+            <span class="letter a">A</span>
+            <span class="letter u1">u</span>
+            <span class="letter t">t</span>
+            <span class="letter e">e</span>
+            <span class="letter u2">u</span>
+            <span class="letter r">r</span>
+
+        </div>
+
+
+        <!-- CENTER AUTUER -->
+
+        <div class="center-autuer">
+
+            <div class="a">A</div>
+            <div class="u1">u</div>
+            <div class="t">t</div>
+            <div class="e">e</div>
+            <div class="u2">u</div>
+            <div class="r">r</div>
+
+        </div>
+
+
+        <!-- LANDING INTRO -->
+
+        <div class="intro">
+
+            <div class="intro-title">
+                Your story starts here.
+            </div>
+
+            <p class="intro-text">
+                Autuer is a free screenwriting workspace built for writers,
+                filmmakers, and storytellers. Write your screenplay with
+                professional formatting, check your script with our format
+                checker, and develop your story with outlining and beat tools.
+                Explore free templates, organize your ideas with plot boards,
+                keep your thoughts in built-in notes, and develop your
+                characters, scenes, and worlds all in one place. From your
+                first idea to your finished screenplay, Autuer gives you the
+                tools to build the story you want to tell.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         DASHBOARD
+    ========================================= -->
+
+    <main class="dashboard">
+
+
+        <!-- =====================================
+             LEFT COLUMN
+             LIBRARY
+        ====================================== -->
+
+        <section class="column left-column">
+
+            <div class="wordmark">
+                <span>A</span>
+                <span>u</span>
+                <span>t</span>
+                <span>e</span>
+                <span>u</span>
+                <span>r</span>
+            </div>
+
+            <div class="column-header">
+                Library
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="menu-item">
+                    My Scripts
+                </a>
+
+                <a href="#" class="menu-item">
+                    Recent
+                </a>
+
+                <a href="#" class="menu-item">
+                    Drafts
+                </a>
+
+                <a href="#" class="menu-item">
+                    Templates
+                </a>
+
+            </nav>
+
+            <div class="section-divider"></div>
+
+            <div class="column-header">
+                Projects
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="menu-item">
+                    Favorites
+                </a>
+
+                <a href="#" class="menu-item">
+                    Archives
+                </a>
+
+            </nav>
+
+            <div class="status">
+                All projects saved locally
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             CENTER COLUMN
+             MAIN ACTION
+        ====================================== -->
+
+        <section class="column center-column">
+
+            <div class="center-eyebrow">
+                Your writing studio
+            </div>
+
+            <h1 class="center-title">
+                Build your story.
+            </h1>
+
+            <p class="center-description">
+                Start with a blank page, open an existing screenplay,
+                or use Autuer's creative tools to turn an idea into
+                something worth putting on screen.
+            </p>
+
+            <a href="#" class="primary-button">
+                + New Screenplay
+            </a>
+
+            <a href="#" class="secondary-button">
+                Open Existing Script
+            </a>
+
+        </section>
+
+
+        <!-- =====================================
+             RIGHT COLUMN
+             CREATIVE TOOLS
+        ====================================== -->
+
+        <section class="column right-column">
+
+            <div class="column-header">
+                Story Tools
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="tool-item">
+
+                    <span class="tool-name">
+                        Outline
+                    </span>
+
+                    <span class="tool-description">
+                        Shape the structure of your story.
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="tool-item">
+
+                    <span class="tool-name">
+                        Beat Board
+                    </span>
+
+                    <span class="tool-description">
+                        Break your story into its essential beats.
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="tool-item">
+
+                    <span class="tool-name">
+                        Plot Board
+                    </span>
+
+                    <span class="tool-description">
+                        Organize scenes, ideas, and story threads.
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="tool-item">
+
+                    <span class="tool-name">
+                        Characters
+                    </span>
+
+                    <span class="tool-description">
+                        Develop the people inside your story.
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="tool-item">
+
+                    <span class="tool-name">
+                        Notes
+                    </span>
+
+                    <span class="tool-description">
+                        Keep your ideas close while you write.
+                    </span>
+
+                </a>
+
+            </nav>
+
+            <div class="section-divider"></div>
+
+            <div class="column-header">
+                Writing Tools
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="tool-item">
+
+                    <span class="tool-name">
+                        Format Checker
+                    </span>
+
+                    <span class="tool-description">
+                        Make sure your screenplay follows proper format.
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="tool-item">
+
+                    <span class="tool-name">
+                        Free Templates
+                    </span>
+
+                    <span class="tool-description">
+                        Start faster with ready-to-use templates.
+                    </span>
+
+                </a>
+
+            </nav>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         CRIMSON WIPE
+    ========================================= -->
 
     <div class="screen-wipe"></div>
 
 
-    <!-- HEADER -->
-
-    <header class="header">
-
-        <nav class="nav-left">
-            <a href="#" class="nav-link">Docs</a>
-            <a href="#" class="nav-link">FAQ</a>
-        </nav>
-
-        <nav class="nav-right">
-            <a href="#" class="nav-link">About</a>
-            <a href="#" class="nav-link">Features</a>
-        </nav>
-
-    </header>
-
-
-    <!-- SMALL TOP AUTUER -->
-
-    <div class="top-autuer">
-        <span class="letter a">A</span>
-        <span class="letter u1">u</span>
-        <span class="letter t">t</span>
-        <span class="letter e">e</span>
-        <span class="letter u2">u</span>
-        <span class="letter r">r</span>
-    </div>
-
-
-    <!-- CENTER AUTUER -->
-
-    <div class="center-autuer">
-        <div class="a">A</div>
-        <div class="u1">u</div>
-        <div class="t">t</div>
-        <div class="e">e</div>
-        <div class="u2">u</div>
-        <div class="r">r</div>
-    </div>
-
-
-    <!-- BOTTOM INTRO -->
-
-    <div class="intro">
-
-        <div class="intro-title">
-            Your story starts here.
-        </div>
-
-        <p class="intro-text">
-            Autuer is a free screenwriting workspace built for writers,
-            filmmakers, and storytellers. Write your screenplay with
-            professional formatting, check your script with our format
-            checker, and develop your story with outlining and beat tools.
-            Explore free templates, organize your ideas with plot boards,
-            keep your thoughts in built-in notes, and develop your characters,
-            scenes, and worlds all in one place. From your first idea to
-            your finished screenplay, Autuer gives you the tools to build
-            the story you want to tell.
-        </p>
-
-    </div>
-
-
-    <!-- SCROLL WIPE SCRIPT -->
+    <!-- =========================================
+         SCROLL LOGIC
+    ========================================= -->
 
     <script>
+
         const WIPE_TRIGGER = 120;
 
         let wiped = false;
 
         window.addEventListener(
             "scroll",
+
             () => {
 
                 const shouldWipe =
@@ -383,7 +1066,9 @@
 
                     wiped = true;
 
-                } else if (!shouldWipe && wiped) {
+                }
+
+                else if (!shouldWipe && wiped) {
 
                     document.body.classList.remove("wiped");
 
@@ -392,8 +1077,10 @@
                 }
 
             },
+
             { passive: true }
         );
+
     </script>
 
 </body>
