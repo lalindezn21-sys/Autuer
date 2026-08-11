@@ -3,44 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auteur</title>
+  <title>Auteur — Professional Screenwriting</title>
   <style>
     /* =========================================================
-       RESET
+       DESIGN TOKENS
     ========================================================= */
-    * {
-      box-sizing: border-box;
+    :root {
+      --red: #C62828;
+      --red-dark: #B71C1C;
+      --black: #0A0A0A;
+      --white: #FFFFFF;
+      --gray-50: #FAFAFA;
+      --gray-100: #F4F4F5;
+      --gray-200: #E4E4E7;
+      --gray-400: #A1A1AA;
+      --gray-500: #71717A;
+      --gray-600: #52525B;
+      --radius: 10px;
+      --radius-pill: 999px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html,
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html, body {
       width: 100%;
       height: 100%;
       overflow: hidden;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: #ffffff;
-      color: #000000;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: var(--white);
+      color: var(--black);
     }
 
     /* =========================================================
-       LANDING PAGE
+       LANDING
     ========================================================= */
     .landing {
       height: 100vh;
       width: 100%;
       position: relative;
       z-index: 20;
-      background: #ffffff;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      background: var(--white);
+      transition: opacity 0.35s ease, visibility 0.35s ease;
     }
 
     body.hide-landing .landing {
@@ -49,22 +60,21 @@
       pointer-events: none;
     }
 
-    /* =========================================================
-       STICKY HEADER – lightened
-    ========================================================= */
+    /* Header */
     .header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 70px;
-      padding: 0 42px;
+      height: 64px;
+      padding: 0 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 500;
-      opacity: 1;
-      visibility: visible;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
@@ -72,50 +82,40 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
-    /* Ghost / outlined buttons */
     .nav-link {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: transparent;
-      color: #000000;
-      text-decoration: none;
-      font-size: 14px;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.02em;
-      border: 1px solid rgba(0, 0, 0, 0.25);
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      color: var(--gray-600);
+      text-decoration: none;
+      transition: all var(--transition);
     }
 
     .nav-link:hover {
-      background: #000000;
-      color: #ffffff;
-      border-color: #000000;
+      color: var(--black);
+      background: var(--gray-100);
     }
 
-    /* =========================================================
-       TOP AUTEUR
-    ========================================================= */
+    /* Top wordmark */
     .top-auteur {
       position: fixed;
-      top: 25px;
+      top: 20px;
       left: 0;
       right: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1;
-      color: #000000;
+      color: var(--black);
       user-select: none;
       z-index: 490;
-      opacity: 1;
-      visibility: visible;
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
@@ -126,9 +126,7 @@
       pointer-events: none;
     }
 
-    /* =========================================================
-       CENTER AUTEUR
-    ========================================================= */
+    /* Center logo */
     .center-auteur {
       position: absolute;
       inset: 0;
@@ -136,115 +134,126 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #000000;
-      font-size: 80px;
-      line-height: 0.85;
+      font-size: 88px;
+      line-height: 0.82;
       user-select: none;
+      letter-spacing: -0.02em;
     }
 
-    /* =========================================================
-       AUTEUR LETTER STYLES
-    ========================================================= */
-    .letter {
-      display: inline-block;
-    }
+    .letter { display: inline-block; }
+    .a { font-family: Georgia, serif; font-style: italic; }
+    .u1 { font-family: "Courier New", monospace; }
+    .t { font-family: "Times New Roman", serif; font-weight: 700; }
+    .e { font-family: Arial, sans-serif; font-weight: 200; }
+    .u2 { font-family: Garamond, Georgia, serif; font-style: italic; }
+    .r { font-family: cursive; }
 
-    .a {
-      font-family: Georgia, serif;
-      font-style: italic;
-    }
-
-    .u1 {
-      font-family: "Courier New", monospace;
-    }
-
-    .t {
-      font-family: "Times New Roman", serif;
-      font-weight: bold;
-    }
-
-    .e {
-      font-family: Arial, sans-serif;
-      font-weight: 200;
-    }
-
-    .u2 {
-      font-family: Garamond, Georgia, serif;
-      font-style: italic;
-    }
-
-    .r {
-      font-family: cursive;
-    }
-
-    /* =========================================================
-       INTRO + FEATURE CARDS
-    ========================================================= */
+    /* Intro + cards */
     .intro {
       position: absolute;
       left: 50%;
-      bottom: 36px;
+      bottom: 48px;
       transform: translateX(-50%);
-      width: min(920px, 92%);
+      width: min(980px, 92%);
       text-align: center;
-      color: #000000;
-      user-select: none;
     }
 
     .intro-title {
-      margin-bottom: 28px;
-      font-size: 15px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 28px;
     }
 
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 14px;
     }
 
     .feature-card {
-      background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      border-radius: 12px;
-      padding: 18px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 20px 18px;
       text-align: left;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: all var(--transition);
     }
 
     .feature-card:hover {
-      border-color: rgba(0, 0, 0, 0.35);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      border-color: var(--gray-400);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-bottom: 14px;
+      color: var(--black);
     }
 
     .feature-title {
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 600;
       margin-bottom: 6px;
-      letter-spacing: 0.01em;
+      letter-spacing: -0.01em;
     }
 
     .feature-desc {
-      font-size: 12px;
-      line-height: 1.5;
-      color: #333333;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--gray-500);
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: var(--gray-400);
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.7;
+    }
+
+    .scroll-hint span {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-right: 1.5px solid var(--gray-400);
+      border-bottom: 1.5px solid var(--gray-400);
+      transform: rotate(45deg);
+      animation: bounce 1.6s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(45deg) translateY(4px); }
     }
 
     /* =========================================================
-       DASHBOARD – symmetrical thin lines
+       DASHBOARD
     ========================================================= */
     .dashboard {
       position: fixed;
       inset: 0;
       z-index: 30;
       display: grid;
-      grid-template-columns: 280px 1fr 280px;
-      background: #D32F2F;
-      color: #ffffff;
-      min-height: 100vh;
-      width: 100%;
+      grid-template-columns: 260px 1fr;
+      background: var(--white);
       transform: translateY(100%);
       transition: transform 1.15s cubic-bezier(0.77, 0, 0.18, 1);
     }
@@ -253,97 +262,272 @@
       transform: translateY(0);
     }
 
-    .column {
-      min-height: 100vh;
+    /* Sidebar */
+    .sidebar {
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 20px;
       position: relative;
     }
 
-    .left-column {
-      border-right: 1px solid rgba(255, 255, 255, 0.35);
+    .sidebar-wordmark {
+      display: flex;
+      align-items: baseline;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+      margin-bottom: 48px;
+      padding-left: 8px;
     }
 
-    .right-column {
-      border-left: 1px solid rgba(255, 255, 255, 0.35);
+    .sidebar-wordmark span {
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .sidebar-wordmark span:nth-child(1) { font-family: Georgia, serif; font-style: italic; }
+    .sidebar-wordmark span:nth-child(2) { font-family: "Courier New", monospace; }
+    .sidebar-wordmark span:nth-child(3) { font-family: "Times New Roman", serif; font-weight: 700; }
+    .sidebar-wordmark span:nth-child(4) { font-family: Arial, sans-serif; }
+    .sidebar-wordmark span:nth-child(5) { font-family: Garamond, Georgia, serif; font-style: italic; }
+    .sidebar-wordmark span:nth-child(6) { font-family: cursive; transform: translateY(1px); }
+
+    .nav-section {
+      margin-bottom: 32px;
+    }
+
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      padding: 0 12px;
+      margin-bottom: 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+    }
+
+    .nav-item.active {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .nav-item svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-left: 8px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform var(--transition);
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .user-name {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .user-status {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Main workspace */
+    .workspace {
+      display: flex;
+      flex-direction: column;
+      background: var(--gray-50);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .workspace-header {
+      height: 64px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .workspace-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+
+    .workspace-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #222;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--gray-600);
+      border: 1px solid var(--gray-200);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gray-400);
+      color: var(--black);
+    }
+
+    /* Empty state */
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .empty-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .empty-title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .empty-desc {
+      font-size: 14px;
+      color: var(--gray-500);
+      max-width: 360px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .empty-actions {
+      display: flex;
+      gap: 12px;
     }
 
     /* =========================================================
        MOBILE
     ========================================================= */
     @media (max-width: 900px) {
-      .header {
-        padding: 0 15px;
-      }
+      .header { padding: 0 16px; height: 56px; }
+      .nav-link { padding: 6px 10px; font-size: 12px; }
+      .top-auteur { top: 16px; font-size: 18px; }
+      .center-auteur { font-size: 56px; }
 
-      .nav-left,
-      .nav-right {
-        gap: 4px;
-      }
-
-      .nav-link {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-
-      .top-auteur {
-        top: 21px;
-        font-size: 20px;
-      }
-
-      .center-auteur {
-        font-size: 60px;
-      }
-
-      .intro {
-        bottom: 20px;
-        width: 94%;
-      }
-
-      .intro-title {
-        font-size: 13px;
-        margin-bottom: 16px;
-      }
-
-      .feature-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-
-      .feature-card {
-        padding: 14px 12px;
-      }
-
-      .feature-title {
-        font-size: 12px;
-      }
-
-      .feature-desc {
-        font-size: 11px;
-      }
+      .intro { bottom: 28px; width: 94%; }
+      .intro-title { margin-bottom: 16px; font-size: 11px; }
+      .feature-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .feature-card { padding: 14px 12px; }
+      .feature-title { font-size: 12.5px; }
+      .feature-desc { font-size: 11.5px; }
+      .scroll-hint { display: none; }
 
       .dashboard {
         grid-template-columns: 1fr;
       }
 
-      .left-column,
-      .right-column {
-        border: none;
-        min-height: 0;
-        height: 0;
+      .sidebar {
+        display: none; /* simplified for mobile demo */
       }
+
+      .workspace-header { padding: 0 16px; }
     }
 
     @media (max-width: 520px) {
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
+      .feature-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- =========================================================
-       LANDING
-  ========================================================= -->
+  <!-- ==================== LANDING ==================== -->
   <section class="landing">
     <header class="header">
       <nav class="nav-left">
@@ -375,44 +559,120 @@
     </div>
 
     <div class="intro">
-      <div class="intro-title">Your story starts here.</div>
+      <div class="intro-title">Your story starts here</div>
 
       <div class="feature-grid">
         <div class="feature-card">
+          <div class="feature-icon">¶</div>
           <div class="feature-title">Professional Formatting</div>
-          <div class="feature-desc">Industry-standard screenplay format built in from the first page.</div>
+          <div class="feature-desc">Industry-standard screenplay format from the first page.</div>
         </div>
-
         <div class="feature-card">
-          <div class="feature-title">Beat & Outlining Tools</div>
-          <div class="feature-desc">Shape structure and key story beats before you write a word.</div>
+          <div class="feature-icon">◎</div>
+          <div class="feature-title">Beat & Outline Tools</div>
+          <div class="feature-desc">Shape structure and key beats before writing a word.</div>
         </div>
-
         <div class="feature-card">
+          <div class="feature-icon">▦</div>
           <div class="feature-title">Plot Boards & Characters</div>
-          <div class="feature-desc">Organize scenes, arcs, and character profiles in one place.</div>
+          <div class="feature-desc">Organize scenes, arcs, and profiles in one place.</div>
         </div>
-
         <div class="feature-card">
+          <div class="feature-icon">✎</div>
           <div class="feature-title">Built-in Notes</div>
-          <div class="feature-desc">Keep ideas, research, and thoughts right beside your script.</div>
+          <div class="feature-desc">Keep research and ideas right beside your script.</div>
         </div>
       </div>
     </div>
+
+    <div class="scroll-hint">
+      Scroll to enter <span></span>
+    </div>
   </section>
 
-  <!-- =========================================================
-       DASHBOARD
-  ========================================================= -->
+  <!-- ==================== DASHBOARD ==================== -->
   <main class="dashboard">
-    <section class="column left-column"></section>
-    <section class="column center-column"></section>
-    <section class="column right-column"></section>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-wordmark">
+        <span>A</span><span>u</span><span>t</span><span>e</span><span>u</span><span>r</span>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">Library</div>
+        <a class="nav-item active" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          My Scripts
+        </a>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Recent
+        </a>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Drafts
+        </a>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Templates
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">Tools</div>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h14"/></svg>
+          Outline
+        </a>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Plot Board
+        </a>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Characters
+        </a>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          Notes
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="avatar">A</div>
+        <div class="user-meta">
+          <div class="user-name">Auteur User</div>
+          <div class="user-status">Local storage</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Workspace -->
+    <section class="workspace">
+      <div class="workspace-header">
+        <div class="workspace-title">Dashboard</div>
+        <div class="workspace-actions">
+          <a href="#" class="btn btn-secondary">Open Script</a>
+          <a href="#" class="btn btn-primary">+ New Screenplay</a>
+        </div>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-icon">📄</div>
+        <h1 class="empty-title">Start a new story</h1>
+        <p class="empty-desc">
+          Create a blank screenplay or open an existing project.  
+          Everything stays on your device.
+        </p>
+        <div class="empty-actions">
+          <a href="#" class="btn btn-primary">+ New Screenplay</a>
+          <a href="#" class="btn btn-secondary">Browse Templates</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- =========================================================
-       JAVASCRIPT
-  ========================================================= -->
+  <!-- ==================== JS ==================== -->
   <script>
     const body = document.body;
     let dashboardActive = false;
@@ -420,12 +680,9 @@
 
     function enterDashboard() {
       if (dashboardActive || transitionLocked) return;
-
       dashboardActive = true;
       transitionLocked = true;
-
       body.classList.add("dashboard-active");
-
       setTimeout(() => {
         body.classList.add("hide-landing");
         transitionLocked = false;
@@ -434,54 +691,30 @@
 
     function returnToLanding() {
       if (!dashboardActive || transitionLocked) return;
-
       dashboardActive = false;
       transitionLocked = true;
-
       body.classList.remove("hide-landing");
       body.classList.remove("dashboard-active");
-
       setTimeout(() => {
         transitionLocked = false;
       }, 1150);
     }
 
-    window.addEventListener(
-      "wheel",
-      (event) => {
-        if (event.deltaY > 0) {
-          enterDashboard();
-        } else if (event.deltaY < 0) {
-          returnToLanding();
-        }
-      },
-      { passive: true }
-    );
+    window.addEventListener("wheel", (e) => {
+      if (e.deltaY > 0) enterDashboard();
+      else if (e.deltaY < 0) returnToLanding();
+    }, { passive: true });
 
     let touchStartY = 0;
+    window.addEventListener("touchstart", (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
 
-    window.addEventListener(
-      "touchstart",
-      (event) => {
-        touchStartY = event.touches[0].clientY;
-      },
-      { passive: true }
-    );
-
-    window.addEventListener(
-      "touchend",
-      (event) => {
-        const touchEndY = event.changedTouches[0].clientY;
-        const difference = touchStartY - touchEndY;
-
-        if (difference > 20) {
-          enterDashboard();
-        } else if (difference < -20) {
-          returnToLanding();
-        }
-      },
-      { passive: true }
-    );
+    window.addEventListener("touchend", (e) => {
+      const diff = touchStartY - e.changedTouches[0].clientY;
+      if (diff > 20) enterDashboard();
+      else if (diff < -20) returnToLanding();
+    }, { passive: true });
   </script>
 </body>
 </html>
