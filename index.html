@@ -50,7 +50,7 @@
     }
 
     /* =========================================================
-       STICKY HEADER
+       STICKY HEADER – lightened
     ========================================================= */
     .header {
       position: fixed;
@@ -72,27 +72,30 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
+    /* Ghost / outlined buttons */
     .nav-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 9px 15px;
+      padding: 8px 16px;
       border-radius: 999px;
-      background: #000000;
-      color: #ffffff;
+      background: transparent;
+      color: #000000;
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     .nav-link:hover {
-      background: #ffffff;
-      color: #000000;
+      background: #000000;
+      color: #ffffff;
+      border-color: #000000;
     }
 
     /* =========================================================
@@ -175,37 +178,62 @@
     }
 
     /* =========================================================
-       LANDING DESCRIPTION
+       INTRO + FEATURE CARDS
     ========================================================= */
     .intro {
       position: absolute;
       left: 50%;
-      bottom: 30px;
+      bottom: 36px;
       transform: translateX(-50%);
-      width: min(760px, 88%);
+      width: min(920px, 92%);
       text-align: center;
       color: #000000;
       user-select: none;
     }
 
     .intro-title {
-      margin-bottom: 9px;
+      margin-bottom: 28px;
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .intro-text {
-      margin: 0 auto;
-      max-width: 720px;
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: left;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .feature-title {
       font-size: 13px;
-      line-height: 1.7;
-      letter-spacing: 0.015em;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    .feature-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #333333;
     }
 
     /* =========================================================
-       DASHBOARD – symmetrical thin lines on both sides
+       DASHBOARD – symmetrical thin lines
     ========================================================= */
     .dashboard {
       position: fixed;
@@ -225,9 +253,6 @@
       transform: translateY(0);
     }
 
-    /* =========================================================
-       DASHBOARD COLUMNS
-    ========================================================= */
     .column {
       min-height: 100vh;
       position: relative;
@@ -255,8 +280,8 @@
       }
 
       .nav-link {
-        padding: 7px 10px;
-        font-size: 11px;
+        padding: 6px 12px;
+        font-size: 12px;
       }
 
       .top-auteur {
@@ -270,16 +295,29 @@
 
       .intro {
         bottom: 20px;
-        width: 90%;
+        width: 94%;
       }
 
       .intro-title {
+        font-size: 13px;
+        margin-bottom: 16px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .feature-card {
+        padding: 14px 12px;
+      }
+
+      .feature-title {
         font-size: 12px;
       }
 
-      .intro-text {
+      .feature-desc {
         font-size: 11px;
-        line-height: 1.55;
       }
 
       .dashboard {
@@ -291,6 +329,12 @@
         border: none;
         min-height: 0;
         height: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -332,19 +376,33 @@
 
     <div class="intro">
       <div class="intro-title">Your story starts here.</div>
-      <p class="intro-text">
-        Auteur is a free screenwriting workspace built for writers, filmmakers, and storytellers.
-        Write your screenplay with professional formatting, check your script with our format checker,
-        develop your story with outlining and beat tools, explore free templates, organize your ideas
-        with plot boards, keep your thoughts in built-in notes, and develop your characters, scenes,
-        and worlds all in one place. From the first spark of an idea to a finished screenplay,
-        Auteur gives you the tools to build the story you want to tell.
-      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-title">Professional Formatting</div>
+          <div class="feature-desc">Industry-standard screenplay format built in from the first page.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-title">Beat & Outlining Tools</div>
+          <div class="feature-desc">Shape structure and key story beats before you write a word.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-title">Plot Boards & Characters</div>
+          <div class="feature-desc">Organize scenes, arcs, and character profiles in one place.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-title">Built-in Notes</div>
+          <div class="feature-desc">Keep ideas, research, and thoughts right beside your script.</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- =========================================================
-       DASHBOARD – symmetrical thin lines
+       DASHBOARD
   ========================================================= -->
   <main class="dashboard">
     <section class="column left-column"></section>
