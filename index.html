@@ -1,4 +1,4 @@
-```html id="x6q9mz"
+```html id="a7m2qx"
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +60,7 @@
 
 
         /* =========================
-           LETTER FONTS
+           AUTUER LETTER FONTS
         ========================= */
 
         .letter {
@@ -97,18 +97,22 @@
 
 
         /* =========================
-           BOTTOM TAGLINE
+           BOTTOM INTRODUCTION
         ========================= */
 
-        .tagline {
+        .intro {
             position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 38px;
+
+            left: 50%;
+            bottom: 32px;
+
+            transform: translateX(-50%);
+
+            width: min(720px, 85%);
 
             text-align: center;
 
-            color: #222;
+            color: #000000;
 
             font-family:
                 "Trebuchet MS",
@@ -116,18 +120,34 @@
                 Helvetica,
                 sans-serif;
 
-            font-size: 13px;
-            font-weight: 300;
-
-            letter-spacing: 0.12em;
-            line-height: 1.6;
-
             user-select: none;
         }
 
-        .tagline span {
-            display: block;
-            opacity: 0.7;
+        .intro-title {
+            margin-bottom: 10px;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+
+            color: #000000;
+        }
+
+        .intro-text {
+            margin: 0 auto;
+
+            max-width: 650px;
+
+            font-size: 13px;
+            font-weight: 400;
+
+            line-height: 1.7;
+
+            letter-spacing: 0.02em;
+
+            color: #000000;
         }
     </style>
 </head>
@@ -158,11 +178,23 @@
     </div>
 
 
-    <!-- BOTTOM TAGLINE -->
+    <!-- BOTTOM INTRO -->
 
-    <div class="tagline">
-        <span>THE FREE SCREENWRITING SPACE</span>
-        <span>WRITE. CREATE. DIRECT.</span>
+    <div class="intro">
+
+        <div class="intro-title">
+            Your story starts here.
+        </div>
+
+        <p class="intro-text">
+            Autuer is a free, beautifully simple space for screenwriters
+            to turn ideas into stories. Write your screenplay, shape your
+            characters, build your world, and bring your vision to life
+            without getting buried beneath complicated tools and clutter.
+            Just open a page, start writing, and let the story take you
+            wherever it wants to go.
+        </p>
+
     </div>
 
 </body>
