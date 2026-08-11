@@ -1,4 +1,4 @@
-```html id="q7x8mw"
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,29 @@
             color: white;
         }
 
-        .autuer {
+        /* TOP AUTUER */
+
+        .top-autuer {
+            position: fixed;
+            top: 25px;
+            left: 0;
+            right: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: black;
+
+            font-size: 24px;
+            line-height: 1;
+
+            user-select: none;
+        }
+
+        /* LARGE CENTER AUTUER */
+
+        .center-autuer {
             position: fixed;
             inset: 0;
 
@@ -30,6 +52,12 @@
 
             user-select: none;
         }
+
+        .letter {
+            display: inline-block;
+        }
+
+        /* Individual fonts */
 
         .a {
             font-family: Georgia, serif;
@@ -63,7 +91,21 @@
 
 <body>
 
-    <div class="autuer">
+    <!-- SMALL TOP AUTUER -->
+
+    <div class="top-autuer">
+        <span class="letter a">A</span>
+        <span class="letter u1">u</span>
+        <span class="letter t">t</span>
+        <span class="letter e">e</span>
+        <span class="letter u2">u</span>
+        <span class="letter r">r</span>
+    </div>
+
+
+    <!-- LARGE CENTER AUTUER -->
+
+    <div class="center-autuer">
         <div class="a">A</div>
         <div class="u1">u</div>
         <div class="t">t</div>
