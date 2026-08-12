@@ -1,576 +1,1422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Screenwriter</title>
-
-  <style>
-    :root {
-      /* 60% Neutral */
-      --white: #ffffff;
-      --paper: #fbfcfe;
-      --gray-50: #f4f6f8;
-      --gray-100: #e8ecf0;
-      --gray-200: #d5dce3;
-      --gray-500: #718096;
-
-      /* 30% Structural / Brand */
-      --blue: #1769aa;
-      --blue-light: #eaf4ff;
-      --blue-mid: #2f80c9;
-      --blue-dark: #123b5d;
-      --navy: #0e2d45;
-
-      /* 10% Accent */
-      --cyan: #00b8d9;
-      --orange: #ff8a00;
-      --yellow: #ffd166;
-
-      --sidebar-width: 250px;
-      --toolbar-height: 54px;
-      --status-height: 30px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      background: var(--white);
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      color: #18212b;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    /* =========================================================
-       APPLICATION SHELL
-       ========================================================= */
-
-    .app {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      background: var(--white);
-    }
-
-    /* =========================================================
-       TOP BAR
-       ========================================================= */
-
-    .topbar {
-      height: var(--toolbar-height);
-      min-height: var(--toolbar-height);
-      display: flex;
-      align-items: center;
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-200);
-      z-index: 10;
-    }
-
-    .brand {
-      width: var(--sidebar-width);
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      border-right: 1px solid var(--gray-200);
-      color: var(--blue-dark);
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-    }
-
-    .brand-mark {
-      width: 9px;
-      height: 9px;
-      margin-right: 9px;
-      background: var(--blue);
-      border-radius: 2px;
-      box-shadow: 5px 0 0 var(--cyan);
-    }
-
-    .document-name {
-      padding-left: 20px;
-      font-size: 14px;
-      color: #475569;
-      font-weight: 500;
-      flex: 1;
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding-right: 12px;
-    }
-
-    .tool-button {
-      height: 32px;
-      min-width: 32px;
-      padding: 0 9px;
-      border: 0;
-      border-radius: 5px;
-      background: transparent;
-      color: #526170;
-      cursor: pointer;
-      font-size: 13px;
-      transition:
-        background 0.15s ease,
-        color 0.15s ease;
-    }
-
-    .tool-button:hover {
-      background: var(--gray-50);
-      color: var(--blue);
-    }
-
-    .tool-button.primary {
-      background: var(--blue);
-      color: white;
-      padding: 0 15px;
-    }
-
-    .tool-button.primary:hover {
-      background: var(--blue-mid);
-    }
-
-    .divider {
-      width: 1px;
-      height: 22px;
-      background: var(--gray-200);
-      margin: 0 6px;
-    }
-
-    /* =========================================================
-       MAIN APPLICATION AREA
-       ========================================================= */
-
-    .main {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      overflow: hidden;
-    }
-
-    /* =========================================================
-       LEFT SIDEBAR
-       ========================================================= */
-
-    .sidebar {
-      width: var(--sidebar-width);
-      min-width: var(--sidebar-width);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      background: var(--gray-50);
-      border-right: 1px solid var(--gray-200);
-      overflow: hidden;
-    }
-
-    .sidebar-header {
-      height: 48px;
-      min-height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 15px 0 18px;
-      color: #687787;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .add-button {
-      width: 25px;
-      height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      border-radius: 5px;
-      background: transparent;
-      color: var(--blue);
-      font-size: 19px;
-      cursor: pointer;
-    }
-
-    .add-button:hover {
-      background: var(--blue-light);
-    }
-
-    .scene-list {
-      flex: 1;
-      min-height: 0;
-      overflow: hidden;
-      padding: 0 8px;
-    }
-
-    .scene {
-      height: 42px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 11px;
-      margin-bottom: 2px;
-      border-radius: 5px;
-      color: #596979;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .scene:hover {
-      background: #e9eef3;
-    }
-
-    .scene.active {
-      background: var(--blue-light);
-      color: var(--blue);
-      font-weight: 600;
-    }
-
-    .scene-number {
-      width: 20px;
-      color: #8a98a7;
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .scene.active .scene-number {
-      color: var(--blue);
-    }
-
-    .scene-title {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .sidebar-footer {
-      height: 46px;
-      min-height: 46px;
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      border-top: 1px solid var(--gray-200);
-      color: #788594;
-      font-size: 11px;
-    }
-
-    /* =========================================================
-       EDITOR
-       ========================================================= */
-
-    .editor-area {
-      flex: 1;
-      min-width: 0;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      background: #eef1f4;
-      overflow: hidden;
-    }
-
-    .editor-toolbar {
-      height: 44px;
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .format-button {
-      height: 28px;
-      padding: 0 10px;
-      border: 0;
-      border-radius: 4px;
-      background: transparent;
-      color: #647281;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .format-button:hover {
-      background: var(--blue-light);
-      color: var(--blue);
-    }
-
-    .format-button.active {
-      background: var(--blue);
-      color: white;
-    }
-
-    .page-stage {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 30px 30px 60px;
-      overflow: hidden;
-    }
-
-    /* =========================================================
-       SCREENPLAY PAGE
-       ========================================================= */
-
-    .page {
-      width: min(816px, calc(100vw - 350px));
-      height: calc(100vh - 158px);
-      min-height: 500px;
-      background: var(--paper);
-      box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.08),
-        0 8px 30px rgba(15, 23, 42, 0.08);
-      padding: 72px 80px;
-      overflow: hidden;
-    }
-
-    .screenplay {
-      width: 100%;
-      height: 100%;
-      outline: none;
-      overflow: hidden;
-      color: #171b20;
-      font-family: "Courier Prime", "Courier New", Courier, monospace;
-      font-size: 13px;
-      line-height: 1.45;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-
-    .screenplay:empty::before {
-      content: "Start writing...";
-      color: #b4bdc7;
-      pointer-events: none;
-    }
-
-    /* =========================================================
-       RIGHT STRUCTURE PANEL
-       ========================================================= */
-
-    .right-panel {
-      width: 210px;
-      min-width: 210px;
-      height: 100%;
-      background: var(--white);
-      border-left: 1px solid var(--gray-200);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .panel-section {
-      padding: 18px 16px;
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .panel-title {
-      margin-bottom: 12px;
-      color: #687787;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .panel-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 9px;
-      color: #677584;
-      font-size: 11px;
-    }
-
-    .panel-value {
-      color: var(--blue-dark);
-      font-weight: 600;
-    }
-
-    .accent-stat {
-      color: var(--orange);
-    }
-
-    /* =========================================================
-       STATUS BAR
-       ========================================================= */
-
-    .statusbar {
-      height: var(--status-height);
-      min-height: var(--status-height);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 12px;
-      background: var(--navy);
-      color: #b8c8d5;
-      font-size: 10px;
-    }
-
-    .status-left,
-    .status-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .saved {
-      color: #91d5e2;
-    }
-
-    /* =========================================================
-       RESPONSIVE
-       ========================================================= */
-
-    @media (max-width: 900px) {
-      .right-panel {
-        display: none;
-      }
-
-      .page {
-        width: calc(100vw - 310px);
-      }
-    }
-
-    @media (max-width: 650px) {
-      :root {
-        --sidebar-width: 190px;
-      }
-
-      .document-name {
-        display: none;
-      }
-
-      .toolbar .optional {
-        display: none;
-      }
-
-      .page-stage {
-        padding: 15px;
-      }
-
-      .page {
-        width: calc(100vw - 220px);
-        padding: 45px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screenwriter</title>
+
+<style>
+:root {
+  --white: #ffffff;
+  --paper: #fffefd;
+  --canvas: #eef2f6;
+  --surface: #f7f9fb;
+  --surface-2: #edf1f5;
+
+  --line: #dce3ea;
+  --line-soft: #e9eef3;
+
+  --text: #17212b;
+  --text-2: #526170;
+  --text-3: #8794a2;
+
+  --blue: #1670c5;
+  --blue-2: #0d4f91;
+  --blue-3: #e8f3ff;
+  --navy: #102c46;
+
+  --cyan: #08b9d8;
+  --orange: #ff8b21;
+  --green: #28a66f;
+
+  --sidebar: 248px;
+  --inspector: 238px;
+  --topbar: 58px;
+  --statusbar: 28px;
+
+  --shadow-page:
+    0 2px 5px rgba(15, 35, 55, .06),
+    0 16px 40px rgba(15, 35, 55, .10);
+
+  --shadow-float:
+    0 8px 28px rgba(15, 35, 55, .14);
+
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--canvas);
+  color: var(--text);
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.topbar {
+  height: var(--topbar);
+  min-height: var(--topbar);
+
+  display: flex;
+  align-items: center;
+
+  background: rgba(255,255,255,.96);
+  border-bottom: 1px solid var(--line);
+
+  position: relative;
+  z-index: 50;
+}
+
+.brand-area {
+  width: var(--sidebar);
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 18px;
+
+  border-right: 1px solid var(--line);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .9px;
+
+  color: var(--navy);
+}
+
+.logo-symbol {
+  width: 23px;
+  height: 23px;
+
+  position: relative;
+
+  border-radius: 6px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--blue-2)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 3px 8px rgba(22,112,197,.20);
+}
+
+.logo-symbol::before,
+.logo-symbol::after {
+  content: "";
+  position: absolute;
+
+  background: white;
+
+  border-radius: 2px;
+}
+
+.logo-symbol::before {
+  width: 9px;
+  height: 2px;
+
+  left: 7px;
+  top: 8px;
+}
+
+.logo-symbol::after {
+  width: 6px;
+  height: 2px;
+
+  left: 7px;
+  top: 13px;
+}
+
+.document-area {
+  flex: 1;
+  min-width: 0;
+
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px;
+}
+
+.document-title {
+  max-width: 420px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: var(--text);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.document-subtitle {
+  margin-left: 10px;
+
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.top-actions {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 0 12px;
+}
+
+.icon-button {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: transparent;
+  color: var(--text-2);
+
+  cursor: pointer;
+
+  transition:
+    background .16s ease,
+    color .16s ease,
+    transform .16s ease;
+}
+
+.icon-button:hover {
+  background: var(--surface-2);
+  color: var(--blue);
+}
+
+.icon-button:active {
+  transform: scale(.94);
+}
+
+.icon-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.top-divider {
+  width: 1px;
+  height: 22px;
+
+  margin: 0 5px;
+
+  background: var(--line);
+}
+
+.save-state {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 0 10px;
+
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.save-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(40,166,111,.10);
+}
+
+.export-button {
+  height: 34px;
+
+  padding: 0 15px;
+
+  border-radius: 7px;
+
+  background: var(--blue);
+  color: white;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 8px rgba(22,112,197,.18);
+
+  transition:
+    background .16s ease,
+    transform .16s ease;
+}
+
+.export-button:hover {
+  background: #0d62ad;
+}
+
+.export-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.main {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   LEFT SIDEBAR
+   ========================================================= */
+
+.sidebar {
+  width: var(--sidebar);
+  min-width: var(--sidebar);
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--surface);
+
+  border-right: 1px solid var(--line);
+
+  transition:
+    width .24s ease,
+    min-width .24s ease;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sidebar-top {
+  height: 50px;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 14px 0 17px;
+}
+
+.section-label {
+  color: var(--text-3);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.small-action {
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  background: transparent;
+  color: var(--blue);
+
+  cursor: pointer;
+
+  transition: background .15s ease;
+}
+
+.small-action:hover {
+  background: var(--blue-3);
+}
+
+.scene-list {
+  flex: 1;
+  min-height: 0;
+
+  padding: 4px 9px;
+
+  overflow: hidden;
+}
+
+.scene-card {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 58px;
+
+  padding: 9px 10px;
+
+  margin-bottom: 3px;
+
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  transition:
+    background .16s ease,
+    box-shadow .16s ease;
+}
+
+.scene-card:hover {
+  background: #eaf0f5;
+}
+
+.scene-card.active {
+  background: var(--blue-3);
+
+  box-shadow:
+    inset 3px 0 0 var(--blue);
+}
+
+.scene-number {
+  width: 27px;
+  min-width: 27px;
+
+  color: var(--text-3);
+
+  font-family: "Courier New", monospace;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+.scene-card.active .scene-number {
+  color: var(--blue);
+}
+
+.scene-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.scene-heading {
+  overflow: hidden;
+
+  color: var(--text);
+
+  font-size: 11px;
+  font-weight: 650;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.scene-card.active .scene-heading {
+  color: var(--blue-2);
+}
+
+.scene-meta {
+  display: flex;
+  gap: 7px;
+
+  margin-top: 4px;
+
+  color: var(--text-3);
+
+  font-size: 9px;
+}
+
+.scene-type {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.sidebar-bottom {
+  height: 47px;
+  min-height: 47px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 15px;
+
+  border-top: 1px solid var(--line);
+
+  color: var(--text-3);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   EDITOR
+   ========================================================= */
+
+.editor {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    radial-gradient(
+      circle at 50% -20%,
+      rgba(255,255,255,.75),
+      transparent 45%
+    ),
+    var(--canvas);
+
+  overflow: hidden;
+}
+
+.editor-toolbar {
+  height: 48px;
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  z-index: 20;
+}
+
+.format-bar {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  padding: 4px;
+
+  background: rgba(255,255,255,.92);
+
+  border: 1px solid rgba(214,223,231,.95);
+
+  border-radius: 9px;
+
+  box-shadow: var(--shadow-float);
+
+  backdrop-filter: blur(12px);
+}
+
+.format-button {
+  height: 29px;
+
+  padding: 0 10px;
+
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--text-2);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background .15s ease,
+    color .15s ease;
+}
+
+.format-button:hover {
+  background: var(--surface-2);
+  color: var(--blue);
+}
+
+.format-button.active {
+  background: var(--blue);
+  color: white;
+}
+
+.format-divider {
+  width: 1px;
+  height: 19px;
+
+  margin: 0 3px;
+
+  background: var(--line);
+}
+
+.paper-viewport {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 4px 30px 45px;
+
+  overflow: hidden;
+}
+
+.paper {
+  width: min(850px, calc(100% - 20px));
+  height: 100%;
+
+  position: relative;
+
+  background: var(--paper);
+
+  border: 1px solid #e7e5e1;
+
+  box-shadow: var(--shadow-page);
+
+  overflow: hidden;
+}
+
+.paper-inner {
+  height: 100%;
+
+  padding:
+    78px
+    92px
+    72px
+    92px;
+}
+
+.screenplay {
+  width: 100%;
+  height: 100%;
+
+  outline: none;
+
+  overflow: hidden;
+
+  color: #171b20;
+
+  font-family:
+    "Courier Prime",
+    "Courier New",
+    monospace;
+
+  font-size: 13px;
+
+  line-height: 1.48;
+
+  white-space: pre-wrap;
+
+  word-break: normal;
+
+  caret-color: var(--blue);
+}
+
+.screenplay:empty::before {
+  content: "INT. YOUR FIRST SCENE - DAY";
+  color: #b9c1c8;
+  pointer-events: none;
+}
+
+/* =========================================================
+   PAGE DETAILS
+   ========================================================= */
+
+.page-number {
+  position: absolute;
+
+  top: 30px;
+  right: 45px;
+
+  color: #b0b6bc;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 9px;
+}
+
+.page-footer {
+  position: absolute;
+
+  bottom: 25px;
+  left: 0;
+  right: 0;
+
+  text-align: center;
+
+  color: #c0c5ca;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 8px;
+}
+
+/* =========================================================
+   RIGHT INSPECTOR
+   ========================================================= */
+
+.inspector {
+  width: var(--inspector);
+  min-width: var(--inspector);
+
+  background: rgba(255,255,255,.96);
+
+  border-left: 1px solid var(--line);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  transition:
+    width .24s ease,
+    min-width .24s ease;
+}
+
+.inspector.collapsed {
+  width: 0;
+  min-width: 0;
+}
+
+.inspector-header {
+  height: 50px;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 14px 0 16px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.inspector-title {
+  color: var(--text);
+
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.inspector-content {
+  flex: 1;
+  min-height: 0;
+
+  overflow: hidden;
+}
+
+.inspector-section {
+  padding: 18px 16px;
+
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.inspector-heading {
+  margin-bottom: 13px;
+
+  color: var(--text-3);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: .9px;
+  text-transform: uppercase;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+
+  color: var(--text-2);
+
+  font-size: 10px;
+}
+
+.stat:last-child {
+  margin-bottom: 0;
+}
+
+.stat-value {
+  color: var(--text);
+
+  font-family: "Courier New", monospace;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.stat-value.blue {
+  color: var(--blue);
+}
+
+.stat-value.orange {
+  color: var(--orange);
+}
+
+.progress {
+  width: 100%;
+  height: 4px;
+
+  margin-top: 12px;
+
+  overflow: hidden;
+
+  border-radius: 4px;
+
+  background: var(--surface-2);
+}
+
+.progress-fill {
+  width: 18%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--cyan)
+    );
+}
+
+.quick-item {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  height: 31px;
+
+  color: var(--text-2);
+
+  font-size: 10px;
+}
+
+.quick-icon {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 5px;
+
+  background: var(--surface);
+
+  color: var(--blue);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   STATUS BAR
+   ========================================================= */
+
+.statusbar {
+  height: var(--statusbar);
+  min-height: var(--statusbar);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 13px;
+
+  background: var(--navy);
+
+  color: #9eb3c5;
+
+  font-size: 9px;
+}
+
+.status-group {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.status-save {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color: #8fd2ad;
+}
+
+.status-save-dot {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #45c58a;
+}
+
+/* =========================================================
+   COMMAND PALETTE
+   ========================================================= */
+
+.command-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding-top: 110px;
+
+  background: rgba(10,28,44,.25);
+
+  backdrop-filter: blur(3px);
+
+  z-index: 100;
+}
+
+.command-overlay.open {
+  display: flex;
+}
+
+.command-box {
+  width: 470px;
+
+  overflow: hidden;
+
+  background: white;
+
+  border: 1px solid var(--line);
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 25px 70px rgba(8,30,50,.22);
+}
+
+.command-input {
+  width: 100%;
+  height: 48px;
+
+  padding: 0 16px;
+
+  border: 0;
+  outline: none;
+
+  border-bottom: 1px solid var(--line);
+
+  color: var(--text);
+
+  font-size: 13px;
+}
+
+.command-list {
+  padding: 7px;
+}
+
+.command-item {
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 10px;
+
+  border-radius: 6px;
+
+  color: var(--text-2);
+
+  font-size: 11px;
+}
+
+.command-item:hover {
+  background: var(--blue-3);
+  color: var(--blue);
+}
+
+/* =========================================================
+   FOCUS MODE
+   ========================================================= */
+
+.app.focus-mode .sidebar,
+.app.focus-mode .inspector,
+.app.focus-mode .topbar,
+.app.focus-mode .statusbar {
+  display: none;
+}
+
+.app.focus-mode .editor-toolbar {
+  position: absolute;
+
+  top: 15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  opacity: 0;
+
+  transition: opacity .2s ease;
+}
+
+.app.focus-mode .editor-toolbar:hover {
+  opacity: 1;
+}
+
+.app.focus-mode .paper-viewport {
+  padding-top: 35px;
+}
+
+.app.focus-mode .paper {
+  width: min(850px, 90%);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .inspector {
+    display: none;
+  }
+
+  .paper {
+    width: min(850px, calc(100% - 20px));
+  }
+}
+
+@media (max-width: 760px) {
+  .brand-area {
+    width: 190px;
+  }
+
+  .sidebar {
+    width: 190px;
+    min-width: 190px;
+  }
+
+  .document-subtitle {
+    display: none;
+  }
+
+  .paper-inner {
+    padding-left: 55px;
+    padding-right: 55px;
+  }
+
+  .format-button {
+    padding: 0 7px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
+
+  .brand-area {
+    width: auto;
+    min-width: 175px;
+  }
+
+  .document-area {
+    display: none;
+  }
+
+  .paper-viewport {
+    padding: 5px;
+  }
+
+  .paper {
+    width: 100%;
+  }
+
+  .paper-inner {
+    padding:
+      55px
+      35px
+      55px
+      35px;
+  }
+
+  .format-bar {
+    max-width: calc(100vw - 20px);
+    overflow: hidden;
+  }
+
+  .format-button {
+    font-size: 9px;
+    padding: 0 6px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="app" id="app">
 
-  <!-- TOP NAVIGATION -->
+  <!-- =======================================================
+       TOP BAR
+       ======================================================= -->
+
   <header class="topbar">
 
-    <div class="brand">
-      <span class="brand-mark"></span>
-      SCREENWRITER
+    <div class="brand-area">
+
+      <div class="logo">
+
+        <div class="logo-symbol"></div>
+
+        SCREENWRITER
+
+      </div>
+
     </div>
 
-    <div class="document-name">
-      Untitled Screenplay
+    <div class="document-area">
+
+      <div class="document-title">
+        Untitled Screenplay
+      </div>
+
+      <div class="document-subtitle">
+        Draft 01
+      </div>
+
     </div>
 
-    <div class="toolbar">
+    <div class="top-actions">
 
-      <button class="tool-button optional">Undo</button>
-      <button class="tool-button optional">Redo</button>
+      <div class="save-state">
+        <span class="save-dot"></span>
+        Saved
+      </div>
 
-      <div class="divider"></div>
+      <div class="top-divider"></div>
 
-      <button class="tool-button optional">Notes</button>
-      <button class="tool-button optional">Outline</button>
+      <button
+        class="icon-button"
+        title="Command Palette"
+        onclick="toggleCommand()"
+      >
+        ⌘
+      </button>
 
-      <div class="divider"></div>
+      <button
+        class="icon-button"
+        title="Toggle Scenes"
+        onclick="toggleSidebar()"
+      >
+        ☰
+      </button>
 
-      <button class="tool-button">Share</button>
-      <button class="tool-button primary">Export</button>
+      <button
+        class="icon-button"
+        title="Toggle Inspector"
+        onclick="toggleInspector()"
+      >
+        ◫
+      </button>
+
+      <button
+        class="icon-button"
+        title="Focus Mode"
+        onclick="toggleFocus()"
+      >
+        ⛶
+      </button>
+
+      <div class="top-divider"></div>
+
+      <button class="export-button">
+        Export
+      </button>
 
     </div>
 
   </header>
 
-  <!-- MAIN -->
+  <!-- =======================================================
+       MAIN WORKSPACE
+       ======================================================= -->
+
   <main class="main">
 
-    <!-- LEFT SIDEBAR -->
-    <aside class="sidebar">
+    <!-- LEFT SCENE NAVIGATION -->
 
-      <div class="sidebar-header">
-        Scenes
-        <button class="add-button">+</button>
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-top">
+
+        <span class="section-label">
+          Scenes
+        </span>
+
+        <button
+          class="small-action"
+          title="New Scene"
+        >
+          +
+        </button>
+
       </div>
 
       <div class="scene-list">
 
-        <div class="scene active">
-          <span class="scene-number">1</span>
-          <span class="scene-title">Opening</span>
+        <div class="scene-card active">
+
+          <div class="scene-number">
+            01
+          </div>
+
+          <div class="scene-info">
+
+            <div class="scene-heading">
+              Opening
+            </div>
+
+            <div class="scene-meta">
+              <span class="scene-type">
+                INT.
+              </span>
+              <span>
+                1 page
+              </span>
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="scene">
-          <span class="scene-number">2</span>
-          <span class="scene-title">The Arrival</span>
+        <div class="scene-card">
+
+          <div class="scene-number">
+            02
+          </div>
+
+          <div class="scene-info">
+
+            <div class="scene-heading">
+              The Arrival
+            </div>
+
+            <div class="scene-meta">
+              <span class="scene-type">
+                EXT.
+              </span>
+              <span>
+                2 pages
+              </span>
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="scene">
-          <span class="scene-number">3</span>
-          <span class="scene-title">The Call</span>
+        <div class="scene-card">
+
+          <div class="scene-number">
+            03
+          </div>
+
+          <div class="scene-info">
+
+            <div class="scene-heading">
+              The Call
+            </div>
+
+            <div class="scene-meta">
+              <span class="scene-type">
+                INT.
+              </span>
+              <span>
+                1 page
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="scene-card">
+
+          <div class="scene-number">
+            04
+          </div>
+
+          <div class="scene-info">
+
+            <div class="scene-heading">
+              Unknown Location
+            </div>
+
+            <div class="scene-meta">
+              <span class="scene-type">
+                EXT.
+              </span>
+              <span>
+                3 pages
+              </span>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
 
-      <div class="sidebar-footer">
-        No scenes added
+      <div class="sidebar-bottom">
+        4 scenes · 7 pages
       </div>
 
     </aside>
 
-    <!-- EDITOR -->
-    <section class="editor-area">
+    <!-- CENTRAL EDITOR -->
+
+    <section class="editor">
 
       <div class="editor-toolbar">
 
-        <button class="format-button active">Scene</button>
-        <button class="format-button">Action</button>
-        <button class="format-button">Character</button>
-        <button class="format-button">Dialogue</button>
-        <button class="format-button">Parenthetical</button>
-        <button class="format-button">Transition</button>
+        <div class="format-bar">
+
+          <button
+            class="format-button active"
+            data-format="scene"
+          >
+            Scene Heading
+          </button>
+
+          <button
+            class="format-button"
+            data-format="action"
+          >
+            Action
+          </button>
+
+          <button
+            class="format-button"
+            data-format="character"
+          >
+            Character
+          </button>
+
+          <button
+            class="format-button"
+            data-format="dialogue"
+          >
+            Dialogue
+          </button>
+
+          <button
+            class="format-button"
+            data-format="parenthetical"
+          >
+            Parenthetical
+          </button>
+
+          <button
+            class="format-button"
+            data-format="transition"
+          >
+            Transition
+          </button>
+
+          <div class="format-divider"></div>
+
+          <button
+            class="format-button"
+            onclick="insertElement('—')"
+          >
+            + More
+          </button>
+
+        </div>
 
       </div>
 
-      <div class="page-stage">
+      <div class="paper-viewport">
 
-        <article class="page">
+        <article class="paper">
 
-          <div
-            class="screenplay"
-            contenteditable="true"
-            spellcheck="true"
-          ></div>
+          <div class="page-number">
+            1.
+          </div>
+
+          <div class="paper-inner">
+
+            <div
+              id="screenplay"
+              class="screenplay"
+              contenteditable="true"
+              spellcheck="true"
+            ></div>
+
+          </div>
+
+          <div class="page-footer">
+            UNTITLED SCREENPLAY
+          </div>
 
         </article>
 
@@ -578,52 +1424,127 @@
 
     </section>
 
-    <!-- RIGHT PANEL -->
-    <aside class="right-panel">
+    <!-- RIGHT INSPECTOR -->
 
-      <div class="panel-section">
+    <aside class="inspector" id="inspector">
 
-        <div class="panel-title">
-          Document
-        </div>
+      <div class="inspector-header">
 
-        <div class="panel-row">
-          <span>Pages</span>
-          <span class="panel-value">1</span>
-        </div>
+        <span class="inspector-title">
+          Inspector
+        </span>
 
-        <div class="panel-row">
-          <span>Scenes</span>
-          <span class="panel-value">0</span>
-        </div>
-
-        <div class="panel-row">
-          <span>Words</span>
-          <span class="panel-value">0</span>
-        </div>
+        <button
+          class="small-action"
+          onclick="toggleInspector()"
+        >
+          ×
+        </button>
 
       </div>
 
-      <div class="panel-section">
+      <div class="inspector-content">
 
-        <div class="panel-title">
-          Elements
-        </div>
+        <section class="inspector-section">
 
-        <div class="panel-row">
-          <span>Action</span>
-          <span class="panel-value">0</span>
-        </div>
+          <div class="inspector-heading">
+            Document
+          </div>
 
-        <div class="panel-row">
-          <span>Dialogue</span>
-          <span class="panel-value">0</span>
-        </div>
+          <div class="stat">
+            <span>Pages</span>
+            <span class="stat-value blue" id="pages">
+              1
+            </span>
+          </div>
 
-        <div class="panel-row">
-          <span>Characters</span>
-          <span class="panel-value accent-stat">0</span>
-        </div>
+          <div class="stat">
+            <span>Scenes</span>
+            <span class="stat-value">
+              4
+            </span>
+          </div>
+
+          <div class="stat">
+            <span>Words</span>
+            <span
+              class="stat-value"
+              id="words"
+            >
+              0
+            </span>
+          </div>
+
+          <div class="stat">
+            <span>Characters</span>
+            <span class="stat-value">
+              0
+            </span>
+          </div>
+
+          <div class="progress">
+            <div class="progress-fill"></div>
+          </div>
+
+        </section>
+
+        <section class="inspector-section">
+
+          <div class="inspector-heading">
+            Current Scene
+          </div>
+
+          <div class="stat">
+            <span>Scene</span>
+            <span class="stat-value">
+              01
+            </span>
+          </div>
+
+          <div class="stat">
+            <span>Type</span>
+            <span class="stat-value orange">
+              INT.
+            </span>
+          </div>
+
+          <div class="stat">
+            <span>Time</span>
+            <span class="stat-value">
+              DAY
+            </span>
+          </div>
+
+        </section>
+
+        <section class="inspector-section">
+
+          <div class="inspector-heading">
+            Quick Actions
+          </div>
+
+          <div class="quick-item">
+            <div class="quick-icon">
+              +
+            </div>
+            New Scene
+          </div>
+
+          <div class="quick-item">
+            <div class="quick-icon">
+              T
+            </div>
+            Add Character
+          </div>
+
+          <div class="quick-item">
+            <div class="quick-icon">
+              N
+            </div>
+            Add Note
+          </div>
+
+        </section>
 
       </div>
 
@@ -631,22 +1552,328 @@
 
   </main>
 
-  <!-- STATUS -->
+  <!-- =======================================================
+       STATUS BAR
+       ======================================================= -->
+
   <footer class="statusbar">
 
-    <div class="status-left">
-      <span class="saved">Saved</span>
-      <span>Page 1</span>
+    <div class="status-group">
+
+      <div class="status-save">
+        <span class="status-save-dot"></span>
+        Saved locally
+      </div>
+
+      <span>
+        Scene 01
+      </span>
+
     </div>
 
-    <div class="status-right">
-      <span>100%</span>
-      <span>Screenplay</span>
+    <div class="status-group">
+
+      <span>
+        Page <strong>1</strong>
+      </span>
+
+      <span>
+        100%
+      </span>
+
+      <span>
+        Courier Prime
+      </span>
+
     </div>
 
   </footer>
 
 </div>
+
+<!-- =========================================================
+     COMMAND PALETTE
+     ========================================================= -->
+
+<div
+  class="command-overlay"
+  id="commandOverlay"
+  onclick="closeCommandOutside(event)"
+>
+
+  <div class="command-box">
+
+    <input
+      id="commandInput"
+      class="command-input"
+      placeholder="Search commands..."
+      autocomplete="off"
+    >
+
+    <div class="command-list">
+
+      <div class="command-item">
+        New Scene
+      </div>
+
+      <div class="command-item">
+        Add Character
+      </div>
+
+      <div class="command-item">
+        Toggle Focus Mode
+      </div>
+
+      <div class="command-item">
+        Export Screenplay
+      </div>
+
+      <div class="command-item">
+        Open Outline
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const app = document.getElementById("app");
+const screenplay = document.getElementById("screenplay");
+const sidebar = document.getElementById("sidebar");
+const inspector = document.getElementById("inspector");
+const commandOverlay = document.getElementById("commandOverlay");
+const commandInput = document.getElementById("commandInput");
+const wordsElement = document.getElementById("words");
+
+/* =========================================================
+   PANEL CONTROLS
+   ========================================================= */
+
+function toggleSidebar() {
+  sidebar.classList.toggle("collapsed");
+}
+
+function toggleInspector() {
+  inspector.classList.toggle("collapsed");
+}
+
+function toggleFocus() {
+  app.classList.toggle("focus-mode");
+}
+
+/* =========================================================
+   COMMAND PALETTE
+   ========================================================= */
+
+function toggleCommand() {
+  commandOverlay.classList.toggle("open");
+
+  if (commandOverlay.classList.contains("open")) {
+    setTimeout(() => commandInput.focus(), 50);
+  }
+}
+
+function closeCommandOutside(event) {
+  if (event.target === commandOverlay) {
+    commandOverlay.classList.remove("open");
+  }
+}
+
+document.addEventListener("keydown", event => {
+
+  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+    event.preventDefault();
+    toggleCommand();
+  }
+
+  if (event.key === "Escape") {
+    commandOverlay.classList.remove("open");
+  }
+
+  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") {
+    event.preventDefault();
+    saveDocument();
+  }
+});
+
+/* =========================================================
+   SCREENPLAY FORMATTING
+   ========================================================= */
+
+const formatButtons =
+  document.querySelectorAll(".format-button[data-format]");
+
+formatButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    formatButtons.forEach(item =>
+      item.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    screenplay.focus();
+  });
+
+});
+
+function insertElement(text) {
+
+  screenplay.focus();
+
+  const selection = window.getSelection();
+
+  if (!selection.rangeCount) {
+    screenplay.innerText += text;
+    return;
+  }
+
+  const range = selection.getRangeAt(0);
+
+  range.deleteContents();
+
+  const node = document.createTextNode(text);
+
+  range.insertNode(node);
+
+  range.setStartAfter(node);
+  range.collapse(true);
+
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  updateStats();
+}
+
+/* =========================================================
+   LIVE DOCUMENT STATS
+   ========================================================= */
+
+function updateStats() {
+
+  const text = screenplay.innerText.trim();
+
+  const words =
+    text.length === 0
+      ? 0
+      : text.split(/\s+/).filter(Boolean).length;
+
+  wordsElement.textContent = words;
+
+  const estimatedPages =
+    Math.max(1, Math.ceil(words / 250));
+
+  document.getElementById("pages").textContent =
+    estimatedPages;
+}
+
+screenplay.addEventListener("input", () => {
+  updateStats();
+  saveDocument();
+});
+
+/* =========================================================
+   LOCAL AUTOSAVE
+   ========================================================= */
+
+let saveTimer;
+
+function saveDocument() {
+
+  clearTimeout(saveTimer);
+
+  saveTimer = setTimeout(() => {
+
+    localStorage.setItem(
+      "screenwriter_document",
+      screenplay.innerHTML
+    );
+
+    const saveLabel =
+      document.querySelector(".save-state");
+
+    saveLabel.innerHTML = `
+      <span class="save-dot"></span>
+      Saved
+    `;
+
+  }, 400);
+}
+
+function loadDocument() {
+
+  const saved =
+    localStorage.getItem(
+      "screenwriter_document"
+    );
+
+  if (saved) {
+    screenplay.innerHTML = saved;
+    updateStats();
+  }
+}
+
+loadDocument();
+
+/* =========================================================
+   SCENE SELECTION
+   ========================================================= */
+
+document.querySelectorAll(".scene-card").forEach(scene => {
+
+  scene.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(".scene-card")
+      .forEach(item =>
+        item.classList.remove("active")
+      );
+
+    scene.classList.add("active");
+
+  });
+
+});
+
+/* =========================================================
+   COMMAND FILTER
+   ========================================================= */
+
+commandInput.addEventListener("input", () => {
+
+  const query =
+    commandInput.value.toLowerCase();
+
+  document
+    .querySelectorAll(".command-item")
+    .forEach(item => {
+
+      item.style.display =
+        item.textContent
+          .toLowerCase()
+          .includes(query)
+          ? "flex"
+          : "none";
+
+    });
+
+});
+
+/* =========================================================
+   CLEAN FOCUS BEHAVIOR
+   ========================================================= */
+
+screenplay.addEventListener("focus", () => {
+
+  screenplay.style.caretColor =
+    "var(--blue)";
+
+});
+
+</script>
 
 </body>
 </html>
