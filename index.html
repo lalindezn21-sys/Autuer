@@ -3,26 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Screenwriter</title>
 
   <style>
     :root {
       /* 60% Neutral */
-      --neutral-white: #ffffff;
-      --neutral-light: #f4f7fa;
-      --neutral-gray: #dfe5eb;
+      --white: #ffffff;
+      --paper: #fbfcfe;
+      --gray-50: #f4f6f8;
+      --gray-100: #e8ecf0;
+      --gray-200: #d5dce3;
+      --gray-500: #718096;
 
       /* 30% Structural / Brand */
-      --blue-primary: #1769aa;
-      --blue-deep: #0d3b66;
-      --blue-dark: #092a47;
-      --blue-gray: #536b80;
+      --blue: #1769aa;
+      --blue-light: #eaf4ff;
+      --blue-mid: #2f80c9;
+      --blue-dark: #123b5d;
+      --navy: #0e2d45;
 
-      /* 10% High-Contrast Accents */
-      --accent-cyan: #00b8d9;
-      --accent-orange: #ff8a00;
-      --accent-yellow: #ffd166;
+      /* 10% Accent */
+      --cyan: #00b8d9;
+      --orange: #ff8a00;
+      --yellow: #ffd166;
+
+      --sidebar-width: 250px;
+      --toolbar-height: 54px;
+      --status-height: 30px;
     }
 
     * {
@@ -31,63 +38,615 @@
 
     html,
     body {
-      margin: 0;
       width: 100%;
       height: 100%;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--neutral-white);
+      margin: 0;
+      overflow: hidden;
+      background: var(--white);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
+      color: #18212b;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    /* =========================================================
+       APPLICATION SHELL
+       ========================================================= */
+
+    .app {
+      width: 100vw;
+      height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      background: var(--white);
     }
 
-    /* Structural header */
-    .header {
-      height: 64px;
-      width: 100%;
-      background: var(--blue-deep);
-      border-bottom: 3px solid var(--blue-primary);
+    /* =========================================================
+       TOP BAR
+       ========================================================= */
+
+    .topbar {
+      height: var(--toolbar-height);
+      min-height: var(--toolbar-height);
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      z-index: 10;
     }
 
-    /* Main neutral workspace */
-    .workspace {
+    .brand {
+      width: var(--sidebar-width);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      border-right: 1px solid var(--gray-200);
+      color: var(--blue-dark);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-mark {
+      width: 9px;
+      height: 9px;
+      margin-right: 9px;
+      background: var(--blue);
+      border-radius: 2px;
+      box-shadow: 5px 0 0 var(--cyan);
+    }
+
+    .document-name {
+      padding-left: 20px;
+      font-size: 14px;
+      color: #475569;
+      font-weight: 500;
       flex: 1;
-      width: 100%;
-      background: var(--neutral-white);
-      position: relative;
     }
 
-    /* Small structural accent */
-    .accent-line {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--accent-cyan);
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding-right: 12px;
     }
 
-    /* Bottom structural area */
-    .footer {
+    .tool-button {
       height: 32px;
+      min-width: 32px;
+      padding: 0 9px;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: #526170;
+      cursor: pointer;
+      font-size: 13px;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
+    }
+
+    .tool-button:hover {
+      background: var(--gray-50);
+      color: var(--blue);
+    }
+
+    .tool-button.primary {
+      background: var(--blue);
+      color: white;
+      padding: 0 15px;
+    }
+
+    .tool-button.primary:hover {
+      background: var(--blue-mid);
+    }
+
+    .divider {
+      width: 1px;
+      height: 22px;
+      background: var(--gray-200);
+      margin: 0 6px;
+    }
+
+    /* =========================================================
+       MAIN APPLICATION AREA
+       ========================================================= */
+
+    .main {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       LEFT SIDEBAR
+       ========================================================= */
+
+    .sidebar {
+      width: var(--sidebar-width);
+      min-width: var(--sidebar-width);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: var(--gray-50);
+      border-right: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      height: 48px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px 0 18px;
+      color: #687787;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .add-button {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--blue);
+      font-size: 19px;
+      cursor: pointer;
+    }
+
+    .add-button:hover {
+      background: var(--blue-light);
+    }
+
+    .scene-list {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      padding: 0 8px;
+    }
+
+    .scene {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 11px;
+      margin-bottom: 2px;
+      border-radius: 5px;
+      color: #596979;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .scene:hover {
+      background: #e9eef3;
+    }
+
+    .scene.active {
+      background: var(--blue-light);
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .scene-number {
+      width: 20px;
+      color: #8a98a7;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .scene.active .scene-number {
+      color: var(--blue);
+    }
+
+    .scene-title {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-footer {
+      height: 46px;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      border-top: 1px solid var(--gray-200);
+      color: #788594;
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       EDITOR
+       ========================================================= */
+
+    .editor-area {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: #eef1f4;
+      overflow: hidden;
+    }
+
+    .editor-toolbar {
+      height: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .format-button {
+      height: 28px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: #647281;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .format-button:hover {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .format-button.active {
+      background: var(--blue);
+      color: white;
+    }
+
+    .page-stage {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 30px 60px;
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       SCREENPLAY PAGE
+       ========================================================= */
+
+    .page {
+      width: min(816px, calc(100vw - 350px));
+      height: calc(100vh - 158px);
+      min-height: 500px;
+      background: var(--paper);
+      box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.08),
+        0 8px 30px rgba(15, 23, 42, 0.08);
+      padding: 72px 80px;
+      overflow: hidden;
+    }
+
+    .screenplay {
       width: 100%;
-      background: var(--neutral-light);
-      border-top: 1px solid var(--neutral-gray);
+      height: 100%;
+      outline: none;
+      overflow: hidden;
+      color: #171b20;
+      font-family: "Courier Prime", "Courier New", Courier, monospace;
+      font-size: 13px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .screenplay:empty::before {
+      content: "Start writing...";
+      color: #b4bdc7;
+      pointer-events: none;
+    }
+
+    /* =========================================================
+       RIGHT STRUCTURE PANEL
+       ========================================================= */
+
+    .right-panel {
+      width: 210px;
+      min-width: 210px;
+      height: 100%;
+      background: var(--white);
+      border-left: 1px solid var(--gray-200);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .panel-section {
+      padding: 18px 16px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .panel-title {
+      margin-bottom: 12px;
+      color: #687787;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .panel-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 9px;
+      color: #677584;
+      font-size: 11px;
+    }
+
+    .panel-value {
+      color: var(--blue-dark);
+      font-weight: 600;
+    }
+
+    .accent-stat {
+      color: var(--orange);
+    }
+
+    /* =========================================================
+       STATUS BAR
+       ========================================================= */
+
+    .statusbar {
+      height: var(--status-height);
+      min-height: var(--status-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      background: var(--navy);
+      color: #b8c8d5;
+      font-size: 10px;
+    }
+
+    .status-left,
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .saved {
+      color: #91d5e2;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 900px) {
+      .right-panel {
+        display: none;
+      }
+
+      .page {
+        width: calc(100vw - 310px);
+      }
+    }
+
+    @media (max-width: 650px) {
+      :root {
+        --sidebar-width: 190px;
+      }
+
+      .document-name {
+        display: none;
+      }
+
+      .toolbar .optional {
+        display: none;
+      }
+
+      .page-stage {
+        padding: 15px;
+      }
+
+      .page {
+        width: calc(100vw - 220px);
+        padding: 45px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header class="header"></header>
+<div class="app">
 
-  <main class="workspace">
-    <div class="accent-line"></div>
+  <!-- TOP NAVIGATION -->
+  <header class="topbar">
+
+    <div class="brand">
+      <span class="brand-mark"></span>
+      SCREENWRITER
+    </div>
+
+    <div class="document-name">
+      Untitled Screenplay
+    </div>
+
+    <div class="toolbar">
+
+      <button class="tool-button optional">Undo</button>
+      <button class="tool-button optional">Redo</button>
+
+      <div class="divider"></div>
+
+      <button class="tool-button optional">Notes</button>
+      <button class="tool-button optional">Outline</button>
+
+      <div class="divider"></div>
+
+      <button class="tool-button">Share</button>
+      <button class="tool-button primary">Export</button>
+
+    </div>
+
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-header">
+        Scenes
+        <button class="add-button">+</button>
+      </div>
+
+      <div class="scene-list">
+
+        <div class="scene active">
+          <span class="scene-number">1</span>
+          <span class="scene-title">Opening</span>
+        </div>
+
+        <div class="scene">
+          <span class="scene-number">2</span>
+          <span class="scene-title">The Arrival</span>
+        </div>
+
+        <div class="scene">
+          <span class="scene-number">3</span>
+          <span class="scene-title">The Call</span>
+        </div>
+
+      </div>
+
+      <div class="sidebar-footer">
+        No scenes added
+      </div>
+
+    </aside>
+
+    <!-- EDITOR -->
+    <section class="editor-area">
+
+      <div class="editor-toolbar">
+
+        <button class="format-button active">Scene</button>
+        <button class="format-button">Action</button>
+        <button class="format-button">Character</button>
+        <button class="format-button">Dialogue</button>
+        <button class="format-button">Parenthetical</button>
+        <button class="format-button">Transition</button>
+
+      </div>
+
+      <div class="page-stage">
+
+        <article class="page">
+
+          <div
+            class="screenplay"
+            contenteditable="true"
+            spellcheck="true"
+          ></div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+
+      <div class="panel-section">
+
+        <div class="panel-title">
+          Document
+        </div>
+
+        <div class="panel-row">
+          <span>Pages</span>
+          <span class="panel-value">1</span>
+        </div>
+
+        <div class="panel-row">
+          <span>Scenes</span>
+          <span class="panel-value">0</span>
+        </div>
+
+        <div class="panel-row">
+          <span>Words</span>
+          <span class="panel-value">0</span>
+        </div>
+
+      </div>
+
+      <div class="panel-section">
+
+        <div class="panel-title">
+          Elements
+        </div>
+
+        <div class="panel-row">
+          <span>Action</span>
+          <span class="panel-value">0</span>
+        </div>
+
+        <div class="panel-row">
+          <span>Dialogue</span>
+          <span class="panel-value">0</span>
+        </div>
+
+        <div class="panel-row">
+          <span>Characters</span>
+          <span class="panel-value accent-stat">0</span>
+        </div>
+
+      </div>
+
+    </aside>
+
   </main>
 
-  <footer class="footer"></footer>
+  <!-- STATUS -->
+  <footer class="statusbar">
+
+    <div class="status-left">
+      <span class="saved">Saved</span>
+      <span>Page 1</span>
+    </div>
+
+    <div class="status-right">
+      <span>100%</span>
+      <span>Screenplay</span>
+    </div>
+
+  </footer>
+
+</div>
 
 </body>
 </html>
