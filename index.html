@@ -1201,6 +1201,169 @@ button {
   }
 }
 </style>
+<style>
+/* AUTEUR INLINE STORYLINE EDITOR V1 */
+.storyline-card {
+  margin: 0 0 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.storyline-card:hover {
+  border-color: #d6d6d1;
+}
+
+.storyline-header {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 9px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.storyline-header:hover {
+  background: var(--hover);
+}
+
+.storyline-header-icon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.storyline-header-icon svg {
+  width: 13px;
+  height: 13px;
+  color: #74746f;
+}
+
+.storyline-header-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.storyline-title-closed {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.storyline-synopsis-closed {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+  color: #8a8a85;
+  font-size: 9px;
+}
+
+.storyline-chevron {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: grid;
+  place-items: center;
+  color: #888883;
+  transition: transform .16s ease;
+}
+
+.storyline-card.open .storyline-chevron {
+  transform: rotate(180deg);
+}
+
+.storyline-body {
+  display: none;
+  padding: 0 10px 11px;
+  border-top: 1px solid var(--line);
+}
+
+.storyline-card.open .storyline-body {
+  display: block;
+}
+
+.storyline-field-label {
+  display: block;
+  margin: 11px 0 6px;
+  color: #858580;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.storyline-title-input,
+.storyline-synopsis-input {
+  width: 100%;
+  border: 1px solid #dededb;
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  color: #161616;
+}
+
+.storyline-title-input {
+  height: 36px;
+  padding: 0 9px;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.storyline-synopsis-input {
+  min-height: 112px;
+  padding: 9px;
+  resize: vertical;
+  font-size: 10px;
+  line-height: 1.5;
+  font-family: inherit;
+}
+
+.storyline-title-input:focus,
+.storyline-synopsis-input:focus {
+  border-color: #999994;
+}
+
+.storyline-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.storyline-delete {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--danger);
+  cursor: pointer;
+}
+
+.storyline-delete:hover {
+  background: #ece8e8;
+}
+
+.storyline-delete svg {
+  width: 13px;
+  height: 13px;
+}
+</style>
 </head>
 
 <body>
@@ -4430,5 +4593,152 @@ setTimeout(
 
 </script>
 
+<script>
+(() => {
+  const originalRenderElements = renderElements;
+  let expandedStorylineId = null;
+
+  function saveStorylines() {
+    localStorage.setItem(ELEMENTS_KEY, JSON.stringify(elements));
+  }
+
+  function renderStorylinesInline() {
+    const container = document.getElementById('storylineList');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (!elements.storyline.length) {
+      container.innerHTML = '<div class="element-empty">None created yet.</div>';
+      return;
+    }
+
+    elements.storyline.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'storyline-card' +
+        (expandedStorylineId === item.id ? ' open' : '');
+
+      const synopsis = item.description || '';
+      const title = item.name || 'Untitled Storyline';
+
+      card.innerHTML = `
+        <button class="storyline-header" type="button">
+          <span class="storyline-header-icon">
+            <i data-lucide="git-branch"></i>
+          </span>
+          <span class="storyline-header-copy">
+            <span class="storyline-title-closed">${escapeHTML(title)}</span>
+            <span class="storyline-synopsis-closed">${escapeHTML(synopsis || 'Synopsis')}</span>
+          </span>
+          <span class="storyline-chevron">
+            <i data-lucide="chevron-down"></i>
+          </span>
+        </button>
+
+        <div class="storyline-body">
+          <label class="storyline-field-label">Title</label>
+          <input
+            class="storyline-title-input"
+            type="text"
+            value="${escapeHTML(title)}"
+            aria-label="Storyline title"
+          >
+
+          <label class="storyline-field-label">Synopsis</label>
+          <textarea
+            class="storyline-synopsis-input"
+            placeholder="Write your synopsis..."
+            aria-label="Storyline synopsis"
+          >${escapeHTML(synopsis)}</textarea>
+
+          <div class="storyline-actions">
+            <button class="storyline-delete" type="button" title="Delete storyline">
+              <i data-lucide="trash-2"></i>
+            </button>
+          </div>
+        </div>
+      `;
+
+      const header = card.querySelector('.storyline-header');
+      const titleInput = card.querySelector('.storyline-title-input');
+      const synopsisInput = card.querySelector('.storyline-synopsis-input');
+      const deleteButton = card.querySelector('.storyline-delete');
+
+      header.addEventListener('click', () => {
+        expandedStorylineId =
+          expandedStorylineId === item.id ? null : item.id;
+        renderStorylinesInline();
+
+        if (expandedStorylineId === item.id) {
+          requestAnimationFrame(() => {
+            const input = document.querySelector(
+              `.storyline-card.open .storyline-title-input`
+            );
+            if (input) input.focus();
+          });
+        }
+      });
+
+      titleInput.addEventListener('click', event => event.stopPropagation());
+      synopsisInput.addEventListener('click', event => event.stopPropagation());
+      deleteButton.addEventListener('click', event => {
+        event.stopPropagation();
+        if (!confirm(`Delete "${item.name || 'Untitled Storyline'}"?`)) return;
+
+        elements.storyline = elements.storyline.filter(x => x.id !== item.id);
+        if (expandedStorylineId === item.id) expandedStorylineId = null;
+        saveStorylines();
+        renderElements();
+        showMessage('Storyline deleted');
+      });
+
+      titleInput.addEventListener('input', () => {
+        item.name = titleInput.value || 'Untitled Storyline';
+        saveStorylines();
+      });
+
+      synopsisInput.addEventListener('input', () => {
+        item.description = synopsisInput.value;
+        saveStorylines();
+      });
+
+      container.appendChild(card);
+    });
+
+    lucide.createIcons();
+  }
+
+  renderElements = function() {
+    originalRenderElements();
+    renderStorylinesInline();
+  };
+
+  document.querySelectorAll('.element-add[data-element-type="storyline"]').forEach(button => {
+    button.addEventListener('click', event => {
+      event.stopImmediatePropagation();
+      elementModal.classList.remove('open');
+
+      const item = {
+        id: Date.now().toString(),
+        name: 'Untitled Storyline',
+        description: '',
+        created: Date.now()
+      };
+
+      elements.storyline.push(item);
+      expandedStorylineId = item.id;
+      saveStorylines();
+      renderElements();
+
+      requestAnimationFrame(() => {
+        const input = document.querySelector('.storyline-card.open .storyline-title-input');
+        if (input) input.focus();
+      });
+    }, true);
+  });
+
+  renderStorylinesInline();
+})();
+</script>
 </body>
 </html>
