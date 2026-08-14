@@ -2,976 +2,769 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Auteur</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;500i;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-:root{
-  --purple:#5b21d1;
-  --purple-dark:#4916b0;
-  --purple-soft:#eeeafd;
-  --text:#292a2f;
-  --muted:#888c95;
-  --line:#e7e8eb;
-  --sidebar:#f7f8fa;
-  --hover:#f0f1f4;
-  --paper:#ffffff;
+:root {
+    --bg: #f5f5f4;
+    --panel: #fafafa;
+    --panel-2: #f0f0ef;
+    --paper: #fff;
+    --border: #dededc;
+    --border-dark: #cececa;
+    --text: #242424;
+    --muted: #858585;
+    --purple: #6846c7;
+    --purple-soft: #eee9fb;
+    --black: #181818;
+    --toolbar: 48px;
+    --left: 245px;
+    --right: 230px;
 }
 
-*{
-  box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
 html,
-body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
-body{
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--text);
-  background:#fff;
-  font-size:14px;
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    overflow: hidden;
 }
 
 button,
 input,
-textarea{
-  font:inherit;
+textarea {
+    font: inherit;
 }
 
-button{
-  border:0;
-  background:none;
-  color:inherit;
+button {
+    border: 0;
+    background: none;
 }
 
-.app{
-  width:100vw;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
+.app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* =========================================================
-   TOP BAR
+   GLOBAL TOP BAR
 ========================================================= */
 
-.topbar{
-  height:54px;
-  min-height:54px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 10px;
-  background:#fff;
+.topbar {
+    height: var(--toolbar);
+    flex-shrink: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 9px;
+    z-index: 20;
 }
 
 .top-left,
-.top-right{
-  display:flex;
-  align-items:center;
-  gap:4px;
+.top-right {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
-.top-right{
-  gap:10px;
+.brand {
+    width: 72px;
+    font-family: "EB Garamond", serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.03em;
+    cursor: pointer;
 }
 
-.icon-button{
-  width:34px;
-  height:34px;
-  border-radius:6px;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  color:#45474d;
-  font-size:17px;
+.project-title {
+    height: 28px;
+    border-left: 1px solid var(--border);
+    padding-left: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #555;
+    font-size: 12px;
 }
 
-.icon-button:hover{
-  background:var(--hover);
+.project-title strong {
+    color: #222;
+    font-weight: 600;
 }
 
-.updated{
-  color:#858991;
-  font-size:12px;
-  font-weight:600;
+.top-button {
+    height: 32px;
+    min-width: 32px;
+    padding: 0 9px;
+    border-radius: 5px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
 }
 
-.create-button{
-  height:36px;
-  padding:0 15px;
-  border-radius:5px;
-  background:var(--purple);
-  color:#fff;
-  font-size:13px;
-  font-weight:700;
-  cursor:pointer;
+.top-button:hover {
+    background: var(--panel-2);
 }
 
-.create-button:hover{
-  background:var(--purple-dark);
+.save-status {
+    color: #929292;
+    font-size: 11px;
+    margin-right: 4px;
 }
 
-/* =========================================================
-   APPLICATION
-========================================================= */
-
-.workspace{
-  flex:1;
-  min-height:0;
-  display:flex;
+.share {
+    border: 1px solid var(--border);
+    color: #444;
 }
 
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.sidebar{
-  width:300px;
-  min-width:300px;
-  background:var(--sidebar);
-  border-right:1px solid var(--line);
-  display:flex;
-  flex-direction:column;
-}
-
-.profile{
-  height:68px;
-  display:flex;
-  align-items:center;
-  gap:9px;
-  padding:0 18px;
-}
-
-.avatar{
-  width:27px;
-  height:27px;
-  border-radius:50%;
-  background:#1688f5;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:9px;
-  font-weight:800;
-}
-
-.profile-name{
-  font-size:14px;
-  font-weight:650;
-}
-
-.profile-chevron{
-  color:#858990;
-  font-size:11px;
-}
-
-.navigation{
-  padding:0 10px;
-}
-
-.nav-item{
-  width:100%;
-  height:39px;
-  border-radius:5px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:0 10px;
-  color:#414349;
-  font-size:14px;
-  font-weight:600;
-  text-align:left;
-  cursor:pointer;
-}
-
-.nav-item:hover{
-  background:#eef0f3;
-}
-
-.nav-item.active{
-  background:#ececf0;
-  color:var(--purple);
-}
-
-.nav-icon{
-  width:17px;
-  text-align:center;
-  font-size:15px;
-}
-
-.nav-right{
-  margin-left:auto;
-  color:#8c9098;
-}
-
-.nav-secondary{
-  margin-top:22px;
-}
-
-.upgrade{
-  margin:auto 10px 13px;
-  height:140px;
-  border-radius:5px;
-  background:#e8ebef;
-  padding:18px;
-  display:flex;
-  flex-direction:column;
-}
-
-.upgrade-title{
-  font-size:14px;
-  line-height:1.3;
-  font-weight:700;
-}
-
-.upgrade-button{
-  margin-top:auto;
-  align-self:flex-start;
-  height:33px;
-  padding:0 11px;
-  border-radius:5px;
-  background:#dce0e4;
-  font-size:12px;
-  font-weight:650;
-  cursor:pointer;
+.share:hover {
+    background: #f7f7f7;
 }
 
 /* =========================================================
-   MAIN
+   MAIN APPLICATION
 ========================================================= */
 
-.main{
-  flex:1;
-  min-width:0;
-  min-height:0;
-  display:flex;
-  flex-direction:column;
-}
-
-.page-header{
-  height:50px;
-  min-height:50px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  padding:0 38px;
-}
-
-.page-title{
-  font-size:20px;
-  font-weight:700;
-}
-
-.page{
-  flex:1;
-  min-height:0;
-  overflow:auto;
-}
-
-.hidden{
-  display:none!important;
+.workspace {
+    flex: 1;
+    min-height: 0;
+    display: flex;
 }
 
 /* =========================================================
-   DASHBOARD
+   LEFT NAVIGATION
 ========================================================= */
 
-.dashboard{
-  padding:29px 38px 80px;
+.left-panel {
+    width: var(--left);
+    min-width: var(--left);
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
 }
 
-.search{
-  height:57px;
-  border-radius:30px;
-  background:#f4f4f8;
-  display:flex;
-  align-items:center;
-  padding:0 20px;
-  margin-bottom:28px;
-  font-size:22px;
+.left-top {
+    height: 45px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 13px;
+    justify-content: space-between;
 }
 
-.search-icon{
-  color:#34363a;
+.mode-tabs {
+    display: flex;
+    height: 100%;
+    gap: 15px;
 }
 
-.search input{
-  flex:1;
-  border:0;
-  outline:0;
-  background:transparent;
-  margin-left:13px;
-  font-size:16px;
+.mode-tab {
+    position: relative;
+    color: #8a8a8a;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.search input::placeholder{
-  color:#c6c8ce;
+.mode-tab.active {
+    color: #242424;
 }
 
-.section-title{
-  font-size:16px;
-  font-weight:700;
-  margin-bottom:11px;
+.mode-tab.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--purple);
 }
 
-.file-list{
-  border-top:1px solid var(--line);
+.collapse {
+    width: 27px;
+    height: 27px;
+    border-radius: 4px;
+    color: #8b8b8b;
+    cursor: pointer;
 }
 
-.file-row{
-  height:56px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:0 14px;
-  cursor:pointer;
+.collapse:hover {
+    background: #e9e9e8;
 }
 
-.file-row:hover{
-  background:#fafafd;
+.outline {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
 }
 
-.file-cloud{
-  font-size:21px;
-  color:#b8bec7;
+.outline-section {
+    padding: 0 10px;
 }
 
-.file-name{
-  font-size:15px;
-  font-weight:650;
+.outline-label {
+    color: #999;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .09em;
+    padding: 10px 6px 6px;
 }
 
-.recent{
-  margin-bottom:48px;
+.outline-item {
+    min-height: 45px;
+    border-radius: 4px;
+    padding: 7px 8px;
+    cursor: pointer;
+    margin: 1px 0;
 }
 
-.file-toolbar{
-  height:48px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.outline-item:hover {
+    background: #eaeae9;
 }
 
-.tabs{
-  height:100%;
-  display:flex;
-  align-items:center;
-  gap:19px;
+.outline-item.active {
+    background: var(--purple-soft);
 }
 
-.tab{
-  height:100%;
-  position:relative;
-  display:flex;
-  align-items:center;
-  color:#9498a1;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
+.scene-number {
+    color: #a0a0a0;
+    font-size: 9px;
+    margin-bottom: 3px;
 }
 
-.tab.active{
-  color:#34353a;
-  font-weight:700;
+.scene-name {
+    color: #4a4a4a;
+    font-size: 11px;
+    line-height: 1.3;
+    font-weight: 600;
 }
 
-.tab.active::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:-1px;
-  height:2px;
-  background:var(--purple);
+.outline-item.active .scene-name {
+    color: #5335a8;
 }
 
-.sort{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  color:#858a93;
-  font-size:12px;
+.left-bottom {
+    border-top: 1px solid var(--border);
+    padding: 7px;
 }
 
-.view-buttons{
-  display:flex;
+.utility-button {
+    width: 100%;
+    height: 34px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 9px;
+    color: #777;
+    font-size: 11px;
+    cursor: pointer;
 }
 
-.view-button{
-  width:34px;
-  height:34px;
-  border-radius:4px;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-}
-
-.view-button.active{
-  background:#f0f0f4;
-  color:var(--purple);
+.utility-button:hover {
+    background: #eaeae9;
 }
 
 /* =========================================================
-   GENERAL WORKSPACE PAGES
+   CENTER EDITOR
 ========================================================= */
 
-.workspace-page{
-  padding:35px 42px 80px;
-  overflow:auto;
+.editor {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    background:
+        linear-gradient(
+            90deg,
+            #eeeeec 0,
+            #f5f5f4 7%,
+            #f5f5f4 93%,
+            #eeeeec 100%
+        );
+    display: flex;
+    flex-direction: column;
 }
 
-.workspace-heading{
-  font-size:25px;
-  font-weight:700;
-  margin-bottom:7px;
+.editor-toolbar {
+    height: 42px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,.96);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
 }
 
-.workspace-description{
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:27px;
+.format-tools {
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
-.card-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(180px,1fr));
-  gap:14px;
-  max-width:1050px;
+.format-button {
+    min-width: 29px;
+    height: 28px;
+    padding: 0 7px;
+    border-radius: 4px;
+    color: #737373;
+    font-size: 11px;
+    cursor: pointer;
 }
 
-.card{
-  border:1px solid #e2e3e7;
-  border-radius:8px;
-  padding:18px;
-  min-height:135px;
-  background:#fff;
-  cursor:pointer;
-  transition:.15s ease;
+.format-button:hover {
+    background: #ededeb;
+    color: #333;
 }
 
-.card:hover{
-  border-color:#cfc7ec;
-  box-shadow:0 5px 18px #0000000b;
+.format-button.active {
+    background: var(--purple-soft);
+    color: var(--purple);
 }
 
-.card-icon{
-  width:35px;
-  height:35px;
-  border-radius:7px;
-  background:var(--purple-soft);
-  color:var(--purple);
-  display:grid;
-  place-items:center;
-  margin-bottom:14px;
+.zoom {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #8a8a8a;
+    font-size: 10px;
 }
 
-.card-title{
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:5px;
+.zoom button {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #777;
 }
 
-.card-description{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.45;
+.zoom button:hover {
+    background: #ededeb;
+}
+
+.paper-scroll {
+    flex: 1;
+    overflow: auto;
+    padding: 44px 55px 120px;
+}
+
+.paper {
+    width: 816px;
+    min-height: 1056px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 1px 8px rgba(0,0,0,.10);
+    padding: 96px 108px;
+    transform-origin: top center;
+    transition: transform .15s ease;
+}
+
+.script {
+    min-height: 860px;
+    outline: none;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    line-height: 1.48;
+    white-space: pre-wrap;
+    color: #111;
+    caret-color: #333;
+}
+
+.script:focus {
+    outline: none;
 }
 
 /* =========================================================
-   CHARACTERS
+   RIGHT INSPECTOR
 ========================================================= */
 
-.character-grid{
-  display:grid;
-  grid-template-columns:repeat(3,240px);
-  gap:14px;
+.right-panel {
+    width: var(--right);
+    min-width: var(--right);
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
 }
 
-.character-card{
-  border:1px solid #e3e4e8;
-  border-radius:8px;
-  padding:18px;
-  background:#fff;
+.right-tabs {
+    height: 45px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
 }
 
-.character-avatar{
-  width:43px;
-  height:43px;
-  border-radius:50%;
-  background:#eeeafd;
-  color:var(--purple);
-  display:grid;
-  place-items:center;
-  font-weight:700;
-  margin-bottom:13px;
+.right-tab {
+    flex: 1;
+    position: relative;
+    color: #999;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.character-name{
-  font-size:14px;
-  font-weight:700;
+.right-tab.active {
+    color: #444;
 }
 
-.character-role{
-  margin-top:4px;
-  color:#92969f;
-  font-size:11px;
+.right-tab.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 15px;
+    right: 15px;
+    height: 2px;
+    background: var(--purple);
+}
+
+.inspector {
+    flex: 1;
+    overflow-y: auto;
+    padding: 13px;
+}
+
+.panel-view {
+    display: none;
+}
+
+.panel-view.active {
+    display: block;
+}
+
+.inspector-section {
+    margin-bottom: 20px;
+}
+
+.inspector-heading {
+    color: #969696;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    margin-bottom: 9px;
+}
+
+.field {
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 4px;
+    padding: 9px;
+    margin-bottom: 6px;
+}
+
+.field-label {
+    color: #999;
+    font-size: 8px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.field-value {
+    color: #444;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.character {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.character:hover {
+    background: #eaeae9;
+}
+
+.character-avatar {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: #e6e0f7;
+    color: #6042b3;
+    display: grid;
+    place-items: center;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.character-name {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.character-role {
+    font-size: 8px;
+    color: #999;
+    margin-top: 2px;
 }
 
 /* =========================================================
-   STORY
+   BOTTOM STATUS BAR
 ========================================================= */
 
-.timeline{
-  max-width:900px;
-  border-left:2px solid #dedfe3;
-  margin-left:10px;
+.statusbar {
+    height: 25px;
+    flex-shrink: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 11px;
+    color: #999;
+    font-size: 9px;
 }
 
-.beat{
-  position:relative;
-  padding:0 0 28px 28px;
-}
-
-.beat::before{
-  content:"";
-  position:absolute;
-  left:-7px;
-  top:2px;
-  width:11px;
-  height:11px;
-  border-radius:50%;
-  background:var(--purple);
-  border:3px solid #fff;
-  box-shadow:0 0 0 1px #d9dae0;
-}
-
-.beat-title{
-  font-size:14px;
-  font-weight:700;
-}
-
-.beat-description{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
+.status-left,
+.status-right {
+    display: flex;
+    gap: 14px;
 }
 
 /* =========================================================
-   NOTES
+   PROJECT OVERLAY
 ========================================================= */
 
-.notes-grid{
-  max-width:900px;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20,20,20,.30);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
 }
 
-.note{
-  min-height:165px;
-  border:1px solid #e2e3e7;
-  border-radius:8px;
-  padding:17px;
-  background:#fff;
+.overlay.open {
+    display: flex;
 }
 
-.note-title{
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:9px;
+.modal {
+    width: 460px;
+    background: #fff;
+    border: 1px solid #d8d8d5;
+    border-radius: 8px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.20);
+    overflow: hidden;
 }
 
-.note textarea{
-  width:100%;
-  min-height:100px;
-  border:0;
-  outline:0;
-  resize:none;
-  color:#70747d;
-  line-height:1.5;
-  font-size:12px;
+.modal-header {
+    padding: 19px 21px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-title {
+    font-family: "EB Garamond", serif;
+    font-size: 24px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-label {
+    display: block;
+    font-size: 10px;
+    color: #777;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.modal-input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    outline: none;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+.modal-input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 2px var(--purple-soft);
+}
+
+.modal-footer {
+    padding: 13px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+}
+
+.modal-button {
+    height: 34px;
+    padding: 0 13px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-cancel {
+    background: #ededeb;
+}
+
+.modal-create {
+    color: #fff;
+    background: var(--purple);
 }
 
 /* =========================================================
-   EDITOR
+   FULL SCREEN PROJECT VIEW
 ========================================================= */
 
-.editor-page{
-  padding:0!important;
-  overflow:hidden!important;
-  display:flex;
-  flex-direction:column;
-  background:#f6f6f8;
+.project-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background: #f7f7f6;
+    display: none;
+    flex-direction: column;
 }
 
-.editor-toolbar{
-  height:48px;
-  min-height:48px;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 14px;
+.project-screen.open {
+    display: flex;
 }
 
-.editor-left,
-.editor-right{
-  display:flex;
-  align-items:center;
+.project-header {
+    height: 54px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 17px;
+    justify-content: space-between;
 }
 
-.back-button{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:7px;
-  border-radius:5px;
-  color:#55585f;
-  font-size:12px;
-  font-weight:600;
-  cursor:pointer;
+.project-header-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
 }
 
-.back-button:hover{
-  background:#f1f1f3;
+.project-back {
+    color: #777;
+    cursor: pointer;
+    font-size: 12px;
 }
 
-.script-title{
-  margin-left:9px;
-  font-size:13px;
-  font-weight:650;
+.project-name {
+    font-family: "EB Garamond", serif;
+    font-size: 22px;
 }
 
-.editor-status{
-  color:#8b8f97;
-  font-size:11px;
-  margin-right:9px;
+.project-content {
+    flex: 1;
+    overflow: auto;
+    padding: 55px;
 }
 
-.editor-button{
-  width:32px;
-  height:32px;
-  display:grid;
-  place-items:center;
-  border-radius:5px;
-  cursor:pointer;
+.project-content-inner {
+    max-width: 980px;
+    margin: auto;
 }
 
-.editor-button:hover{
-  background:#f0f0f3;
+.project-eyebrow {
+    color: #999;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    margin-bottom: 9px;
 }
 
-.editor-body{
-  flex:1;
-  min-height:0;
-  display:flex;
-  overflow:hidden;
+.project-heading {
+    font-family: "EB Garamond", serif;
+    font-size: 46px;
+    line-height: 1;
+    margin-bottom: 35px;
 }
 
-/* =========================================================
-   SCENE PANEL
-========================================================= */
-
-.scene-panel{
-  width:230px;
-  min-width:230px;
-  background:#f7f8fa;
-  border-right:1px solid #e0e1e5;
-  overflow:auto;
+.project-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 17px;
 }
 
-.scene-header{
-  height:45px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 13px;
-  border-bottom:1px solid #e1e2e5;
-  color:#777b84;
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.08em;
+.project-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 18px;
 }
 
-.scene-add{
-  width:28px;
-  height:28px;
-  display:grid;
-  place-items:center;
-  border-radius:5px;
-  cursor:pointer;
+.project-card-title {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
-.scene-add:hover{
-  background:#e9eaed;
+.project-stat {
+    font-size: 30px;
+    font-family: "EB Garamond", serif;
 }
 
-.scene{
-  min-height:54px;
-  padding:9px 12px;
-  border-bottom:1px solid #e4e5e8;
-  cursor:pointer;
-}
-
-.scene:hover{
-  background:#eef0f3;
-}
-
-.scene.active{
-  background:#ece9f8;
-  border-left:3px solid var(--purple);
-  padding-left:9px;
-}
-
-.scene-number{
-  color:#999da5;
-  font-size:9px;
-  margin-bottom:3px;
-}
-
-.scene-title{
-  font-size:11px;
-  line-height:1.35;
-  font-weight:650;
-}
-
-/* =========================================================
-   SCREENPLAY
-========================================================= */
-
-.paper-area{
-  flex:1;
-  min-width:0;
-  overflow:auto;
-  padding:42px 65px 100px;
-  display:flex;
-  justify-content:center;
-}
-
-.paper{
-  width:816px;
-  min-height:1056px;
-  flex:none;
-  background:var(--paper);
-  box-shadow:0 2px 18px #00000012;
-  padding:92px 105px;
-}
-
-.screenplay{
-  width:100%;
-  min-height:850px;
-  outline:0;
-  white-space:pre-wrap;
-  font-family:"Courier New",Courier,monospace;
-  font-size:12px;
-  line-height:1.45;
-  color:#111;
-}
-
-/* =========================================================
-   INSPECTOR
-========================================================= */
-
-.inspector{
-  width:215px;
-  min-width:215px;
-  background:#f7f8fa;
-  border-left:1px solid #e0e1e5;
-  padding:12px;
-  overflow:auto;
-}
-
-.inspector-title{
-  margin:8px 5px 12px;
-  color:#8b8f97;
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.08em;
-}
-
-.inspector-card{
-  background:#fff;
-  border:1px solid #e3e4e8;
-  border-radius:6px;
-  padding:11px;
-  margin-bottom:8px;
-}
-
-.inspector-label{
-  color:#969aa2;
-  font-size:9px;
-  font-weight:700;
-  margin-bottom:4px;
-}
-
-.inspector-value{
-  font-size:11px;
-  font-weight:600;
-}
-
-/* =========================================================
-   FEATURE BAR
-========================================================= */
-
-.feature-bar{
-  position:fixed;
-  left:315px;
-  right:15px;
-  bottom:5px;
-  height:44px;
-  border:2px solid var(--purple);
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 13px;
-  z-index:20;
-  font-size:16px;
-  font-weight:700;
-}
-
-.feature-show{
-  color:#858991;
-  font-size:12px;
-  font-weight:650;
-  cursor:pointer;
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:#17171c40;
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-backdrop.open{
-  display:flex;
-}
-
-.modal{
-  width:420px;
-  background:#fff;
-  border-radius:10px;
-  padding:24px;
-  box-shadow:0 25px 70px #00000030;
-}
-
-.modal-title{
-  font-size:20px;
-  font-weight:700;
-  margin-bottom:20px;
-}
-
-.modal-label{
-  display:block;
-  color:#6f737b;
-  font-size:11px;
-  font-weight:700;
-  margin-bottom:7px;
-}
-
-.modal-input{
-  width:100%;
-  height:42px;
-  border:1px solid #d9dae0;
-  border-radius:5px;
-  padding:0 11px;
-  outline:none;
-}
-
-.modal-input:focus{
-  border-color:var(--purple);
-  box-shadow:0 0 0 2px var(--purple-soft);
-}
-
-.modal-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:7px;
-  margin-top:19px;
-}
-
-.modal-actions button{
-  height:36px;
-  padding:0 14px;
-  border-radius:5px;
-  font-size:12px;
-  font-weight:650;
-  cursor:pointer;
-}
-
-.cancel-button{
-  background:#f0f1f3;
-}
-
-.confirm-button{
-  background:var(--purple);
-  color:#fff;
+.project-small {
+    color: #999;
+    font-size: 10px;
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1100px){
+@media (max-width: 1050px) {
+    .right-panel {
+        display: none;
+    }
 
-  .sidebar{
-    width:245px;
-    min-width:245px;
-  }
-
-  .feature-bar{
-    left:260px;
-  }
-
-  .inspector{
-    display:none;
-  }
-
+    :root {
+        --left: 215px;
+    }
 }
 
-@media(max-width:800px){
+@media (max-width: 760px) {
+    .left-panel {
+        display: none;
+    }
 
-  .sidebar{
-    width:205px;
-    min-width:205px;
-  }
+    .paper-scroll {
+        padding: 25px;
+    }
 
-  .feature-bar{
-    left:220px;
-  }
+    .paper {
+        transform: scale(.82);
+        transform-origin: top center;
+        margin-bottom: -180px;
+    }
 
-  .scene-panel{
-    width:175px;
-    min-width:175px;
-  }
-
-  .paper-area{
-    padding:30px;
-  }
-
-  .paper{
-    padding:70px;
-  }
-
+    .project-content {
+        padding: 25px;
+    }
 }
 </style>
 </head>
@@ -980,445 +773,362 @@ button{
 
 <div class="app">
 
-<!-- =======================================================
-     TOP BAR
-======================================================= -->
-
-<header class="topbar">
-
-  <div class="top-left">
-
-    <button class="icon-button" onclick="navigate('dashboard')" title="Dashboard">
-      ⌂
-    </button>
-
-    <button class="icon-button" onclick="navigate('scripts')" title="Scripts">
-      ▣
-    </button>
-
-    <button class="icon-button" onclick="focusSearch()" title="Search">
-      ⌕
-    </button>
-
-    <button class="icon-button" title="Workspace">
-      ♧
-    </button>
-
-  </div>
-
-  <div class="top-right">
-
-    <span class="updated" id="globalStatus">
-      Updated just now
-    </span>
-
-    <button class="icon-button" onclick="saveScript()">
-      ↻
-    </button>
-
-    <button class="create-button" onclick="openCreateModal()">
-      ＋ Create
-    </button>
-
-  </div>
-
-</header>
-
-
-<div class="workspace">
-
-<!-- =======================================================
-     SIDEBAR
-======================================================= -->
-
-<aside class="sidebar">
-
-  <div class="profile">
-
-    <div class="avatar">
-      NL
-    </div>
-
-    <span class="profile-name">
-      Noah LaLindez
-    </span>
-
-    <span class="profile-chevron">
-      ⌄
-    </span>
-
-  </div>
-
-
-  <nav class="navigation">
-
-    <button
-      class="nav-item active"
-      data-page="dashboard"
-      onclick="navigate('dashboard')"
-    >
-      <span class="nav-icon">◉</span>
-      <span>Dashboard</span>
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-page="scripts"
-      onclick="navigate('scripts')"
-    >
-      <span class="nav-icon">▤</span>
-      <span>Scripts</span>
-      <span class="nav-right">＋</span>
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-page="projects"
-      onclick="navigate('projects')"
-    >
-      <span class="nav-icon">▦</span>
-      <span>Projects</span>
-    </button>
-
-
-    <div class="nav-secondary">
-
-      <button class="nav-item">
-        <span class="nav-icon">?</span>
-        <span>Support</span>
-      </button>
-
-      <button class="nav-item">
-        <span class="nav-icon">✦</span>
-        <span>What's new?</span>
-      </button>
-
-      <button class="nav-item">
-        <span class="nav-icon">◇</span>
-        <span>Refer a friend</span>
-      </button>
-
-    </div>
-
-  </nav>
-
-
-  <div class="upgrade">
-
-    <div class="upgrade-title">
-      Upgrade Auteur to get<br>
-      access to all features
-    </div>
-
-    <button class="upgrade-button">
-      ✦ Upgrade now!
-    </button>
-
-  </div>
-
-</aside>
-
-
-<!-- =======================================================
-     MAIN CONTENT
-======================================================= -->
-
-<main class="main">
-
-  <div class="page-header">
-    <div class="page-title" id="pageTitle">
-      Dashboard
-    </div>
-  </div>
-
-
-  <!-- =====================================================
-       DASHBOARD
-  ====================================================== -->
-
-  <section
-    class="page dashboard"
-    id="dashboardPage"
-  >
-
-    <div class="search">
-
-      <span class="search-icon">⌕</span>
-
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="Search scripts..."
-      >
-
-    </div>
-
-
-    <section class="recent">
-
-      <div class="section-title">
-        Recently edited
-      </div>
-
-      <div class="file-list" id="recentFiles">
-
-        <div
-          class="file-row"
-          data-name="Sentient Mass"
-          onclick="openScript('Sentient Mass')"
-        >
-          <span class="file-cloud">☁</span>
-          <span class="file-name">Sentient Mass</span>
-        </div>
-
-
-        <div
-          class="file-row"
-          data-name="Xenophon's Anabasis"
-          onclick="openScript('Xenophons Anabasis')"
-        >
-          <span class="file-cloud">☁</span>
-          <span class="file-name">Xenophon's Anabasis</span>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <section>
-
-      <div class="file-toolbar">
-
-        <div class="tabs">
-
-          <button class="tab active">
-            All Files
-          </button>
-
-          <button class="tab">
-            My Files
-          </button>
-
-          <button class="tab">
-            Shared With Me
-          </button>
-
-          <button class="tab">
-            Archived
-          </button>
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div class="top-left">
+
+            <div class="brand" onclick="openProject()">
+                Auteur
+            </div>
+
+            <div class="project-title">
+                <strong id="topProjectName">Sentient Mass</strong>
+                <span>›</span>
+                <span id="topDraft">Screenplay</span>
+            </div>
 
         </div>
 
+        <div class="top-right">
 
-        <div class="sort">
+            <span class="save-status" id="saveStatus">
+                Saved
+            </span>
 
-          <span>
-            by last edited⌄
-          </span>
-
-          <div class="view-buttons">
-
-            <button class="view-button active">
-              ☷
+            <button class="top-button" onclick="saveDocument()">
+                ↻
             </button>
 
-            <button class="view-button">
-              ▦
+            <button class="top-button" onclick="openProject()">
+                Project
             </button>
 
-          </div>
+            <button class="top-button share">
+                Share
+            </button>
+
+            <button class="top-button">
+                ⋯
+            </button>
 
         </div>
 
-      </div>
+    </header>
 
 
-      <div class="file-list" id="allFiles">
+    <main class="workspace">
 
-        <div
-          class="file-row"
-          data-name="Sentient Mass"
-          onclick="openScript('Sentient Mass')"
-        >
-          <span class="file-cloud">☁</span>
-          <span class="file-name">Sentient Mass</span>
-        </div>
+        <!-- =================================================
+             LEFT PANEL
+        ================================================== -->
 
+        <aside class="left-panel">
 
-        <div
-          class="file-row"
-          data-name="Xenophon's Anabasis"
-          onclick="openScript('Xenophons Anabasis')"
-        >
-          <span class="file-cloud">☁</span>
-          <span class="file-name">Xenophon's Anabasis</span>
-        </div>
+            <div class="left-top">
 
-      </div>
+                <div class="mode-tabs">
 
-    </section>
+                    <button
+                        class="mode-tab active"
+                        onclick="setLeftMode('outline', this)"
+                    >
+                        OUTLINE
+                    </button>
 
-  </section>
+                    <button
+                        class="mode-tab"
+                        onclick="setLeftMode('index', this)"
+                    >
+                        INDEX
+                    </button>
 
+                </div>
 
-  <!-- =====================================================
-       EDITOR
-  ====================================================== -->
+                <button
+                    class="collapse"
+                    onclick="toggleLeftPanel()"
+                >
+                    ‹
+                </button>
 
-  <section
-    class="page editor-page hidden"
-    id="editorPage"
-  >
-
-    <div class="editor-toolbar">
-
-      <div class="editor-left">
-
-        <button
-          class="back-button"
-          onclick="navigate('dashboard')"
-        >
-          ‹ Dashboard
-        </button>
-
-        <span
-          class="script-title"
-          id="editorScriptTitle"
-        >
-          Sentient Mass
-        </span>
-
-      </div>
-
-
-      <div class="editor-right">
-
-        <span
-          class="editor-status"
-          id="editorStatus"
-        >
-          Saved
-        </span>
-
-        <button
-          class="editor-button"
-          onclick="navigate('characters')"
-          title="Characters"
-        >
-          ♙
-        </button>
-
-        <button
-          class="editor-button"
-          onclick="navigate('story')"
-          title="Story Structure"
-        >
-          ⌁
-        </button>
-
-        <button
-          class="editor-button"
-          onclick="navigate('notes')"
-          title="Notes"
-        >
-          ▢
-        </button>
-
-        <button
-          class="editor-button"
-          title="Settings"
-        >
-          ⚙
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="editor-body">
-
-
-      <!-- SCENE PANEL -->
-
-      <aside class="scene-panel">
-
-        <div class="scene-header">
-
-          <span>
-            SCENES
-          </span>
-
-          <button
-            class="scene-add"
-            onclick="addScene()"
-          >
-            ＋
-          </button>
-
-        </div>
-
-
-        <div id="sceneList">
-
-          <div class="scene active">
-
-            <div class="scene-number">
-              01
             </div>
 
-            <div class="scene-title">
-              EXT. MEGA PLANET - DAY
+
+            <div class="outline" id="outlinePanel">
+
+                <div class="outline-section">
+
+                    <div class="outline-label">
+                        ACT I
+                    </div>
+
+
+                    <div
+                        class="outline-item active"
+                        onclick="selectScene(this, 1)"
+                    >
+
+                        <div class="scene-number">
+                            01
+                        </div>
+
+                        <div class="scene-name">
+                            EXT. MEGA PLANET - DAY
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="outline-item"
+                        onclick="selectScene(this, 2)"
+                    >
+
+                        <div class="scene-number">
+                            02
+                        </div>
+
+                        <div class="scene-name">
+                            INT. OBSERVATORY - NIGHT
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="outline-item"
+                        onclick="selectScene(this, 3)"
+                    >
+
+                        <div class="scene-number">
+                            03
+                        </div>
+
+                        <div class="scene-name">
+                            EXT. CITY OF GLASS - SUNSET
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="outline-item"
+                        onclick="selectScene(this, 4)"
+                    >
+
+                        <div class="scene-number">
+                            04
+                        </div>
+
+                        <div class="scene-name">
+                            INT. APARTMENT - NIGHT
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="outline-section">
+
+                    <div class="outline-label">
+                        ACT II
+                    </div>
+
+
+                    <div
+                        class="outline-item"
+                        onclick="selectScene(this, 5)"
+                    >
+
+                        <div class="scene-number">
+                            05
+                        </div>
+
+                        <div class="scene-name">
+                            EXT. MOUNTAIN RANGE - DAY
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="outline-item"
+                        onclick="selectScene(this, 6)"
+                    >
+
+                        <div class="scene-number">
+                            06
+                        </div>
+
+                        <div class="scene-name">
+                            EXT. THE GREAT CITY - NIGHT
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="outline-section">
+
+                    <div class="outline-label">
+                        ACT III
+                    </div>
+
+
+                    <div
+                        class="outline-item"
+                        onclick="selectScene(this, 7)"
+                    >
+
+                        <div class="scene-number">
+                            07
+                        </div>
+
+                        <div class="scene-name">
+                            EXT. CLIFFSIDE - DAWN
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-          </div>
 
+            <div class="left-bottom">
 
-          <div class="scene">
+                <button
+                    class="utility-button"
+                    onclick="openProject()"
+                >
+                    <span>⌂</span>
+                    <span>Project overview</span>
+                </button>
 
-            <div class="scene-number">
-              02
+                <button
+                    class="utility-button"
+                    onclick="openCharacters()"
+                >
+                    <span>♙</span>
+                    <span>Characters</span>
+                </button>
+
+                <button
+                    class="utility-button"
+                    onclick="openStory()"
+                >
+                    <span>⌁</span>
+                    <span>Story structure</span>
+                </button>
+
+                <button
+                    class="utility-button"
+                    onclick="openNotes()"
+                >
+                    <span>□</span>
+                    <span>Notes</span>
+                </button>
+
             </div>
 
-            <div class="scene-title">
-              INT. OBSERVATORY - NIGHT
+        </aside>
+
+
+        <!-- =================================================
+             CENTER EDITOR
+        ================================================== -->
+
+        <section class="editor">
+
+            <div class="editor-toolbar">
+
+                <div class="format-tools">
+
+                    <button
+                        class="format-button active"
+                        onclick="setFormat('action')"
+                        title="Action"
+                    >
+                        Action
+                    </button>
+
+                    <button
+                        class="format-button"
+                        onclick="setFormat('character')"
+                        title="Character"
+                    >
+                        Character
+                    </button>
+
+                    <button
+                        class="format-button"
+                        onclick="setFormat('dialogue')"
+                    >
+                        Dialogue
+                    </button>
+
+                    <button
+                        class="format-button"
+                        onclick="setFormat('parenthetical')"
+                    >
+                        ( )
+                    </button>
+
+                    <button
+                        class="format-button"
+                        onclick="setFormat('heading')"
+                    >
+                        Heading
+                    </button>
+
+                    <button
+                        class="format-button"
+                        onclick="setFormat('transition')"
+                    >
+                        Transition
+                    </button>
+
+                </div>
+
+
+                <div class="zoom">
+
+                    <button onclick="changeZoom(-.05)">
+                        −
+                    </button>
+
+                    <span id="zoomLabel">
+                        100%
+                    </span>
+
+                    <button onclick="changeZoom(.05)">
+                        ＋
+                    </button>
+
+                </div>
+
             </div>
 
-          </div>
 
+            <div class="paper-scroll" id="paperScroll">
 
-          <div class="scene">
+                <article
+                    class="paper"
+                    id="paper"
+                >
 
-            <div class="scene-number">
-              03
-            </div>
-
-            <div class="scene-title">
-              EXT. CITY - SUNSET
-            </div>
-
-          </div>
-
-        </div>
-
-      </aside>
-
-
-      <!-- SCREENPLAY -->
-
-      <div class="paper-area">
-
-        <div class="paper">
-
-          <div
-            class="screenplay"
-            id="screenplay"
-            contenteditable="true"
-            spellcheck="false"
-          >FADE IN:
+                    <div
+                        class="script"
+                        id="script"
+                        contenteditable="true"
+                        spellcheck="false"
+                    >FADE IN:
 
 EXT. MEGA PLANET - DAY
 
@@ -1436,450 +1146,482 @@ The planet continues.
 
           They built all of this...
 
-He takes a breath.
+Ludwig watches the distant city.
 
                        LUDWIG
 
           And somehow it still isn't enough.
 
-FADE OUT.</div>
+A WIND tears across the cliffside.
 
+He closes his eyes.
+
+For a moment, the world is silent.
+
+Then:
+
+A distant bell.
+
+Ludwig opens his eyes.
+
+CUT TO:</div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT PANEL
+        ================================================== -->
+
+        <aside class="right-panel">
+
+            <div class="right-tabs">
+
+                <button
+                    class="right-tab active"
+                    onclick="showRightPanel('scene', this)"
+                >
+                    SCENE
+                </button>
+
+                <button
+                    class="right-tab"
+                    onclick="showRightPanel('characters', this)"
+                >
+                    CAST
+                </button>
+
+                <button
+                    class="right-tab"
+                    onclick="showRightPanel('notes', this)"
+                >
+                    NOTES
+                </button>
+
+            </div>
+
+
+            <div class="inspector">
+
+                <!-- SCENE -->
+
+                <div
+                    class="panel-view active"
+                    id="scenePanel"
+                >
+
+                    <div class="inspector-section">
+
+                        <div class="inspector-heading">
+                            SCENE
+                        </div>
+
+                        <div class="field">
+
+                            <div class="field-label">
+                                HEADING
+                            </div>
+
+                            <div class="field-value">
+                                EXT. MEGA PLANET - DAY
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+
+                            <div class="field-label">
+                                TIME
+                            </div>
+
+                            <div class="field-value">
+                                DAY
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="inspector-section">
+
+                        <div class="inspector-heading">
+                            SCENE SUMMARY
+                        </div>
+
+                        <div class="field">
+
+                            <div class="field-value">
+                                Ludwig observes the impossible scale of the planet and begins questioning whether humanity can ever be satisfied.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="inspector-section">
+
+                        <div class="inspector-heading">
+                            TAGS
+                        </div>
+
+                        <div class="field">
+
+                            <div class="field-value">
+                                Architecture · Wonder · Obsession
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHARACTERS -->
+
+                <div
+                    class="panel-view"
+                    id="charactersPanel"
+                >
+
+                    <div class="inspector-section">
+
+                        <div class="inspector-heading">
+                            CHARACTERS IN SCENE
+                        </div>
+
+
+                        <div class="character">
+
+                            <div class="character-avatar">
+                                LJ
+                            </div>
+
+                            <div>
+
+                                <div class="character-name">
+                                    Ludwig James
+                                </div>
+
+                                <div class="character-role">
+                                    Protagonist
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="inspector-section">
+
+                        <div class="inspector-heading">
+                            PROJECT CAST
+                        </div>
+
+
+                        <div class="character">
+
+                            <div class="character-avatar">
+                                AM
+                            </div>
+
+                            <div>
+
+                                <div class="character-name">
+                                    Amelia Vale
+                                </div>
+
+                                <div class="character-role">
+                                    Supporting
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="character">
+
+                            <div class="character-avatar">
+                                RH
+                            </div>
+
+                            <div>
+
+                                <div class="character-name">
+                                    Richard Hale
+                                </div>
+
+                                <div class="character-role">
+                                    Supporting
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NOTES -->
+
+                <div
+                    class="panel-view"
+                    id="notesPanel"
+                >
+
+                    <div class="inspector-section">
+
+                        <div class="inspector-heading">
+                            SCENE NOTE
+                        </div>
+
+                        <textarea
+                            id="sceneNote"
+                            style="
+                                width:100%;
+                                min-height:130px;
+                                resize:vertical;
+                                border:1px solid #dededc;
+                                border-radius:4px;
+                                padding:9px;
+                                background:#fff;
+                                outline:none;
+                                font-size:10px;
+                                line-height:1.5;
+                            "
+                        >The first scene should establish that the scale of the world is beautiful before it becomes psychologically oppressive.</textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <!-- =====================================================
+         STATUS BAR
+    ====================================================== -->
+
+    <footer class="statusbar">
+
+        <div class="status-left">
+            <span id="pageStatus">Page 1</span>
+            <span id="wordStatus">58 words</span>
+            <span>Draft 1</span>
         </div>
 
-      </div>
-
-
-      <!-- INSPECTOR -->
-
-      <aside class="inspector">
-
-        <div class="inspector-title">
-          SCENE
+        <div class="status-right">
+            <span>Courier Prime</span>
+            <span id="statusZoom">100%</span>
         </div>
 
-
-        <div class="inspector-card">
-
-          <div class="inspector-label">
-            HEADING
-          </div>
-
-          <div class="inspector-value">
-            EXT. MEGA PLANET - DAY
-          </div>
-
-        </div>
-
-
-        <div class="inspector-card">
-
-          <div class="inspector-label">
-            CHARACTERS
-          </div>
-
-          <div class="inspector-value">
-            Ludwig James
-          </div>
-
-        </div>
-
-
-        <div class="inspector-card">
-
-          <div class="inspector-label">
-            PAGE
-          </div>
-
-          <div class="inspector-value">
-            1
-          </div>
-
-        </div>
-
-      </aside>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       SCRIPTS
-  ====================================================== -->
-
-  <section
-    class="page workspace-page hidden"
-    id="scriptsPage"
-  >
-
-    <div class="workspace-heading">
-      Scripts
-    </div>
-
-    <div class="workspace-description">
-      Your screenplays, drafts, and writing projects.
-    </div>
-
-
-    <div class="card-grid">
-
-      <div
-        class="card"
-        onclick="openScript('Sentient Mass')"
-      >
-
-        <div class="card-icon">
-          ▤
-        </div>
-
-        <div class="card-title">
-          Sentient Mass
-        </div>
-
-        <div class="card-description">
-          Screenplay · Draft 1
-        </div>
-
-      </div>
-
-
-      <div
-        class="card"
-        onclick="openCreateModal()"
-      >
-
-        <div class="card-icon">
-          ＋
-        </div>
-
-        <div class="card-title">
-          New screenplay
-        </div>
-
-        <div class="card-description">
-          Start a new story.
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       PROJECTS
-  ====================================================== -->
-
-  <section
-    class="page workspace-page hidden"
-    id="projectsPage"
-  >
-
-    <div class="workspace-heading">
-      Projects
-    </div>
-
-    <div class="workspace-description">
-      Organize your films from first idea to final draft.
-    </div>
-
-
-    <div class="card-grid">
-
-      <div class="card">
-
-        <div class="card-icon">
-          ▣
-        </div>
-
-        <div class="card-title">
-          Sentient Mass
-        </div>
-
-        <div class="card-description">
-          Feature film · In development
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-icon">
-          ＋
-        </div>
-
-        <div class="card-title">
-          New project
-        </div>
-
-        <div class="card-description">
-          Create a new film project.
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       CHARACTERS
-  ====================================================== -->
-
-  <section
-    class="page workspace-page hidden"
-    id="charactersPage"
-  >
-
-    <div class="workspace-heading">
-      Characters
-    </div>
-
-    <div class="workspace-description">
-      Build characters, relationships, motivations, and arcs.
-    </div>
-
-
-    <div class="character-grid">
-
-      <div class="character-card">
-
-        <div class="character-avatar">
-          LJ
-        </div>
-
-        <div class="character-name">
-          Ludwig James
-        </div>
-
-        <div class="character-role">
-          Protagonist
-        </div>
-
-      </div>
-
-
-      <div class="character-card">
-
-        <div class="character-avatar">
-          ＋
-        </div>
-
-        <div class="character-name">
-          Add character
-        </div>
-
-        <div class="character-role">
-          Create a new character
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       STORY STRUCTURE
-  ====================================================== -->
-
-  <section
-    class="page workspace-page hidden"
-    id="storyPage"
-  >
-
-    <div class="workspace-heading">
-      Story Structure
-    </div>
-
-    <div class="workspace-description">
-      Shape the story before the screenplay becomes concrete.
-    </div>
-
-
-    <div class="timeline">
-
-      <div class="beat">
-
-        <div class="beat-title">
-          Opening Image
-        </div>
-
-        <div class="beat-description">
-          Establish the scale and visual language of the world.
-        </div>
-
-      </div>
-
-
-      <div class="beat">
-
-        <div class="beat-title">
-          Inciting Incident
-        </div>
-
-        <div class="beat-description">
-          Ludwig discovers something impossible within the architecture.
-        </div>
-
-      </div>
-
-
-      <div class="beat">
-
-        <div class="beat-title">
-          First Turning Point
-        </div>
-
-        <div class="beat-description">
-          His obsession begins changing the way he sees other people.
-        </div>
-
-      </div>
-
-
-      <div class="beat">
-
-        <div class="beat-title">
-          Midpoint
-        </div>
-
-        <div class="beat-description">
-          The scale of the planet stops feeling beautiful.
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       NOTES
-  ====================================================== -->
-
-  <section
-    class="page workspace-page hidden"
-    id="notesPage"
-  >
-
-    <div class="workspace-heading">
-      Notes
-    </div>
-
-    <div class="workspace-description">
-      Keep the ideas behind the film close to the work.
-    </div>
-
-
-    <div class="notes-grid">
-
-      <div class="note">
-
-        <div class="note-title">
-          Visual language
-        </div>
-
-        <textarea
-          class="note-text"
-          data-note="visual"
-        >Massive distant landscapes. Architecture should feel beautiful before it feels overwhelming.</textarea>
-
-      </div>
-
-
-      <div class="note">
-
-        <div class="note-title">
-          Theme
-        </div>
-
-        <textarea
-          class="note-text"
-          data-note="theme"
-        >Humans will always return to loving other humans.</textarea>
-
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
+    </footer>
 
 </div>
 
 
 <!-- =======================================================
-     FEATURE BAR
+     PROJECT SCREEN
 ======================================================= -->
 
-<div
-  class="feature-bar"
-  id="featureBar"
+<section
+    class="project-screen"
+    id="projectScreen"
 >
 
-  <span>
-    › &nbsp; Featured Guides &amp; Events
-  </span>
+    <header class="project-header">
 
-  <button class="feature-show">
-    Show
-  </button>
+        <div class="project-header-left">
 
-</div>
+            <button
+                class="project-back"
+                onclick="closeProject()"
+            >
+                ‹ Back to screenplay
+            </button>
+
+            <span class="project-name">
+                Sentient Mass
+            </span>
+
+        </div>
+
+        <button
+            class="top-button share"
+            onclick="closeProject()"
+        >
+            Open screenplay
+        </button>
+
+    </header>
+
+
+    <div class="project-content">
+
+        <div class="project-content-inner">
+
+            <div class="project-eyebrow">
+                FEATURE FILM
+            </div>
+
+            <div class="project-heading">
+                Sentient Mass
+            </div>
+
+
+            <div class="project-grid">
+
+                <div class="project-card">
+
+                    <div class="project-card-title">
+                        STORY
+                    </div>
+
+                    <div class="project-stat">
+                        7 scenes
+                    </div>
+
+                    <div class="project-small">
+                        1 draft · screenplay
+                    </div>
+
+                </div>
+
+
+                <div class="project-card">
+
+                    <div class="project-card-title">
+                        CHARACTERS
+                    </div>
+
+                    <div class="project-stat">
+                        3
+                    </div>
+
+                    <div class="project-small">
+                        active characters
+                    </div>
+
+                </div>
+
+
+                <div class="project-card">
+
+                    <div class="project-card-title">
+                        STORY STRUCTURE
+                    </div>
+
+                    <div class="project-small">
+                        Opening Image
+                    </div>
+
+                    <div class="project-small">
+                        Inciting Incident
+                    </div>
+
+                    <div class="project-small">
+                        First Turning Point
+                    </div>
+
+                </div>
+
+
+                <div class="project-card">
+
+                    <div class="project-card-title">
+                        PROJECT NOTES
+                    </div>
+
+                    <div class="project-small">
+                        Visual language
+                    </div>
+
+                    <div class="project-small">
+                        Theme
+                    </div>
+
+                    <div class="project-small">
+                        World
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 <!-- =======================================================
-     CREATE MODAL
+     CREATE PROJECT MODAL
 ======================================================= -->
 
 <div
-  class="modal-backdrop"
-  id="createModal"
+    class="overlay"
+    id="createOverlay"
 >
 
-  <div class="modal">
+    <div class="modal">
 
-    <div class="modal-title">
-      Create new screenplay
+        <div class="modal-header">
+
+            <div class="modal-title">
+                New screenplay
+            </div>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label class="modal-label">
+                TITLE
+            </label>
+
+            <input
+                class="modal-input"
+                id="newTitle"
+                placeholder="Untitled"
+            >
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button
+                class="modal-button modal-cancel"
+                onclick="closeCreate()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="modal-button modal-create"
+                onclick="createNewScript()"
+            >
+                Create
+            </button>
+
+        </div>
+
     </div>
-
-    <label class="modal-label">
-      Screenplay title
-    </label>
-
-    <input
-      class="modal-input"
-      id="newScriptTitle"
-      type="text"
-      placeholder="Untitled screenplay"
-    >
-
-    <div class="modal-actions">
-
-      <button
-        class="cancel-button"
-        onclick="closeCreateModal()"
-      >
-        Cancel
-      </button>
-
-      <button
-        class="confirm-button"
-        onclick="createScript()"
-      >
-        Create screenplay
-      </button>
-
-    </div>
-
-  </div>
 
 </div>
 
@@ -1890,518 +1632,449 @@ FADE OUT.</div>
    STATE
 ========================================================= */
 
-let currentScript = "Sentient Mass";
-let saveTimer = null;
+let zoom = 1;
+let currentScene = 1;
+let saveTimer;
 
 
 /* =========================================================
-   PAGE MAP
+   EDITOR STORAGE
 ========================================================= */
 
-const pages = {
-  dashboard: "dashboardPage",
-  editor: "editorPage",
-  scripts: "scriptsPage",
-  projects: "projectsPage",
-  characters: "charactersPage",
-  story: "storyPage",
-  notes: "notesPage"
-};
+const script = document.getElementById("script");
 
+const savedScript =
+    localStorage.getItem("auteur-sentient-mass");
 
-const titles = {
-  dashboard: "Dashboard",
-  editor: "",
-  scripts: "Scripts",
-  projects: "Projects",
-  characters: "Characters",
-  story: "Story Structure",
-  notes: "Notes"
-};
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function navigate(page){
-
-  Object.entries(pages).forEach(([name,id]) => {
-
-    document
-      .getElementById(id)
-      .classList.toggle("hidden",name !== page);
-
-  });
-
-
-  document.getElementById("pageTitle").textContent =
-    titles[page] || "";
-
-
-  document
-    .querySelectorAll(".nav-item[data-page]")
-    .forEach(item => {
-
-      item.classList.toggle(
-        "active",
-        item.dataset.page === page
-      );
-
-    });
-
-
-  document.getElementById("featureBar").style.display =
-    page === "dashboard" ? "flex" : "none";
-
+if (savedScript) {
+    script.innerText = savedScript;
 }
 
 
 /* =========================================================
-   SCRIPT OPENING
+   AUTOSAVE
 ========================================================= */
 
-function openScript(name){
+script.addEventListener("input", () => {
 
-  currentScript = name;
+    document.getElementById("saveStatus").textContent =
+        "Saving...";
 
-  document.getElementById(
-    "editorScriptTitle"
-  ).textContent = name;
+    updateWordCount();
 
+    clearTimeout(saveTimer);
 
-  const saved =
-    localStorage.getItem(
-      "auteur.script." + name
-    );
-
-
-  if(saved !== null){
-
-    document.getElementById(
-      "screenplay"
-    ).innerText = saved;
-
-  }
-
-
-  navigate("editor");
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function focusSearch(){
-
-  navigate("dashboard");
-
-  setTimeout(() => {
-
-    document
-      .getElementById("searchInput")
-      .focus();
-
-  },50);
-
-}
-
-
-document
-  .getElementById("searchInput")
-  .addEventListener("input",event => {
-
-    const query =
-      event.target.value
-        .toLowerCase()
-        .trim();
-
-
-    document
-      .querySelectorAll(".file-row")
-      .forEach(row => {
-
-        const name =
-          row.dataset.name
-            .toLowerCase();
-
-
-        row.style.display =
-          name.includes(query)
-            ? "flex"
-            : "none";
-
-      });
-
-  });
-
-
-/* =========================================================
-   CREATE SCRIPT
-========================================================= */
-
-function openCreateModal(){
-
-  document
-    .getElementById("createModal")
-    .classList.add("open");
-
-
-  setTimeout(() => {
-
-    document
-      .getElementById("newScriptTitle")
-      .focus();
-
-  },50);
-
-}
-
-
-function closeCreateModal(){
-
-  document
-    .getElementById("createModal")
-    .classList.remove("open");
-
-
-  document
-    .getElementById("newScriptTitle")
-    .value = "";
-
-}
-
-
-function createScript(){
-
-  const input =
-    document
-      .getElementById("newScriptTitle")
-      .value
-      .trim();
-
-
-  const name =
-    input || "Untitled screenplay";
-
-
-  addFileRow(
-    document.getElementById("recentFiles"),
-    name
-  );
-
-
-  addFileRow(
-    document.getElementById("allFiles"),
-    name
-  );
-
-
-  closeCreateModal();
-
-  openScript(name);
-
-}
-
-
-function addFileRow(container,name){
-
-  const row =
-    document.createElement("div");
-
-
-  row.className = "file-row";
-
-  row.dataset.name = name;
-
-  row.innerHTML = `
-    <span class="file-cloud">☁</span>
-    <span class="file-name"></span>
-  `;
-
-
-  row.querySelector(".file-name")
-    .textContent = name;
-
-
-  row.onclick = () =>
-    openScript(name);
-
-
-  container.prepend(row);
-
-}
-
-
-/* =========================================================
-   MODAL EVENTS
-========================================================= */
-
-document
-  .getElementById("newScriptTitle")
-  .addEventListener("keydown",event => {
-
-    if(event.key === "Enter"){
-      createScript();
-    }
-
-    if(event.key === "Escape"){
-      closeCreateModal();
-    }
-
-  });
-
-
-document
-  .getElementById("createModal")
-  .addEventListener("click",event => {
-
-    if(event.target.id === "createModal"){
-      closeCreateModal();
-    }
-
-  });
-
-
-/* =========================================================
-   EDITOR AUTOSAVE
-========================================================= */
-
-const screenplay =
-  document.getElementById("screenplay");
-
-
-screenplay.addEventListener("input",() => {
-
-  document
-    .getElementById("editorStatus")
-    .textContent = "Saving...";
-
-
-  document
-    .getElementById("globalStatus")
-    .textContent = "Saving...";
-
-
-  clearTimeout(saveTimer);
-
-
-  saveTimer = setTimeout(
-    saveScript,
-    500
-  );
-
+    saveTimer = setTimeout(saveDocument, 450);
 });
 
 
-function saveScript(){
+function saveDocument() {
 
-  localStorage.setItem(
-    "auteur.script." + currentScript,
-    screenplay.innerText
-  );
+    localStorage.setItem(
+        "auteur-sentient-mass",
+        script.innerText
+    );
 
+    document.getElementById("saveStatus").textContent =
+        "Saved";
 
-  document
-    .getElementById("editorStatus")
-    .textContent = "Saved";
-
-
-  document
-    .getElementById("globalStatus")
-    .textContent =
-      "Updated just now";
-
+    updateWordCount();
 }
 
 
 /* =========================================================
-   SCENES
+   WORD COUNT
 ========================================================= */
 
-document
-  .querySelectorAll(".scene")
-  .forEach(scene => {
+function updateWordCount() {
 
-    scene.addEventListener("click",() => {
+    const text = script.innerText.trim();
 
-      document
-        .querySelectorAll(".scene")
-        .forEach(item =>
-          item.classList.remove("active")
-        );
+    const words = text
+        ? text.split(/\s+/).length
+        : 0;
 
-
-      scene.classList.add("active");
-
-    });
-
-  });
+    document.getElementById("wordStatus").textContent =
+        `${words} words`;
+}
 
 
-function addScene(){
+/* =========================================================
+   SCENE SELECTION
+========================================================= */
 
-  const list =
-    document.getElementById("sceneList");
-
-
-  const number =
-    String(list.children.length + 1)
-      .padStart(2,"0");
-
-
-  const scene =
-    document.createElement("div");
-
-
-  scene.className = "scene";
-
-
-  scene.innerHTML = `
-    <div class="scene-number">${number}</div>
-    <div class="scene-title">NEW SCENE</div>
-  `;
-
-
-  scene.addEventListener("click",() => {
+function selectScene(element, number) {
 
     document
-      .querySelectorAll(".scene")
-      .forEach(item =>
-        item.classList.remove("active")
-      );
+        .querySelectorAll(".outline-item")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
 
+    element.classList.add("active");
 
-    scene.classList.add("active");
+    currentScene = number;
 
-  });
-
-
-  list.appendChild(scene);
+    document.getElementById("pageStatus").textContent =
+        `Scene ${String(number).padStart(2, "0")}`;
 
 }
 
 
 /* =========================================================
-   TABS
+   LEFT PANEL
 ========================================================= */
 
-document
-  .querySelectorAll(".tab")
-  .forEach(tab => {
+function toggleLeftPanel() {
 
-    tab.addEventListener("click",() => {
+    const panel =
+        document.querySelector(".left-panel");
 
-      document
-        .querySelectorAll(".tab")
-        .forEach(item =>
-          item.classList.remove("active")
-        );
+    if (panel.style.width === "0px") {
 
+        panel.style.width = "245px";
+        panel.style.minWidth = "245px";
 
-      tab.classList.add("active");
+    } else {
 
-    });
+        panel.style.width = "0px";
+        panel.style.minWidth = "0px";
 
-  });
-
-
-/* =========================================================
-   VIEW BUTTONS
-========================================================= */
-
-document
-  .querySelectorAll(".view-button")
-  .forEach(button => {
-
-    button.addEventListener("click",() => {
-
-      document
-        .querySelectorAll(".view-button")
-        .forEach(item =>
-          item.classList.remove("active")
-        );
-
-
-      button.classList.add("active");
-
-    });
-
-  });
-
-
-/* =========================================================
-   NOTES PERSISTENCE
-========================================================= */
-
-document
-  .querySelectorAll(".note-text")
-  .forEach(note => {
-
-    const key =
-      "auteur.note." + note.dataset.note;
-
-
-    const saved =
-      localStorage.getItem(key);
-
-
-    if(saved !== null){
-      note.value = saved;
     }
 
+}
 
-    note.addEventListener("input",() => {
 
-      localStorage.setItem(
-        key,
-        note.value
-      );
+function setLeftMode(mode, button) {
 
-    });
+    document
+        .querySelectorAll(".mode-tab")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
 
-  });
+    button.classList.add("active");
+
+    if (mode === "index") {
+
+        document.getElementById("outlinePanel").innerHTML = `
+            <div class="outline-section">
+
+                <div class="outline-label">
+                    INDEX CARDS
+                </div>
+
+                <div class="outline-item active">
+                    <div class="scene-number">01</div>
+                    <div class="scene-name">
+                        Ludwig discovers the scale of the planet.
+                    </div>
+                </div>
+
+                <div class="outline-item">
+                    <div class="scene-number">02</div>
+                    <div class="scene-name">
+                        The architecture begins changing.
+                    </div>
+                </div>
+
+                <div class="outline-item">
+                    <div class="scene-number">03</div>
+                    <div class="scene-name">
+                        Ludwig meets Amelia.
+                    </div>
+                </div>
+
+            </div>
+        `;
+
+    } else {
+
+        location.reload();
+
+    }
+
+}
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+function showRightPanel(panel, button) {
+
+    document
+        .querySelectorAll(".right-tab")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+
+    document
+        .querySelectorAll(".panel-view")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+
+    document
+        .getElementById(panel + "Panel")
+        .classList.add("active");
+
+}
+
+
+/* =========================================================
+   FORMATTING
+========================================================= */
+
+function setFormat(type) {
+
+    document
+        .querySelectorAll(".format-button")
+        .forEach(button =>
+            button.classList.remove("active")
+        );
+
+
+    event.currentTarget.classList.add("active");
+
+    const selection =
+        window.getSelection();
+
+    if (!selection.rangeCount) return;
+
+    const range =
+        selection.getRangeAt(0);
+
+    const text =
+        selection.toString();
+
+    if (!text) return;
+
+    let formatted = text;
+
+    switch(type) {
+
+        case "character":
+            formatted = text.toUpperCase();
+            break;
+
+        case "heading":
+            formatted = text.toUpperCase();
+            break;
+
+        case "transition":
+            formatted = text.toUpperCase();
+            break;
+
+        case "dialogue":
+            formatted = "          " + text;
+            break;
+
+        case "parenthetical":
+            formatted = "(" + text + ")";
+            break;
+
+    }
+
+    document.execCommand(
+        "insertText",
+        false,
+        formatted
+    );
+
+    saveDocument();
+
+}
+
+
+/* =========================================================
+   ZOOM
+========================================================= */
+
+function changeZoom(amount) {
+
+    zoom =
+        Math.max(
+            .65,
+            Math.min(
+                1.35,
+                zoom + amount
+            )
+        );
+
+    document.getElementById("paper").style.transform =
+        `scale(${zoom})`;
+
+    const percent =
+        Math.round(zoom * 100);
+
+    document.getElementById("zoomLabel").textContent =
+        `${percent}%`;
+
+    document.getElementById("statusZoom").textContent =
+        `${percent}%`;
+}
+
+
+/* =========================================================
+   PROJECT SCREEN
+========================================================= */
+
+function openProject() {
+
+    document
+        .getElementById("projectScreen")
+        .classList.add("open");
+
+}
+
+
+function closeProject() {
+
+    document
+        .getElementById("projectScreen")
+        .classList.remove("open");
+
+}
+
+
+/* =========================================================
+   CHARACTERS / STORY / NOTES
+========================================================= */
+
+function openCharacters() {
+
+    showRightPanel(
+        "characters",
+        document.querySelectorAll(".right-tab")[1]
+    );
+
+}
+
+
+function openNotes() {
+
+    showRightPanel(
+        "notes",
+        document.querySelectorAll(".right-tab")[2]
+    );
+
+}
+
+
+function openStory() {
+
+    alert(
+        "Story Structure\n\n" +
+        "Opening Image\n" +
+        "Inciting Incident\n" +
+        "First Turning Point\n" +
+        "Midpoint\n" +
+        "Second Turning Point\n" +
+        "Climax\n" +
+        "Final Image"
+    );
+
+}
+
+
+/* =========================================================
+   CREATE
+========================================================= */
+
+function openCreate() {
+
+    document
+        .getElementById("createOverlay")
+        .classList.add("open");
+
+    document
+        .getElementById("newTitle")
+        .focus();
+
+}
+
+
+function closeCreate() {
+
+    document
+        .getElementById("createOverlay")
+        .classList.remove("open");
+
+}
+
+
+function createNewScript() {
+
+    const title =
+        document
+            .getElementById("newTitle")
+            .value
+            .trim();
+
+    if (!title) return;
+
+    document.getElementById("topProjectName")
+        .textContent = title;
+
+    document.querySelector(".project-name")
+        .textContent = title;
+
+    closeCreate();
+
+    script.innerText =
+`FADE IN:
+
+EXT. ${title.toUpperCase()} - DAY
+
+Begin your story here.
+
+`;
+
+    saveDocument();
+
+}
 
 
 /* =========================================================
    KEYBOARD SHORTCUTS
 ========================================================= */
 
-document.addEventListener("keydown",event => {
+document.addEventListener("keydown", event => {
 
-  if(
-    (event.metaKey || event.ctrlKey) &&
-    event.key.toLowerCase() === "s"
-  ){
+    if (
+        (event.metaKey || event.ctrlKey) &&
+        event.key.toLowerCase() === "s"
+    ) {
 
-    event.preventDefault();
+        event.preventDefault();
+        saveDocument();
 
-    saveScript();
+    }
 
-  }
+    if (
+        event.key === "Escape" &&
+        document
+            .getElementById("createOverlay")
+            .classList.contains("open")
+    ) {
 
+        closeCreate();
 
-  if(
-    event.key === "Escape" &&
-    document
-      .getElementById("createModal")
-      .classList.contains("open")
-  ){
-
-    closeCreateModal();
-
-  }
+    }
 
 });
 
 
 /* =========================================================
-   INITIALIZE
+   INIT
 ========================================================= */
 
-navigate("dashboard");
+updateWordCount();
 
 </script>
 
