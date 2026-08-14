@@ -1,28 +1,1137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auteur</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aether — Film Development</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #0c0c0e;
+      --bg-elevated: #141416;
+      --bg-panel: #18181b;
+      --bg-hover: #1f1f23;
+      --border: #27272a;
+      --border-subtle: #1f1f23;
+      --text: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --accent: #e4e4e7;
+      --accent-dim: #d4d4d8;
+      --focus: #3b82f6;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
     * {
       box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
       margin: 0;
+      padding: 0;
     }
 
-    body {
-      background: #FFFFFF;
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3f3f46;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #52525b;
+    }
+
+    /* Focus */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    button, input, textarea, select {
+      font-family: inherit;
+    }
+
+    /* Transitions */
+    .transition-fast {
+      transition: all 0.15s ease;
+    }
+
+    /* Library cards */
+    .project-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .project-card:hover {
+      border-color: #3f3f46;
+      background: var(--bg-hover);
+    }
+    .project-card:active {
+      background: #252528;
+    }
+
+    /* Sidebar */
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+    .sidebar-link:hover {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+    .sidebar-link.active {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+    .sidebar-link svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.8;
+    }
+
+    /* Form elements */
+    .input-field {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      color: var(--text);
+      font-size: 0.875rem;
+      transition: border-color 0.15s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #52525b;
+    }
+    .input-field::placeholder {
+      color: var(--text-muted);
+    }
+
+    .textarea-field {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      color: var(--text);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.15s ease;
+    }
+    .textarea-field:focus {
+      outline: none;
+      border-color: #52525b;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.375rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dim);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border-color: transparent;
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+    .btn-icon {
+      padding: 0.375rem;
+      border-radius: 6px;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-icon:hover {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 440px;
+      padding: 1.5rem;
+      transform: scale(0.97);
+      transition: transform 0.15s ease;
+    }
+    .modal-backdrop.open .modal {
+      transform: scale(1);
+    }
+
+    /* Stage badge */
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Overview grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Editable field hover */
+    .editable-block {
+      border-radius: 8px;
+      padding: 0.25rem;
+      margin: -0.25rem;
+      transition: background 0.12s ease;
+    }
+    .editable-block:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Progress bar */
+    .progress-track {
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--text-secondary);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    /* Utility */
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   </style>
 </head>
-
 <body>
+  <div id="app" class="h-full flex flex-col"></div>
+
+  <script>
+    // ============================================================
+    // AETHER — Film Development Application
+    // Stage 1: Library + Workspace + Overview + Persistence
+    // ============================================================
+
+    const STAGES = [
+      { id: 1, name: 'Concept' },
+      { id: 2, name: 'Foundation' },
+      { id: 3, name: 'Development' },
+      { id: 4, name: 'Screenplay' },
+      { id: 5, name: 'Revision' },
+      { id: 6, name: 'Production Ready' }
+    ];
+
+    const NAV_ITEMS = [
+      { id: 'overview', label: 'Overview', icon: 'layout-dashboard' },
+      { id: 'characters', label: 'Characters', icon: 'users', disabled: true },
+      { id: 'story', label: 'Story', icon: 'book-open', disabled: true },
+      { id: 'structure', label: 'Structure', icon: 'git-branch', disabled: true },
+      { id: 'world', label: 'World', icon: 'globe', disabled: true },
+      { id: 'scenes', label: 'Scenes', icon: 'clapperboard', disabled: true },
+      { id: 'screenplay', label: 'Screenplay', icon: 'file-text', disabled: true },
+      { id: 'notes', label: 'Notes', icon: 'sticky-note', disabled: true }
+    ];
+
+    // ------------------------------------------------------------
+    // State
+    // ------------------------------------------------------------
+    let state = {
+      projects: [],
+      currentProjectId: null,
+      currentView: 'library', // 'library' | 'workspace'
+      workspaceSection: 'overview',
+      searchQuery: '',
+      modal: null // { type, data }
+    };
+
+    // ------------------------------------------------------------
+    // Persistence
+    // ------------------------------------------------------------
+    const STORAGE_KEY = 'aether_projects_v1';
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state.projects = parsed.projects || [];
+        }
+      } catch (e) {
+        console.error('Failed to load state', e);
+        state.projects = [];
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          projects: state.projects,
+          version: 1
+        }));
+      } catch (e) {
+        console.error('Failed to save state', e);
+      }
+    }
+
+    // ------------------------------------------------------------
+    // Helpers
+    // ------------------------------------------------------------
+    function uid() {
+      return 'p_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    }
+
+    function now() {
+      return new Date().toISOString();
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      if (d.toDateString() === today.toDateString()) {
+        return 'Today, ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+      if (d.toDateString() === yesterday.toDateString()) {
+        return 'Yesterday';
+      }
+      return d.toLocaleDateString([], { month: 'short', day: 'numeric', year: d.getFullYear() !== today.getFullYear() ? 'numeric' : undefined });
+    }
+
+    function getStage(stageId) {
+      return STAGES.find(s => s.id === stageId) || STAGES[0];
+    }
+
+    function getCurrentProject() {
+      return state.projects.find(p => p.id === state.currentProjectId) || null;
+    }
+
+    function createEmptyProject(overrides = {}) {
+      return {
+        id: uid(),
+        title: 'Untitled Project',
+        genre: '',
+        stage: 1,
+        description: '',
+        logline: '',
+        tone: '',
+        themes: '',
+        centralQuestion: '',
+        synopsis: '',
+        priorities: '',
+        createdAt: now(),
+        updatedAt: now(),
+        // Future expansion points
+        characters: [],
+        relationships: [],
+        storylines: [],
+        acts: [],
+        beats: [],
+        locations: [],
+        worldRules: [],
+        research: [],
+        scenes: [],
+        screenplay: { content: '', pages: 0 },
+        notes: [],
+        ...overrides
+      };
+    }
+
+    // ------------------------------------------------------------
+    // Project CRUD
+    // ------------------------------------------------------------
+    function createProject(data = {}) {
+      const project = createEmptyProject(data);
+      state.projects.unshift(project);
+      saveState();
+      return project;
+    }
+
+    function updateProject(id, updates) {
+      const idx = state.projects.findIndex(p => p.id === id);
+      if (idx === -1) return null;
+      state.projects[idx] = {
+        ...state.projects[idx],
+        ...updates,
+        updatedAt: now()
+      };
+      saveState();
+      return state.projects[idx];
+    }
+
+    function deleteProject(id) {
+      state.projects = state.projects.filter(p => p.id !== id);
+      if (state.currentProjectId === id) {
+        state.currentProjectId = null;
+        state.currentView = 'library';
+      }
+      saveState();
+    }
+
+    function duplicateProject(id) {
+      const original = state.projects.find(p => p.id === id);
+      if (!original) return null;
+      const copy = createEmptyProject({
+        ...JSON.parse(JSON.stringify(original)),
+        id: uid(),
+        title: original.title + ' (Copy)',
+        createdAt: now(),
+        updatedAt: now()
+      });
+      state.projects.unshift(copy);
+      saveState();
+      return copy;
+    }
+
+    // ------------------------------------------------------------
+    // Modal
+    // ------------------------------------------------------------
+    function openModal(type, data = {}) {
+      state.modal = { type, data };
+      render();
+    }
+
+    function closeModal() {
+      state.modal = null;
+      render();
+    }
+
+    // ------------------------------------------------------------
+    // Navigation
+    // ------------------------------------------------------------
+    function openProject(id) {
+      state.currentProjectId = id;
+      state.currentView = 'workspace';
+      state.workspaceSection = 'overview';
+      render();
+    }
+
+    function goToLibrary() {
+      state.currentProjectId = null;
+      state.currentView = 'library';
+      state.searchQuery = '';
+      render();
+    }
+
+    function setWorkspaceSection(section) {
+      const item = NAV_ITEMS.find(n => n.id === section);
+      if (item && item.disabled) return;
+      state.workspaceSection = section;
+      render();
+    }
+
+    // ------------------------------------------------------------
+    // Rendering
+    // ------------------------------------------------------------
+    function render() {
+      const app = document.getElementById('app');
+      if (state.currentView === 'library') {
+        app.innerHTML = renderLibrary();
+      } else {
+        app.innerHTML = renderWorkspace();
+      }
+      if (state.modal) {
+        app.insertAdjacentHTML('beforeend', renderModal());
+      }
+      lucide.createIcons();
+      bindEvents();
+    }
+
+    // -------------------- Library --------------------
+    function renderLibrary() {
+      const query = state.searchQuery.toLowerCase().trim();
+      const filtered = state.projects.filter(p => {
+        if (!query) return true;
+        return (
+          p.title.toLowerCase().includes(query) ||
+          (p.genre || '').toLowerCase().includes(query) ||
+          (p.description || '').toLowerCase().includes(query)
+        );
+      });
+
+      return `
+        <div class="h-full flex flex-col">
+          <!-- Header -->
+          <header class="flex-shrink-0 border-b border-[var(--border)] px-8 py-5">
+            <div class="max-w-5xl mx-auto flex items-center justify-between gap-6">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[var(--text)] flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0c0c0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                  </svg>
+                </div>
+                <div>
+                  <h1 class="text-lg font-semibold tracking-tight">Aether</h1>
+                  <p class="text-xs text-[var(--text-muted)]">Film Development</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-1 max-w-md">
+                <div class="relative flex-1">
+                  <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]"></i>
+                  <input
+                    type="text"
+                    id="library-search"
+                    class="input-field pl-9"
+                    placeholder="Search projects…"
+                    value="${escapeHtml(state.searchQuery)}"
+                  />
+                </div>
+                <button class="btn btn-primary" id="btn-new-project">
+                  <i data-lucide="plus" class="w-4 h-4"></i>
+                  New Project
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <!-- Content -->
+          <main class="flex-1 overflow-y-auto px-8 py-8">
+            <div class="max-w-5xl mx-auto">
+              ${filtered.length === 0 ? renderEmptyLibrary(query) : `
+                <div class="mb-6 flex items-center justify-between">
+                  <p class="text-sm text-[var(--text-muted)]">
+                    ${filtered.length} project${filtered.length !== 1 ? 's' : ''}
+                  </p>
+                </div>
+                <div class="grid gap-3">
+                  ${filtered.map(p => renderProjectCard(p)).join('')}
+                </div>
+              `}
+            </div>
+          </main>
+        </div>
+      `;
+    }
+
+    function renderEmptyLibrary(query) {
+      if (query) {
+        return `
+          <div class="empty-state">
+            <i data-lucide="search-x" class="w-10 h-10 mb-4 opacity-40"></i>
+            <p class="text-base font-medium text-[var(--text-secondary)] mb-1">No projects found</p>
+            <p class="text-sm">Try a different search term</p>
+          </div>
+        `;
+      }
+      return `
+        <div class="empty-state">
+          <i data-lucide="film" class="w-12 h-12 mb-5 opacity-30"></i>
+          <p class="text-lg font-medium text-[var(--text-secondary)] mb-2">No projects yet</p>
+          <p class="text-sm mb-6 max-w-sm">Create your first project to begin developing characters, structure, and screenplay.</p>
+          <button class="btn btn-primary" id="btn-new-project-empty">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            Create Project
+          </button>
+        </div>
+      `;
+    }
+
+    function renderProjectCard(project) {
+      const stage = getStage(project.stage);
+      const progress = Math.round((project.stage / 6) * 100);
+
+      return `
+        <div class="project-card group" data-project-id="${project.id}">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-3 mb-1.5">
+                <h2 class="text-base font-semibold truncate">${escapeHtml(project.title)}</h2>
+                <span class="stage-badge flex-shrink-0">
+                  Stage ${project.stage}/6 · ${stage.name}
+                </span>
+              </div>
+              <p class="text-sm text-[var(--text-secondary)] mb-2">
+                ${project.genre ? escapeHtml(project.genre) : '<span class="text-[var(--text-muted)]">No genre</span>'}
+              </p>
+              ${project.description ? `
+                <p class="text-sm text-[var(--text-muted)] line-clamp-2 mb-3">${escapeHtml(project.description)}</p>
+              ` : ''}
+              <div class="flex items-center gap-4 text-xs text-[var(--text-muted)]">
+                <span>Updated ${formatDate(project.updatedAt)}</span>
+                <div class="flex items-center gap-2 flex-1 max-w-[120px]">
+                  <div class="progress-track flex-1">
+                    <div class="progress-fill" style="width: ${progress}%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-fast" onclick="event.stopPropagation()">
+              <button class="btn-icon" data-action="rename" data-id="${project.id}" title="Rename">
+                <i data-lucide="pencil" class="w-4 h-4"></i>
+              </button>
+              <button class="btn-icon" data-action="duplicate" data-id="${project.id}" title="Duplicate">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+              <button class="btn-icon" data-action="delete" data-id="${project.id}" title="Delete">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // -------------------- Workspace --------------------
+    function renderWorkspace() {
+      const project = getCurrentProject();
+      if (!project) {
+        goToLibrary();
+        return '';
+      }
+
+      return `
+        <div class="h-full flex">
+          <!-- Sidebar -->
+          <aside class="w-56 flex-shrink-0 border-r border-[var(--border)] bg-[var(--bg-elevated)] flex flex-col">
+            <div class="p-4 border-b border-[var(--border)]">
+              <button id="btn-back-library" class="flex items-center gap-2 text-xs text-[var(--text-muted)] hover:text-[var(--text)] transition-fast mb-3">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                Library
+              </button>
+              <h2 class="text-sm font-semibold truncate" title="${escapeHtml(project.title)}">${escapeHtml(project.title)}</h2>
+              <p class="text-xs text-[var(--text-muted)] mt-0.5">${getStage(project.stage).name}</p>
+            </div>
+            <nav class="flex-1 p-3 space-y-0.5 overflow-y-auto">
+              ${NAV_ITEMS.map(item => `
+                <div
+                  class="sidebar-link ${state.workspaceSection === item.id ? 'active' : ''} ${item.disabled ? 'opacity-40 cursor-not-allowed' : ''}"
+                  data-section="${item.id}"
+                  ${item.disabled ? 'title="Coming in a later stage"' : ''}
+                >
+                  <i data-lucide="${item.icon}"></i>
+                  <span>${item.label}</span>
+                </div>
+              `).join('')}
+            </nav>
+            <div class="p-3 border-t border-[var(--border)]">
+              <div class="text-xs text-[var(--text-muted)] px-2">
+                Aether · Stage 1
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main content -->
+          <div class="flex-1 flex flex-col min-w-0">
+            <header class="flex-shrink-0 h-14 border-b border-[var(--border)] flex items-center px-8 justify-between">
+              <h1 class="text-sm font-medium text-[var(--text-secondary)] capitalize">${state.workspaceSection}</h1>
+              <div class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                <span>Last saved ${formatDate(project.updatedAt)}</span>
+              </div>
+            </header>
+            <main class="flex-1 overflow-y-auto">
+              ${renderWorkspaceContent(project)}
+            </main>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderWorkspaceContent(project) {
+      if (state.workspaceSection === 'overview') {
+        return renderOverview(project);
+      }
+      // Placeholders for future stages
+      return `
+        <div class="empty-state h-full">
+          <i data-lucide="construction" class="w-10 h-10 mb-4 opacity-30"></i>
+          <p class="text-base font-medium text-[var(--text-secondary)]">Coming soon</p>
+          <p class="text-sm mt-1">This section will be built in a later stage.</p>
+        </div>
+      `;
+    }
+
+    // -------------------- Overview --------------------
+    function renderOverview(project) {
+      const stage = getStage(project.stage);
+
+      return `
+        <div class="max-w-4xl mx-auto px-8 py-8">
+          <!-- Title & Stage -->
+          <div class="mb-10">
+            <div class="editable-block mb-4">
+              <label class="label">Title</label>
+              <input
+                type="text"
+                class="input-field text-2xl font-semibold tracking-tight !py-2 !px-3"
+                id="field-title"
+                value="${escapeHtml(project.title)}"
+                placeholder="Project title"
+              />
+            </div>
+            <div class="flex flex-wrap items-center gap-4">
+              <div class="editable-block">
+                <label class="label">Development Stage</label>
+                <select id="field-stage" class="input-field !w-auto min-w-[180px]">
+                  ${STAGES.map(s => `
+                    <option value="${s.id}" ${project.stage === s.id ? 'selected' : ''}>
+                      Stage ${s.id} — ${s.name}
+                    </option>
+                  `).join('')}
+                </select>
+              </div>
+              <div class="editable-block flex-1 min-w-[160px]">
+                <label class="label">Genre</label>
+                <input
+                  type="text"
+                  class="input-field"
+                  id="field-genre"
+                  value="${escapeHtml(project.genre || '')}"
+                  placeholder="e.g. Science Fiction / Drama"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Core -->
+          <section class="mb-10">
+            <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Core</h3>
+            <div class="space-y-5">
+              <div class="editable-block">
+                <label class="label">Logline</label>
+                <textarea
+                  id="field-logline"
+                  class="textarea-field"
+                  rows="2"
+                  placeholder="One or two sentences that capture the essence of the story…"
+                >${escapeHtml(project.logline || '')}</textarea>
+              </div>
+              <div class="overview-grid">
+                <div class="editable-block">
+                  <label class="label">Tone</label>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="field-tone"
+                    value="${escapeHtml(project.tone || '')}"
+                    placeholder="e.g. Tense, contemplative, darkly humorous"
+                  />
+                </div>
+                <div class="editable-block">
+                  <label class="label">Themes</label>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="field-themes"
+                    value="${escapeHtml(project.themes || '')}"
+                    placeholder="e.g. Identity, power, isolation"
+                  />
+                </div>
+              </div>
+              <div class="editable-block">
+                <label class="label">Central Question</label>
+                <input
+                  type="text"
+                  class="input-field"
+                  id="field-centralQuestion"
+                  value="${escapeHtml(project.centralQuestion || '')}"
+                  placeholder="What is the core dramatic question driving the story?"
+                />
+              </div>
+            </div>
+          </section>
+
+          <!-- Synopsis -->
+          <section class="mb-10">
+            <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Synopsis</h3>
+            <div class="editable-block">
+              <textarea
+                id="field-synopsis"
+                class="textarea-field"
+                rows="6"
+                placeholder="Short synopsis of the story…"
+              >${escapeHtml(project.synopsis || '')}</textarea>
+            </div>
+          </section>
+
+          <!-- Description & Priorities -->
+          <section class="mb-10">
+            <div class="overview-grid">
+              <div>
+                <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Short Description</h3>
+                <div class="editable-block">
+                  <textarea
+                    id="field-description"
+                    class="textarea-field"
+                    rows="4"
+                    placeholder="Brief project description for the library…"
+                  >${escapeHtml(project.description || '')}</textarea>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Current Priorities</h3>
+                <div class="editable-block">
+                  <textarea
+                    id="field-priorities"
+                    class="textarea-field"
+                    rows="4"
+                    placeholder="What needs attention right now?"
+                  >${escapeHtml(project.priorities || '')}</textarea>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Meta -->
+          <section class="pt-6 border-t border-[var(--border)]">
+            <div class="flex flex-wrap gap-6 text-xs text-[var(--text-muted)]">
+              <div>
+                <span class="block mb-0.5">Created</span>
+                <span class="text-[var(--text-secondary)]">${formatDate(project.createdAt)}</span>
+              </div>
+              <div>
+                <span class="block mb-0.5">Last modified</span>
+                <span class="text-[var(--text-secondary)]">${formatDate(project.updatedAt)}</span>
+              </div>
+              <div>
+                <span class="block mb-0.5">Stage progress</span>
+                <span class="text-[var(--text-secondary)]">${project.stage} of 6 — ${stage.name}</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // -------------------- Modal --------------------
+    function renderModal() {
+      if (!state.modal) return '';
+
+      const { type, data } = state.modal;
+
+      if (type === 'new-project' || type === 'rename') {
+        const isRename = type === 'rename';
+        const title = isRename ? 'Rename Project' : 'New Project';
+        const value = isRename ? (data.title || '') : '';
+        return `
+          <div class="modal-backdrop open" id="modal-backdrop">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+              <h2 id="modal-title" class="text-base font-semibold mb-4">${title}</h2>
+              <div class="mb-5">
+                <label class="label" for="modal-input">Title</label>
+                <input
+                  type="text"
+                  id="modal-input"
+                  class="input-field"
+                  value="${escapeHtml(value)}"
+                  placeholder="Project title"
+                  autofocus
+                />
+              </div>
+              <div class="flex justify-end gap-2">
+                <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-confirm">${isRename ? 'Rename' : 'Create'}</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (type === 'delete') {
+        return `
+          <div class="modal-backdrop open" id="modal-backdrop">
+            <div class="modal" role="dialog" aria-modal="true">
+              <h2 class="text-base font-semibold mb-2">Delete Project</h2>
+              <p class="text-sm text-[var(--text-secondary)] mb-5">
+                Are you sure you want to delete <strong class="text-[var(--text)]">${escapeHtml(data.title)}</strong>? This cannot be undone.
+              </p>
+              <div class="flex justify-end gap-2">
+                <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-confirm" style="background: var(--danger); color: white;">Delete</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      return '';
+    }
+
+    // ------------------------------------------------------------
+    // Events
+    // ------------------------------------------------------------
+    function bindEvents() {
+      // Library search
+      const searchInput = document.getElementById('library-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          state.searchQuery = e.target.value;
+          // Re-render only the list portion would be nicer, but full re-render is fine for Stage 1
+          const cursor = e.target.selectionStart;
+          render();
+          const newInput = document.getElementById('library-search');
+          if (newInput) {
+            newInput.focus();
+            newInput.setSelectionRange(cursor, cursor);
+          }
+        });
+      }
+
+      // New project buttons
+      document.getElementById('btn-new-project')?.addEventListener('click', () => {
+        openModal('new-project');
+      });
+      document.getElementById('btn-new-project-empty')?.addEventListener('click', () => {
+        openModal('new-project');
+      });
+
+      // Project cards
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', () => {
+          openProject(card.dataset.projectId);
+        });
+      });
+
+      // Card actions
+      document.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const action = btn.dataset.action;
+          const id = btn.dataset.id;
+          const project = state.projects.find(p => p.id === id);
+          if (!project) return;
+
+          if (action === 'rename') {
+            openModal('rename', { id, title: project.title });
+          } else if (action === 'duplicate') {
+            duplicateProject(id);
+            render();
+          } else if (action === 'delete') {
+            openModal('delete', { id, title: project.title });
+          }
+        });
+      });
+
+      // Sidebar
+      document.getElementById('btn-back-library')?.addEventListener('click', goToLibrary);
+
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', () => {
+          const section = link.dataset.section;
+          setWorkspaceSection(section);
+        });
+      });
+
+      // Overview fields — live save
+      const project = getCurrentProject();
+      if (project && state.workspaceSection === 'overview') {
+        const fields = [
+          'title', 'genre', 'logline', 'tone', 'themes',
+          'centralQuestion', 'synopsis', 'description', 'priorities'
+        ];
+        fields.forEach(field => {
+          const el = document.getElementById(`field-${field}`);
+          if (!el) return;
+          el.addEventListener('change', () => {
+            updateProject(project.id, { [field]: el.value });
+            // Soft update of sidebar title if needed
+            if (field === 'title') {
+              const sidebarTitle = document.querySelector('aside h2');
+              if (sidebarTitle) sidebarTitle.textContent = el.value || 'Untitled Project';
+            }
+          });
+          // Also save on blur for better UX
+          el.addEventListener('blur', () => {
+            updateProject(project.id, { [field]: el.value });
+          });
+        });
+
+        const stageSelect = document.getElementById('field-stage');
+        if (stageSelect) {
+          stageSelect.addEventListener('change', () => {
+            updateProject(project.id, { stage: parseInt(stageSelect.value, 10) });
+            // Refresh sidebar stage label
+            render();
+          });
+        }
+      }
+
+      // Modal
+      if (state.modal) {
+        const backdrop = document.getElementById('modal-backdrop');
+        const cancel = document.getElementById('modal-cancel');
+        const confirm = document.getElementById('modal-confirm');
+        const input = document.getElementById('modal-input');
+
+        cancel?.addEventListener('click', closeModal);
+        backdrop?.addEventListener('click', (e) => {
+          if (e.target === backdrop) closeModal();
+        });
+
+        if (state.modal.type === 'new-project' || state.modal.type === 'rename') {
+          input?.focus();
+          input?.select();
+
+          const submit = () => {
+            const title = (input?.value || '').trim() || 'Untitled Project';
+            if (state.modal.type === 'new-project') {
+              const p = createProject({ title });
+              closeModal();
+              openProject(p.id);
+            } else {
+              updateProject(state.modal.data.id, { title });
+              closeModal();
+            }
+          };
+
+          confirm?.addEventListener('click', submit);
+          input?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') submit();
+            if (e.key === 'Escape') closeModal();
+          });
+        }
+
+        if (state.modal.type === 'delete') {
+          confirm?.addEventListener('click', () => {
+            deleteProject(state.modal.data.id);
+            closeModal();
+          });
+          document.addEventListener('keydown', function escHandler(e) {
+            if (e.key === 'Escape') {
+              closeModal();
+              document.removeEventListener('keydown', escHandler);
+            }
+          });
+        }
+      }
+    }
+
+    // ------------------------------------------------------------
+    // Utils
+    // ------------------------------------------------------------
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // ------------------------------------------------------------
+    // Boot
+    // ------------------------------------------------------------
+    loadState();
+    render();
+  </script>
 </body>
 </html>
