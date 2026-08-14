@@ -1,1 +1,2946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f1e9">
+<title>Auteur — Screenwriting Studio</title>
 
+<style>
+:root{
+  --paper:#f7f4ed;
+  --paper2:#eee8dd;
+  --ink:#272521;
+  --muted:#817a70;
+  --charcoal:#292724;
+  --charcoal2:#36322e;
+  --line:#ddd5c8;
+  --accent:#a95748;
+  --accent2:#c98154;
+  --sage:#788a74;
+  --blue:#657b8e;
+  --white:#fffdf9;
+  --shadow:0 18px 55px rgba(49,43,35,.12);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================================================
+   HOME
+========================================================= */
+
+.home{
+  width:100%;
+  height:100vh;
+  background:var(--paper);
+  display:flex;
+  flex-direction:column;
+}
+
+.homebar{
+  height:72px;
+  flex-shrink:0;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  padding:0 42px;
+  gap:26px;
+  background:rgba(247,244,237,.94);
+  backdrop-filter:blur(16px);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-family:Georgia,serif;
+  font-size:22px;
+  letter-spacing:-.04em;
+}
+
+.logoMark{
+  width:31px;
+  height:31px;
+  border-radius:9px;
+  background:var(--charcoal);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-family:Georgia,serif;
+  font-weight:bold;
+}
+
+.homeNav{
+  display:flex;
+  gap:5px;
+}
+
+.homeNav button{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:13px;
+}
+
+.homeNav button:hover,
+.homeNav button.active{
+  background:#e9e3d8;
+  color:var(--ink);
+}
+
+.homeActions{
+  margin-left:auto;
+  display:flex;
+  gap:9px;
+  align-items:center;
+}
+
+.primary{
+  border:0;
+  background:var(--charcoal);
+  color:white;
+  padding:10px 15px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:650;
+}
+
+.primary:hover{
+  background:#3b3732;
+}
+
+.secondary{
+  border:1px solid var(--line);
+  background:#fffaf3;
+  color:var(--ink);
+  padding:9px 13px;
+  border-radius:9px;
+  font-size:12px;
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#b98e75;
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:700;
+}
+
+.homeMain{
+  width:min(1160px,calc(100% - 80px));
+  margin:0 auto;
+  padding:54px 0;
+  overflow:auto;
+}
+
+.welcome{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:35px;
+}
+
+.eyebrow{
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:10px;
+  font-weight:750;
+  color:var(--accent);
+  margin-bottom:9px;
+}
+
+.welcome h1{
+  font:500 43px/1.05 Georgia,serif;
+  margin:0;
+  letter-spacing:-.04em;
+}
+
+.welcome p{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.search{
+  width:255px;
+  height:38px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#fffaf3;
+  padding:0 12px;
+  outline:none;
+  color:var(--ink);
+}
+
+.sectionHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.sectionHead h2{
+  font:500 20px Georgia,serif;
+  margin:0;
+}
+
+.sectionHead span{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.projects{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.projectCard{
+  min-height:205px;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:16px;
+  position:relative;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.projectCard:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.cover{
+  height:112px;
+  border-radius:8px;
+  margin-bottom:14px;
+  padding:13px;
+  display:flex;
+  align-items:end;
+  position:relative;
+  overflow:hidden;
+}
+
+.cover.one{
+  background:#b7a692;
+}
+
+.cover.two{
+  background:#667b77;
+}
+
+.cover.three{
+  background:#9b7666;
+}
+
+.cover.new{
+  background:#eee8dc;
+  border:1px dashed #c9c0b1;
+  display:grid;
+  place-items:center;
+}
+
+.cover:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    0deg,
+    rgba(0,0,0,.32),
+    transparent 65%
+  );
+}
+
+.cover.new:after{
+  display:none;
+}
+
+.coverTitle{
+  font:500 17px Georgia,serif;
+  color:white;
+  position:relative;
+  z-index:1;
+}
+
+.coverSub{
+  font-size:9px;
+  color:#fff9;
+  margin-top:3px;
+  position:relative;
+  z-index:1;
+}
+
+.newPlus{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:#fffaf3;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  font-size:20px;
+}
+
+.projectMeta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.projectMeta strong{
+  font:500 14px Georgia,serif;
+}
+
+.projectMeta span{
+  font-size:10px;
+  color:var(--muted);
+}
+
+.bottomGrid{
+  display:grid;
+  grid-template-columns:1.35fr 1fr;
+  gap:18px;
+  margin-top:34px;
+}
+
+.homePanel{
+  background:#fffaf3;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:18px;
+}
+
+.homePanel h3{
+  font:500 17px Georgia,serif;
+  margin:0 0 14px;
+}
+
+.activity{
+  display:grid;
+  grid-template-columns:32px 1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:10px 0;
+  border-top:1px solid #e7e0d4;
+}
+
+.activity:first-of-type{
+  border-top:0;
+}
+
+.activityIcon{
+  width:29px;
+  height:29px;
+  border-radius:8px;
+  background:#e9e3d8;
+  display:grid;
+  place-items:center;
+  color:var(--accent);
+  font-size:11px;
+}
+
+.activityText{
+  font-size:11px;
+}
+
+.activityText b{
+  font-weight:650;
+}
+
+.activityText small{
+  display:block;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.activity time{
+  font-size:9px;
+  color:var(--muted);
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.quick button{
+  padding:12px;
+  text-align:left;
+  border:1px solid var(--line);
+  background:#f8f4ec;
+  border-radius:9px;
+  color:var(--ink);
+  font-size:11px;
+}
+
+.quick button:hover{
+  background:#eee8dd;
+}
+
+.quick b{
+  display:block;
+  font:500 14px Georgia,serif;
+  margin-bottom:4px;
+}
+
+.quick span{
+  color:var(--muted);
+  font-size:9px;
+}
+
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
+
+.workspace{
+  height:100vh;
+  display:grid;
+  grid-template-columns:238px minmax(450px,1fr) 292px;
+  grid-template-rows:58px 1fr;
+  background:#e9e4da;
+}
+
+.workspaceTop{
+  grid-column:1/-1;
+  background:var(--charcoal);
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:0 12px;
+  gap:12px;
+}
+
+.workspaceLogo{
+  width:215px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-family:Georgia,serif;
+  font-size:18px;
+}
+
+.workspaceLogo .logoMark{
+  background:#f2eee6;
+  color:var(--charcoal);
+}
+
+.projectName{
+  height:34px;
+  border-left:1px solid #ffffff22;
+  padding-left:16px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:#f0ece4;
+}
+
+.projectName small{
+  color:#a9a49b;
+}
+
+.workspaceMode{
+  margin:auto;
+  display:flex;
+  gap:2px;
+  background:#1e1c1a;
+  border:1px solid #ffffff12;
+  padding:3px;
+  border-radius:8px;
+}
+
+.workspaceMode button{
+  border:0;
+  background:transparent;
+  color:#a9a59e;
+  font-size:10px;
+  padding:6px 12px;
+  border-radius:6px;
+}
+
+.workspaceMode button.active{
+  background:#f2eee6;
+  color:#292825;
+}
+
+.topRight{
+  display:flex;
+  gap:6px;
+}
+
+.topIcon{
+  width:32px;
+  height:32px;
+  border:1px solid #ffffff18;
+  background:transparent;
+  color:#c8c3ba;
+  border-radius:7px;
+}
+
+.topIcon:hover{
+  background:#ffffff10;
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+  background:#f3efe7;
+  border-right:1px solid #d8d1c5;
+  overflow:hidden;
+  padding:13px 9px;
+}
+
+.sideSection{
+  font-size:9px;
+  font-weight:750;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:#938c80;
+  padding:8px 9px;
+}
+
+.sideNav{
+  display:grid;
+  gap:2px;
+  margin-bottom:15px;
+}
+
+.sideNav button,
+.scene{
+  border:0;
+  background:transparent;
+  color:#666157;
+  text-align:left;
+  width:100%;
+  border-radius:7px;
+  padding:8px 9px;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.sideNav button:hover,
+.scene:hover{
+  background:#e7e1d7;
+  color:var(--ink);
+}
+
+.sideNav button.active{
+  background:#e2dbcf;
+  color:var(--ink);
+  font-weight:650;
+}
+
+.sideNav i{
+  font-style:normal;
+  width:16px;
+  text-align:center;
+  color:#857e72;
+}
+
+.shortcut{
+  margin-left:auto;
+  font-size:8px;
+  color:#a49c90;
+}
+
+.sceneList{
+  overflow:auto;
+  height:calc(100% - 225px);
+}
+
+.scene{
+  font-size:10px;
+  padding:7px 9px;
+}
+
+.scene.active{
+  background:#e1dbd0;
+  color:var(--ink);
+}
+
+.sceneNumber{
+  font-family:Georgia,serif;
+  color:#a1988b;
+  width:16px;
+}
+
+.sceneTitle{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.sceneDot{
+  margin-left:auto;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--sage);
+}
+
+
+/* EDITOR */
+
+.editor{
+  background:#dcd6cc;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.editorToolbar{
+  height:45px;
+  background:#f0ece4;
+  border-bottom:1px solid #d1cabd;
+  display:flex;
+  align-items:center;
+  padding:0 13px;
+  gap:2px;
+}
+
+.tool{
+  border:0;
+  background:transparent;
+  color:#746d62;
+  font-size:10px;
+  padding:7px 9px;
+  border-radius:6px;
+}
+
+.tool:hover,
+.tool.active{
+  background:#e6ded4;
+  color:var(--accent);
+}
+
+.toolSep{
+  height:19px;
+  width:1px;
+  background:#d3ccc0;
+  margin:0 6px;
+}
+
+.editorStatus{
+  margin-left:auto;
+  font-size:9px;
+  color:#8b8479;
+  display:flex;
+  gap:10px;
+}
+
+.saved{
+  color:#70866f;
+}
+
+.pageViewport{
+  flex:1;
+  overflow:auto;
+  padding:40px 40px 80px;
+  display:flex;
+  justify-content:center;
+}
+
+.pageViewport::-webkit-scrollbar{
+  width:8px;
+}
+
+.pageViewport::-webkit-scrollbar-thumb{
+  background:#bbb3a6;
+  border-radius:8px;
+}
+
+.page{
+  width:min(720px,100%);
+  min-height:920px;
+  background:#fffdf9;
+  box-shadow:0 16px 45px rgba(52,46,38,.17);
+  padding:75px 82px 100px;
+  color:#1e1d1a;
+}
+
+.titlePage{
+  font-family:"Courier New",monospace;
+  text-align:center;
+  font-size:12px;
+  margin-bottom:55px;
+  letter-spacing:.03em;
+}
+
+.script{
+  font-family:"Courier New",Courier,monospace;
+  font-size:12px;
+  line-height:1.58;
+  outline:0;
+  min-height:700px;
+}
+
+.script div{
+  min-height:18px;
+}
+
+.sceneHeading{
+  font-weight:bold;
+  text-transform:uppercase;
+  margin-top:20px;
+}
+
+.action{
+  margin:0 0 10px;
+}
+
+.character{
+  text-align:center;
+  margin-top:16px;
+}
+
+.dialogue{
+  width:59%;
+  margin:0 auto 11px;
+}
+
+.parenthetical{
+  width:46%;
+  margin:0 auto;
+  font-size:11px;
+}
+
+.transition{
+  text-align:right;
+  text-transform:uppercase;
+  margin-top:20px;
+}
+
+.bottomStatus{
+  position:absolute;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#f1ece4cc;
+  border:1px solid #d4ccbf;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:8px;
+  color:#817a70;
+  backdrop-filter:blur(8px);
+}
+
+
+/* RIGHT */
+
+.rightbar{
+  background:#f4f0e8;
+  border-left:1px solid #d8d1c5;
+  overflow:hidden;
+}
+
+.rightTabs{
+  height:45px;
+  display:flex;
+  border-bottom:1px solid #d8d1c5;
+}
+
+.rightTabs button{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#918a7f;
+  font-size:10px;
+}
+
+.rightTabs button.active{
+  color:var(--ink);
+  border-bottom:2px solid var(--accent);
+}
+
+.rightContent{
+  padding:13px;
+  overflow:auto;
+  height:calc(100% - 45px);
+}
+
+.infoCard{
+  border:1px solid #ded7cb;
+  background:#fbf8f1;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:9px;
+}
+
+.infoCard h3{
+  font:500 14px Georgia,serif;
+  margin:0 0 10px;
+}
+
+.label{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#9a9387;
+}
+
+.value{
+  font-size:11px;
+  margin-top:3px;
+}
+
+.meter{
+  height:4px;
+  background:#e2dcd1;
+  border-radius:4px;
+  margin-top:9px;
+}
+
+.meter i{
+  display:block;
+  width:72%;
+  height:100%;
+  background:var(--accent);
+  border-radius:4px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.stat{
+  background:#f1ece4;
+  border-radius:7px;
+  padding:9px;
+}
+
+.stat b{
+  font:500 17px Georgia,serif;
+}
+
+.stat span{
+  display:block;
+  color:#948d81;
+  font-size:8px;
+  margin-top:2px;
+}
+
+.tag{
+  display:inline-block;
+  padding:5px 7px;
+  border-radius:6px;
+  background:#e8e1d6;
+  font-size:9px;
+  margin:3px 3px 0 0;
+}
+
+.tag.red{
+  background:#ead9d3;
+  color:#865044;
+}
+
+.tag.green{
+  background:#dce5db;
+  color:#586d57;
+}
+
+.tag.blue{
+  background:#dce3e7;
+  color:#596c7c;
+}
+
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#29282566;
+  backdrop-filter:blur(5px);
+  display:grid;
+  place-items:center;
+  z-index:30;
+}
+
+.modalBox{
+  width:430px;
+  background:#fbf8f1;
+  border:1px solid #d7cfc2;
+  border-radius:14px;
+  padding:22px;
+  box-shadow:0 25px 70px #29282533;
+}
+
+.modalBox h2{
+  font:500 24px Georgia,serif;
+  margin:0 0 17px;
+}
+
+.modalBox input{
+  width:100%;
+  height:40px;
+  border:1px solid #d6cec1;
+  background:#fffdf9;
+  border-radius:8px;
+  padding:0 11px;
+  outline:none;
+}
+
+.modalActions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:16px;
+}
+
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#292825;
+  color:white;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:10px;
+  box-shadow:0 12px 35px #0003;
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+  transition:.2s;
+  z-index:40;
+}
+
+.toast.show{
+  opacity:1;
+  transform:none;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+  .workspace{
+    grid-template-columns:205px 1fr;
+  }
+
+  .rightbar{
+    display:none;
+  }
+
+  .projects{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+@media(max-width:780px){
+
+  .homebar{
+    padding:0 18px;
+  }
+
+  .homeNav{
+    display:none;
+  }
+
+  .homeMain{
+    width:calc(100% - 35px);
+  }
+
+  .projects{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .bottomGrid{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .workspace{
+    grid-template-columns:1fr;
+  }
+
+  .workspaceLogo{
+    width:auto;
+  }
+
+  .projectName{
+    display:none;
+  }
+
+  .pageViewport{
+    padding:20px;
+  }
+
+  .page{
+    padding:50px 40px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ========================================================
+     AUTEUR HOME
+========================================================= -->
+
+<section class="home" id="home">
+
+<header class="homebar">
+
+  <div class="logo">
+    <div class="logoMark">A</div>
+    Auteur
+  </div>
+
+  <nav class="homeNav">
+    <button class="active">Projects</button>
+    <button>Templates</button>
+    <button>Trash</button>
+  </nav>
+
+  <div class="homeActions">
+
+    <button class="secondary" id="importBtn">
+      Import
+    </button>
+
+    <button class="primary" id="newProjectBtn">
+      + New Project
+    </button>
+
+    <div class="avatar">
+      B
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="homeMain">
+
+  <div class="welcome">
+
+    <div>
+
+      <div class="eyebrow">
+        Screenwriting studio
+      </div>
+
+      <h1>
+        Make the story impossible to ignore.
+      </h1>
+
+      <p>
+        Your scripts, story maps, characters, and ideas in one quiet workspace.
+      </p>
+
+    </div>
+
+    <input
+      class="search"
+      id="projectSearch"
+      placeholder="Search projects..."
+    >
+
+  </div>
+
+
+  <div class="sectionHead">
+
+    <h2>
+      Recent projects
+    </h2>
+
+    <span id="projectCount">
+      3 projects
+    </span>
+
+  </div>
+
+
+  <div class="projects" id="projects">
+
+    <article
+      class="projectCard"
+      data-name="The Last Signal"
+      data-open
+    >
+
+      <div class="cover one">
+
+        <div>
+
+          <div class="coverTitle">
+            The Last Signal
+          </div>
+
+          <div class="coverSub">
+            Feature Screenplay · 12%
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="projectMeta">
+
+        <strong>
+          The Last Signal
+        </strong>
+
+        <span>
+          Edited today
+        </span>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="projectCard"
+      data-name="Figures of Doom"
+      data-open
+    >
+
+      <div class="cover two">
+
+        <div>
+
+          <div class="coverTitle">
+            Figures of Doom
+          </div>
+
+          <div class="coverSub">
+            Feature Screenplay · 48%
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="projectMeta">
+
+        <strong>
+          Figures of Doom
+        </strong>
+
+        <span>
+          Yesterday
+        </span>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="projectCard"
+      data-name="Sentient Mass"
+      data-open
+    >
+
+      <div class="cover three">
+
+        <div>
+
+          <div class="coverTitle">
+            Sentient Mass
+          </div>
+
+          <div class="coverSub">
+            Feature Screenplay · 31%
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="projectMeta">
+
+        <strong>
+          Sentient Mass
+        </strong>
+
+        <span>
+          Aug 12
+        </span>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="projectCard"
+      id="newCard"
+    >
+
+      <div class="cover new">
+
+        <div class="newPlus">
+          +
+        </div>
+
+      </div>
+
+      <div class="projectMeta">
+
+        <strong>
+          New project
+        </strong>
+
+        <span>
+          Start writing
+        </span>
+
+      </div>
+
+    </article>
+
+  </div>
+
+
+  <div class="bottomGrid">
+
+    <section class="homePanel">
+
+      <h3>
+        Continue writing
+      </h3>
+
+
+      <div class="activity">
+
+        <div class="activityIcon">
+          A
+        </div>
+
+        <div class="activityText">
+
+          <b>
+            The Last Signal
+          </b>
+
+          · Scene 1
+
+          <small>
+            EXT. EMPTY ROAD - NIGHT
+          </small>
+
+        </div>
+
+        <time>
+          Today
+        </time>
+
+      </div>
+
+
+      <div class="activity">
+
+        <div class="activityIcon">
+          S
+        </div>
+
+        <div class="activityText">
+
+          <b>
+            Sentient Mass
+          </b>
+
+          · Scene 18
+
+          <small>
+            INT. OMEGA CHAMBER
+          </small>
+
+        </div>
+
+        <time>
+          Aug 12
+        </time>
+
+      </div>
+
+
+      <div class="activity">
+
+        <div class="activityIcon">
+          F
+        </div>
+
+        <div class="activityText">
+
+          <b>
+            Figures of Doom
+          </b>
+
+          · Scene 42
+
+          <small>
+            EXT. WONDERLAND - NIGHT
+          </small>
+
+        </div>
+
+        <time>
+          Aug 11
+        </time>
+
+      </div>
+
+    </section>
+
+
+    <section class="homePanel">
+
+      <h3>
+        Start with a tool
+      </h3>
+
+      <div class="quick">
+
+        <button id="quickScript">
+          <b>Screenplay</b>
+          <span>Write in industry format</span>
+        </button>
+
+        <button id="quickBoard">
+          <b>Story Map</b>
+          <span>See the whole story</span>
+        </button>
+
+        <button id="quickCharacter">
+          <b>Characters</b>
+          <span>Build your cast</span>
+        </button>
+
+        <button id="quickNote">
+          <b>Idea Board</b>
+          <span>Capture the sparks</span>
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+</section>
+
+
+<!-- ========================================================
+     WRITING WORKSPACE
+========================================================= -->
+
+<section
+  class="workspace hidden"
+  id="workspace"
+>
+
+<header class="workspaceTop">
+
+  <div class="workspaceLogo">
+
+    <div class="logoMark">
+      A
+    </div>
+
+    Auteur
+
+  </div>
+
+
+  <div class="projectName">
+
+    <span id="workspaceProject">
+      The Last Signal
+    </span>
+
+    <small>
+      / Screenplay
+    </small>
+
+  </div>
+
+
+  <div class="workspaceMode">
+
+    <button
+      class="active"
+      data-view="script"
+    >
+      Script
+    </button>
+
+    <button data-view="story">
+      Story Map
+    </button>
+
+    <button data-view="outline">
+      Outline
+    </button>
+
+    <button data-view="timeline">
+      Timeline
+    </button>
+
+  </div>
+
+
+  <div class="topRight">
+
+    <button
+      class="topIcon"
+      id="focusBtn"
+      title="Fullscreen"
+    >
+      ⛶
+    </button>
+
+    <button
+      class="topIcon"
+      id="searchBtn"
+      title="Search"
+    >
+      ⌕
+    </button>
+
+    <button
+      class="topIcon"
+      id="backBtn"
+      title="Back"
+    >
+      ←
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+  <div class="sideSection">
+    Project
+  </div>
+
+
+  <nav class="sideNav">
+
+    <button
+      class="active"
+      data-panel="script"
+    >
+      <i>▤</i>
+      Screenplay
+      <span class="shortcut">⌘1</span>
+    </button>
+
+    <button data-panel="story">
+      <i>▦</i>
+      Story Map
+      <span class="shortcut">⌘2</span>
+    </button>
+
+    <button data-panel="characters">
+      <i>♙</i>
+      Characters
+      <span class="shortcut">8</span>
+    </button>
+
+    <button data-panel="locations">
+      <i>⌂</i>
+      Locations
+      <span class="shortcut">12</span>
+    </button>
+
+    <button data-panel="notes">
+      <i>✎</i>
+      Notes
+      <span class="shortcut">24</span>
+    </button>
+
+    <button data-panel="research">
+      <i>◇</i>
+      Research
+    </button>
+
+  </nav>
+
+
+  <div class="sideSection">
+
+    Scenes
+
+    <button
+      id="addScene"
+      style="
+        float:right;
+        border:0;
+        background:none;
+        color:#8d8579;
+      "
+    >
+      +
+    </button>
+
+  </div>
+
+
+  <div
+    class="sceneList"
+    id="sceneList"
+  >
+
+    <button class="scene active">
+
+      <span class="sceneNumber">
+        01
+      </span>
+
+      <span class="sceneTitle">
+        EXT. EMPTY ROAD - NIGHT
+      </span>
+
+      <span class="sceneDot"></span>
+
+    </button>
+
+
+    <button class="scene">
+
+      <span class="sceneNumber">
+        02
+      </span>
+
+      <span class="sceneTitle">
+        INT. APARTMENT - NIGHT
+      </span>
+
+      <span class="sceneDot"></span>
+
+    </button>
+
+
+    <button class="scene">
+
+      <span class="sceneNumber">
+        03
+      </span>
+
+      <span class="sceneTitle">
+        INT. SUBWAY - NIGHT
+      </span>
+
+      <span class="sceneDot"></span>
+
+    </button>
+
+
+    <button class="scene">
+
+      <span class="sceneNumber">
+        04
+      </span>
+
+      <span class="sceneTitle">
+        EXT. ROOFTOP - DAWN
+      </span>
+
+      <span class="sceneDot"></span>
+
+    </button>
+
+
+    <button class="scene">
+
+      <span class="sceneNumber">
+        05
+      </span>
+
+      <span class="sceneTitle">
+        INT. SIGNAL ROOM - MORNING
+      </span>
+
+    </button>
+
+
+    <button class="scene">
+
+      <span class="sceneNumber">
+        06
+      </span>
+
+      <span class="sceneTitle">
+        EXT. CITY - DAY
+      </span>
+
+    </button>
+
+
+    <button class="scene">
+
+      <span class="sceneNumber">
+        07
+      </span>
+
+      <span class="sceneTitle">
+        INT. HOSPITAL - DAY
+      </span>
+
+    </button>
+
+
+    <button class="scene">
+
+      <span class="sceneNumber">
+        08
+      </span>
+
+      <span class="sceneTitle">
+        EXT. BRIDGE - SUNSET
+      </span>
+
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- EDITOR -->
+
+<main class="editor">
+
+  <div class="editorToolbar">
+
+    <button
+      class="tool active"
+      data-format="scene"
+    >
+      SCENE
+    </button>
+
+    <button
+      class="tool"
+      data-format="action"
+    >
+      ACTION
+    </button>
+
+    <button
+      class="tool"
+      data-format="character"
+    >
+      CHARACTER
+    </button>
+
+    <button
+      class="tool"
+      data-format="dialogue"
+    >
+      DIALOGUE
+    </button>
+
+    <button
+      class="tool"
+      data-format="parenthetical"
+    >
+      PARENTHETICAL
+    </button>
+
+    <button
+      class="tool"
+      data-format="transition"
+    >
+      TRANSITION
+    </button>
+
+    <span class="toolSep"></span>
+
+    <button
+      class="tool"
+      id="boldBtn"
+    >
+      <b>B</b>
+    </button>
+
+    <button
+      class="tool"
+      id="italicBtn"
+    >
+      <i>I</i>
+    </button>
+
+
+    <div class="editorStatus">
+
+      <span id="wordCount">
+        0 words
+      </span>
+
+      <span class="saved">
+        ● Saved locally
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="pageViewport"
+    id="pageViewport"
+  >
+
+    <article
+      class="page"
+      id="scriptPage"
+    >
+
+      <div class="titlePage">
+        THE LAST SIGNAL
+      </div>
+
+
+      <div
+        class="script"
+        id="script"
+        contenteditable="true"
+        spellcheck="false"
+      >
+
+        <div class="sceneHeading">
+          EXT. EMPTY ROAD - NIGHT
+        </div>
+
+        <div class="action">
+          Rain needles the asphalt. A dead city glows beyond the hills, every window dark.
+        </div>
+
+        <div class="action">
+          A lone radio tower blinks red against the clouds.
+        </div>
+
+        <div class="character">
+          MARA
+        </div>
+
+        <div class="dialogue">
+          Do you hear that?
+        </div>
+
+        <div class="character">
+          ELI
+        </div>
+
+        <div class="dialogue">
+          Hear what?
+        </div>
+
+        <div class="parenthetical">
+          (beat)
+        </div>
+
+        <div class="dialogue">
+          The silence.
+        </div>
+
+        <div class="action">
+          Mara looks toward the tower.
+        </div>
+
+        <div class="action">
+          For one impossible second, every streetlight turns on.
+        </div>
+
+        <div class="action">
+          Then the radio in Eli's hand crackles.
+        </div>
+
+        <div class="character">
+          RADIO
+        </div>
+
+        <div class="dialogue">
+          Mara Voss. If you can hear this, do not come home.
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+
+  <div class="bottomStatus">
+    PAGE 1 · SCENE 1 · 12% COMPLETE
+  </div>
+
+</main>
+
+
+<!-- INSPECTOR -->
+
+<aside class="rightbar">
+
+  <div class="rightTabs">
+
+    <button
+      class="active"
+      data-right="scene"
+    >
+      Inspector
+    </button>
+
+    <button data-right="characters">
+      Characters
+    </button>
+
+    <button data-right="notes">
+      Notes
+    </button>
+
+  </div>
+
+
+  <div
+    class="rightContent"
+    id="rightContent"
+  >
+
+    <div class="infoCard">
+
+      <h3>
+        Scene
+      </h3>
+
+      <div class="label">
+        Heading
+      </div>
+
+      <div class="value">
+        EXT. EMPTY ROAD - NIGHT
+      </div>
+
+      <div class="meter">
+        <i></i>
+      </div>
+
+      <div
+        class="label"
+        style="margin-top:7px"
+      >
+        Scene progress · 72%
+      </div>
+
+    </div>
+
+
+    <div class="infoCard">
+
+      <h3>
+        Scene details
+      </h3>
+
+      <div class="stats">
+
+        <div class="stat">
+          <b>2</b>
+          <span>Characters</span>
+        </div>
+
+        <div class="stat">
+          <b>4</b>
+          <span>Beats</span>
+        </div>
+
+        <div class="stat">
+          <b>Night</b>
+          <span>Time</span>
+        </div>
+
+        <div class="stat">
+          <b>Road</b>
+          <span>Location</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="infoCard">
+
+      <h3>
+        Story threads
+      </h3>
+
+      <span class="tag red">
+        The Signal
+      </span>
+
+      <span class="tag green">
+        Mara
+      </span>
+
+      <span class="tag blue">
+        Blackout
+      </span>
+
+    </div>
+
+
+    <div class="infoCard">
+
+      <h3>
+        Scene note
+      </h3>
+
+      <div class="value">
+        Introduce the central mystery without explaining it. Let the silence become a character.
+      </div>
+
+    </div>
+
+
+    <div class="infoCard">
+
+      <h3>
+        Characters
+      </h3>
+
+      <div class="value">
+        Mara Voss
+      </div>
+
+      <div class="label">
+        Protagonist
+      </div>
+
+      <div
+        class="value"
+        style="margin-top:9px"
+      >
+        Eli Hart
+      </div>
+
+      <div class="label">
+        Supporting
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>
+
+</section>
+
+
+<!-- NEW PROJECT MODAL -->
+
+<div
+  class="modal hidden"
+  id="newModal"
+>
+
+  <div class="modalBox">
+
+    <h2>
+      Create a new project
+    </h2>
+
+    <input
+      id="projectTitle"
+      placeholder="Project title"
+    >
+
+    <div class="modalActions">
+
+      <button
+        class="secondary"
+        id="cancelModal"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="primary"
+        id="createProject"
+      >
+        Create project
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<script>
+
+/* =========================================================
+   CORE
+========================================================= */
+
+const $ = selector =>
+  document.querySelector(selector);
+
+const $$ = selector =>
+  [...document.querySelectorAll(selector)];
+
+const home =
+  $("#home");
+
+const workspace =
+  $("#workspace");
+
+const modal =
+  $("#newModal");
+
+const toast =
+  $("#toast");
+
+const script =
+  $("#script");
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function notify(message){
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(
+      () => toast.classList.remove("show"),
+      1700
+    );
+}
+
+
+/* =========================================================
+   PROJECT OPENING
+========================================================= */
+
+function openWorkspace(
+  name = "The Last Signal"
+){
+
+  $("#workspaceProject").textContent =
+    name;
+
+  home.classList.add("hidden");
+
+  workspace.classList.remove("hidden");
+
+  notify(
+    "Opening " + name
+  );
+}
+
+
+/* =========================================================
+   PROJECT MODAL
+========================================================= */
+
+function openModal(){
+
+  modal.classList.remove("hidden");
+
+  setTimeout(
+    () => $("#projectTitle").focus(),
+    50
+  );
+}
+
+
+function closeModal(){
+
+  modal.classList.add("hidden");
+
+  $("#projectTitle").value = "";
+}
+
+
+$("#newProjectBtn").onclick =
+  openModal;
+
+$("#newCard").onclick =
+  openModal;
+
+$("#cancelModal").onclick =
+  closeModal;
+
+
+$("#createProject").onclick = () => {
+
+  const title =
+    $("#projectTitle")
+      .value
+      .trim()
+      ||
+    "Untitled Screenplay";
+
+  openWorkspace(title);
+
+  closeModal();
+
+};
+
+
+/* =========================================================
+   OPEN EXISTING PROJECTS
+========================================================= */
+
+$$("[data-open]").forEach(card => {
+
+  card.addEventListener(
+    "click",
+    () =>
+      openWorkspace(
+        card.dataset.name
+      )
+  );
+
+});
+
+
+/* =========================================================
+   HOME SEARCH
+========================================================= */
+
+$("#projectSearch").oninput = event => {
+
+  const query =
+    event.target.value
+      .toLowerCase();
+
+  $$(
+    ".projectCard[data-name]"
+  ).forEach(card => {
+
+    card.style.display =
+      card.dataset.name
+        .toLowerCase()
+        .includes(query)
+        ? "block"
+        : "none";
+
+  });
+
+};
+
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+$("#quickScript").onclick =
+  openModal;
+
+
+$("#quickBoard").onclick = () => {
+
+  openWorkspace(
+    "Untitled Story"
+  );
+
+  setTimeout(
+    () => activateView("story"),
+    20
+  );
+
+};
+
+
+$("#quickCharacter").onclick = () => {
+
+  openWorkspace(
+    "Untitled Story"
+  );
+
+  setTimeout(
+    () =>
+      $('[data-panel="characters"]')
+        .click(),
+    20
+  );
+
+};
+
+
+$("#quickNote").onclick =
+  () =>
+    notify(
+      "Idea board ready"
+    );
+
+
+$("#importBtn").onclick =
+  () =>
+    notify(
+      "Import supports screenplay and Fountain files"
+    );
+
+
+/* =========================================================
+   BACK
+========================================================= */
+
+$("#backBtn").onclick = () => {
+
+  workspace.classList.add("hidden");
+
+  home.classList.remove("hidden");
+
+};
+
+
+/* =========================================================
+   LOCAL AUTOSAVE
+========================================================= */
+
+function save(){
+
+  localStorage.setItem(
+    "auteur-last-signal",
+    script.innerHTML
+  );
+
+  updateWords();
+
+}
+
+
+function updateWords(){
+
+  const words =
+    script.innerText
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .length;
+
+  $("#wordCount")
+    .textContent =
+      words + " words";
+
+}
+
+
+const stored =
+  localStorage.getItem(
+    "auteur-last-signal"
+  );
+
+
+if(stored){
+
+  script.innerHTML =
+    stored;
+
+}
+
+
+script.addEventListener(
+  "input",
+  save
+);
+
+
+updateWords();
+
+
+/* =========================================================
+   SCENE NAVIGATION
+========================================================= */
+
+function bindScenes(){
+
+  $$(".scene").forEach(scene => {
+
+    scene.onclick = () => {
+
+      $$(".scene").forEach(
+        item =>
+          item.classList.remove(
+            "active"
+          )
+      );
+
+      scene.classList.add(
+        "active"
+      );
+
+      notify(
+        scene.querySelector(
+          ".sceneTitle"
+        ).textContent
+      );
+
+    };
+
+  });
+
+}
+
+
+bindScenes();
+
+
+/* =========================================================
+   ADD SCENE
+========================================================= */
+
+$("#addScene").onclick = () => {
+
+  const number =
+    $$(".scene").length + 1;
+
+  const scene =
+    document.createElement(
+      "button"
+    );
+
+  scene.className =
+    "scene";
+
+  scene.innerHTML = `
+
+    <span class="sceneNumber">
+      ${String(number).padStart(2,"0")}
+    </span>
+
+    <span class="sceneTitle">
+      INT. NEW SCENE - DAY
+    </span>
+
+    <span class="sceneDot"></span>
+
+  `;
+
+  $("#sceneList")
+    .appendChild(scene);
+
+  bindScenes();
+
+  notify(
+    "New scene added"
+  );
+
+};
+
+
+/* =========================================================
+   SCREENPLAY FORMATTING
+========================================================= */
+
+$$(
+  ".tool[data-format]"
+).forEach(button => {
+
+  button.onclick = () => {
+
+    $$(
+      ".tool[data-format]"
+    ).forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+    button.classList.add(
+      "active"
+    );
+
+    notify(
+      button.dataset.format
+        .charAt(0)
+        .toUpperCase()
+      +
+      button.dataset.format
+        .slice(1)
+      +
+      " format selected"
+    );
+
+  };
+
+});
+
+
+$("#boldBtn").onclick = () => {
+
+  document.execCommand(
+    "bold"
+  );
+
+  script.focus();
+
+  save();
+
+};
+
+
+$("#italicBtn").onclick = () => {
+
+  document.execCommand(
+    "italic"
+  );
+
+  script.focus();
+
+  save();
+
+};
+
+
+/* =========================================================
+   VIEW SYSTEM
+========================================================= */
+
+function activateView(view){
+
+  $$("[data-view]").forEach(
+    button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.view === view
+      );
+
+    }
+  );
+
+
+  if(view === "script"){
+
+    location.reload();
+
+    return;
+
+  }
+
+
+  if(view === "story"){
+
+    $("#pageViewport").innerHTML = `
+
+      <div
+        style="
+          width:min(930px,100%);
+          display:grid;
+          grid-template-columns:repeat(3,1fr);
+          gap:12px;
+          padding-top:15px;
+        "
+      >
+
+        ${boardColumn(
+          "ACT I",
+          [
+            "The city goes dark",
+            "Mara hears the signal",
+            "Eli refuses to leave"
+          ]
+        )}
+
+        ${boardColumn(
+          "ACT II",
+          [
+            "The tower activates",
+            "The signal knows Mara",
+            "Eli disappears"
+          ]
+        )}
+
+        ${boardColumn(
+          "ACT III",
+          [
+            "The final transmission",
+            "Mara reaches the tower",
+            "The silence answers"
+          ]
+        )}
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(view === "outline"){
+
+    $("#pageViewport").innerHTML = `
+
+      <div
+        class="page"
+        style="
+          min-height:620px;
+          padding:55px 65px;
+        "
+      >
+
+        <h1
+          style="
+            font:500 30px Georgia,serif;
+            margin:0 0 30px;
+          "
+        >
+          Story Outline
+        </h1>
+
+        <p
+          style="
+            color:#9a9387;
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.1em;
+          "
+        >
+          ACT I · THE SIGNAL
+        </p>
+
+        <p>
+          01 &nbsp; The city loses power.
+        </p>
+
+        <p>
+          02 &nbsp; Mara discovers the transmission.
+        </p>
+
+        <p>
+          03 &nbsp; Eli insists they investigate.
+        </p>
+
+        <hr
+          style="
+            border:0;
+            border-top:1px solid #ddd6ca;
+            margin:25px 0;
+          "
+        >
+
+        <p
+          style="
+            color:#9a9387;
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.1em;
+          "
+        >
+          ACT II · THE TOWER
+        </p>
+
+        <p>
+          04 &nbsp; They cross the abandoned city.
+        </p>
+
+        <p>
+          05 &nbsp; The signal changes.
+        </p>
+
+        <p>
+          06 &nbsp; Eli vanishes.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(view === "timeline"){
+
+    $("#pageViewport").innerHTML = `
+
+      <div
+        style="
+          width:min(900px,100%);
+          padding-top:35px;
+        "
+      >
+
+        <h2
+          style="
+            font:500 28px Georgia,serif;
+          "
+        >
+          Timeline
+        </h2>
+
+        <div
+          style="
+            margin-top:35px;
+            border-top:1px solid #bdb5a8;
+            padding-top:20px;
+            display:grid;
+            grid-template-columns:repeat(8,1fr);
+            gap:10px;
+          "
+        >
+
+          ${[
+            "1","2","3","4",
+            "5","6","7","8"
+          ].map(
+            (number,index) => `
+
+              <div>
+
+                <div
+                  style="
+                    height:${45 + index * 17}px;
+                    border-left:2px solid #a95748;
+                  "
+                ></div>
+
+                <small
+                  style="
+                    font-size:9px;
+                    color:#817b71;
+                  "
+                >
+                  SCENE ${number}
+                </small>
+
+              </div>
+
+            `
+          ).join("")}
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+function boardColumn(
+  title,
+  notes
+){
+
+  return `
+
+    <div
+      style="
+        background:#f4f0e8;
+        border:1px solid #d5cec2;
+        border-radius:11px;
+        padding:12px;
+        min-height:400px;
+      "
+    >
+
+      <h4
+        style="
+          font:500 13px Georgia,serif;
+          margin:0 0 12px;
+        "
+      >
+        ${title}
+      </h4>
+
+      ${notes.map(
+        (note,index) => `
+
+          <div
+            style="
+              background:#fffaf3;
+              border:1px solid #ddd5c9;
+              border-radius:8px;
+              padding:12px;
+              margin-bottom:8px;
+              box-shadow:0 4px 12px #00000008;
+            "
+          >
+
+            <div
+              style="
+                font-size:8px;
+                color:#9a9388;
+                margin-bottom:6px;
+              "
+            >
+              SCENE ${index + 1}
+            </div>
+
+            <div
+              style="
+                font:500 13px Georgia,serif;
+              "
+            >
+              ${note}
+            </div>
+
+            <div
+              style="
+                font-size:9px;
+                color:#928b80;
+                margin-top:8px;
+              "
+            >
+              Drag to reorder
+            </div>
+
+          </div>
+
+        `
+      ).join("")}
+
+    </div>
+
+  `;
+
+}
+
+
+$$("[data-view]").forEach(
+  button =>
+    button.onclick =
+      () =>
+        activateView(
+          button.dataset.view
+        )
+);
+
+
+/* =========================================================
+   PROJECT SIDEBAR
+========================================================= */
+
+$$("[data-panel]").forEach(
+  button => {
+
+    button.onclick = () => {
+
+      $$("[data-panel]").forEach(
+        item =>
+          item.classList.remove(
+            "active"
+          )
+      );
+
+      button.classList.add(
+        "active"
+      );
+
+      notify(
+        button.textContent.trim()
+      );
+
+    };
+
+  }
+);
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+$$("[data-right]").forEach(
+  button => {
+
+    button.onclick = () => {
+
+      $$("[data-right]").forEach(
+        item =>
+          item.classList.remove(
+            "active"
+          )
+      );
+
+      button.classList.add(
+        "active"
+      );
+
+      notify(
+        button.textContent +
+        " panel"
+      );
+
+    };
+
+  }
+);
+
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+$("#focusBtn").onclick = () => {
+
+  if(!document.fullscreenElement){
+
+    document.documentElement
+      .requestFullscreen?.();
+
+  }else{
+
+    document.exitFullscreen?.();
+
+  }
+
+};
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+$("#searchBtn").onclick = () => {
+
+  notify(
+    "Project search · ⌘K"
+  );
+
+};
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      (event.metaKey ||
+       event.ctrlKey)
+      &&
+      event.key.toLowerCase()
+      === "s"
+    ){
+
+      event.preventDefault();
+
+      save();
+
+      notify(
+        "Saved locally"
+      );
+
+    }
+
+
+    if(
+      (event.metaKey ||
+       event.ctrlKey)
+      &&
+      event.key.toLowerCase()
+      === "k"
+    ){
+
+      event.preventDefault();
+
+      $("#projectSearch")
+        .focus();
+
+    }
+
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeModal();
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
