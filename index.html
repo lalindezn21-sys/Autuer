@@ -2,870 +2,1322 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Auteur</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-    --bg: #f3f3f1;
-    --panel: #fafaf9;
-    --white: #ffffff;
-    --paper: #ffffff;
+:root{
+    --purple:#5b35d5;
+    --purple-soft:#f0ebff;
+    --purple-line:#d9ccff;
 
-    --black: #111111;
-    --text: #171717;
-    --secondary: #444444;
-    --muted: #666666;
+    --bg:#f7f7f8;
+    --white:#ffffff;
+    --line:#e5e5e7;
 
-    --border: #dededb;
-    --border-dark: #c9c9c5;
+    --text:#202124;
+    --muted:#7c7d84;
+    --light:#a3a4aa;
 
-    --accent: #5d49a7;
-    --accent-light: #eeeafb;
-    --accent-border: #d4ccef;
-
-    --topbar: 56px;
-    --left: 270px;
+    --left:368px;
+    --right:345px;
+    --top:58px;
 }
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
 html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
+body{
+    width:100%;
+    height:100%;
+    margin:0;
 }
 
-body {
-    background: var(--bg);
-    color: var(--black);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
+body{
+    overflow:hidden;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
 }
 
 button,
 input,
-textarea {
-    font: inherit;
-    color: var(--black);
+textarea{
+    font:inherit;
+    color:inherit;
 }
 
-button {
-    border: 0;
-    background: none;
+button{
+    border:0;
+    background:none;
 }
 
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
-    outline: 2px solid var(--accent-border);
-    outline-offset: 1px;
+textarea:focus-visible{
+    outline:2px solid var(--purple-line);
+    outline-offset:1px;
 }
 
 /* =========================================================
    APP
 ========================================================= */
 
-.app {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+.app{
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
 }
 
 /* =========================================================
-   TOP BAR
+   TOP NAV
 ========================================================= */
 
-.topbar {
-    height: var(--topbar);
-    flex-shrink: 0;
+.topbar{
+    height:var(--top);
+    flex-shrink:0;
 
-    background: rgba(255,255,255,.98);
-    border-bottom: 1px solid var(--border);
+    background:#fff;
+    border-bottom:1px solid var(--line);
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-    padding: 0 15px;
+    padding:0 13px;
 
-    z-index: 50;
+    z-index:50;
 }
 
 .top-left,
-.top-right {
-    display: flex;
-    align-items: center;
-    height: 100%;
+.top-center,
+.top-right{
+    display:flex;
+    align-items:center;
+    height:100%;
 }
 
-.brand {
-    width: 92px;
-
-    font-family: "EB Garamond", serif;
-    font-size: 27px;
-    font-weight: 600;
-    letter-spacing: -.04em;
-
-    cursor: pointer;
-    user-select: none;
+.top-left{
+    gap:15px;
+    min-width:340px;
 }
 
-.project-title {
-    height: 31px;
+.nav-icon{
+    width:31px;
+    height:31px;
 
-    padding-left: 17px;
-    border-left: 1px solid var(--border);
+    display:grid;
+    place-items:center;
 
-    display: flex;
-    align-items: center;
-    gap: 9px;
+    border-radius:7px;
 
-    font-size: 12px;
+    cursor:pointer;
+
+    color:#303136;
+    font-size:19px;
+
+    transition:.12s ease;
 }
 
-.project-title strong {
-    font-weight: 600;
+.nav-icon:hover{
+    background:#f0f0f1;
 }
 
-.project-title span {
-    color: var(--muted);
+.project-name{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:14px;
+    font-weight:650;
 }
 
-.top-right {
-    gap: 4px;
+.save-dot{
+    width:17px;
+    height:17px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:#effaf5;
+    color:#28a96b;
+
+    font-size:10px;
+    font-weight:800;
 }
 
-.save-status {
-    min-width: 50px;
-    margin-right: 8px;
+.top-center{
+    gap:23px;
 
-    text-align: right;
-
-    color: var(--secondary);
-    font-size: 11px;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
 }
 
-.top-button {
-    min-width: 34px;
-    height: 34px;
+.main-nav{
+    height:100%;
 
-    padding: 0 11px;
+    position:relative;
 
-    border-radius: 6px;
+    display:flex;
+    align-items:center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color:#a0a1a8;
 
-    font-size: 11px;
-    font-weight: 500;
+    font-size:16px;
+    font-weight:600;
 
-    cursor: pointer;
-
-    transition: .12s ease;
+    cursor:pointer;
 }
 
-.top-button:hover {
-    background: #eeeeec;
+.main-nav.active{
+    color:var(--purple);
 }
 
-.top-button.share {
-    border: 1px solid var(--border-dark);
-    margin-left: 6px;
+.main-nav.active::after{
+    content:"";
+
+    position:absolute;
+
+    bottom:0;
+    left:0;
+    right:0;
+
+    height:2px;
+
+    background:var(--purple);
 }
 
-.top-button.share:hover {
-    background: #f7f7f5;
+.top-right{
+    gap:5px;
+}
+
+.avatar{
+    width:29px;
+    height:29px;
+
+    border-radius:50%;
+
+    background:#0c80ed;
+    color:#fff;
+
+    display:grid;
+    place-items:center;
+
+    font-size:10px;
+    font-weight:700;
+
+    position:relative;
+}
+
+.avatar::after{
+    content:"";
+
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    right:-1px;
+    bottom:-1px;
+
+    background:#45c77b;
+    border:2px solid white;
+
+    border-radius:50%;
+}
+
+.top-divider{
+    width:1px;
+    height:26px;
+    background:var(--line);
+    margin:0 3px;
 }
 
 /* =========================================================
    WORKSPACE
 ========================================================= */
 
-.workspace {
-    flex: 1;
-    min-height: 0;
+.workspace{
+    flex:1;
+    min-height:0;
 
-    display: flex;
+    display:grid;
+    grid-template-columns:var(--left) minmax(500px,1fr) var(--right);
 }
 
 /* =========================================================
    LEFT SIDEBAR
 ========================================================= */
 
-.left-panel {
-    width: var(--left);
-    min-width: var(--left);
+.left-sidebar{
+    background:#fff;
+    border-right:1px solid var(--line);
 
-    background: var(--panel);
-    border-right: 1px solid var(--border);
+    display:flex;
+    flex-direction:column;
 
-    display: flex;
-    flex-direction: column;
-
-    transition: width .18s ease, min-width .18s ease;
+    min-width:0;
 }
 
-.left-top {
-    height: 51px;
-    flex-shrink: 0;
+.left-tabs{
+    height:49px;
+    flex-shrink:0;
 
-    border-bottom: 1px solid var(--border);
+    display:flex;
+    align-items:center;
 
-    padding: 0 13px;
+    padding:0 17px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    gap:16px;
+
+    border-bottom:1px solid var(--line);
 }
 
-.mode-tabs {
-    height: 100%;
+.left-tab{
+    height:100%;
 
-    display: flex;
-    align-items: center;
+    position:relative;
 
-    gap: 20px;
+    color:#777983;
+
+    font-size:14px;
+    font-weight:600;
+
+    cursor:pointer;
 }
 
-.mode-tab {
-    position: relative;
-
-    height: 100%;
-
-    padding: 0 1px;
-
-    color: var(--secondary);
-
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .05em;
-
-    cursor: pointer;
+.left-tab:hover{
+    color:var(--text);
 }
 
-.mode-tab:hover {
-    color: var(--black);
+.left-tab.active{
+    color:var(--text);
 }
 
-.mode-tab.active {
-    color: var(--black);
+.left-tab.active::after{
+    content:"";
+
+    position:absolute;
+
+    bottom:-1px;
+    left:0;
+    right:0;
+
+    height:2px;
+
+    background:var(--purple);
 }
 
-.mode-tab.active::after {
-    content: "";
+.sidebar-brand{
+    width:32px;
+    height:32px;
 
-    position: absolute;
+    margin-right:1px;
 
-    left: 0;
-    right: 0;
-    bottom: -1px;
+    border-radius:50%;
 
-    height: 2px;
+    background:var(--purple-soft);
 
-    background: var(--accent);
+    color:var(--purple);
+
+    display:grid;
+    place-items:center;
+
+    font-size:16px;
+    font-weight:700;
 }
 
-.collapse {
-    width: 31px;
-    height: 31px;
+.left-content{
+    flex:1;
+    min-height:0;
 
-    border-radius: 6px;
-
-    font-size: 18px;
-
-    cursor: pointer;
-}
-
-.collapse:hover {
-    background: #ebebe9;
-}
-
-/* =========================================================
-   LEFT CONTENT
-========================================================= */
-
-.left-content {
-    flex: 1;
-    min-height: 0;
-
-    overflow-y: auto;
-
-    padding: 9px;
+    overflow:auto;
 }
 
 .left-content::-webkit-scrollbar,
-.paper-scroll::-webkit-scrollbar {
-    width: 9px;
+.right-content::-webkit-scrollbar,
+.editor-scroll::-webkit-scrollbar{
+    width:8px;
 }
 
 .left-content::-webkit-scrollbar-thumb,
-.paper-scroll::-webkit-scrollbar-thumb {
-    background: #cfcfcb;
-    border-radius: 10px;
+.right-content::-webkit-scrollbar-thumb,
+.editor-scroll::-webkit-scrollbar-thumb{
+    background:#d1d1d4;
+    border-radius:10px;
+}
 
-    border: 2px solid transparent;
-    background-clip: padding-box;
+.sidebar-heading{
+    height:54px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 18px;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+.sidebar-heading-right{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    color:#777983;
+}
+
+.sidebar-count{
+    font-size:13px;
+}
+
+.sidebar-action{
+    width:25px;
+    height:25px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+.sidebar-action:hover{
+    background:#f0f0f1;
+    color:var(--text);
+}
+
+.contents-tools{
+    height:49px;
+
+    border-top:1px solid #f0f0f1;
+    border-bottom:1px solid var(--line);
+
+    display:flex;
+    align-items:center;
+
+    gap:5px;
+
+    padding:0 13px;
+}
+
+.contents-tool{
+    width:36px;
+    height:34px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:6px;
+
+    color:#686970;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+.contents-tool:hover{
+    background:#f2f2f3;
+}
+
+.contents-tool.active{
+    background:#f6f3ff;
+    color:var(--purple);
+}
+
+.number-filter{
+    margin-left:auto;
+
+    height:31px;
+
+    padding:0 11px;
+
+    border-radius:5px;
+
+    background:#f6f6f7;
+
+    color:#66676e;
+
+    font-size:11px;
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.number-filter:hover{
+    background:#ededee;
+}
+
+.content-list{
+    padding:11px 10px 30px;
+}
+
+.act-label{
+    padding:13px 9px 7px;
+
+    color:#777983;
+
+    font-size:11px;
+    font-weight:700;
+
+    letter-spacing:.04em;
+}
+
+.scene-card{
+    padding:10px 10px;
+
+    margin:2px 0;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    transition:.12s ease;
+}
+
+.scene-card:hover{
+    background:#f2f2f3;
+}
+
+.scene-card.active{
+    background:var(--purple-soft);
+}
+
+.scene-card-number{
+    color:#999aa1;
+
+    font-size:10px;
+
+    margin-bottom:4px;
+}
+
+.scene-card.active .scene-card-number{
+    color:var(--purple);
+}
+
+.scene-card-title{
+    color:#33343a;
+
+    font-size:12px;
+    font-weight:600;
+
+    line-height:1.35;
+}
+
+.scene-card.active .scene-card-title{
+    color:#4830a5;
 }
 
 /* =========================================================
-   CONTENTS
+   CENTER EDITOR
 ========================================================= */
 
-.outline-label {
-    color: var(--secondary);
+.editor{
+    min-width:0;
 
-    padding: 14px 9px 7px;
+    background:#f5f5f6;
 
-    font-size: 10px;
-    font-weight: 700;
+    display:flex;
+    flex-direction:column;
 
-    letter-spacing: .09em;
+    position:relative;
 }
 
-.outline-item {
-    min-height: 52px;
+.editor-top{
+    height:49px;
+    flex-shrink:0;
 
-    margin: 2px 0;
+    background:#fff;
+    border-bottom:1px solid var(--line);
 
-    padding: 9px 10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-    border: 1px solid transparent;
-    border-radius: 6px;
+    padding:0 13px;
 
-    cursor: pointer;
-
-    transition: .12s ease;
+    z-index:20;
 }
 
-.outline-item:hover {
-    background: #eeeeec;
+.draft-tab{
+    height:34px;
+
+    padding:0 11px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    border:1px solid var(--line);
+    border-radius:6px;
+
+    background:#fff;
+
+    font-size:12px;
+    font-weight:600;
+
+    box-shadow:0 1px 2px rgba(0,0,0,.03);
 }
 
-.outline-item.active {
-    background: var(--accent-light);
-    border-color: var(--accent-border);
+.draft-plus{
+    width:28px;
+    height:28px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-size:20px;
+    color:#66676e;
 }
 
-.scene-number {
-    margin-bottom: 4px;
-
-    color: var(--secondary);
-
-    font-size: 10px;
-    font-weight: 500;
+.draft-plus:hover{
+    background:#f1f1f2;
 }
 
-.scene-name {
-    font-size: 12px;
-    line-height: 1.35;
-    font-weight: 600;
+.editor-actions{
+    display:flex;
+    align-items:center;
+    gap:4px;
 }
 
-.outline-item.active .scene-number,
-.outline-item.active .scene-name {
-    color: #4e3c91;
+.editor-action{
+    width:33px;
+    height:33px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:6px;
+
+    color:#5d5e65;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+.editor-action:hover{
+    background:#f0f0f1;
+}
+
+.changes{
+    height:33px;
+
+    padding:0 10px;
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:11px;
+    font-weight:600;
+}
+
+.changes:hover{
+    background:#f0f0f1;
+}
+
+.toggle{
+    width:23px;
+    height:14px;
+
+    padding:2px;
+
+    background:#d7d7da;
+
+    border-radius:20px;
+}
+
+.toggle span{
+    display:block;
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:0 1px 2px rgba(0,0,0,.15);
 }
 
 /* =========================================================
-   COMMENTS
+   EDITOR SCROLL / PAPER
 ========================================================= */
 
-.comment-card {
-    padding: 12px;
+.editor-scroll{
+    flex:1;
 
-    margin-bottom: 8px;
+    overflow:auto;
 
-    background: white;
+    padding:28px 28px 150px;
 
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    scroll-behavior:smooth;
 }
 
-.comment-author {
-    margin-bottom: 6px;
+.paper{
+    width:min(860px,100%);
 
-    font-size: 10px;
-    font-weight: 700;
-}
+    min-height:1110px;
 
-.comment-text {
-    font-size: 11px;
-    line-height: 1.5;
-}
+    margin:0 auto;
 
-/* =========================================================
-   NOTES
-========================================================= */
+    padding:76px 108px 120px;
 
-.note-area {
-    width: 100%;
-    min-height: 240px;
+    background:#fff;
 
-    resize: vertical;
-
-    padding: 12px;
-
-    background: white;
-
-    border: 1px solid var(--border);
-    border-radius: 6px;
-
-    outline: none;
-
-    font-size: 11px;
-    line-height: 1.6;
-}
-
-.note-area:focus {
-    border-color: var(--accent);
-}
-
-/* =========================================================
-   LEFT BOTTOM
-========================================================= */
-
-.left-bottom {
-    flex-shrink: 0;
-
-    border-top: 1px solid var(--border);
-
-    padding: 9px;
-}
-
-.utility-button {
-    width: 100%;
-    height: 37px;
-
-    padding: 0 10px;
-
-    border-radius: 6px;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    font-size: 11px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: .12s ease;
-}
-
-.utility-button:hover {
-    background: #ebebe9;
-}
-
-.utility-icon {
-    width: 17px;
-
-    font-size: 14px;
-
-    text-align: center;
-}
-
-/* =========================================================
-   EDITOR
-========================================================= */
-
-.editor {
-    flex: 1;
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    background:
-        radial-gradient(
-            ellipse at center top,
-            #fbfbfa 0%,
-            #f5f5f3 60%,
-            #eeeeec 100%
-        );
-}
-
-/* =========================================================
-   CONTEXTUAL WRITING BAR
-========================================================= */
-
-.writing-toolbar {
-    height: 48px;
-    flex-shrink: 0;
-
-    padding: 0 15px;
-
-    background: rgba(255,255,255,.97);
-    border-bottom: 1px solid var(--border);
-
-    display: flex;
-    align-items: center;
-
-    gap: 5px;
-
-    opacity: 0;
-    transform: translateY(-5px);
-
-    pointer-events: none;
-
-    transition:
-        opacity .14s ease,
-        transform .14s ease;
-}
-
-.writing-toolbar.visible {
-    opacity: 1;
-    transform: translateY(0);
-
-    pointer-events: auto;
-}
-
-.writing-toolbar-label {
-    margin-right: 8px;
-
-    color: var(--secondary);
-
-    font-size: 8px;
-    font-weight: 700;
-
-    letter-spacing: .08em;
-}
-
-.write-button {
-    height: 30px;
-
-    padding: 0 11px;
-
-    border-radius: 5px;
-
-    color: var(--black);
-
-    font-size: 10px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: .12s ease;
-}
-
-.write-button:hover {
-    background: #eeeeec;
-}
-
-.write-button.active {
-    background: var(--accent-light);
-    color: var(--accent);
-}
-
-.write-divider {
-    width: 1px;
-    height: 22px;
-
-    background: var(--border);
-
-    margin: 0 5px;
-}
-
-.write-spacer {
-    flex: 1;
-}
-
-.write-small {
-    height: 30px;
-
-    padding: 0 9px;
-
-    border-radius: 5px;
-
-    font-size: 10px;
-
-    cursor: pointer;
-}
-
-.write-small:hover {
-    background: #eeeeec;
-}
-
-/* =========================================================
-   PAPER
-========================================================= */
-
-.paper-scroll {
-    flex: 1;
-
-    overflow: auto;
-
-    padding: 52px 65px 130px;
-}
-
-.paper {
-    width: 816px;
-    min-height: 1056px;
-
-    margin: 0 auto;
-
-    padding: 96px 108px;
-
-    background: var(--paper);
-
-    border: 1px solid rgba(0,0,0,.035);
+    border:1px solid #eeeeef;
 
     box-shadow:
-        0 1px 3px rgba(0,0,0,.05),
-        0 14px 42px rgba(0,0,0,.075);
+        0 2px 6px rgba(0,0,0,.04),
+        0 12px 30px rgba(0,0,0,.045);
 
-    transform-origin: top center;
+    position:relative;
 }
 
-.script {
-    min-height: 860px;
+.title-page{
+    min-height:120px;
 
-    outline: none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    color: #111111;
+    margin-bottom:70px;
+
+    font-family:"Courier New",monospace;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:.03em;
+}
+
+.script{
+    min-height:800px;
+
+    outline:none;
+
+    color:#202020;
 
     font-family:
         "Courier New",
         Courier,
         monospace;
 
-    font-size: 13px;
-    line-height: 1.52;
+    font-size:14px;
+    line-height:1.48;
 
-    white-space: pre-wrap;
+    white-space:pre-wrap;
 
-    caret-color: #111;
+    word-break:normal;
+
+    caret-color:#111;
+
+    position:relative;
 }
 
-.script::selection {
-    background: #dcd6ef;
-}
-
-/* =========================================================
-   STATUS BAR
-========================================================= */
-
-.statusbar {
-    height: 29px;
-    flex-shrink: 0;
-
-    background: white;
-    border-top: 1px solid var(--border);
-
-    padding: 0 13px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    font-size: 9px;
-}
-
-.status-left,
-.status-right {
-    display: flex;
-    align-items: center;
-    gap: 17px;
+.script::selection{
+    background:#ddd6f5;
 }
 
 /* =========================================================
-   PROJECT SCREEN
+   WRITING ELEMENT POPUP
 ========================================================= */
 
-.project-screen {
-    position: fixed;
-    inset: 0;
+.element-picker{
+    position:absolute;
 
-    z-index: 100;
+    z-index:80;
 
-    background:
-        radial-gradient(
-            ellipse at center top,
-            #ffffff 0,
-            #f5f5f3 70%
-        );
+    width:190px;
 
-    display: none;
-    flex-direction: column;
+    padding:5px;
+
+    background:#fff;
+
+    border:1px solid var(--line);
+
+    border-radius:8px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.12);
+
+    display:none;
 }
 
-.project-screen.open {
-    display: flex;
+.element-picker.open{
+    display:block;
 }
 
-.project-header {
-    height: 60px;
+.element-option{
+    width:100%;
+    height:33px;
 
-    padding: 0 20px;
+    padding:0 10px;
 
-    background: white;
-    border-bottom: 1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-size:11px;
+    font-weight:600;
+
+    text-align:left;
 }
 
-.project-header-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.element-option:hover{
+    background:var(--purple-soft);
+    color:var(--purple);
 }
 
-.project-back {
-    font-size: 11px;
-    cursor: pointer;
+.element-key{
+    color:#999aa1;
+    font-size:9px;
 }
 
-.project-back:hover {
-    text-decoration: underline;
+/* =========================================================
+   FLOATING FORMAT BAR
+========================================================= */
+
+.floating-toolbar{
+    position:absolute;
+
+    left:50%;
+    bottom:18px;
+
+    transform:translateX(-50%);
+
+    height:42px;
+
+    padding:4px 5px;
+
+    background:#222326;
+
+    border-radius:8px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.18);
+
+    display:flex;
+    align-items:center;
+
+    z-index:100;
 }
 
-.project-name {
-    font-family: "EB Garamond", serif;
-    font-size: 25px;
+.float-button{
+    min-width:37px;
+    height:34px;
+
+    padding:0 9px;
+
+    color:#eee;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-size:13px;
 }
 
-.project-content {
-    flex: 1;
-
-    overflow: auto;
-
-    padding: 75px 50px;
+.float-button:hover{
+    background:#37383c;
 }
 
-.project-content-inner {
-    width: min(1000px, 100%);
-
-    margin: 0 auto;
+.float-button.active{
+    background:#4c4d53;
+    color:#c7b9ff;
 }
 
-.project-eyebrow {
-    margin-bottom: 10px;
+.float-divider{
+    width:1px;
+    height:24px;
 
-    color: var(--secondary);
+    background:#44454a;
 
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: .12em;
+    margin:0 2px;
 }
 
-.project-heading {
-    margin-bottom: 42px;
+/* =========================================================
+   PAGE COUNTER
+========================================================= */
 
-    font-family: "EB Garamond", serif;
+.page-counter{
+    position:absolute;
 
-    font-size: 56px;
-    line-height: .95;
+    right:15px;
+    bottom:18px;
+
+    z-index:30;
+
+    min-width:57px;
+
+    text-align:center;
+
+    padding:5px 7px;
+
+    background:rgba(255,255,255,.96);
+
+    border:1px solid var(--line);
+
+    border-radius:5px;
+
+    font-size:11px;
+    font-weight:650;
+
+    line-height:1.15;
 }
 
-.project-grid {
-    display: grid;
-
-    grid-template-columns: 2fr 1fr;
-
-    gap: 13px;
+.page-counter span{
+    display:block;
 }
 
-.project-card {
-    min-height: 140px;
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
 
-    padding: 21px;
+.right-sidebar{
+    background:#fff;
+    border-left:1px solid var(--line);
 
-    background: white;
+    display:flex;
+    flex-direction:column;
 
-    border: 1px solid var(--border);
-    border-radius: 7px;
-
-    transition: .14s ease;
+    min-width:0;
 }
 
-.project-card:hover {
-    transform: translateY(-1px);
+.right-tabs{
+    height:49px;
+    flex-shrink:0;
 
-    border-color: var(--border-dark);
+    border-bottom:1px solid var(--line);
 
-    box-shadow: 0 7px 20px rgba(0,0,0,.05);
+    display:flex;
+    align-items:center;
+
+    padding:0 14px;
+
+    gap:17px;
 }
 
-.project-card-title {
-    margin-bottom: 18px;
+.right-tab{
+    height:100%;
 
-    font-size: 9px;
-    font-weight: 700;
+    position:relative;
 
-    letter-spacing: .1em;
+    color:#888990;
+
+    font-size:14px;
+    font-weight:650;
+
+    cursor:pointer;
 }
 
-.project-stat {
-    font-family: "EB Garamond", serif;
-    font-size: 32px;
+.right-tab.active{
+    color:var(--text);
 }
 
-.project-small {
-    font-size: 10px;
-    line-height: 1.75;
+.right-tab.active::after{
+    content:"";
+
+    position:absolute;
+
+    bottom:-1px;
+    left:0;
+    right:0;
+
+    height:2px;
+
+    background:var(--purple);
+}
+
+.right-pin{
+    margin-left:auto;
+
+    width:31px;
+    height:31px;
+
+    border-radius:50%;
+
+    background:var(--purple-soft);
+
+    color:var(--purple);
+
+    display:grid;
+    place-items:center;
+
+    cursor:pointer;
+}
+
+.right-pin:hover{
+    background:#e8e1ff;
+}
+
+.right-content{
+    flex:1;
+
+    overflow:auto;
+
+    padding:10px 12px 35px;
+}
+
+.element-section{
+    margin-bottom:16px;
+}
+
+.element-section-heading{
+    height:38px;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    padding:0 6px;
+
+    font-size:15px;
+    font-weight:650;
+}
+
+.section-chevron{
+    color:#85868d;
+    font-size:14px;
+}
+
+.section-plus{
+    margin-left:auto;
+
+    width:26px;
+    height:26px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    color:#66676e;
+
+    font-size:18px;
+}
+
+.section-plus:hover{
+    background:#f0f0f1;
+}
+
+.element-card{
+    min-height:59px;
+
+    margin:4px 0;
+
+    padding:12px 14px;
+
+    background:#fff;
+
+    border:1px solid #eeeeef;
+
+    border-radius:6px;
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,.055);
+
+    cursor:pointer;
+
+    transition:.12s ease;
+
+    position:relative;
+}
+
+.element-card:hover{
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.07);
+}
+
+.element-card.story-a{
+    border-bottom:2px solid #6f4cff;
+}
+
+.element-card.story-b{
+    border-bottom:2px solid #ef4f8a;
+}
+
+.element-card.story-c{
+    border-bottom:2px solid #ff8b16;
+}
+
+.element-card-title{
+    color:#38393e;
+
+    font-size:14px;
+    font-weight:650;
+
+    line-height:1.25;
+}
+
+.character-row{
+    min-height:59px;
+
+    margin:4px 0;
+
+    padding:11px 14px;
+
+    background:#fff;
+
+    border:1px solid #eeeeef;
+
+    border-radius:6px;
+
+    box-shadow:0 2px 5px rgba(0,0,0,.055);
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+}
+
+.character-row:hover{
+    background:#fafafa;
+}
+
+.character-circle{
+    width:27px;
+    height:27px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    color:#fff;
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.character-circle.green{
+    background:#23b98b;
+}
+
+.character-circle.blue{
+    background:#298bea;
+}
+
+.character-circle.pink{
+    background:#e9487b;
+}
+
+.character-name{
+    font-size:13px;
+    font-weight:600;
+}
+
+.location-card{
+    min-height:59px;
+
+    margin:4px 0;
+
+    padding:12px 14px;
+
+    background:#fff;
+
+    border:1px solid #eeeeef;
+
+    border-radius:6px;
+
+    box-shadow:0 2px 5px rgba(0,0,0,.055);
+
+    cursor:pointer;
+
+    font-size:13px;
+    font-weight:500;
+}
+
+.location-card:hover{
+    background:#fafafa;
+}
+
+/* =========================================================
+   BOTTOM STATUS
+========================================================= */
+
+.statusbar{
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:0;
+
+    pointer-events:none;
+}
+
+.status-left{
+    position:absolute;
+
+    left:13px;
+    bottom:10px;
+
+    display:flex;
+    gap:15px;
+
+    color:#888990;
+
+    font-size:9px;
+}
+
+/* =========================================================
+   COMMENTS / NOTES VIEWS
+========================================================= */
+
+.sidebar-view{
+    display:none;
+    padding:15px;
+}
+
+.sidebar-view.active{
+    display:block;
+}
+
+.empty-view{
+    padding:45px 20px;
+
+    text-align:center;
+
+    color:#999aa1;
+
+    font-size:12px;
+}
+
+.note{
+    padding:12px;
+
+    margin-bottom:8px;
+
+    background:#fffdf0;
+
+    border:1px solid #eee6bd;
+
+    border-radius:6px;
+
+    font-size:11px;
+    line-height:1.5;
+}
+
+.comment{
+    padding:12px;
+
+    margin-bottom:8px;
+
+    border:1px solid var(--line);
+    border-radius:6px;
+
+    font-size:11px;
+    line-height:1.5;
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1100px) {
+@media(max-width:1250px){
 
-    :root {
-        --left: 240px;
+    :root{
+        --left:300px;
+        --right:290px;
     }
 
-    .paper-scroll {
-        padding-left: 30px;
-        padding-right: 30px;
+    .top-center{
+        position:static;
+        transform:none;
     }
 
+    .top-left{
+        min-width:auto;
+    }
+
+    .paper{
+        padding-left:80px;
+        padding-right:80px;
+    }
 }
 
-@media (max-width: 760px) {
+@media(max-width:1000px){
 
-    .left-panel {
-        display: none;
+    :root{
+        --left:270px;
+        --right:0px;
     }
 
-    .paper-scroll {
-        padding: 25px 15px 100px;
+    .right-sidebar{
+        display:none;
     }
 
-    .paper {
-        transform: scale(.78);
-        transform-origin: top center;
+    .top-center{
+        display:none;
+    }
+}
 
-        margin-bottom: -230px;
+@media(max-width:700px){
+
+    :root{
+        --left:0px;
     }
 
-    .writing-toolbar {
-        overflow-x: auto;
+    .left-sidebar{
+        display:none;
     }
 
-    .writing-toolbar-label {
-        display: none;
+    .paper{
+        padding:55px 40px 100px;
     }
 
-    .project-content {
-        padding: 35px 20px;
+    .editor-scroll{
+        padding:15px 8px 120px;
     }
 
-    .project-grid {
-        grid-template-columns: 1fr;
+    .floating-toolbar{
+        max-width:calc(100% - 20px);
+        overflow-x:auto;
     }
 
+    .top-left .nav-icon:nth-child(2),
+    .top-left .nav-icon:nth-child(3),
+    .top-left .nav-icon:nth-child(4){
+        display:none;
+    }
 }
 </style>
 </head>
@@ -882,49 +1334,47 @@ textarea:focus-visible {
 
     <div class="top-left">
 
-        <div class="brand" onclick="openProject()">
-            Auteur
-        </div>
+        <button class="nav-icon" title="Home">⌂</button>
+        <button class="nav-icon" title="Projects">▣</button>
+        <button class="nav-icon" title="Search" onclick="focusSearch()">⌕</button>
+        <button class="nav-icon" title="Notifications">♧</button>
 
-        <div class="project-title">
-
-            <strong>Sentient Mass</strong>
-
-            <span>›</span>
-
-            <span>Screenplay</span>
-
+        <div class="project-name">
+            <span class="save-dot">✓</span>
+            <span>Sentient Mass</span>
         </div>
 
     </div>
 
+
+    <nav class="top-center">
+
+        <button class="main-nav active">
+            Script
+        </button>
+
+        <button class="main-nav">
+            Beats
+        </button>
+
+        <button class="main-nav">
+            Outline
+        </button>
+
+    </nav>
+
+
     <div class="top-right">
 
-        <span class="save-status" id="saveStatus">
-            Saved
-        </span>
+        <div class="avatar">
+            N
+        </div>
 
-        <button
-            class="top-button"
-            onclick="saveDocument()"
-        >
-            Save
-        </button>
+        <div class="top-divider"></div>
 
-        <button
-            class="top-button"
-            onclick="openProject()"
-        >
-            Project
-        </button>
-
-        <button class="top-button share">
-            Share
-        </button>
-
-        <button class="top-button">
-            ⋯
-        </button>
+        <button class="nav-icon">◐</button>
+        <button class="nav-icon">⇧</button>
+        <button class="nav-icon">⚙</button>
 
     </div>
 
@@ -938,231 +1388,277 @@ textarea:focus-visible {
 <main class="workspace">
 
 <!-- =======================================================
-     LEFT PANEL
+     LEFT
 ======================================================= -->
 
-<aside class="left-panel">
+<aside class="left-sidebar">
 
-    <div class="left-top">
+    <div class="left-tabs">
 
-        <div class="mode-tabs">
-
-            <button
-                class="mode-tab active"
-                onclick="setLeftMode('contents', this)"
-            >
-                CONTENTS
-            </button>
-
-            <button
-                class="mode-tab"
-                onclick="setLeftMode('comments', this)"
-            >
-                COMMENTS
-            </button>
-
-            <button
-                class="mode-tab"
-                onclick="setLeftMode('notes', this)"
-            >
-                NOTES
-            </button>
-
+        <div class="sidebar-brand">
+            ✦
         </div>
 
         <button
-            class="collapse"
-            onclick="toggleLeftPanel()"
+            class="left-tab"
+            onclick="showLeftView('drafts',this)"
         >
-            ‹
+            Drafts
+        </button>
+
+        <button
+            class="left-tab active"
+            onclick="showLeftView('contents',this)"
+        >
+            Contents
+        </button>
+
+        <button
+            class="left-tab"
+            onclick="showLeftView('comments',this)"
+        >
+            Comments
+        </button>
+
+        <button
+            class="left-tab"
+            onclick="showLeftView('notes',this)"
+        >
+            Notes
         </button>
 
     </div>
 
 
+    <!-- CONTENTS -->
+
     <div
         class="left-content"
-        id="leftContent"
+        id="contentsView"
     >
 
-        <!-- CONTENTS -->
+        <div class="sidebar-heading">
 
-        <div id="contentsView">
+            <span>Contents</span>
 
-            <div class="outline-label">
+            <div class="sidebar-heading-right">
+
+                <span
+                    class="sidebar-count"
+                    id="sceneCount"
+                >
+                    7
+                </span>
+
+                <button
+                    class="sidebar-action"
+                    onclick="addScene()"
+                >
+                    ▾
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="contents-tools">
+
+            <button class="contents-tool active">
+                ◇
+            </button>
+
+            <button class="contents-tool">
+                ▧
+            </button>
+
+            <button class="contents-tool">
+                ≡
+            </button>
+
+            <button class="contents-tool">
+                ♡
+            </button>
+
+            <button class="contents-tool">
+                ⌁
+            </button>
+
+            <button class="number-filter">
+                Numbers...
+            </button>
+
+        </div>
+
+
+        <div class="content-list">
+
+            <div class="act-label">
                 ACT I
             </div>
 
             <div
-                class="outline-item active"
+                class="scene-card active"
                 onclick="selectScene(this,1)"
             >
-                <div class="scene-number">01</div>
-                <div class="scene-name">
-                    EXT. MEGA PLANET - DAY
+                <div class="scene-card-number">1</div>
+                <div class="scene-card-title">
+                    EXT. THE GLORIOUS HALT - SUNRISE
                 </div>
             </div>
 
             <div
-                class="outline-item"
+                class="scene-card"
                 onclick="selectScene(this,2)"
             >
-                <div class="scene-number">02</div>
-                <div class="scene-name">
+                <div class="scene-card-number">2</div>
+                <div class="scene-card-title">
+                    EXT. THE OMEN NORMAN CITY - SUNRISE
+                </div>
+            </div>
+
+            <div
+                class="scene-card"
+                onclick="selectScene(this,3)"
+            >
+                <div class="scene-card-number">3</div>
+                <div class="scene-card-title">
                     INT. OBSERVATORY - NIGHT
                 </div>
             </div>
 
             <div
-                class="outline-item"
-                onclick="selectScene(this,3)"
+                class="scene-card"
+                onclick="selectScene(this,4)"
             >
-                <div class="scene-number">03</div>
-                <div class="scene-name">
+                <div class="scene-card-number">4</div>
+                <div class="scene-card-title">
                     EXT. CITY OF GLASS - SUNSET
                 </div>
             </div>
 
-            <div
-                class="outline-item"
-                onclick="selectScene(this,4)"
-            >
-                <div class="scene-number">04</div>
-                <div class="scene-name">
-                    INT. APARTMENT - NIGHT
-                </div>
-            </div>
 
-            <div class="outline-label">
+            <div class="act-label">
                 ACT II
             </div>
 
             <div
-                class="outline-item"
+                class="scene-card"
                 onclick="selectScene(this,5)"
             >
-                <div class="scene-number">05</div>
-                <div class="scene-name">
+                <div class="scene-card-number">5</div>
+                <div class="scene-card-title">
                     EXT. MOUNTAIN RANGE - DAY
                 </div>
             </div>
 
             <div
-                class="outline-item"
+                class="scene-card"
                 onclick="selectScene(this,6)"
             >
-                <div class="scene-number">06</div>
-                <div class="scene-name">
-                    EXT. THE GREAT CITY - NIGHT
+                <div class="scene-card-number">6</div>
+                <div class="scene-card-title">
+                    INT. THE GREAT CITY - NIGHT
                 </div>
             </div>
 
-            <div class="outline-label">
+
+            <div class="act-label">
                 ACT III
             </div>
 
             <div
-                class="outline-item"
+                class="scene-card"
                 onclick="selectScene(this,7)"
             >
-                <div class="scene-number">07</div>
-                <div class="scene-name">
+                <div class="scene-card-number">7</div>
+                <div class="scene-card-title">
                     EXT. CLIFFSIDE - DAWN
                 </div>
             </div>
 
         </div>
 
+    </div>
 
-        <!-- COMMENTS -->
 
-        <div
-            id="commentsView"
-            style="display:none"
-        >
+    <!-- DRAFTS -->
 
-            <div class="outline-label">
-                COMMENTS
-            </div>
+    <div
+        class="left-content sidebar-view"
+        id="draftsView"
+    >
 
-            <div class="comment-card">
-
-                <div class="comment-author">
-                    YOU
-                </div>
-
-                <div class="comment-text">
-                    The opening should feel enormous before the psychological tension starts creeping in.
-                </div>
-
-            </div>
-
-            <div class="comment-card">
-
-                <div class="comment-author">
-                    STORY
-                </div>
-
-                <div class="comment-text">
-                    Consider introducing Amelia slightly earlier.
-                </div>
-
-            </div>
-
-            <button
-                class="utility-button"
-                onclick="addComment()"
-            >
-                <span class="utility-icon">+</span>
-                <span>Add Comment</span>
-            </button>
-
+        <div class="sidebar-heading">
+            <span>Drafts</span>
+            <button class="sidebar-action">+</button>
         </div>
 
-
-        <!-- NOTES -->
-
-        <div
-            id="notesView"
-            style="display:none"
-        >
-
-            <div class="outline-label">
-                PROJECT NOTES
+        <div class="scene-card active">
+            <div class="scene-card-number">CURRENT</div>
+            <div class="scene-card-title">
+                Main Draft
             </div>
+        </div>
 
-            <textarea
-                class="note-area"
-                id="projectNotes"
-                placeholder="Write project notes..."
-            >Visual language:
-Massive architecture, distant landscapes, restrained color, overwhelming scale.
-
-Theme:
-Human beings will always return to loving other humans.</textarea>
-
+        <div class="scene-card">
+            <div class="scene-card-number">DRAFT 0</div>
+            <div class="scene-card-title">
+                Original Draft
+            </div>
         </div>
 
     </div>
 
 
-    <div class="left-bottom">
+    <!-- COMMENTS -->
 
-        <button
-            class="utility-button"
-            onclick="openProject()"
-        >
-            <span class="utility-icon">⌂</span>
-            <span>Project Overview</span>
-        </button>
+    <div
+        class="left-content sidebar-view"
+        id="commentsView"
+    >
 
-        <button
-            class="utility-button"
-            onclick="openStory()"
-        >
-            <span class="utility-icon">⌁</span>
-            <span>Story Structure</span>
-        </button>
+        <div class="sidebar-heading">
+            <span>Comments</span>
+            <button class="sidebar-action">+</button>
+        </div>
+
+        <div class="comment">
+            <strong>Opening scene</strong><br>
+            The architecture should feel beautiful before it becomes overwhelming.
+        </div>
+
+        <div class="comment">
+            <strong>Ludwig</strong><br>
+            Consider giving this line more silence around it.
+        </div>
+
+    </div>
+
+
+    <!-- NOTES -->
+
+    <div
+        class="left-content sidebar-view"
+        id="notesView"
+    >
+
+        <div class="sidebar-heading">
+            <span>Notes</span>
+            <button class="sidebar-action">+</button>
+        </div>
+
+        <div class="note">
+            Visual language: enormous architecture, distant landscapes, human figures reduced to scale.
+        </div>
+
+        <div class="note">
+            Theme: humanity continually returns to loving other humans.
+        </div>
+
+        <div class="note">
+            Keep the world visually beautiful even when the story becomes psychologically oppressive.
+        </div>
 
     </div>
 
@@ -1170,338 +1666,520 @@ Human beings will always return to loving other humans.</textarea>
 
 
 <!-- =======================================================
-     EDITOR
+     CENTER
 ======================================================= -->
 
 <section class="editor">
 
-    <!-- CONTEXTUAL TOOLBAR -->
+    <div class="editor-top">
 
-    <div
-        class="writing-toolbar"
-        id="writingToolbar"
-    >
+        <div class="draft-tab">
+            <span>✦</span>
+            <span>Main Draft</span>
+            <button
+                class="draft-plus"
+                onclick="addDraft()"
+            >
+                +
+            </button>
+        </div>
 
-        <span class="writing-toolbar-label">
-            WRITE
-        </span>
 
-        <button
-            class="write-button active"
-            onclick="setFormat('action', this)"
-        >
-            Action
-        </button>
+        <div class="editor-actions">
 
-        <button
-            class="write-button"
-            onclick="setFormat('heading', this)"
-        >
-            INT. / EXT.
-        </button>
+            <button
+                class="editor-action"
+                title="More"
+            >
+                ⋯
+            </button>
 
-        <button
-            class="write-button"
-            onclick="setFormat('character', this)"
-        >
-            Character
-        </button>
+            <button
+                class="editor-action"
+                title="Audio"
+            >
+                ◖
+            </button>
 
-        <button
-            class="write-button"
-            onclick="setFormat('dialogue', this)"
-        >
-            Dialogue
-        </button>
+            <button
+                class="editor-action"
+                title="History"
+            >
+                ↶
+            </button>
 
-        <button
-            class="write-button"
-            onclick="setFormat('parenthetical', this)"
-        >
-            Parenthetical
-        </button>
+            <button class="changes">
+                Changes
+                <span class="toggle">
+                    <span></span>
+                </span>
+            </button>
 
-        <button
-            class="write-button"
-            onclick="setFormat('transition', this)"
-        >
-            Transition
-        </button>
-
-        <div class="write-divider"></div>
-
-        <button
-            class="write-small"
-            onclick="insertScene()"
-        >
-            + Scene
-        </button>
-
-        <button
-            class="write-small"
-            onclick="insertNote()"
-        >
-            + Note
-        </button>
-
-        <div class="write-spacer"></div>
-
-        <button
-            class="write-small"
-            onclick="formatText('bold')"
-        >
-            B
-        </button>
-
-        <button
-            class="write-small"
-            onclick="formatText('italic')"
-        >
-            <i>I</i>
-        </button>
-
-        <button
-            class="write-small"
-            onclick="formatText('underline')"
-        >
-            <u>U</u>
-        </button>
+        </div>
 
     </div>
 
 
-    <!-- PAPER -->
-
     <div
-        class="paper-scroll"
-        id="paperScroll"
+        class="editor-scroll"
+        id="editorScroll"
     >
 
-        <article
-            class="paper"
-            id="paper"
-        >
+        <article class="paper">
+
+            <div class="title-page">
+                SENTIENT MASS
+            </div>
+
 
             <div
                 class="script"
                 id="script"
                 contenteditable="true"
                 spellcheck="true"
-            >FADE IN:
+                data-placeholder="Begin writing..."
+            >EXT. THE GLORIOUS HALT - SUNRISE
 
-EXT. MEGA PLANET - DAY
+A massive wave crashes against a towering concrete seawall.
 
-A world too enormous to comprehend.
+As the roar of the water fades, the sounds of the city emerge. Conversations blend together in the distance. Car horns echo through the streets. Footsteps, laughter, and the steady rhythm of urban life slowly rise into focus. Then go out.
 
-Mountains disappear into clouds. Vast cities climb across the horizon, their architecture stretching beyond sight.
+                       LUDWIG JAMES (V.O.)
 
-LUDWIG JAMES, 34, stands alone at the edge of a cliff.
+          Humanity's greatest creation has
+          always been art. From birth to
+          death, it defines who we are. But
+          our greatest strength has always
+          been our imagination.
 
-He looks down.
+EXT. THE OMEN NORMAN CITY - SUNRISE
 
-The planet continues.
-
-                       LUDWIG
-
-          They built all of this...
-
-Ludwig watches the distant city.
-
-                       LUDWIG
-
-          And somehow it still isn't enough.
-
-A WIND tears across the cliffside.
-
-He closes his eyes.
-
-For a moment, the world is silent.
-
-Then:
-
-A distant bell.
-
-Ludwig opens his eyes.
-
-CUT TO:</div>
+LUDWIG JAMES walks through the Omen Norman, a vast city of towering structures rising into the clouds and dense housing packed below. He turns into a narrow alley and slips through a door.</div>
 
         </article>
 
     </div>
 
+
+    <!-- ELEMENT PICKER -->
+
+    <div
+        class="element-picker"
+        id="elementPicker"
+    >
+
+        <button
+            class="element-option"
+            onclick="applyElement('action')"
+        >
+            Action
+            <span class="element-key">A</span>
+        </button>
+
+        <button
+            class="element-option"
+            onclick="applyElement('scene')"
+        >
+            Scene Heading
+            <span class="element-key">INT / EXT</span>
+        </button>
+
+        <button
+            class="element-option"
+            onclick="applyElement('character')"
+        >
+            Character
+            <span class="element-key">C</span>
+        </button>
+
+        <button
+            class="element-option"
+            onclick="applyElement('dialogue')"
+        >
+            Dialogue
+            <span class="element-key">D</span>
+        </button>
+
+        <button
+            class="element-option"
+            onclick="applyElement('parenthetical')"
+        >
+            Parenthetical
+            <span class="element-key">( )</span>
+        </button>
+
+        <button
+            class="element-option"
+            onclick="applyElement('transition')"
+        >
+            Transition
+            <span class="element-key">T</span>
+        </button>
+
+    </div>
+
+
+    <!-- FLOATING FORMAT BAR -->
+
+    <div
+        class="floating-toolbar"
+        id="floatingToolbar"
+    >
+
+        <button
+            class="float-button"
+            onclick="historyAction('undo')"
+            title="Undo"
+        >
+            ↶
+        </button>
+
+        <button
+            class="float-button"
+            onclick="historyAction('redo')"
+            title="Redo"
+        >
+            ↷
+        </button>
+
+        <span class="float-divider"></span>
+
+        <button
+            class="float-button"
+            onclick="insertImage()"
+        >
+            ▧
+        </button>
+
+        <button
+            class="float-button"
+            onclick="applyElement('action')"
+        >
+            T≡
+        </button>
+
+        <span class="float-divider"></span>
+
+        <button
+            class="float-button"
+            onclick="formatText('bold')"
+        >
+            <strong>B</strong>
+        </button>
+
+        <button
+            class="float-button"
+            onclick="formatText('italic')"
+        >
+            <i>I</i>
+        </button>
+
+        <button
+            class="float-button"
+            onclick="formatText('underline')"
+        >
+            <u>U</u>
+        </button>
+
+        <button
+            class="float-button"
+            onclick="formatText('strikeThrough')"
+        >
+            S̶
+        </button>
+
+        <button
+            class="float-button active"
+            onclick="toggleTextColor()"
+        >
+            Aᵃ
+        </button>
+
+        <button
+            class="float-button"
+            onclick="clearFormatting()"
+        >
+            ◇
+        </button>
+
+        <button
+            class="float-button"
+            onclick="insertLink()"
+        >
+            ↗
+        </button>
+
+        <button
+            class="float-button"
+            onclick="duplicateSelection()"
+        >
+            ▣
+        </button>
+
+        <button
+            class="float-button"
+            onclick="openElements()"
+        >
+            ◈
+        </button>
+
+        <button
+            class="float-button"
+            onclick="addComment()"
+        >
+            ◯
+        </button>
+
+    </div>
+
+
+    <div class="page-counter">
+
+        <span id="lineStatus">123</span>
+
+        <span>
+            1 / 1
+        </span>
+
+    </div>
+
 </section>
+
+
+<!-- =======================================================
+     RIGHT
+======================================================= -->
+
+<aside class="right-sidebar">
+
+    <div class="right-tabs">
+
+        <button
+            class="right-tab active"
+            onclick="showRightTab('elements',this)"
+        >
+            Elements
+        </button>
+
+        <button
+            class="right-tab"
+            onclick="showRightTab('stash',this)"
+        >
+            Stash
+        </button>
+
+        <button class="right-pin">
+            ✦
+        </button>
+
+    </div>
+
+
+    <div
+        class="right-content"
+        id="elementsView"
+    >
+
+        <!-- STORYLINES -->
+
+        <section class="element-section">
+
+            <div class="element-section-heading">
+
+                <span class="section-chevron">
+                    ⌄
+                </span>
+
+                <span>
+                    Storylines
+                </span>
+
+                <button
+                    class="section-plus"
+                    onclick="addStoryline()"
+                >
+                    +
+                </button>
+
+            </div>
+
+
+            <div
+                class="element-card story-a"
+                onclick="selectElement('Storyline A')"
+            >
+                <div class="element-card-title">
+                    Storyline A (Philosophical Adventure):
+                </div>
+            </div>
+
+            <div
+                class="element-card story-b"
+                onclick="selectElement('Storyline B')"
+            >
+                <div class="element-card-title">
+                    Storyline B (Architectural Romance):
+                </div>
+            </div>
+
+            <div
+                class="element-card story-c"
+                onclick="selectElement('Storyline C')"
+            >
+                <div class="element-card-title">
+                    Storyline C (Thematic/Philosophical Arc):
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- CHARACTERS -->
+
+        <section class="element-section">
+
+            <div class="element-section-heading">
+
+                <span class="section-chevron">
+                    ⌄
+                </span>
+
+                <span>
+                    Characters
+                </span>
+
+                <button
+                    class="section-plus"
+                    onclick="addCharacter()"
+                >
+                    +
+                </button>
+
+            </div>
+
+
+            <div
+                class="character-row"
+                onclick="insertCharacterName('LUDWIG JAMES')"
+            >
+
+                <div class="character-circle green">
+                    L
+                </div>
+
+                <div class="character-name">
+                    Ludwig James
+                </div>
+
+            </div>
+
+
+            <div
+                class="character-row"
+                onclick="insertCharacterName('ANNE SATIN')"
+            >
+
+                <div class="character-circle blue">
+                    A
+                </div>
+
+                <div class="character-name">
+                    Anne Satin
+                </div>
+
+            </div>
+
+
+            <div
+                class="character-row"
+                onclick="insertCharacterName('PETER AYES')"
+            >
+
+                <div class="character-circle pink">
+                    P
+                </div>
+
+                <div class="character-name">
+                    Peter Ayes
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOCATIONS -->
+
+        <section class="element-section">
+
+            <div class="element-section-heading">
+
+                <span class="section-chevron">
+                    ⌄
+                </span>
+
+                <span>
+                    Locations
+                </span>
+
+                <button
+                    class="section-plus"
+                    onclick="addLocation()"
+                >
+                    +
+                </button>
+
+            </div>
+
+
+            <div class="location-card">
+                The Beyond
+            </div>
+
+            <div class="location-card">
+                The Omen Norman
+            </div>
+
+            <div class="location-card">
+                The Glorious Halt
+            </div>
+
+            <div class="location-card">
+                The Merl Court
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <div
+        class="right-content"
+        id="stashView"
+        style="display:none"
+    >
+
+        <div class="element-section-heading">
+            <span>Stash</span>
+            <button
+                class="section-plus"
+                onclick="addStash()"
+            >
+                +
+            </button>
+        </div>
+
+        <div class="empty-view">
+            Drag story elements here to stash them.
+        </div>
+
+    </div>
+
+</aside>
 
 </main>
 
-
-<!-- =======================================================
-     STATUS BAR
-======================================================= -->
-
-<footer class="statusbar">
-
-    <div class="status-left">
-
-        <span id="pageStatus">
-            Page 1
-        </span>
-
-        <span id="wordStatus">
-            0 words
-        </span>
-
-        <span>
-            Draft 1
-        </span>
-
-    </div>
-
-    <div class="status-right">
-
-        <span>
-            Courier Prime
-        </span>
-
-        <span id="statusZoom">
-            100%
-        </span>
-
-    </div>
-
-</footer>
-
 </div>
-
-
-<!-- =======================================================
-     PROJECT OVERVIEW
-======================================================= -->
-
-<section
-    class="project-screen"
-    id="projectScreen"
->
-
-    <header class="project-header">
-
-        <div class="project-header-left">
-
-            <button
-                class="project-back"
-                onclick="closeProject()"
-            >
-                ‹ Back to screenplay
-            </button>
-
-            <span class="project-name">
-                Sentient Mass
-            </span>
-
-        </div>
-
-        <button
-            class="top-button share"
-            onclick="closeProject()"
-        >
-            Open Screenplay
-        </button>
-
-    </header>
-
-
-    <div class="project-content">
-
-        <div class="project-content-inner">
-
-            <div class="project-eyebrow">
-                FEATURE FILM
-            </div>
-
-            <div class="project-heading">
-                Sentient Mass
-            </div>
-
-            <div class="project-grid">
-
-                <div class="project-card">
-
-                    <div class="project-card-title">
-                        STORY
-                    </div>
-
-                    <div class="project-stat">
-                        7 Scenes
-                    </div>
-
-                    <div class="project-small">
-                        1 Draft · Screenplay
-                    </div>
-
-                </div>
-
-                <div class="project-card">
-
-                    <div class="project-card-title">
-                        CHARACTERS
-                    </div>
-
-                    <div class="project-stat">
-                        3
-                    </div>
-
-                    <div class="project-small">
-                        Active characters
-                    </div>
-
-                </div>
-
-                <div class="project-card">
-
-                    <div class="project-card-title">
-                        STORY STRUCTURE
-                    </div>
-
-                    <div class="project-small">
-                        Opening Image
-                    </div>
-
-                    <div class="project-small">
-                        Inciting Incident
-                    </div>
-
-                    <div class="project-small">
-                        First Turning Point
-                    </div>
-
-                </div>
-
-                <div class="project-card">
-
-                    <div class="project-card-title">
-                        PROJECT NOTES
-                    </div>
-
-                    <div class="project-small">
-                        Visual Language
-                    </div>
-
-                    <div class="project-small">
-                        Theme
-                    </div>
-
-                    <div class="project-small">
-                        World
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
 
 
 <script>
@@ -1510,32 +2188,23 @@ CUT TO:</div>
    STATE
 ========================================================= */
 
-let zoom = 1;
+const script = document.getElementById("script");
+const picker = document.getElementById("elementPicker");
+
 let currentScene = 1;
-let saveTimer;
-
-const script =
-    document.getElementById("script");
-
-const saveStatus =
-    document.getElementById("saveStatus");
-
-const wordStatus =
-    document.getElementById("wordStatus");
-
-const writingToolbar =
-    document.getElementById("writingToolbar");
+let savedRange = null;
 
 
 /* =========================================================
-   LOAD
+   STORAGE
 ========================================================= */
 
-const savedScript =
-    localStorage.getItem("auteur-sentient-mass");
+const STORAGE_KEY = "auteur-sentient-mass-v3";
 
-if (savedScript) {
-    script.innerText = savedScript;
+const saved = localStorage.getItem(STORAGE_KEY);
+
+if(saved){
+    script.innerHTML = saved;
 }
 
 
@@ -1543,332 +2212,464 @@ if (savedScript) {
    SAVE
 ========================================================= */
 
-script.addEventListener("input", () => {
+let saveTimer;
 
-    saveStatus.textContent = "Saving...";
-
-    updateWordCount();
+function save(){
 
     clearTimeout(saveTimer);
 
-    saveTimer = setTimeout(
-        saveDocument,
-        500
-    );
+    saveTimer = setTimeout(()=>{
 
-});
+        localStorage.setItem(
+            STORAGE_KEY,
+            script.innerHTML
+        );
 
-
-function saveDocument() {
-
-    localStorage.setItem(
-        "auteur-sentient-mass",
-        script.innerText
-    );
-
-    saveStatus.textContent = "Saved";
-
-    updateWordCount();
-
+    },250);
 }
 
-
-/* =========================================================
-   WORD COUNT
-========================================================= */
-
-function updateWordCount() {
-
-    const text =
-        script.innerText.trim();
-
-    const words =
-        text
-            ? text.split(/\s+/).length
-            : 0;
-
-    wordStatus.textContent =
-        `${words} words`;
-
-}
-
-
-/* =========================================================
-   CONTEXTUAL WRITING BAR
-========================================================= */
-
-script.addEventListener("focus", () => {
-
-    writingToolbar.classList.add("visible");
-
-});
-
-script.addEventListener("blur", event => {
-
-    if (
-        !writingToolbar.contains(event.relatedTarget)
-    ) {
-        writingToolbar.classList.remove("visible");
-    }
-
+script.addEventListener("input",()=>{
+    save();
+    updateLineCount();
 });
 
 
-writingToolbar.addEventListener(
-    "mousedown",
-    event => {
-        event.preventDefault();
-    }
-);
-
-
 /* =========================================================
-   SCENES
+   LEFT TABS
 ========================================================= */
 
-function selectScene(element, number) {
+function showLeftView(view,button){
 
     document
-        .querySelectorAll(".outline-item")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
+        .querySelectorAll(".left-tab")
+        .forEach(tab=>{
+            tab.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    document
+        .querySelectorAll(".left-content")
+        .forEach(panel=>{
+            panel.classList.remove("active");
+            panel.style.display="none";
+        });
+
+    const target =
+        document.getElementById(view+"View");
+
+    target.style.display="block";
+    target.classList.add("active");
+}
+
+
+/* =========================================================
+   RIGHT TABS
+========================================================= */
+
+function showRightTab(view,button){
+
+    document
+        .querySelectorAll(".right-tab")
+        .forEach(tab=>{
+            tab.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    document.getElementById("elementsView").style.display =
+        view === "elements" ? "block" : "none";
+
+    document.getElementById("stashView").style.display =
+        view === "stash" ? "block" : "none";
+}
+
+
+/* =========================================================
+   SCENE SELECTION
+========================================================= */
+
+function selectScene(element,number){
+
+    document
+        .querySelectorAll(".scene-card")
+        .forEach(card=>{
+            card.classList.remove("active");
+        });
 
     element.classList.add("active");
 
     currentScene = number;
 
-    document
-        .getElementById("pageStatus")
-        .textContent =
-        `Scene ${String(number).padStart(2,"0")}`;
+    const text =
+        element.querySelector(".scene-card-title").textContent.trim();
 
-}
+    const headings =
+        script.innerText.split("\n");
 
-
-/* =========================================================
-   LEFT NAVIGATION
-========================================================= */
-
-function setLeftMode(mode, button) {
-
-    document
-        .querySelectorAll(".mode-tab")
-        .forEach(item =>
-            item.classList.remove("active")
+    const index =
+        headings.findIndex(line =>
+            line.trim() === text
         );
 
-    button.classList.add("active");
+    if(index !== -1){
 
-    const views = {
-        contents: "contentsView",
-        comments: "commentsView",
-        notes: "notesView"
-    };
+        const walker =
+            document.createTreeWalker(
+                script,
+                NodeFilter.SHOW_TEXT
+            );
 
-    Object.values(views).forEach(id => {
+        let node;
+        let count = 0;
 
-        document
-            .getElementById(id)
-            .style.display = "none";
+        while(node = walker.nextNode()){
 
-    });
+            const len = node.textContent.length;
 
-    document
-        .getElementById(views[mode])
-        .style.display = "block";
+            if(count + len >= index){
 
+                const range =
+                    document.createRange();
+
+                range.setStart(
+                    node,
+                    Math.min(
+                        node.textContent.length,
+                        Math.max(0,index-count)
+                    )
+                );
+
+                range.collapse(true);
+
+                const selection =
+                    window.getSelection();
+
+                selection.removeAllRanges();
+                selection.addRange(range);
+
+                node.parentElement.scrollIntoView({
+                    behavior:"smooth",
+                    block:"center"
+                });
+
+                break;
+            }
+
+            count += len;
+        }
+    }
 }
 
 
 /* =========================================================
-   LEFT PANEL
+   WRITING ELEMENTS
 ========================================================= */
 
-function toggleLeftPanel() {
+function saveSelection(){
 
-    const panel =
-        document.querySelector(".left-panel");
+    const selection =
+        window.getSelection();
 
-    if (panel.style.width === "0px") {
+    if(selection.rangeCount){
 
-        panel.style.width = "270px";
-        panel.style.minWidth = "270px";
-
-    } else {
-
-        panel.style.width = "0px";
-        panel.style.minWidth = "0px";
+        savedRange =
+            selection.getRangeAt(0).cloneRange();
 
     }
-
 }
 
 
-/* =========================================================
-   COMMENTS
-========================================================= */
+function restoreSelection(){
 
-function addComment() {
-
-    const comment =
-        prompt("Comment:");
-
-    if (!comment)
+    if(!savedRange)
         return;
 
-    const card =
-        document.createElement("div");
+    const selection =
+        window.getSelection();
 
-    card.className = "comment-card";
+    selection.removeAllRanges();
 
-    card.innerHTML = `
-        <div class="comment-author">
-            YOU
-        </div>
-
-        <div class="comment-text">
-            ${escapeHTML(comment)}
-        </div>
-    `;
-
-    document
-        .getElementById("commentsView")
-        .appendChild(card);
+    selection.addRange(savedRange);
 
 }
 
 
-/* =========================================================
-   STORY
-========================================================= */
+function applyElement(type){
 
-function openStory() {
-
-    alert(
-`STORY STRUCTURE
-
-Opening Image
-Inciting Incident
-First Turning Point
-Midpoint
-Second Turning Point
-Climax
-Final Image`
-    );
-
-}
-
-
-/* =========================================================
-   PROJECT
-========================================================= */
-
-function openProject() {
-
-    document
-        .getElementById("projectScreen")
-        .classList.add("open");
-
-}
-
-
-function closeProject() {
-
-    document
-        .getElementById("projectScreen")
-        .classList.remove("open");
-
-}
-
-
-/* =========================================================
-   SCREENPLAY FORMATTING
-========================================================= */
-
-function setFormat(type, button) {
-
-    document
-        .querySelectorAll(".write-button")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
-
-    button.classList.add("active");
+    restoreSelection();
 
     script.focus();
 
     const selection =
         window.getSelection();
 
-    if (!selection.rangeCount)
-        return;
-
-    const text =
+    let text =
         selection.toString();
 
-    if (!text)
-        return;
+    if(!text){
 
-    let formatted = text;
+        const range =
+            selection.rangeCount
+                ? selection.getRangeAt(0)
+                : null;
 
-    switch (type) {
+        if(range){
 
-        case "heading":
+            const node =
+                range.startContainer;
 
-            formatted =
-                text.toUpperCase();
+            if(node.nodeType === Node.TEXT_NODE){
+
+                text =
+                    node.textContent
+                        .slice(
+                            range.startOffset
+                        );
+
+            }
+
+        }
+
+    }
+
+    if(!text)
+        text = "TEXT";
+
+
+    let result = text;
+
+    switch(type){
+
+        case "scene":
+
+            result =
+                text
+                    .replace(/^INT\.\s*/i,"")
+                    .replace(/^EXT\.\s*/i,"");
+
+            result =
+                "INT. " +
+                result.toUpperCase();
 
             break;
 
         case "character":
 
-            formatted =
+            result =
                 text.toUpperCase();
 
             break;
 
         case "dialogue":
 
-            formatted =
-                "          " + text;
+            result =
+                text;
 
             break;
 
         case "parenthetical":
 
-            formatted =
-                "(" + text + ")";
+            result =
+                "(" +
+                text.replace(/^\(|\)$/g,"") +
+                ")";
 
             break;
 
         case "transition":
 
-            formatted =
+            result =
                 text.toUpperCase();
 
             break;
 
+        case "action":
+
+            result =
+                text;
+
+            break;
     }
 
-    document.execCommand(
-        "insertText",
-        false,
-        formatted
-    );
 
-    saveDocument();
+    if(selection.rangeCount){
+
+        document.execCommand(
+            "insertText",
+            false,
+            result
+        );
+
+    }
+
+    picker.classList.remove("open");
+
+    save();
+
+    script.focus();
+
+    updateLineCount();
 
 }
 
 
 /* =========================================================
-   TEXT FORMAT
+   KEYBOARD WRITING ASSIST
 ========================================================= */
 
-function formatText(command) {
+script.addEventListener("keydown",event=>{
 
-    script.focus();
+    if(event.key === "Tab"){
+
+        event.preventDefault();
+
+        saveSelection();
+
+        const rect =
+            getCaretRect();
+
+        if(rect){
+
+            picker.style.left =
+                Math.min(
+                    rect.left,
+                    window.innerWidth - 215
+                ) + "px";
+
+            picker.style.top =
+                Math.min(
+                    rect.bottom + 8,
+                    window.innerHeight - 270
+                ) + "px";
+
+            picker.classList.toggle("open");
+
+        }
+
+        return;
+    }
+
+
+    if(event.key === "Escape"){
+
+        picker.classList.remove("open");
+
+    }
+
+
+    if(event.key === "Enter"){
+
+        setTimeout(()=>{
+
+            const line =
+                getCurrentLine().trim();
+
+            if(
+                line === "INT." ||
+                line === "EXT." ||
+                line === "INT./EXT."
+            ){
+
+                openElementPicker();
+
+            }
+
+        },0);
+
+    }
+
+});
+
+
+function getCurrentLine(){
+
+    const selection =
+        window.getSelection();
+
+    if(!selection.rangeCount)
+        return "";
+
+    const node =
+        selection.anchorNode;
+
+    if(!node)
+        return "";
+
+    return node.textContent || "";
+
+}
+
+
+function getCaretRect(){
+
+    const selection =
+        window.getSelection();
+
+    if(!selection.rangeCount)
+        return null;
+
+    const range =
+        selection.getRangeAt(0);
+
+    const rect =
+        range.getBoundingClientRect();
+
+    return rect;
+}
+
+
+function openElementPicker(){
+
+    saveSelection();
+
+    const rect =
+        getCaretRect();
+
+    if(!rect)
+        return;
+
+    picker.style.left =
+        Math.min(
+            rect.left,
+            window.innerWidth - 215
+        ) + "px";
+
+    picker.style.top =
+        Math.min(
+            rect.bottom + 8,
+            window.innerHeight - 270
+        ) + "px";
+
+    picker.classList.add("open");
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE PICKER
+========================================================= */
+
+document.addEventListener("mousedown",event=>{
+
+    if(
+        !picker.contains(event.target) &&
+        event.target !== script
+    ){
+
+        picker.classList.remove("open");
+
+    }
+
+});
+
+
+/* =========================================================
+   TEXT FORMATTING
+========================================================= */
+
+function formatText(command){
+
+    restoreSelection();
 
     document.execCommand(
         command,
@@ -1876,162 +2677,349 @@ function formatText(command) {
         null
     );
 
-    saveDocument();
+    save();
+    script.focus();
+}
 
+
+function clearFormatting(){
+
+    restoreSelection();
+
+    document.execCommand(
+        "removeFormat",
+        false,
+        null
+    );
+
+    save();
+}
+
+
+function toggleTextColor(){
+
+    restoreSelection();
+
+    const selection =
+        window.getSelection();
+
+    if(!selection.toString())
+        return;
+
+    document.execCommand(
+        "foreColor",
+        false,
+        "#5b35d5"
+    );
+
+    save();
+}
+
+
+function insertLink(){
+
+    const url =
+        prompt("Enter URL:");
+
+    if(!url)
+        return;
+
+    restoreSelection();
+
+    document.execCommand(
+        "createLink",
+        false,
+        url
+    );
+
+    save();
+}
+
+
+function duplicateSelection(){
+
+    restoreSelection();
+
+    const text =
+        window.getSelection().toString();
+
+    if(!text)
+        return;
+
+    document.execCommand(
+        "insertText",
+        false,
+        text + "\n" + text
+    );
+
+    save();
 }
 
 
 /* =========================================================
-   INSERT
+   UNDO / REDO
 ========================================================= */
 
-function insertScene() {
+function historyAction(type){
 
-    insertAtCursor(
-        "\n\nINT. NEW LOCATION - DAY\n\n"
+    document.execCommand(
+        type,
+        false,
+        null
     );
 
+    save();
 }
 
 
-function insertNote() {
+/* =========================================================
+   INSERTS
+========================================================= */
 
-    insertAtCursor(
-        "\n\n[NOTE: ]\n\n"
-    );
+function insertImage(){
 
+    alert("Image insertion is ready for the media system.");
 }
 
 
-function insertAtCursor(text) {
+function insertCharacterName(name){
 
     script.focus();
 
     document.execCommand(
         "insertText",
         false,
-        text
+        "\n\n" + name + "\n\n"
     );
 
-    saveDocument();
+    save();
+}
+
+
+function addComment(){
+
+    const text =
+        prompt("Comment:");
+
+    if(!text)
+        return;
+
+    alert("Comment added.");
+}
+
+
+function openElements(){
+
+    document
+        .querySelector(".right-sidebar")
+        .scrollIntoView();
 
 }
 
 
 /* =========================================================
-   KEYBOARD SCREENPLAY SHORTCUTS
+   ADD PROJECT ITEMS
 ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    event => {
+function addScene(){
 
-        if (
-            (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase() === "s"
-        ) {
+    script.focus();
 
-            event.preventDefault();
+    document.execCommand(
+        "insertText",
+        false,
+        "\n\nINT. NEW LOCATION - DAY\n\n"
+    );
 
-            saveDocument();
+    save();
+}
 
-        }
 
-        if (
-            (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase() === "f"
-        ) {
+function addDraft(){
 
-            event.preventDefault();
+    alert("New draft created.");
+}
 
-            findReplace();
 
-        }
+function addStoryline(){
 
-    }
-);
+    const name =
+        prompt("Storyline name:");
+
+    if(!name)
+        return;
+
+    alert(
+        `"${name}" added to Storylines.`
+    );
+}
+
+
+function addCharacter(){
+
+    const name =
+        prompt("Character name:");
+
+    if(!name)
+        return;
+
+    alert(
+        `"${name}" added to Characters.`
+    );
+}
+
+
+function addLocation(){
+
+    const name =
+        prompt("Location name:");
+
+    if(!name)
+        return;
+
+    alert(
+        `"${name}" added to Locations.`
+    );
+}
+
+
+function addStash(){
+
+    alert("Select an element to move it into Stash.");
+}
+
+
+function selectElement(name){
+
+    alert(name);
+}
 
 
 /* =========================================================
-   FIND / REPLACE
+   SEARCH
 ========================================================= */
 
-function findReplace() {
+function focusSearch(){
 
     const term =
-        prompt("Find text:");
+        prompt("Find in screenplay:");
 
-    if (!term)
+    if(!term)
         return;
 
-    const replacement =
-        prompt(`Replace "${term}" with:`);
+    const text =
+        script.innerText;
 
-    if (replacement === null)
+    const index =
+        text.toLowerCase()
+            .indexOf(term.toLowerCase());
+
+    if(index === -1){
+
+        alert("No matches found.");
         return;
 
-    script.innerText =
-        script.innerText
-            .split(term)
-            .join(replacement);
+    }
 
-    saveDocument();
-
+    alert(
+        `Found "${term}" at character ${index + 1}.`
+    );
 }
 
 
 /* =========================================================
-   ZOOM
+   LINE COUNT
 ========================================================= */
 
-function changeZoom(amount) {
+function updateLineCount(){
 
-    zoom =
-        Math.max(
-            .65,
-            Math.min(
-                1.35,
-                zoom + amount
-            )
+    const text =
+        script.innerText;
+
+    const lines =
+        text.split("\n").length;
+
+    document.getElementById(
+        "lineStatus"
+    ).textContent = lines;
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener("keydown",event=>{
+
+    if(
+        (event.metaKey || event.ctrlKey) &&
+        event.key.toLowerCase() === "s"
+    ){
+
+        event.preventDefault();
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            script.innerHTML
         );
 
-    document
-        .getElementById("paper")
-        .style.transform =
-        `scale(${zoom})`;
+    }
 
-    const percent =
-        Math.round(zoom * 100);
 
-    document
-        .getElementById("statusZoom")
-        .textContent =
-        `${percent}%`;
+    if(
+        (event.metaKey || event.ctrlKey) &&
+        event.key.toLowerCase() === "b"
+    ){
 
-}
+        event.preventDefault();
+
+        formatText("bold");
+
+    }
+
+
+    if(
+        (event.metaKey || event.ctrlKey) &&
+        event.key.toLowerCase() === "i"
+    ){
+
+        event.preventDefault();
+
+        formatText("italic");
+
+    }
+
+});
 
 
 /* =========================================================
-   ESCAPE HTML
+   FLOATING TOOLBAR VISIBILITY
 ========================================================= */
 
-function escapeHTML(value) {
+document.addEventListener("selectionchange",()=>{
 
-    return value
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    const selection =
+        window.getSelection();
 
-}
+    if(
+        selection &&
+        selection.rangeCount &&
+        script.contains(selection.anchorNode)
+    ){
+
+        savedRange =
+            selection.getRangeAt(0).cloneRange();
+
+    }
+
+});
 
 
 /* =========================================================
    INIT
 ========================================================= */
 
-updateWordCount();
+updateLineCount();
 
 </script>
 
