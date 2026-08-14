@@ -3,26 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Auteur</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;500i;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg: #f5f5f4;
-    --panel: #fafafa;
-    --panel-2: #f0f0ef;
+    --bg: #f3f3f1;
+    --surface: #fafafa;
+    --surface-raised: #ffffff;
+    --surface-soft: #f0f0ee;
+
     --paper: #fff;
-    --border: #dededc;
-    --border-dark: #cececa;
-    --text: #242424;
-    --muted: #858585;
-    --purple: #6846c7;
-    --purple-soft: #eee9fb;
-    --black: #181818;
-    --toolbar: 48px;
-    --left: 245px;
-    --right: 230px;
+    --ink: #242424;
+    --ink-soft: #555;
+    --muted: #969696;
+
+    --line: #e3e3e0;
+    --line-strong: #d5d5d1;
+
+    --accent: #6650b8;
+    --accent-soft: #f0ecfb;
+    --accent-line: #dcd4f3;
+
+    --shadow-paper:
+        0 1px 2px rgba(0,0,0,.04),
+        0 8px 30px rgba(0,0,0,.07);
+
+    --topbar: 50px;
+    --left-panel: 250px;
+    --right-panel: 242px;
 }
 
 * {
@@ -38,9 +49,10 @@ body {
 
 body {
     background: var(--bg);
-    color: var(--text);
-    font-family: Inter, sans-serif;
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -51,8 +63,19 @@ textarea {
 
 button {
     border: 0;
+    outline: 0;
     background: none;
 }
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    box-shadow: 0 0 0 2px var(--accent-line);
+}
+
+/* =========================================================
+   APP
+========================================================= */
 
 .app {
     height: 100vh;
@@ -61,18 +84,22 @@ button {
 }
 
 /* =========================================================
-   GLOBAL TOP BAR
+   TOP BAR
 ========================================================= */
 
 .topbar {
-    height: var(--toolbar);
+    height: var(--topbar);
     flex-shrink: 0;
-    background: #fff;
-    border-bottom: 1px solid var(--border);
+
+    background: rgba(255,255,255,.96);
+    border-bottom: 1px solid var(--line);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 9px;
+
+    padding: 0 12px;
+
     z-index: 20;
 }
 
@@ -84,65 +111,93 @@ button {
 }
 
 .brand {
-    width: 72px;
+    width: 76px;
+
+    color: #202020;
+
     font-family: "EB Garamond", serif;
-    font-size: 22px;
+    font-size: 23px;
     font-weight: 600;
-    letter-spacing: -.03em;
+    letter-spacing: -.035em;
+
     cursor: pointer;
+    user-select: none;
 }
 
 .project-title {
-    height: 28px;
-    border-left: 1px solid var(--border);
-    padding-left: 14px;
+    height: 29px;
+
+    border-left: 1px solid var(--line);
+
+    padding-left: 15px;
+
     display: flex;
     align-items: center;
-    gap: 7px;
-    color: #555;
-    font-size: 12px;
+    gap: 8px;
+
+    color: var(--muted);
+    font-size: 11px;
 }
 
 .project-title strong {
-    color: #222;
+    color: #444;
     font-weight: 600;
 }
 
+.top-right {
+    gap: 3px;
+}
+
+.save-status {
+    color: #9a9a9a;
+    font-size: 10px;
+    margin-right: 6px;
+    min-width: 39px;
+    text-align: right;
+}
+
 .top-button {
-    height: 32px;
-    min-width: 32px;
+    height: 31px;
+    min-width: 31px;
+
     padding: 0 9px;
+
     border-radius: 5px;
-    color: #666;
-    cursor: pointer;
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    font-size: 12px;
+
+    color: #777;
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition:
+        background .12s ease,
+        color .12s ease;
 }
 
 .top-button:hover {
-    background: var(--panel-2);
+    background: #f0f0ee;
+    color: #333;
 }
 
-.save-status {
-    color: #929292;
-    font-size: 11px;
-    margin-right: 4px;
+.top-button.share {
+    border: 1px solid var(--line-strong);
+    color: #555;
+    padding: 0 12px;
+    margin-left: 4px;
 }
 
-.share {
-    border: 1px solid var(--border);
-    color: #444;
-}
-
-.share:hover {
-    background: #f7f7f7;
+.top-button.share:hover {
+    background: #f8f8f7;
+    border-color: #c9c9c5;
 }
 
 /* =========================================================
-   MAIN APPLICATION
+   WORKSPACE
 ========================================================= */
 
 .workspace {
@@ -152,169 +207,272 @@ button {
 }
 
 /* =========================================================
-   LEFT NAVIGATION
+   LEFT PANEL
 ========================================================= */
 
 .left-panel {
-    width: var(--left);
-    min-width: var(--left);
-    background: var(--panel);
-    border-right: 1px solid var(--border);
+    width: var(--left-panel);
+    min-width: var(--left-panel);
+
+    background: rgba(250,250,249,.98);
+
+    border-right: 1px solid var(--line);
+
     display: flex;
     flex-direction: column;
+
+    transition:
+        width .18s ease,
+        min-width .18s ease;
 }
 
 .left-top {
-    height: 45px;
-    border-bottom: 1px solid var(--border);
+    height: 46px;
+    flex-shrink: 0;
+
+    border-bottom: 1px solid var(--line);
+
     display: flex;
     align-items: center;
-    padding: 0 13px;
     justify-content: space-between;
+
+    padding: 0 11px;
 }
 
 .mode-tabs {
-    display: flex;
     height: 100%;
-    gap: 15px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
 }
 
 .mode-tab {
     position: relative;
-    color: #8a8a8a;
-    font-size: 11px;
-    font-weight: 600;
+
+    height: 100%;
+
+    color: #a0a0a0;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .055em;
+
     cursor: pointer;
+
+    transition: color .12s ease;
+}
+
+.mode-tab:hover {
+    color: #666;
 }
 
 .mode-tab.active {
-    color: #242424;
+    color: #343434;
 }
 
 .mode-tab.active::after {
     content: "";
+
     position: absolute;
     left: 0;
     right: 0;
     bottom: -1px;
+
     height: 2px;
-    background: var(--purple);
+
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
 }
 
 .collapse {
-    width: 27px;
-    height: 27px;
-    border-radius: 4px;
-    color: #8b8b8b;
+    width: 28px;
+    height: 28px;
+
+    border-radius: 5px;
+
+    color: #999;
+
     cursor: pointer;
+
+    transition:
+        background .12s ease,
+        color .12s ease;
 }
 
 .collapse:hover {
-    background: #e9e9e8;
+    background: #ededeb;
+    color: #555;
 }
 
 .outline {
     flex: 1;
     overflow-y: auto;
-    padding: 8px 0;
+    overflow-x: hidden;
+
+    padding: 8px 8px 12px;
+}
+
+.outline::-webkit-scrollbar,
+.inspector::-webkit-scrollbar,
+.paper-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.outline::-webkit-scrollbar-thumb,
+.inspector::-webkit-scrollbar-thumb,
+.paper-scroll::-webkit-scrollbar-thumb {
+    background: #d6d6d3;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
 }
 
 .outline-section {
-    padding: 0 10px;
+    padding: 0 2px;
 }
 
 .outline-label {
-    color: #999;
-    font-size: 9px;
+    color: #aaa;
+
+    font-size: 8px;
     font-weight: 700;
-    letter-spacing: .09em;
-    padding: 10px 6px 6px;
+    letter-spacing: .11em;
+
+    padding: 11px 8px 6px;
 }
 
 .outline-item {
-    min-height: 45px;
-    border-radius: 4px;
-    padding: 7px 8px;
+    min-height: 47px;
+
+    border-radius: 5px;
+
+    padding: 8px 9px;
+
     cursor: pointer;
-    margin: 1px 0;
+
+    margin: 2px 0;
+
+    border: 1px solid transparent;
+
+    transition:
+        background .12s ease,
+        border-color .12s ease;
 }
 
 .outline-item:hover {
-    background: #eaeae9;
+    background: #f0f0ee;
 }
 
 .outline-item.active {
-    background: var(--purple-soft);
+    background: var(--accent-soft);
+    border-color: var(--accent-line);
 }
 
 .scene-number {
-    color: #a0a0a0;
-    font-size: 9px;
-    margin-bottom: 3px;
+    color: #aaa;
+
+    font-size: 8px;
+    font-weight: 500;
+
+    margin-bottom: 4px;
 }
 
 .scene-name {
-    color: #4a4a4a;
-    font-size: 11px;
-    line-height: 1.3;
+    color: #555;
+
+    font-size: 10px;
+    line-height: 1.35;
+
     font-weight: 600;
 }
 
+.outline-item.active .scene-number {
+    color: #8778bd;
+}
+
 .outline-item.active .scene-name {
-    color: #5335a8;
+    color: #55439c;
 }
 
 .left-bottom {
-    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+
+    border-top: 1px solid var(--line);
+
     padding: 7px;
 }
 
 .utility-button {
     width: 100%;
-    height: 34px;
-    border-radius: 4px;
+    height: 32px;
+
+    border-radius: 5px;
+
     display: flex;
     align-items: center;
     gap: 9px;
+
     padding: 0 9px;
-    color: #777;
-    font-size: 11px;
+
+    color: #808080;
+    font-size: 10px;
+
     cursor: pointer;
+
+    transition:
+        background .12s ease,
+        color .12s ease;
 }
 
 .utility-button:hover {
-    background: #eaeae9;
+    background: #ededeb;
+    color: #4d4d4d;
+}
+
+.utility-button span:first-child {
+    width: 14px;
+
+    color: #999;
+
+    font-size: 12px;
+    text-align: center;
 }
 
 /* =========================================================
-   CENTER EDITOR
+   EDITOR
 ========================================================= */
 
 .editor {
     flex: 1;
     min-width: 0;
+
     position: relative;
+
     background:
-        linear-gradient(
-            90deg,
-            #eeeeec 0,
-            #f5f5f4 7%,
-            #f5f5f4 93%,
+        radial-gradient(
+            ellipse at center top,
+            #fafaf9 0%,
+            #f4f4f2 58%,
             #eeeeec 100%
         );
+
     display: flex;
     flex-direction: column;
 }
 
 .editor-toolbar {
-    height: 42px;
+    height: 43px;
     flex-shrink: 0;
-    background: rgba(255,255,255,.96);
-    border-bottom: 1px solid var(--border);
+
+    background: rgba(255,255,255,.93);
+
+    border-bottom: 1px solid var(--line);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+
+    padding: 0 12px;
 }
 
 .format-tools {
@@ -324,104 +482,169 @@ button {
 }
 
 .format-button {
-    min-width: 29px;
     height: 28px;
-    padding: 0 7px;
+
+    min-width: 30px;
+
+    padding: 0 8px;
+
     border-radius: 4px;
-    color: #737373;
-    font-size: 11px;
+
+    color: #858585;
+
+    font-size: 9px;
+    font-weight: 500;
+
     cursor: pointer;
+
+    transition:
+        background .12s ease,
+        color .12s ease;
 }
 
 .format-button:hover {
-    background: #ededeb;
-    color: #333;
+    background: #eeeeec;
+    color: #4c4c4c;
 }
 
 .format-button.active {
-    background: var(--purple-soft);
-    color: var(--purple);
+    background: var(--accent-soft);
+    color: var(--accent);
 }
 
 .zoom {
     display: flex;
     align-items: center;
-    gap: 7px;
-    color: #8a8a8a;
-    font-size: 10px;
+    gap: 3px;
+
+    color: #999;
+    font-size: 9px;
 }
 
 .zoom button {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+    width: 25px;
+    height: 25px;
+
     border-radius: 4px;
+
     color: #777;
+
+    cursor: pointer;
 }
 
 .zoom button:hover {
     background: #ededeb;
 }
 
+#zoomLabel {
+    min-width: 37px;
+    text-align: center;
+}
+
+/* =========================================================
+   PAPER
+========================================================= */
+
 .paper-scroll {
     flex: 1;
+
     overflow: auto;
-    padding: 44px 55px 120px;
+
+    padding: 46px 60px 120px;
+
+    scroll-behavior: smooth;
 }
 
 .paper {
     width: 816px;
     min-height: 1056px;
+
     margin: 0 auto;
-    background: #fff;
-    box-shadow: 0 1px 8px rgba(0,0,0,.10);
+
+    background: var(--paper);
+
+    box-shadow: var(--shadow-paper);
+
+    border: 1px solid rgba(0,0,0,.025);
+
     padding: 96px 108px;
+
     transform-origin: top center;
-    transition: transform .15s ease;
+
+    transition: transform .14s ease;
 }
 
 .script {
     min-height: 860px;
+
     outline: none;
-    font-family: "Courier New", Courier, monospace;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
     font-size: 12px;
-    line-height: 1.48;
+    line-height: 1.52;
+
+    letter-spacing: 0;
+
     white-space: pre-wrap;
-    color: #111;
-    caret-color: #333;
+
+    color: #151515;
+
+    caret-color: #555;
+
+    text-rendering: optimizeLegibility;
 }
 
-.script:focus {
-    outline: none;
+.script::selection {
+    background: #ddd6f0;
 }
 
 /* =========================================================
-   RIGHT INSPECTOR
+   RIGHT PANEL
 ========================================================= */
 
 .right-panel {
-    width: var(--right);
-    min-width: var(--right);
-    background: var(--panel);
-    border-left: 1px solid var(--border);
+    width: var(--right-panel);
+    min-width: var(--right-panel);
+
+    background: rgba(250,250,249,.98);
+
+    border-left: 1px solid var(--line);
+
     display: flex;
     flex-direction: column;
 }
 
 .right-tabs {
-    height: 45px;
+    height: 46px;
     flex-shrink: 0;
-    border-bottom: 1px solid var(--border);
+
+    border-bottom: 1px solid var(--line);
+
     display: flex;
 }
 
 .right-tab {
     flex: 1;
+
     position: relative;
-    color: #999;
-    font-size: 10px;
-    font-weight: 600;
+
+    color: #aaa;
+
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .055em;
+
     cursor: pointer;
+
+    transition: color .12s ease;
+}
+
+.right-tab:hover {
+    color: #666;
 }
 
 .right-tab.active {
@@ -430,18 +653,26 @@ button {
 
 .right-tab.active::after {
     content: "";
+
     position: absolute;
+
     bottom: -1px;
-    left: 15px;
-    right: 15px;
+    left: 16px;
+    right: 16px;
+
     height: 2px;
-    background: var(--purple);
+
+    background: var(--accent);
+
+    border-radius: 2px 2px 0 0;
 }
 
 .inspector {
     flex: 1;
+
     overflow-y: auto;
-    padding: 13px;
+
+    padding: 16px 13px;
 }
 
 .panel-view {
@@ -453,196 +684,157 @@ button {
 }
 
 .inspector-section {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .inspector-heading {
-    color: #969696;
-    font-size: 9px;
+    color: #aaa;
+
+    font-size: 8px;
     font-weight: 700;
-    letter-spacing: .08em;
+
+    letter-spacing: .10em;
+
     margin-bottom: 9px;
 }
 
 .field {
-    border: 1px solid var(--border);
     background: #fff;
-    border-radius: 4px;
-    padding: 9px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 5px;
+
+    padding: 10px;
+
     margin-bottom: 6px;
+
+    transition:
+        border-color .12s ease,
+        box-shadow .12s ease;
+}
+
+.field:hover {
+    border-color: #d2d2cf;
 }
 
 .field-label {
-    color: #999;
-    font-size: 8px;
+    color: #aaa;
+
+    font-size: 7px;
     font-weight: 700;
-    margin-bottom: 4px;
+
+    letter-spacing: .04em;
+
+    margin-bottom: 5px;
 }
 
 .field-value {
-    color: #444;
-    font-size: 10px;
-    line-height: 1.4;
+    color: #555;
+
+    font-size: 9px;
+
+    line-height: 1.5;
 }
 
 .character {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 7px;
-    border-radius: 4px;
+    gap: 9px;
+
+    padding: 8px;
+
+    border-radius: 5px;
+
     cursor: pointer;
+
+    transition: background .12s ease;
 }
 
 .character:hover {
-    background: #eaeae9;
+    background: #ededeb;
 }
 
 .character-avatar {
-    width: 27px;
-    height: 27px;
+    width: 29px;
+    height: 29px;
+
+    flex-shrink: 0;
+
     border-radius: 50%;
-    background: #e6e0f7;
-    color: #6042b3;
+
+    background: var(--accent-soft);
+
+    color: #5e49a6;
+
     display: grid;
     place-items: center;
-    font-size: 9px;
+
+    font-size: 8px;
     font-weight: 700;
 }
 
 .character-name {
-    font-size: 10px;
+    color: #4a4a4a;
+
+    font-size: 9px;
     font-weight: 600;
 }
 
 .character-role {
+    color: #aaa;
+
     font-size: 8px;
-    color: #999;
+
     margin-top: 2px;
 }
 
 /* =========================================================
-   BOTTOM STATUS BAR
+   STATUS BAR
 ========================================================= */
 
 .statusbar {
     height: 25px;
     flex-shrink: 0;
-    background: #fff;
-    border-top: 1px solid var(--border);
+
+    background: rgba(255,255,255,.96);
+
+    border-top: 1px solid var(--line);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 11px;
-    color: #999;
-    font-size: 9px;
+
+    padding: 0 12px;
+
+    color: #a0a0a0;
+
+    font-size: 8px;
 }
 
 .status-left,
 .status-right {
     display: flex;
-    gap: 14px;
+    gap: 15px;
 }
 
 /* =========================================================
-   PROJECT OVERLAY
-========================================================= */
-
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(20,20,20,.30);
-    z-index: 100;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.overlay.open {
-    display: flex;
-}
-
-.modal {
-    width: 460px;
-    background: #fff;
-    border: 1px solid #d8d8d5;
-    border-radius: 8px;
-    box-shadow: 0 25px 80px rgba(0,0,0,.20);
-    overflow: hidden;
-}
-
-.modal-header {
-    padding: 19px 21px;
-    border-bottom: 1px solid var(--border);
-}
-
-.modal-title {
-    font-family: "EB Garamond", serif;
-    font-size: 24px;
-}
-
-.modal-body {
-    padding: 20px;
-}
-
-.modal-label {
-    display: block;
-    font-size: 10px;
-    color: #777;
-    font-weight: 700;
-    margin-bottom: 7px;
-}
-
-.modal-input {
-    width: 100%;
-    height: 40px;
-    border: 1px solid var(--border-dark);
-    border-radius: 4px;
-    outline: none;
-    padding: 0 10px;
-    font-size: 12px;
-}
-
-.modal-input:focus {
-    border-color: var(--purple);
-    box-shadow: 0 0 0 2px var(--purple-soft);
-}
-
-.modal-footer {
-    padding: 13px 20px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: flex-end;
-    gap: 7px;
-}
-
-.modal-button {
-    height: 34px;
-    padding: 0 13px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.modal-cancel {
-    background: #ededeb;
-}
-
-.modal-create {
-    color: #fff;
-    background: var(--purple);
-}
-
-/* =========================================================
-   FULL SCREEN PROJECT VIEW
+   PROJECT SCREEN
 ========================================================= */
 
 .project-screen {
     position: fixed;
     inset: 0;
+
     z-index: 80;
-    background: #f7f7f6;
+
+    background:
+        radial-gradient(
+            ellipse at center top,
+            #fff 0,
+            #f5f5f3 65%
+        );
+
     display: none;
     flex-direction: column;
 }
@@ -652,118 +844,316 @@ button {
 }
 
 .project-header {
-    height: 54px;
-    background: #fff;
-    border-bottom: 1px solid var(--border);
+    height: 55px;
+
+    background: rgba(255,255,255,.96);
+
+    border-bottom: 1px solid var(--line);
+
     display: flex;
     align-items: center;
-    padding: 0 17px;
     justify-content: space-between;
+
+    padding: 0 18px;
 }
 
 .project-header-left {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 15px;
 }
 
 .project-back {
-    color: #777;
+    color: #888;
+
+    font-size: 10px;
+
     cursor: pointer;
-    font-size: 12px;
+
+    transition: color .12s ease;
+}
+
+.project-back:hover {
+    color: #444;
 }
 
 .project-name {
     font-family: "EB Garamond", serif;
+
+    color: #272727;
+
     font-size: 22px;
 }
 
 .project-content {
     flex: 1;
+
     overflow: auto;
-    padding: 55px;
+
+    padding: 70px 50px;
 }
 
 .project-content-inner {
-    max-width: 980px;
-    margin: auto;
+    width: min(980px, 100%);
+
+    margin: 0 auto;
 }
 
 .project-eyebrow {
     color: #999;
-    font-size: 10px;
+
+    font-size: 8px;
     font-weight: 700;
-    letter-spacing: .1em;
-    margin-bottom: 9px;
+
+    letter-spacing: .13em;
+
+    margin-bottom: 10px;
 }
 
 .project-heading {
+    color: #222;
+
     font-family: "EB Garamond", serif;
-    font-size: 46px;
-    line-height: 1;
-    margin-bottom: 35px;
+
+    font-size: 52px;
+    line-height: .95;
+
+    letter-spacing: -.025em;
+
+    margin-bottom: 38px;
 }
 
 .project-grid {
     display: grid;
+
     grid-template-columns: 2fr 1fr;
-    gap: 17px;
+
+    gap: 12px;
 }
 
 .project-card {
-    background: #fff;
-    border: 1px solid var(--border);
+    min-height: 125px;
+
+    background: rgba(255,255,255,.9);
+
+    border: 1px solid var(--line);
+
     border-radius: 7px;
-    padding: 18px;
+
+    padding: 19px;
+
+    box-shadow:
+        0 1px 2px rgba(0,0,0,.025);
+
+    transition:
+        transform .14s ease,
+        box-shadow .14s ease,
+        border-color .14s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-1px);
+
+    border-color: #d2d2cf;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.05);
 }
 
 .project-card-title {
-    font-size: 11px;
+    color: #999;
+
+    font-size: 8px;
     font-weight: 700;
-    margin-bottom: 15px;
+
+    letter-spacing: .1em;
+
+    margin-bottom: 16px;
 }
 
 .project-stat {
-    font-size: 30px;
+    color: #333;
+
     font-family: "EB Garamond", serif;
+
+    font-size: 30px;
+
+    margin-bottom: 2px;
 }
 
 .project-small {
     color: #999;
-    font-size: 10px;
+
+    font-size: 9px;
+
+    line-height: 1.8;
 }
 
 /* =========================================================
-   RESPONSIVE
+   MODAL
+========================================================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 100;
+
+    background: rgba(20,20,20,.24);
+
+    backdrop-filter: blur(3px);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay.open {
+    display: flex;
+}
+
+.modal {
+    width: 440px;
+
+    background: #fff;
+
+    border: 1px solid var(--line);
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.16);
+
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px 21px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.modal-title {
+    color: #292929;
+
+    font-family: "EB Garamond", serif;
+
+    font-size: 24px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-label {
+    display: block;
+
+    color: #888;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    margin-bottom: 7px;
+}
+
+.modal-input {
+    width: 100%;
+    height: 40px;
+
+    border: 1px solid var(--line-strong);
+
+    border-radius: 5px;
+
+    outline: none;
+
+    padding: 0 10px;
+
+    color: #333;
+
+    font-size: 11px;
+}
+
+.modal-input:focus {
+    border-color: #b7acd9;
+
+    box-shadow:
+        0 0 0 2px var(--accent-soft);
+}
+
+.modal-footer {
+    padding: 12px 20px;
+
+    border-top: 1px solid var(--line);
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+}
+
+.modal-button {
+    height: 33px;
+
+    padding: 0 13px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.modal-cancel {
+    background: #eeeeec;
+    color: #666;
+}
+
+.modal-create {
+    background: var(--accent);
+    color: white;
+}
+
+/* =========================================================
+   MOBILE / SMALL WINDOWS
 ========================================================= */
 
 @media (max-width: 1050px) {
+
     .right-panel {
         display: none;
     }
 
     :root {
-        --left: 215px;
+        --left-panel: 225px;
     }
 }
 
 @media (max-width: 760px) {
+
     .left-panel {
         display: none;
     }
 
     .paper-scroll {
-        padding: 25px;
+        padding: 25px 15px 100px;
     }
 
     .paper {
         transform: scale(.82);
         transform-origin: top center;
+
         margin-bottom: -180px;
     }
 
     .project-content {
-        padding: 25px;
+        padding: 35px 20px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
@@ -773,362 +1163,399 @@ button {
 
 <div class="app">
 
-    <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
+<!-- =======================================================
+     TOP BAR
+======================================================= -->
 
-    <header class="topbar">
+<header class="topbar">
 
-        <div class="top-left">
+    <div class="top-left">
 
-            <div class="brand" onclick="openProject()">
-                Auteur
-            </div>
-
-            <div class="project-title">
-                <strong id="topProjectName">Sentient Mass</strong>
-                <span>›</span>
-                <span id="topDraft">Screenplay</span>
-            </div>
-
+        <div
+            class="brand"
+            onclick="openProject()"
+        >
+            Auteur
         </div>
 
-        <div class="top-right">
+        <div class="project-title">
 
-            <span class="save-status" id="saveStatus">
-                Saved
+            <strong id="topProjectName">
+                Sentient Mass
+            </strong>
+
+            <span>›</span>
+
+            <span>
+                Screenplay
             </span>
 
-            <button class="top-button" onclick="saveDocument()">
-                ↻
+        </div>
+
+    </div>
+
+
+    <div class="top-right">
+
+        <span
+            class="save-status"
+            id="saveStatus"
+        >
+            Saved
+        </span>
+
+        <button
+            class="top-button"
+            onclick="saveDocument()"
+            title="Save"
+        >
+            ↻
+        </button>
+
+        <button
+            class="top-button"
+            onclick="openProject()"
+        >
+            Project
+        </button>
+
+        <button
+            class="top-button share"
+        >
+            Share
+        </button>
+
+        <button
+            class="top-button"
+        >
+            ⋯
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =======================================================
+     WORKSPACE
+======================================================= -->
+
+<main class="workspace">
+
+
+<!-- =======================================================
+     LEFT PANEL
+======================================================= -->
+
+<aside class="left-panel">
+
+    <div class="left-top">
+
+        <div class="mode-tabs">
+
+            <button
+                class="mode-tab active"
+                onclick="setLeftMode('outline', this)"
+            >
+                OUTLINE
             </button>
 
-            <button class="top-button" onclick="openProject()">
-                Project
-            </button>
-
-            <button class="top-button share">
-                Share
-            </button>
-
-            <button class="top-button">
-                ⋯
+            <button
+                class="mode-tab"
+                onclick="setLeftMode('index', this)"
+            >
+                INDEX
             </button>
 
         </div>
 
-    </header>
+        <button
+            class="collapse"
+            onclick="toggleLeftPanel()"
+        >
+            ‹
+        </button>
+
+    </div>
 
 
-    <main class="workspace">
+    <div
+        class="outline"
+        id="outlinePanel"
+    >
 
-        <!-- =================================================
-             LEFT PANEL
-        ================================================== -->
+        <div class="outline-section">
 
-        <aside class="left-panel">
-
-            <div class="left-top">
-
-                <div class="mode-tabs">
-
-                    <button
-                        class="mode-tab active"
-                        onclick="setLeftMode('outline', this)"
-                    >
-                        OUTLINE
-                    </button>
-
-                    <button
-                        class="mode-tab"
-                        onclick="setLeftMode('index', this)"
-                    >
-                        INDEX
-                    </button>
-
-                </div>
-
-                <button
-                    class="collapse"
-                    onclick="toggleLeftPanel()"
-                >
-                    ‹
-                </button>
-
+            <div class="outline-label">
+                ACT I
             </div>
 
+            <div
+                class="outline-item active"
+                onclick="selectScene(this,1)"
+            >
 
-            <div class="outline" id="outlinePanel">
-
-                <div class="outline-section">
-
-                    <div class="outline-label">
-                        ACT I
-                    </div>
-
-
-                    <div
-                        class="outline-item active"
-                        onclick="selectScene(this, 1)"
-                    >
-
-                        <div class="scene-number">
-                            01
-                        </div>
-
-                        <div class="scene-name">
-                            EXT. MEGA PLANET - DAY
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="outline-item"
-                        onclick="selectScene(this, 2)"
-                    >
-
-                        <div class="scene-number">
-                            02
-                        </div>
-
-                        <div class="scene-name">
-                            INT. OBSERVATORY - NIGHT
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="outline-item"
-                        onclick="selectScene(this, 3)"
-                    >
-
-                        <div class="scene-number">
-                            03
-                        </div>
-
-                        <div class="scene-name">
-                            EXT. CITY OF GLASS - SUNSET
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="outline-item"
-                        onclick="selectScene(this, 4)"
-                    >
-
-                        <div class="scene-number">
-                            04
-                        </div>
-
-                        <div class="scene-name">
-                            INT. APARTMENT - NIGHT
-                        </div>
-
-                    </div>
-
+                <div class="scene-number">
+                    01
                 </div>
 
-
-                <div class="outline-section">
-
-                    <div class="outline-label">
-                        ACT II
-                    </div>
-
-
-                    <div
-                        class="outline-item"
-                        onclick="selectScene(this, 5)"
-                    >
-
-                        <div class="scene-number">
-                            05
-                        </div>
-
-                        <div class="scene-name">
-                            EXT. MOUNTAIN RANGE - DAY
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="outline-item"
-                        onclick="selectScene(this, 6)"
-                    >
-
-                        <div class="scene-number">
-                            06
-                        </div>
-
-                        <div class="scene-name">
-                            EXT. THE GREAT CITY - NIGHT
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="outline-section">
-
-                    <div class="outline-label">
-                        ACT III
-                    </div>
-
-
-                    <div
-                        class="outline-item"
-                        onclick="selectScene(this, 7)"
-                    >
-
-                        <div class="scene-number">
-                            07
-                        </div>
-
-                        <div class="scene-name">
-                            EXT. CLIFFSIDE - DAWN
-                        </div>
-
-                    </div>
-
+                <div class="scene-name">
+                    EXT. MEGA PLANET - DAY
                 </div>
 
             </div>
 
 
-            <div class="left-bottom">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,2)"
+            >
 
-                <button
-                    class="utility-button"
-                    onclick="openProject()"
-                >
-                    <span>⌂</span>
-                    <span>Project overview</span>
-                </button>
-
-                <button
-                    class="utility-button"
-                    onclick="openCharacters()"
-                >
-                    <span>♙</span>
-                    <span>Characters</span>
-                </button>
-
-                <button
-                    class="utility-button"
-                    onclick="openStory()"
-                >
-                    <span>⌁</span>
-                    <span>Story structure</span>
-                </button>
-
-                <button
-                    class="utility-button"
-                    onclick="openNotes()"
-                >
-                    <span>□</span>
-                    <span>Notes</span>
-                </button>
-
-            </div>
-
-        </aside>
-
-
-        <!-- =================================================
-             CENTER EDITOR
-        ================================================== -->
-
-        <section class="editor">
-
-            <div class="editor-toolbar">
-
-                <div class="format-tools">
-
-                    <button
-                        class="format-button active"
-                        onclick="setFormat('action')"
-                        title="Action"
-                    >
-                        Action
-                    </button>
-
-                    <button
-                        class="format-button"
-                        onclick="setFormat('character')"
-                        title="Character"
-                    >
-                        Character
-                    </button>
-
-                    <button
-                        class="format-button"
-                        onclick="setFormat('dialogue')"
-                    >
-                        Dialogue
-                    </button>
-
-                    <button
-                        class="format-button"
-                        onclick="setFormat('parenthetical')"
-                    >
-                        ( )
-                    </button>
-
-                    <button
-                        class="format-button"
-                        onclick="setFormat('heading')"
-                    >
-                        Heading
-                    </button>
-
-                    <button
-                        class="format-button"
-                        onclick="setFormat('transition')"
-                    >
-                        Transition
-                    </button>
-
+                <div class="scene-number">
+                    02
                 </div>
 
-
-                <div class="zoom">
-
-                    <button onclick="changeZoom(-.05)">
-                        −
-                    </button>
-
-                    <span id="zoomLabel">
-                        100%
-                    </span>
-
-                    <button onclick="changeZoom(.05)">
-                        ＋
-                    </button>
-
+                <div class="scene-name">
+                    INT. OBSERVATORY - NIGHT
                 </div>
 
             </div>
 
 
-            <div class="paper-scroll" id="paperScroll">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,3)"
+            >
 
-                <article
-                    class="paper"
-                    id="paper"
-                >
+                <div class="scene-number">
+                    03
+                </div>
 
-                    <div
-                        class="script"
-                        id="script"
-                        contenteditable="true"
-                        spellcheck="false"
-                    >FADE IN:
+                <div class="scene-name">
+                    EXT. CITY OF GLASS - SUNSET
+                </div>
+
+            </div>
+
+
+            <div
+                class="outline-item"
+                onclick="selectScene(this,4)"
+            >
+
+                <div class="scene-number">
+                    04
+                </div>
+
+                <div class="scene-name">
+                    INT. APARTMENT - NIGHT
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="outline-section">
+
+            <div class="outline-label">
+                ACT II
+            </div>
+
+
+            <div
+                class="outline-item"
+                onclick="selectScene(this,5)"
+            >
+
+                <div class="scene-number">
+                    05
+                </div>
+
+                <div class="scene-name">
+                    EXT. MOUNTAIN RANGE - DAY
+                </div>
+
+            </div>
+
+
+            <div
+                class="outline-item"
+                onclick="selectScene(this,6)"
+            >
+
+                <div class="scene-number">
+                    06
+                </div>
+
+                <div class="scene-name">
+                    EXT. THE GREAT CITY - NIGHT
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="outline-section">
+
+            <div class="outline-label">
+                ACT III
+            </div>
+
+
+            <div
+                class="outline-item"
+                onclick="selectScene(this,7)"
+            >
+
+                <div class="scene-number">
+                    07
+                </div>
+
+                <div class="scene-name">
+                    EXT. CLIFFSIDE - DAWN
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="left-bottom">
+
+        <button
+            class="utility-button"
+            onclick="openProject()"
+        >
+            <span>⌂</span>
+            <span>Project overview</span>
+        </button>
+
+
+        <button
+            class="utility-button"
+            onclick="openCharacters()"
+        >
+            <span>♙</span>
+            <span>Characters</span>
+        </button>
+
+
+        <button
+            class="utility-button"
+            onclick="openStory()"
+        >
+            <span>⌁</span>
+            <span>Story structure</span>
+        </button>
+
+
+        <button
+            class="utility-button"
+            onclick="openNotes()"
+        >
+            <span>□</span>
+            <span>Notes</span>
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =======================================================
+     EDITOR
+======================================================= -->
+
+<section class="editor">
+
+    <div class="editor-toolbar">
+
+        <div class="format-tools">
+
+            <button
+                class="format-button active"
+                onclick="setFormat('action')"
+            >
+                Action
+            </button>
+
+            <button
+                class="format-button"
+                onclick="setFormat('character')"
+            >
+                Character
+            </button>
+
+            <button
+                class="format-button"
+                onclick="setFormat('dialogue')"
+            >
+                Dialogue
+            </button>
+
+            <button
+                class="format-button"
+                onclick="setFormat('parenthetical')"
+            >
+                ( )
+            </button>
+
+            <button
+                class="format-button"
+                onclick="setFormat('heading')"
+            >
+                Heading
+            </button>
+
+            <button
+                class="format-button"
+                onclick="setFormat('transition')"
+            >
+                Transition
+            </button>
+
+        </div>
+
+
+        <div class="zoom">
+
+            <button onclick="changeZoom(-.05)">
+                −
+            </button>
+
+            <span id="zoomLabel">
+                100%
+            </span>
+
+            <button onclick="changeZoom(.05)">
+                +
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="paper-scroll"
+        id="paperScroll"
+    >
+
+        <article
+            class="paper"
+            id="paper"
+        >
+
+            <div
+                class="script"
+                id="script"
+                contenteditable="true"
+                spellcheck="false"
+            >FADE IN:
 
 EXT. MEGA PLANET - DAY
 
@@ -1166,241 +1593,151 @@ Ludwig opens his eyes.
 
 CUT TO:</div>
 
-                </article>
+        </article>
 
-            </div>
+    </div>
 
-        </section>
+</section>
 
 
-        <!-- =================================================
-             RIGHT PANEL
-        ================================================== -->
+<!-- =======================================================
+     RIGHT PANEL
+======================================================= -->
 
-        <aside class="right-panel">
+<aside class="right-panel">
 
-            <div class="right-tabs">
+    <div class="right-tabs">
 
-                <button
-                    class="right-tab active"
-                    onclick="showRightPanel('scene', this)"
-                >
+        <button
+            class="right-tab active"
+            onclick="showRightPanel('scene',this)"
+        >
+            SCENE
+        </button>
+
+        <button
+            class="right-tab"
+            onclick="showRightPanel('characters',this)"
+        >
+            CAST
+        </button>
+
+        <button
+            class="right-tab"
+            onclick="showRightPanel('notes',this)"
+        >
+            NOTES
+        </button>
+
+    </div>
+
+
+    <div class="inspector">
+
+
+        <div
+            class="panel-view active"
+            id="scenePanel"
+        >
+
+            <div class="inspector-section">
+
+                <div class="inspector-heading">
                     SCENE
-                </button>
+                </div>
 
-                <button
-                    class="right-tab"
-                    onclick="showRightPanel('characters', this)"
-                >
-                    CAST
-                </button>
 
-                <button
-                    class="right-tab"
-                    onclick="showRightPanel('notes', this)"
-                >
-                    NOTES
-                </button>
+                <div class="field">
+
+                    <div class="field-label">
+                        HEADING
+                    </div>
+
+                    <div class="field-value">
+                        EXT. MEGA PLANET - DAY
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <div class="field-label">
+                        TIME
+                    </div>
+
+                    <div class="field-value">
+                        DAY
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <div class="inspector">
+            <div class="inspector-section">
 
-                <!-- SCENE -->
+                <div class="inspector-heading">
+                    SCENE SUMMARY
+                </div>
 
-                <div
-                    class="panel-view active"
-                    id="scenePanel"
-                >
+                <div class="field">
 
-                    <div class="inspector-section">
-
-                        <div class="inspector-heading">
-                            SCENE
-                        </div>
-
-                        <div class="field">
-
-                            <div class="field-label">
-                                HEADING
-                            </div>
-
-                            <div class="field-value">
-                                EXT. MEGA PLANET - DAY
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-
-                            <div class="field-label">
-                                TIME
-                            </div>
-
-                            <div class="field-value">
-                                DAY
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="inspector-section">
-
-                        <div class="inspector-heading">
-                            SCENE SUMMARY
-                        </div>
-
-                        <div class="field">
-
-                            <div class="field-value">
-                                Ludwig observes the impossible scale of the planet and begins questioning whether humanity can ever be satisfied.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="inspector-section">
-
-                        <div class="inspector-heading">
-                            TAGS
-                        </div>
-
-                        <div class="field">
-
-                            <div class="field-value">
-                                Architecture · Wonder · Obsession
-                            </div>
-
-                        </div>
-
+                    <div class="field-value">
+                        Ludwig observes the impossible scale of the planet and begins questioning whether humanity can ever be satisfied.
                     </div>
 
                 </div>
 
-
-                <!-- CHARACTERS -->
-
-                <div
-                    class="panel-view"
-                    id="charactersPanel"
-                >
-
-                    <div class="inspector-section">
-
-                        <div class="inspector-heading">
-                            CHARACTERS IN SCENE
-                        </div>
+            </div>
 
 
-                        <div class="character">
+            <div class="inspector-section">
 
-                            <div class="character-avatar">
-                                LJ
-                            </div>
+                <div class="inspector-heading">
+                    TAGS
+                </div>
 
-                            <div>
+                <div class="field">
 
-                                <div class="character-name">
-                                    Ludwig James
-                                </div>
-
-                                <div class="character-role">
-                                    Protagonist
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="inspector-section">
-
-                        <div class="inspector-heading">
-                            PROJECT CAST
-                        </div>
-
-
-                        <div class="character">
-
-                            <div class="character-avatar">
-                                AM
-                            </div>
-
-                            <div>
-
-                                <div class="character-name">
-                                    Amelia Vale
-                                </div>
-
-                                <div class="character-role">
-                                    Supporting
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="character">
-
-                            <div class="character-avatar">
-                                RH
-                            </div>
-
-                            <div>
-
-                                <div class="character-name">
-                                    Richard Hale
-                                </div>
-
-                                <div class="character-role">
-                                    Supporting
-                                </div>
-
-                            </div>
-
-                        </div>
-
+                    <div class="field-value">
+                        Architecture · Wonder · Obsession
                     </div>
 
                 </div>
 
+            </div>
 
-                <!-- NOTES -->
+        </div>
 
-                <div
-                    class="panel-view"
-                    id="notesPanel"
-                >
 
-                    <div class="inspector-section">
+        <div
+            class="panel-view"
+            id="charactersPanel"
+        >
 
-                        <div class="inspector-heading">
-                            SCENE NOTE
+            <div class="inspector-section">
+
+                <div class="inspector-heading">
+                    CHARACTERS IN SCENE
+                </div>
+
+
+                <div class="character">
+
+                    <div class="character-avatar">
+                        LJ
+                    </div>
+
+                    <div>
+
+                        <div class="character-name">
+                            Ludwig James
                         </div>
 
-                        <textarea
-                            id="sceneNote"
-                            style="
-                                width:100%;
-                                min-height:130px;
-                                resize:vertical;
-                                border:1px solid #dededc;
-                                border-radius:4px;
-                                padding:9px;
-                                background:#fff;
-                                outline:none;
-                                font-size:10px;
-                                line-height:1.5;
-                            "
-                        >The first scene should establish that the scale of the world is beautiful before it becomes psychologically oppressive.</textarea>
+                        <div class="character-role">
+                            Protagonist
+                        </div>
 
                     </div>
 
@@ -1408,35 +1745,141 @@ CUT TO:</div>
 
             </div>
 
-        </aside>
 
-    </main>
+            <div class="inspector-section">
+
+                <div class="inspector-heading">
+                    PROJECT CAST
+                </div>
 
 
-    <!-- =====================================================
-         STATUS BAR
-    ====================================================== -->
+                <div class="character">
 
-    <footer class="statusbar">
+                    <div class="character-avatar">
+                        AM
+                    </div>
 
-        <div class="status-left">
-            <span id="pageStatus">Page 1</span>
-            <span id="wordStatus">58 words</span>
-            <span>Draft 1</span>
+                    <div>
+
+                        <div class="character-name">
+                            Amelia Vale
+                        </div>
+
+                        <div class="character-role">
+                            Supporting
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="character">
+
+                    <div class="character-avatar">
+                        RH
+                    </div>
+
+                    <div>
+
+                        <div class="character-name">
+                            Richard Hale
+                        </div>
+
+                        <div class="character-role">
+                            Supporting
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="status-right">
-            <span>Courier Prime</span>
-            <span id="statusZoom">100%</span>
+
+        <div
+            class="panel-view"
+            id="notesPanel"
+        >
+
+            <div class="inspector-section">
+
+                <div class="inspector-heading">
+                    SCENE NOTE
+                </div>
+
+                <textarea
+                    id="sceneNote"
+                    style="
+                        width:100%;
+                        min-height:130px;
+                        resize:vertical;
+                        border:1px solid #e3e3e0;
+                        border-radius:5px;
+                        padding:10px;
+                        background:#fff;
+                        outline:none;
+                        color:#555;
+                        font-size:9px;
+                        line-height:1.55;
+                    "
+                >The first scene should establish that the scale of the world is beautiful before it becomes psychologically oppressive.</textarea>
+
+            </div>
+
         </div>
 
-    </footer>
+    </div>
+
+</aside>
+
+</main>
+
+
+<!-- =======================================================
+     STATUS BAR
+======================================================= -->
+
+<footer class="statusbar">
+
+    <div class="status-left">
+
+        <span id="pageStatus">
+            Page 1
+        </span>
+
+        <span id="wordStatus">
+            0 words
+        </span>
+
+        <span>
+            Draft 1
+        </span>
+
+    </div>
+
+
+    <div class="status-right">
+
+        <span>
+            Courier Prime
+        </span>
+
+        <span id="statusZoom">
+            100%
+        </span>
+
+    </div>
+
+</footer>
 
 </div>
 
 
 <!-- =======================================================
-     PROJECT SCREEN
+     PROJECT OVERVIEW
 ======================================================= -->
 
 <section
@@ -1455,11 +1898,15 @@ CUT TO:</div>
                 ‹ Back to screenplay
             </button>
 
-            <span class="project-name">
+            <span
+                class="project-name"
+                id="projectName"
+            >
                 Sentient Mass
             </span>
 
         </div>
+
 
         <button
             class="top-button share"
@@ -1570,62 +2017,6 @@ CUT TO:</div>
 </section>
 
 
-<!-- =======================================================
-     CREATE PROJECT MODAL
-======================================================= -->
-
-<div
-    class="overlay"
-    id="createOverlay"
->
-
-    <div class="modal">
-
-        <div class="modal-header">
-
-            <div class="modal-title">
-                New screenplay
-            </div>
-
-        </div>
-
-        <div class="modal-body">
-
-            <label class="modal-label">
-                TITLE
-            </label>
-
-            <input
-                class="modal-input"
-                id="newTitle"
-                placeholder="Untitled"
-            >
-
-        </div>
-
-        <div class="modal-footer">
-
-            <button
-                class="modal-button modal-cancel"
-                onclick="closeCreate()"
-            >
-                Cancel
-            </button>
-
-            <button
-                class="modal-button modal-create"
-                onclick="createNewScript()"
-            >
-                Create
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
 <script>
 
 /* =========================================================
@@ -1638,10 +2029,22 @@ let saveTimer;
 
 
 /* =========================================================
-   EDITOR STORAGE
+   ELEMENTS
 ========================================================= */
 
-const script = document.getElementById("script");
+const script =
+    document.getElementById("script");
+
+const saveStatus =
+    document.getElementById("saveStatus");
+
+const wordStatus =
+    document.getElementById("wordStatus");
+
+
+/* =========================================================
+   LOAD
+========================================================= */
 
 const savedScript =
     localStorage.getItem("auteur-sentient-mass");
@@ -1657,14 +2060,17 @@ if (savedScript) {
 
 script.addEventListener("input", () => {
 
-    document.getElementById("saveStatus").textContent =
-        "Saving...";
+    saveStatus.textContent = "Saving...";
 
     updateWordCount();
 
     clearTimeout(saveTimer);
 
-    saveTimer = setTimeout(saveDocument, 450);
+    saveTimer = setTimeout(
+        saveDocument,
+        450
+    );
+
 });
 
 
@@ -1675,10 +2081,10 @@ function saveDocument() {
         script.innerText
     );
 
-    document.getElementById("saveStatus").textContent =
-        "Saved";
+    saveStatus.textContent = "Saved";
 
     updateWordCount();
+
 }
 
 
@@ -1688,19 +2094,22 @@ function saveDocument() {
 
 function updateWordCount() {
 
-    const text = script.innerText.trim();
+    const text =
+        script.innerText.trim();
 
-    const words = text
-        ? text.split(/\s+/).length
-        : 0;
+    const words =
+        text
+            ? text.split(/\s+/).length
+            : 0;
 
-    document.getElementById("wordStatus").textContent =
+    wordStatus.textContent =
         `${words} words`;
+
 }
 
 
 /* =========================================================
-   SCENE SELECTION
+   SCENES
 ========================================================= */
 
 function selectScene(element, number) {
@@ -1715,8 +2124,10 @@ function selectScene(element, number) {
 
     currentScene = number;
 
-    document.getElementById("pageStatus").textContent =
-        `Scene ${String(number).padStart(2, "0")}`;
+    document
+        .getElementById("pageStatus")
+        .textContent =
+        `Scene ${String(number).padStart(2,"0")}`;
 
 }
 
@@ -1732,13 +2143,19 @@ function toggleLeftPanel() {
 
     if (panel.style.width === "0px") {
 
-        panel.style.width = "245px";
-        panel.style.minWidth = "245px";
+        panel.style.width =
+            "250px";
+
+        panel.style.minWidth =
+            "250px";
 
     } else {
 
-        panel.style.width = "0px";
-        panel.style.minWidth = "0px";
+        panel.style.width =
+            "0px";
+
+        panel.style.minWidth =
+            "0px";
 
     }
 
@@ -1757,7 +2174,10 @@ function setLeftMode(mode, button) {
 
     if (mode === "index") {
 
-        document.getElementById("outlinePanel").innerHTML = `
+        document
+            .getElementById("outlinePanel")
+            .innerHTML = `
+
             <div class="outline-section">
 
                 <div class="outline-label">
@@ -1765,24 +2185,39 @@ function setLeftMode(mode, button) {
                 </div>
 
                 <div class="outline-item active">
-                    <div class="scene-number">01</div>
+
+                    <div class="scene-number">
+                        01
+                    </div>
+
                     <div class="scene-name">
                         Ludwig discovers the scale of the planet.
                     </div>
+
                 </div>
 
                 <div class="outline-item">
-                    <div class="scene-number">02</div>
+
+                    <div class="scene-number">
+                        02
+                    </div>
+
                     <div class="scene-name">
                         The architecture begins changing.
                     </div>
+
                 </div>
 
                 <div class="outline-item">
-                    <div class="scene-number">03</div>
+
+                    <div class="scene-number">
+                        03
+                    </div>
+
                     <div class="scene-name">
                         Ludwig meets Amelia.
                     </div>
+
                 </div>
 
             </div>
@@ -1811,17 +2246,78 @@ function showRightPanel(panel, button) {
 
     button.classList.add("active");
 
-
     document
         .querySelectorAll(".panel-view")
         .forEach(item =>
             item.classList.remove("active")
         );
 
-
     document
         .getElementById(panel + "Panel")
         .classList.add("active");
+
+}
+
+
+/* =========================================================
+   SHORTCUT PANELS
+========================================================= */
+
+function openCharacters() {
+
+    showRightPanel(
+        "characters",
+        document.querySelectorAll(".right-tab")[1]
+    );
+
+}
+
+
+function openNotes() {
+
+    showRightPanel(
+        "notes",
+        document.querySelectorAll(".right-tab")[2]
+    );
+
+}
+
+
+function openStory() {
+
+    alert(
+`Story Structure
+
+Opening Image
+Inciting Incident
+First Turning Point
+Midpoint
+Second Turning Point
+Climax
+Final Image`
+    );
+
+}
+
+
+/* =========================================================
+   PROJECT
+========================================================= */
+
+function openProject() {
+
+    document
+        .getElementById("projectScreen")
+        .classList.add("open");
+
+}
+
+
+function closeProject() {
+
+    document
+        .getElementById("projectScreen")
+        .classList.remove("open");
 
 }
 
@@ -1838,44 +2334,47 @@ function setFormat(type) {
             button.classList.remove("active")
         );
 
-
     event.currentTarget.classList.add("active");
 
     const selection =
         window.getSelection();
 
-    if (!selection.rangeCount) return;
-
-    const range =
-        selection.getRangeAt(0);
+    if (!selection.rangeCount)
+        return;
 
     const text =
         selection.toString();
 
-    if (!text) return;
+    if (!text)
+        return;
 
     let formatted = text;
 
-    switch(type) {
+    switch (type) {
 
         case "character":
-            formatted = text.toUpperCase();
+            formatted =
+                text.toUpperCase();
             break;
 
         case "heading":
-            formatted = text.toUpperCase();
+            formatted =
+                text.toUpperCase();
             break;
 
         case "transition":
-            formatted = text.toUpperCase();
+            formatted =
+                text.toUpperCase();
             break;
 
         case "dialogue":
-            formatted = "          " + text;
+            formatted =
+                "          " + text;
             break;
 
         case "parenthetical":
-            formatted = "(" + text + ")";
+            formatted =
+                "(" + text + ")";
             break;
 
     }
@@ -1906,136 +2405,23 @@ function changeZoom(amount) {
             )
         );
 
-    document.getElementById("paper").style.transform =
+    document
+        .getElementById("paper")
+        .style.transform =
         `scale(${zoom})`;
 
     const percent =
         Math.round(zoom * 100);
 
-    document.getElementById("zoomLabel").textContent =
+    document
+        .getElementById("zoomLabel")
+        .textContent =
         `${percent}%`;
 
-    document.getElementById("statusZoom").textContent =
+    document
+        .getElementById("statusZoom")
+        .textContent =
         `${percent}%`;
-}
-
-
-/* =========================================================
-   PROJECT SCREEN
-========================================================= */
-
-function openProject() {
-
-    document
-        .getElementById("projectScreen")
-        .classList.add("open");
-
-}
-
-
-function closeProject() {
-
-    document
-        .getElementById("projectScreen")
-        .classList.remove("open");
-
-}
-
-
-/* =========================================================
-   CHARACTERS / STORY / NOTES
-========================================================= */
-
-function openCharacters() {
-
-    showRightPanel(
-        "characters",
-        document.querySelectorAll(".right-tab")[1]
-    );
-
-}
-
-
-function openNotes() {
-
-    showRightPanel(
-        "notes",
-        document.querySelectorAll(".right-tab")[2]
-    );
-
-}
-
-
-function openStory() {
-
-    alert(
-        "Story Structure\n\n" +
-        "Opening Image\n" +
-        "Inciting Incident\n" +
-        "First Turning Point\n" +
-        "Midpoint\n" +
-        "Second Turning Point\n" +
-        "Climax\n" +
-        "Final Image"
-    );
-
-}
-
-
-/* =========================================================
-   CREATE
-========================================================= */
-
-function openCreate() {
-
-    document
-        .getElementById("createOverlay")
-        .classList.add("open");
-
-    document
-        .getElementById("newTitle")
-        .focus();
-
-}
-
-
-function closeCreate() {
-
-    document
-        .getElementById("createOverlay")
-        .classList.remove("open");
-
-}
-
-
-function createNewScript() {
-
-    const title =
-        document
-            .getElementById("newTitle")
-            .value
-            .trim();
-
-    if (!title) return;
-
-    document.getElementById("topProjectName")
-        .textContent = title;
-
-    document.querySelector(".project-name")
-        .textContent = title;
-
-    closeCreate();
-
-    script.innerText =
-`FADE IN:
-
-EXT. ${title.toUpperCase()} - DAY
-
-Begin your story here.
-
-`;
-
-    saveDocument();
 
 }
 
@@ -2044,30 +2430,23 @@ Begin your story here.
    KEYBOARD SHORTCUTS
 ========================================================= */
 
-document.addEventListener("keydown", event => {
+document.addEventListener(
+    "keydown",
+    event => {
 
-    if (
-        (event.metaKey || event.ctrlKey) &&
-        event.key.toLowerCase() === "s"
-    ) {
+        if (
+            (event.metaKey || event.ctrlKey) &&
+            event.key.toLowerCase() === "s"
+        ) {
 
-        event.preventDefault();
-        saveDocument();
+            event.preventDefault();
 
-    }
+            saveDocument();
 
-    if (
-        event.key === "Escape" &&
-        document
-            .getElementById("createOverlay")
-            .classList.contains("open")
-    ) {
-
-        closeCreate();
+        }
 
     }
-
-});
+);
 
 
 /* =========================================================
