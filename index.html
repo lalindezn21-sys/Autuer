@@ -5,588 +5,974 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Auteur — Screenwriting</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-*{box-sizing:border-box}
-
-:root{
-  --bg:#f3f3f1;
-  --panel:#fafaf8;
-  --paper:#fff;
-  --line:#e4e4e1;
-  --hover:#ededeb;
-  --active:#e5e5e2;
-  --text:#161616;
-  --muted:#81817c;
+* {
+  box-sizing: border-box;
 }
 
-html,body{
-  width:100%;
-  height:100%;
-  margin:0;
-  overflow:hidden;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+:root {
+  --bg: #f1f1ee;
+  --panel: #fafaf8;
+  --paper: #ffffff;
+  --line: #e3e3df;
+  --hover: #ededeb;
+  --active: #e6e6e2;
+  --text: #161616;
+  --muted: #81817c;
+  --soft: #f4f4f1;
 }
 
-button,input{font:inherit}
-button{color:inherit}
-
-.app{
-  display:grid;
-  grid-template-columns:255px minmax(0,1fr);
-  width:100%;
-  height:100%;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-  display:flex;
-  flex-direction:column;
-  background:var(--panel);
-  border-right:1px solid var(--line);
-  min-width:0;
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-.brand{
-  height:64px;
-  display:flex;
-  align-items:center;
-  padding:0 22px;
-  border-bottom:1px solid var(--line);
+button {
+  color: inherit;
 }
 
-.brand-name{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:23px;
-  letter-spacing:-.045em;
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+  display: grid;
+  grid-template-columns: 255px minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
 }
 
-.project-name{
-  margin-left:auto;
-  color:var(--muted);
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.09em;
-  text-transform:uppercase;
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
 }
 
-.side-tabs{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:4px;
-  padding:13px 12px 10px;
+.brand {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  border-bottom: 1px solid var(--line);
 }
 
-.side-tab{
-  height:34px;
-  border:0;
-  border-radius:6px;
-  background:transparent;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.06em;
-  cursor:pointer;
+.brand-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  letter-spacing: -0.045em;
 }
 
-.side-tab:hover{background:var(--hover)}
-.side-tab.active{background:var(--active)}
-
-.sidebar-content{
-  flex:1;
-  min-height:0;
-  overflow:auto;
-  padding:4px 10px 20px;
+.project-name {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
 }
 
-.sidebar-content::-webkit-scrollbar{width:5px}
-.sidebar-content::-webkit-scrollbar-thumb{
-  background:#d1d1cd;
-  border-radius:999px;
+.side-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 13px 12px 10px;
 }
 
-.section-label{
-  padding:14px 10px 8px;
-  color:#888883;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.12em;
+.side-tab {
+  height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: .12s ease;
 }
 
-.scene-item{
-  display:grid;
-  grid-template-columns:32px minmax(0,1fr);
-  gap:7px;
-  align-items:center;
-  min-height:46px;
-  padding:6px 8px;
-  margin-bottom:2px;
-  border-radius:7px;
-  cursor:pointer;
+.side-tab:hover {
+  background: var(--hover);
 }
 
-.scene-item:hover{background:var(--hover)}
-.scene-item.active{background:var(--active)}
-
-.scene-number{
-  color:#8b8b86;
-  font-size:10px;
-  font-variant-numeric:tabular-nums;
+.side-tab.active {
+  background: var(--active);
 }
 
-.scene-copy{min-width:0}
-
-.scene-title{
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  font-size:12px;
-  font-weight:650;
+.sidebar-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 10px 20px;
 }
 
-.scene-meta{
-  margin-top:2px;
-  color:#8b8b86;
-  font-size:9px;
+.sidebar-content::-webkit-scrollbar {
+  width: 5px;
 }
 
-.comment-item,
-.note-item{
-  padding:10px;
-  border-bottom:1px solid var(--line);
-  cursor:pointer;
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: #d0d0cb;
+  border-radius: 999px;
 }
 
-.comment-item:hover,
-.note-item:hover{
-  background:var(--hover);
+.empty-state {
+  padding: 45px 18px;
+  text-align: center;
 }
 
-.comment-title,
-.note-title{
-  font-size:11px;
-  font-weight:700;
+.empty-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
 }
 
-.comment-body,
-.note-body{
-  margin-top:4px;
-  color:#777772;
-  font-size:10px;
-  line-height:1.45;
+.empty-icon svg {
+  width: 15px;
+  height: 15px;
+  color: #888883;
 }
 
-.sidebar-footer{
-  display:flex;
-  justify-content:space-between;
-  padding:11px 14px;
-  border-top:1px solid var(--line);
-  color:#858580;
-  font-size:10px;
+.empty-title {
+  font-size: 11px;
+  font-weight: 700;
 }
 
-/* MAIN */
-
-.main{
-  display:flex;
-  flex-direction:column;
-  min-width:0;
-  min-height:0;
+.empty-text {
+  max-width: 185px;
+  margin: 5px auto 0;
+  color: #8b8b86;
+  font-size: 9px;
+  line-height: 1.5;
 }
 
-.topbar{
-  height:64px;
-  flex:0 0 64px;
-  display:flex;
-  align-items:center;
-  padding:0 20px;
-  background:rgba(250,250,248,.96);
-  border-bottom:1px solid var(--line);
+.contents-empty {
+  padding-top: 65px;
+}
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+.section-label {
+  padding: 14px 10px 8px;
+  color: #888883;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.scene-item {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 7px;
+  align-items: center;
+  min-height: 46px;
+  padding: 6px 8px;
+  margin-bottom: 2px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.scene-item:hover {
+  background: var(--hover);
+}
+
+.scene-item.active {
+  background: var(--active);
+}
+
+.scene-number {
+  color: #8b8b86;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.scene-copy {
+  min-width: 0;
+}
+
+.scene-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.scene-meta {
+  margin-top: 2px;
+  color: #8b8b86;
+  font-size: 9px;
+}
+
+/* =========================================================
+   SIDEBAR TOOLBAR
+========================================================= */
+
+.sidebar-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 9px 10px;
+}
+
+.sidebar-tool {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: .12s ease;
+}
+
+.sidebar-tool:hover {
+  background: var(--hover);
+}
+
+.sidebar-tool.danger:hover {
+  background: #ece8e8;
+}
+
+.sidebar-tool svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.7;
+}
+
+.sidebar-toolbar-spacer {
+  flex: 1;
+}
+
+/* =========================================================
+   COMMENTS / NOTES
+========================================================= */
+
+.annotation-list {
+  padding-bottom: 10px;
+}
+
+.annotation {
+  position: relative;
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.annotation:hover {
+  background: var(--hover);
+}
+
+.annotation-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.annotation-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.annotation-tag {
+  flex-shrink: 0;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: #ededeb;
+  color: #777772;
+  font-size: 8px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.annotation-body {
+  margin-top: 5px;
+  color: #777772;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.annotation-meta {
+  margin-top: 7px;
+  color: #999994;
+  font-size: 8px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.sidebar-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
+  color: #858580;
+  font-size: 10px;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.topbar {
+  height: 64px;
+  flex: 0 0 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background: rgba(250,250,248,.96);
+  border-bottom: 1px solid var(--line);
 }
 
 .top-left,
-.top-right{
-  display:flex;
-  align-items:center;
-  gap:5px;
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.top-left{min-width:0}
-.top-right{margin-left:auto}
-
-.icon-btn{
-  width:34px;
-  height:34px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:0;
-  border-radius:7px;
-  background:transparent;
-  cursor:pointer;
+.top-left {
+  min-width: 0;
 }
 
-.icon-btn:hover{background:var(--hover)}
-
-.icon-btn svg{
-  width:16px;
-  height:16px;
-  stroke-width:1.7;
+.top-right {
+  margin-left: auto;
 }
 
-.script-title{
-  margin-left:7px;
-  font-size:13px;
-  font-weight:650;
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+  transition: .12s ease;
 }
 
-.save-state{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  margin-left:12px;
-  color:#858580;
-  font-size:10px;
+.icon-btn:hover {
+  background: var(--hover);
 }
 
-.save-dot{
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:#888883;
+.icon-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.7;
 }
 
-.avatar{
-  width:30px;
-  height:30px;
-  display:grid;
-  place-items:center;
-  margin-left:7px;
-  border-radius:50%;
-  background:#202020;
-  color:white;
-  font-size:10px;
-  font-weight:700;
+.script-title {
+  margin-left: 7px;
+  font-size: 13px;
+  font-weight: 650;
 }
 
-/* WORKSPACE */
-
-.workspace{
-  position:relative;
-  flex:1;
-  min-height:0;
-  overflow:hidden;
-  background:#eeeeeb;
+.save-state {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  color: #858580;
+  font-size: 10px;
 }
 
-.editor-scroll{
-  width:100%;
-  height:100%;
-  overflow:auto;
-  padding:54px 30px 110px;
+.save-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #888883;
 }
 
-.editor-scroll::-webkit-scrollbar{width:8px}
-.editor-scroll::-webkit-scrollbar-thumb{
-  background:#cecec9;
-  border-radius:999px;
+.avatar {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  margin-left: 7px;
+  border-radius: 50%;
+  background: #202020;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
 }
 
-.page{
-  width:min(850px,calc(100vw - 360px));
-  min-height:1080px;
-  margin:auto;
-  padding:95px 110px 110px;
-  background:var(--paper);
+/* =========================================================
+   WORKSPACE
+========================================================= */
+
+.workspace {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #eeeeeb;
+}
+
+.editor-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 34px 30px 110px;
+}
+
+.editor-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.editor-scroll::-webkit-scrollbar-thumb {
+  background: #cecec9;
+  border-radius: 999px;
+}
+
+/* =========================================================
+   PROFESSIONAL SCREENPLAY TITLE STRIP
+========================================================= */
+
+.page-title-bar {
+  width: min(850px, calc(100vw - 360px));
+  height: 38px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 2px;
+}
+
+.page-title {
+  color: #777772;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+  width: min(850px, calc(100vw - 360px));
+  min-height: 1080px;
+  margin: 0 auto;
+  padding: 95px 110px 110px;
+  background: var(--paper);
   box-shadow:
     0 1px 3px rgba(0,0,0,.05),
     0 14px 45px rgba(0,0,0,.06);
 }
 
-.script{
-  min-height:850px;
-  outline:none;
-  color:#111;
-  font-family:"Courier New",Courier,monospace;
-  font-size:12.5px;
-  line-height:1.55;
+.script {
+  min-height: 850px;
+  outline: none;
+  color: #111;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
 }
 
-.script div{
-  min-height:1.55em;
-  margin:0;
-  outline:none;
+.script div {
+  min-height: 1.55em;
+  margin: 0;
+  outline: none;
 }
 
-.script .scene-heading{
-  margin-top:20px;
-  font-weight:700;
-  text-transform:uppercase;
+.script .scene-heading {
+  margin-top: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.script .action{
-  margin-top:11px;
+.script .action {
+  margin-top: 11px;
 }
 
-.script .character{
-  width:30%;
-  margin-top:13px;
-  margin-left:35%;
-  text-align:center;
-  text-transform:uppercase;
+.script .character {
+  width: 30%;
+  margin-top: 13px;
+  margin-left: 35%;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.script .parenthetical{
-  width:42%;
-  margin-left:29%;
+.script .parenthetical {
+  width: 42%;
+  margin-left: 29%;
 }
 
-.script .dialogue{
-  width:56%;
-  margin-left:22%;
+.script .dialogue {
+  width: 56%;
+  margin-left: 22%;
 }
 
-.script .transition{
-  width:32%;
-  margin-top:14px;
-  margin-left:auto;
-  text-align:right;
-  text-transform:uppercase;
+.script .transition {
+  width: 32%;
+  margin-top: 14px;
+  margin-left: auto;
+  text-align: right;
+  text-transform: uppercase;
 }
 
-.script .blank{
-  height:1.55em;
+.script .blank {
+  height: 1.55em;
 }
 
-/* CONTEXT TOOLBAR */
+/* =========================================================
+   FORMAT BAR
+========================================================= */
 
-.context-bar{
-  position:absolute;
-  left:50%;
-  bottom:22px;
-  transform:translateX(-50%) translateY(8px);
-  display:flex;
-  align-items:center;
-  gap:3px;
-  padding:5px;
-  background:rgba(255,255,255,.97);
-  border:1px solid #dcdcd8;
-  border-radius:9px;
-  box-shadow:0 8px 30px rgba(0,0,0,.1);
-  opacity:0;
-  pointer-events:none;
-  transition:.16s ease;
+.context-bar {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(8px);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px;
+  background: rgba(255,255,255,.97);
+  border: 1px solid #dcdcd8;
+  border-radius: 9px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: .16s ease;
 }
 
-.context-bar.visible{
-  opacity:1;
-  pointer-events:auto;
-  transform:translateX(-50%) translateY(0);
+.context-bar.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
 }
 
-.format-btn{
-  height:30px;
-  padding:0 9px;
-  border:0;
-  border-radius:5px;
-  background:transparent;
-  color:#44443f;
-  font-family:"Courier New",monospace;
-  font-size:10px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.12s ease;
+.format-btn {
+  height: 30px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #44443f;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .12s ease;
 }
 
-.format-btn:hover{
-  background:#ececea;
-  color:#111;
+.format-btn:hover {
+  background: #ececea;
+  color: #111;
 }
 
-.format-btn.active{
-  background:#dededb;
-  color:#111;
+.format-btn.active {
+  background: #dededb;
+  color: #111;
 }
 
-.format-divider{
-  width:1px;
-  height:18px;
-  margin:0 3px;
-  background:#dededb;
+.format-divider {
+  width: 1px;
+  height: 18px;
+  margin: 0 3px;
+  background: #dededb;
 }
 
-/* CONTEXT PANEL */
+/* =========================================================
+   CONTEXT PANEL
+========================================================= */
 
-.context-panel{
-  position:absolute;
-  top:20px;
-  right:20px;
-  width:265px;
-  background:rgba(255,255,255,.98);
-  border:1px solid #dededb;
-  border-radius:9px;
-  box-shadow:0 14px 45px rgba(0,0,0,.09);
-  transform:translateX(18px);
-  opacity:0;
-  pointer-events:none;
-  transition:.18s ease;
-  overflow:hidden;
+.context-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 265px;
+  background: rgba(255,255,255,.98);
+  border: 1px solid #dededb;
+  border-radius: 9px;
+  box-shadow: 0 14px 45px rgba(0,0,0,.09);
+  transform: translateX(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .18s ease;
+  overflow: hidden;
 }
 
-.context-panel.open{
-  transform:translateX(0);
-  opacity:1;
-  pointer-events:auto;
+.context-panel.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.panel-header{
-  height:45px;
-  display:flex;
-  align-items:center;
-  padding:0 13px;
-  border-bottom:1px solid var(--line);
+.panel-header {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0 13px;
+  border-bottom: 1px solid var(--line);
 }
 
-.panel-title{
-  font-size:11px;
-  font-weight:750;
+.panel-title {
+  font-size: 11px;
+  font-weight: 750;
 }
 
-.panel-close{
-  width:25px;
-  height:25px;
-  display:grid;
-  place-items:center;
-  margin-left:auto;
-  border:0;
-  border-radius:5px;
-  background:transparent;
-  cursor:pointer;
+.panel-close {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
 }
 
-.panel-close:hover{background:var(--hover)}
-
-.panel-close svg{
-  width:14px;
-  height:14px;
+.panel-close:hover {
+  background: var(--hover);
 }
 
-.panel-body{padding:13px}
-
-.panel-section{margin-bottom:16px}
-.panel-section:last-child{margin-bottom:0}
-
-.panel-label{
-  margin-bottom:6px;
-  color:#898984;
-  font-size:8px;
-  font-weight:800;
-  letter-spacing:.11em;
-  text-transform:uppercase;
+.panel-close svg {
+  width: 14px;
+  height: 14px;
 }
 
-.panel-value{
-  font-size:11px;
-  line-height:1.45;
+.panel-body {
+  padding: 13px;
 }
 
-.chip-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
+.panel-section {
+  margin-bottom: 16px;
 }
 
-.chip{
-  padding:5px 7px;
-  border-radius:5px;
-  background:#f0f0ed;
-  font-size:9px;
-  font-weight:650;
+.panel-section:last-child {
+  margin-bottom: 0;
 }
 
-/* STATUS */
+.panel-label {
+  margin-bottom: 6px;
+  color: #898984;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
 
-.statusbar{
-  height:30px;
-  flex:0 0 30px;
-  display:flex;
-  align-items:center;
-  padding:0 16px;
-  border-top:1px solid var(--line);
-  background:#fafaf8;
-  color:#83837e;
-  font-size:9px;
+.panel-value {
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chip {
+  padding: 5px 7px;
+  border-radius: 5px;
+  background: #f0f0ed;
+  font-size: 9px;
+  font-weight: 650;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30,30,28,.22);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .15s ease;
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  width: min(430px, calc(100% - 30px));
+  background: white;
+  border: 1px solid #dcdcd8;
+  border-radius: 10px;
+  box-shadow: 0 25px 80px rgba(0,0,0,.15);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-title {
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.modal-close {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: var(--hover);
+}
+
+.modal-body {
+  padding: 16px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #858580;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.field-input,
+.field-select,
+.field-textarea {
+  width: 100%;
+  border: 1px solid #dededb;
+  border-radius: 6px;
+  outline: none;
+  background: white;
+  color: #161616;
+  font-size: 11px;
+  transition: border .12s ease;
+}
+
+.field-input,
+.field-select {
+  height: 36px;
+  padding: 0 10px;
+}
+
+.field-textarea {
+  min-height: 110px;
+  padding: 10px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+  border-color: #999994;
+}
+
+.field-group {
+  margin-bottom: 15px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  background: #fafaf8;
+}
+
+.modal-button {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #dcdcd8;
+  border-radius: 6px;
+  background: white;
+  font-size: 10px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.modal-button:hover {
+  background: var(--hover);
+}
+
+.modal-button.primary {
+  border-color: #171717;
+  background: #171717;
+  color: white;
+}
+
+.modal-button.primary:hover {
+  background: #292929;
+}
+
+.modal-button.danger {
+  border-color: #b5b0b0;
+  color: #6c5555;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.statusbar {
+  height: 30px;
+  flex: 0 0 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-top: 1px solid var(--line);
+  background: #fafaf8;
+  color: #83837e;
+  font-size: 9px;
 }
 
 .status-left,
-.status-right{
-  display:flex;
-  align-items:center;
-  gap:14px;
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.status-right{margin-left:auto}
-
-/* TOAST */
-
-.toast{
-  position:absolute;
-  top:20px;
-  left:50%;
-  z-index:100;
-  transform:translate(-50%,-12px);
-  padding:9px 13px;
-  border-radius:7px;
-  background:#171717;
-  color:white;
-  font-size:10px;
-  opacity:0;
-  pointer-events:none;
-  transition:.18s ease;
+.status-right {
+  margin-left: auto;
 }
 
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  z-index: 300;
+  transform: translate(-50%, -12px);
+  padding: 9px 13px;
+  border-radius: 7px;
+  background: #171717;
+  color: white;
+  font-size: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .18s ease;
 }
 
-.hidden{display:none!important}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
 
-/* RESPONSIVE */
+.hidden {
+  display: none !important;
+}
 
-@media(max-width:1050px){
-  .app{grid-template-columns:220px minmax(0,1fr)}
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-  .page{
-    width:min(800px,calc(100vw - 280px));
-    padding-left:85px;
-    padding-right:85px;
+@media(max-width:1050px) {
+
+  .app {
+    grid-template-columns: 220px minmax(0,1fr);
+  }
+
+  .page,
+  .page-title-bar {
+    width: min(800px,calc(100vw - 280px));
+  }
+
+  .page {
+    padding-left: 85px;
+    padding-right: 85px;
   }
 }
 
-@media(max-width:760px){
-  .app{grid-template-columns:1fr}
+@media(max-width:760px) {
 
-  .sidebar{display:none}
-
-  .page{
-    width:calc(100vw - 28px);
-    min-height:950px;
-    padding:70px 55px;
+  .app {
+    grid-template-columns: 1fr;
   }
 
-  .editor-scroll{
-    padding:20px 14px 90px;
+  .sidebar {
+    display: none;
   }
 
-  .context-panel{
-    right:10px;
-    left:10px;
-    width:auto;
+  .page,
+  .page-title-bar {
+    width: calc(100vw - 28px);
+  }
+
+  .page {
+    min-height: 950px;
+    padding: 70px 55px;
+  }
+
+  .editor-scroll {
+    padding: 20px 14px 90px;
+  }
+
+  .context-panel {
+    right: 10px;
+    left: 10px;
+    width: auto;
   }
 }
 </style>
@@ -596,7 +982,9 @@ button{color:inherit}
 
 <div class="app">
 
-  <!-- SIDEBAR -->
+  <!-- =====================================================
+       SIDEBAR
+  ====================================================== -->
 
   <aside class="sidebar">
 
@@ -606,122 +994,161 @@ button{color:inherit}
     </div>
 
     <div class="side-tabs">
-      <button class="side-tab active" data-tab="contents">CONTENTS</button>
-      <button class="side-tab" data-tab="comments">COMMENTS</button>
-      <button class="side-tab" data-tab="notes">NOTES</button>
+      <button class="side-tab active" data-tab="contents">
+        CONTENTS
+      </button>
+
+      <button class="side-tab" data-tab="comments">
+        COMMENTS
+      </button>
+
+      <button class="side-tab" data-tab="notes">
+        NOTES
+      </button>
     </div>
 
     <div class="sidebar-content">
 
+      <!-- CONTENTS -->
+
       <div id="contentsPanel">
 
-        <div class="section-label">ACT I</div>
+        <div id="sceneList">
 
-        <div class="scene-item active" data-scene="1">
-          <div class="scene-number">01</div>
-          <div class="scene-copy">
-            <div class="scene-title">EXT. MEGA PLANET</div>
-            <div class="scene-meta">DAY · 2/8</div>
+          <div class="empty-state contents-empty">
+            <div class="empty-icon">
+              <i data-lucide="file-text"></i>
+            </div>
+
+            <div class="empty-title">
+              No scenes yet
+            </div>
+
+            <div class="empty-text">
+              Your screenplay scenes will appear here as you write.
+            </div>
           </div>
-        </div>
 
-        <div class="scene-item" data-scene="2">
-          <div class="scene-number">02</div>
-          <div class="scene-copy">
-            <div class="scene-title">INT. OBSERVATION ROOM</div>
-            <div class="scene-meta">NIGHT · 3/8</div>
-          </div>
-        </div>
-
-        <div class="scene-item" data-scene="3">
-          <div class="scene-number">03</div>
-          <div class="scene-copy">
-            <div class="scene-title">EXT. LOWER CITY</div>
-            <div class="scene-meta">DAY · 4/8</div>
-          </div>
-        </div>
-
-        <div class="section-label">ACT II</div>
-
-        <div class="scene-item" data-scene="4">
-          <div class="scene-number">04</div>
-          <div class="scene-copy">
-            <div class="scene-title">INT. ARCHIVE</div>
-            <div class="scene-meta">NIGHT · 5/8</div>
-          </div>
-        </div>
-
-        <div class="scene-item" data-scene="5">
-          <div class="scene-number">05</div>
-          <div class="scene-copy">
-            <div class="scene-title">EXT. MOUNTAIN RANGE</div>
-            <div class="scene-meta">DAY · 6/8</div>
-          </div>
-        </div>
-
-        <div class="section-label">ACT III</div>
-
-        <div class="scene-item" data-scene="6">
-          <div class="scene-number">06</div>
-          <div class="scene-copy">
-            <div class="scene-title">INT. CENTRAL TOWER</div>
-            <div class="scene-meta">NIGHT · 7/8</div>
-          </div>
-        </div>
-
-        <div class="scene-item" data-scene="7">
-          <div class="scene-number">07</div>
-          <div class="scene-copy">
-            <div class="scene-title">EXT. HORIZON</div>
-            <div class="scene-meta">DAWN · 8/8</div>
-          </div>
         </div>
 
       </div>
+
+
+      <!-- COMMENTS -->
 
       <div id="commentsPanel" class="hidden">
 
-        <div class="section-label">COMMENTS</div>
+        <div class="sidebar-toolbar">
 
-        <div class="comment-item">
-          <div class="comment-title">Scene 02</div>
-          <div class="comment-body">
-            Clarify why Ludwig is watching the structure.
-          </div>
+          <button
+            class="sidebar-tool"
+            id="addCommentButton"
+            title="Create comment"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+          <button
+            class="sidebar-tool"
+            id="commentSettingsButton"
+            title="Comment settings"
+          >
+            <i data-lucide="settings-2"></i>
+          </button>
+
+          <div class="sidebar-toolbar-spacer"></div>
+
+          <button
+            class="sidebar-tool danger"
+            id="clearCommentsButton"
+            title="Delete all comments"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
         </div>
 
-        <div class="comment-item">
-          <div class="comment-title">Scene 05</div>
-          <div class="comment-body">
-            Consider holding this visual longer.
+        <div
+          id="commentsList"
+          class="annotation-list"
+        >
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              <i data-lucide="message-square"></i>
+            </div>
+
+            <div class="empty-title">
+              No comments
+            </div>
+
+            <div class="empty-text">
+              Add a comment to leave yourself a note about the screenplay.
+            </div>
+
           </div>
+
         </div>
 
       </div>
 
+
+      <!-- NOTES -->
+
       <div id="notesPanel" class="hidden">
 
-        <div class="section-label">PROJECT NOTES</div>
+        <div class="sidebar-toolbar">
 
-        <div class="note-item">
-          <div class="note-title">The World</div>
-          <div class="note-body">
-            Architecture should feel impossibly large without losing the human scale.
-          </div>
+          <button
+            class="sidebar-tool"
+            id="addNoteButton"
+            title="Create note"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+          <button
+            class="sidebar-tool"
+            id="noteSettingsButton"
+            title="Note settings"
+          >
+            <i data-lucide="settings-2"></i>
+          </button>
+
+          <div class="sidebar-toolbar-spacer"></div>
+
+          <button
+            class="sidebar-tool danger"
+            id="clearNotesButton"
+            title="Delete all notes"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
         </div>
 
-        <div class="note-item">
-          <div class="note-title">Ludwig</div>
-          <div class="note-body">
-            His obsession with structures gradually becomes a way of avoiding people.
-          </div>
-        </div>
+        <div
+          id="notesList"
+          class="annotation-list"
+        >
 
-        <div class="note-item">
-          <div class="note-title">Visual Language</div>
-          <div class="note-body">
-            Long lenses. Vast negative space. Controlled movement.
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              <i data-lucide="sticky-note"></i>
+            </div>
+
+            <div class="empty-title">
+              No notes
+            </div>
+
+            <div class="empty-text">
+              Add a note to keep ideas, references, characters, or visual concepts close.
+            </div>
+
           </div>
+
         </div>
 
       </div>
@@ -729,14 +1156,23 @@ button{color:inherit}
     </div>
 
     <div class="sidebar-footer">
-      <span id="pageCount">8 pages</span>
-      <span>Draft 04</span>
+
+      <span id="pageCount">
+        1 page
+      </span>
+
+      <span>
+        Draft 01
+      </span>
+
     </div>
 
   </aside>
 
 
-  <!-- MAIN -->
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
 
   <main class="main">
 
@@ -744,45 +1180,70 @@ button{color:inherit}
 
       <div class="top-left">
 
-        <button class="icon-btn" title="Menu">
+        <button
+          class="icon-btn"
+          title="Menu"
+        >
           <i data-lucide="menu"></i>
         </button>
 
-        <div class="script-title">Sentient Mass</div>
+        <div class="script-title">
+          Sentient Mass
+        </div>
 
         <div class="save-state">
+
           <span class="save-dot"></span>
+
           Saved
+
         </div>
 
       </div>
 
+
       <div class="top-right">
 
-        <button class="icon-btn" id="commentsButton" title="Comments">
-          <i data-lucide="message-square"></i>
-        </button>
-
-        <button class="icon-btn" id="notesButton" title="Notes">
-          <i data-lucide="sticky-note"></i>
-        </button>
-
-        <button class="icon-btn" id="moreButton" title="Document">
+        <button
+          class="icon-btn"
+          id="documentButton"
+          title="Document"
+        >
           <i data-lucide="ellipsis"></i>
         </button>
 
-        <div class="avatar">B</div>
+        <div class="avatar">
+          B
+        </div>
 
       </div>
 
     </header>
 
 
-    <!-- WRITING WORKSPACE -->
+    <!-- ===================================================
+         WRITING WORKSPACE
+    ==================================================== -->
 
     <section class="workspace">
 
-      <div class="editor-scroll" id="editorScroll">
+      <div
+        class="editor-scroll"
+        id="editorScroll"
+      >
+
+        <!-- SMALL PROFESSIONAL TITLE -->
+
+        <div class="page-title-bar">
+
+          <div class="page-title">
+            Sentient Mass
+          </div>
+
+        </div>
+
+
+        <!-- SCREENPLAY PAGE -->
 
         <article class="page">
 
@@ -793,97 +1254,7 @@ button{color:inherit}
             spellcheck="false"
           >
 
-            <div class="scene-heading">EXT. MEGA PLANET - DAY</div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              The horizon does not end.
-            </div>
-
-            <div class="action">
-              It simply disappears beneath a wall of architecture so enormous
-              that the human mind struggles to understand where it begins.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              Towers rise through the clouds. Bridges cross entire valleys.
-              Cities fold into one another beneath enormous mechanical structures.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              LUDWIG JAMES, 34, stands alone at the edge of the world.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="character">LUDWIG</div>
-
-            <div class="dialogue">
-              How long did it take to build this?
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="character">GUIDE</div>
-
-            <div class="parenthetical">(quietly)</div>
-
-            <div class="dialogue">
-              Nobody knows.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              Ludwig looks upward.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              Higher.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              Higher.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              The structure disappears into the atmosphere.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="character">LUDWIG</div>
-
-            <div class="dialogue">
-              I want to see the top.
-            </div>
-
-            <div class="blank"></div>
-
-            <div class="transition">CUT TO:</div>
-
-            <div class="scene-heading">INT. OBSERVATION ROOM - NIGHT</div>
-
-            <div class="blank"></div>
-
-            <div class="action">
-              Black glass surrounds Ludwig.
-            </div>
-
-            <div class="action">
-              Beyond it, the planet glows beneath him.
-            </div>
+            <div class="action"><br></div>
 
           </div>
 
@@ -892,34 +1263,98 @@ button{color:inherit}
       </div>
 
 
-      <!-- CONTEXTUAL SCREENWRITING CONTROLS -->
+      <!-- =================================================
+           SCREENPLAY FORMAT BAR
+      ================================================== -->
 
-      <div class="context-bar" id="formatBar">
+      <div
+        class="context-bar"
+        id="formatBar"
+      >
 
-        <button class="format-btn" data-format="scene">SCENE</button>
-        <button class="format-btn" data-format="action">ACTION</button>
-        <button class="format-btn" data-format="character">CHARACTER</button>
-        <button class="format-btn" data-format="parenthetical">( )</button>
-        <button class="format-btn" data-format="dialogue">DIALOGUE</button>
-        <button class="format-btn" data-format="transition">TRANSITION</button>
+        <button
+          class="format-btn"
+          data-format="scene"
+        >
+          SCENE
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="action"
+        >
+          ACTION
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="character"
+        >
+          CHARACTER
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="parenthetical"
+        >
+          ( )
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="dialogue"
+        >
+          DIALOGUE
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="transition"
+        >
+          TRANSITION
+        </button>
 
         <div class="format-divider"></div>
 
-        <button class="format-btn" id="boldButton">B</button>
-        <button class="format-btn" id="italicButton"><i>I</i></button>
+        <button
+          class="format-btn"
+          id="boldButton"
+        >
+          B
+        </button>
+
+        <button
+          class="format-btn"
+          id="italicButton"
+        >
+          <i>I</i>
+        </button>
 
       </div>
 
 
-      <!-- CONTEXT PANEL -->
+      <!-- =================================================
+           CONTEXT PANEL
+      ================================================== -->
 
-      <aside class="context-panel" id="contextPanel">
+      <aside
+        class="context-panel"
+        id="contextPanel"
+      >
 
         <div class="panel-header">
 
-          <div class="panel-title" id="panelTitle">Scene</div>
+          <div
+            class="panel-title"
+            id="panelTitle"
+          >
+            Document
+          </div>
 
-          <button class="panel-close" id="panelClose">
+          <button
+            class="panel-close"
+            id="panelClose"
+          >
             <i data-lucide="x"></i>
           </button>
 
@@ -929,41 +1364,36 @@ button{color:inherit}
 
           <div class="panel-section">
 
-            <div class="panel-label">Scene</div>
-
-            <div class="panel-value" id="panelScene">
-              EXT. MEGA PLANET - DAY
+            <div class="panel-label">
+              Title
             </div>
-
-          </div>
-
-          <div class="panel-section">
-
-            <div class="panel-label">Characters</div>
-
-            <div class="chip-row">
-              <div class="chip">Ludwig James</div>
-              <div class="chip">Guide</div>
-            </div>
-
-          </div>
-
-          <div class="panel-section">
-
-            <div class="panel-label">Location</div>
 
             <div class="panel-value">
-              Mega Planet
+              Sentient Mass
             </div>
 
           </div>
 
           <div class="panel-section">
 
-            <div class="panel-label">Notes</div>
+            <div class="panel-label">
+              Draft
+            </div>
 
             <div class="panel-value">
-              Introduce the scale of the world before revealing Ludwig's motivation.
+              Draft 01
+            </div>
+
+          </div>
+
+          <div class="panel-section">
+
+            <div class="panel-label">
+              Format
+            </div>
+
+            <div class="panel-value">
+              Screenplay · US Letter
             </div>
 
           </div>
@@ -973,22 +1403,182 @@ button{color:inherit}
       </aside>
 
 
-      <div class="toast" id="toast">Saved</div>
+      <!-- =================================================
+           ANNOTATION MODAL
+      ================================================== -->
+
+      <div
+        class="modal-backdrop"
+        id="annotationModal"
+      >
+
+        <div class="modal">
+
+          <div class="modal-header">
+
+            <div
+              class="modal-title"
+              id="annotationModalTitle"
+            >
+              New Comment
+            </div>
+
+            <button
+              class="modal-close"
+              id="annotationModalClose"
+            >
+              <i data-lucide="x"></i>
+            </button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="annotationTitle"
+              >
+                Title
+              </label>
+
+              <input
+                id="annotationTitle"
+                class="field-input"
+                placeholder="What is this about?"
+              >
+
+            </div>
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="annotationBody"
+              >
+                Note
+              </label>
+
+              <textarea
+                id="annotationBody"
+                class="field-textarea"
+                placeholder="Write your thought..."
+              ></textarea>
+
+            </div>
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="annotationTag"
+              >
+                Tag
+              </label>
+
+              <select
+                id="annotationTag"
+                class="field-select"
+              >
+
+                <option value="Characters">
+                  Characters
+                </option>
+
+                <option value="Landscapes">
+                  Landscapes
+                </option>
+
+                <option value="Story">
+                  Story
+                </option>
+
+                <option value="Dialogue">
+                  Dialogue
+                </option>
+
+                <option value="Visuals">
+                  Visuals
+                </option>
+
+                <option value="Research">
+                  Research
+                </option>
+
+                <option value="General">
+                  General
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <button
+              class="modal-button"
+              id="annotationCancel"
+            >
+              Cancel
+            </button>
+
+            <button
+              class="modal-button primary"
+              id="annotationSave"
+            >
+              Create
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="toast"
+        id="toast"
+      >
+        Saved
+      </div>
 
     </section>
 
 
+    <!-- STATUS -->
+
     <footer class="statusbar">
 
       <div class="status-left">
-        <span id="pageStatus">Page 1 of 8</span>
-        <span id="wordStatus">124 words</span>
+
+        <span id="pageStatus">
+          Page 1
+        </span>
+
+        <span id="wordStatus">
+          0 words
+        </span>
+
       </div>
 
       <div class="status-right">
-        <span>100%</span>
-        <span>Courier Prime</span>
-        <span>US Letter</span>
+
+        <span>
+          100%
+        </span>
+
+        <span>
+          Courier Prime
+        </span>
+
+        <span>
+          US Letter
+        </span>
+
       </div>
 
     </footer>
@@ -1001,60 +1591,126 @@ button{color:inherit}
 <script>
 lucide.createIcons();
 
-const editor = document.getElementById("scriptEditor");
-const formatBar = document.getElementById("formatBar");
-const contextPanel = document.getElementById("contextPanel");
-const toast = document.getElementById("toast");
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-const STORAGE_KEY = "auteur-sentient-mass-v6";
+const editor =
+  document.getElementById("scriptEditor");
+
+const formatBar =
+  document.getElementById("formatBar");
+
+const contextPanel =
+  document.getElementById("contextPanel");
+
+const toast =
+  document.getElementById("toast");
+
+const annotationModal =
+  document.getElementById("annotationModal");
+
+const annotationModalTitle =
+  document.getElementById("annotationModalTitle");
+
+const annotationTitle =
+  document.getElementById("annotationTitle");
+
+const annotationBody =
+  document.getElementById("annotationBody");
+
+const annotationTag =
+  document.getElementById("annotationTag");
+
+const annotationSave =
+  document.getElementById("annotationSave");
+
+const annotationCancel =
+  document.getElementById("annotationCancel");
+
+const annotationModalClose =
+  document.getElementById("annotationModalClose");
+
+const commentsList =
+  document.getElementById("commentsList");
+
+const notesList =
+  document.getElementById("notesList");
+
+const sceneList =
+  document.getElementById("sceneList");
+
+const STORAGE_KEY =
+  "auteur-sentient-mass-v7";
+
+const COMMENTS_KEY =
+  "auteur-comments-v1";
+
+const NOTES_KEY =
+  "auteur-notes-v1";
 
 let activeBlock = null;
-let saveTimer = null;
-let toastTimer = null;
+
+let annotationMode = "comment";
+
+let comments =
+  JSON.parse(localStorage.getItem(COMMENTS_KEY) || "[]");
+
+let notes =
+  JSON.parse(localStorage.getItem(NOTES_KEY) || "[]");
 
 
 /* =========================================================
-   STORAGE
+   SAVE SCREENPLAY
 ========================================================= */
 
-function saveDocument(showMessage = true){
+function saveDocument(showToast = false) {
 
-  localStorage.setItem(STORAGE_KEY, editor.innerHTML);
+  localStorage.setItem(
+    STORAGE_KEY,
+    editor.innerHTML
+  );
 
-  const saveState = document.querySelector(".save-state");
+  const saveState =
+    document.querySelector(".save-state");
 
   saveState.innerHTML = `
     <span class="save-dot"></span>
     Saved
   `;
 
-  if(showMessage) showToast("Saved");
+  if (showToast) {
+    showMessage("Saved");
+  }
 
   updateStats();
+  updateScenes();
 }
 
-function scheduleSave(){
+function scheduleSave() {
 
-  const saveState = document.querySelector(".save-state");
+  const saveState =
+    document.querySelector(".save-state");
 
   saveState.innerHTML = `
     <span class="save-dot"></span>
     Saving...
   `;
 
-  clearTimeout(saveTimer);
+  clearTimeout(window.auteurSaveTimer);
 
-  saveTimer = setTimeout(() => {
-    saveDocument(false);
-  },650);
-
+  window.auteurSaveTimer =
+    setTimeout(() => {
+      saveDocument(false);
+    }, 650);
 }
 
-function loadDocument(){
+function loadDocument() {
 
-  const saved = localStorage.getItem(STORAGE_KEY);
+  const saved =
+    localStorage.getItem(STORAGE_KEY);
 
-  if(saved){
+  if (saved) {
     editor.innerHTML = saved;
   }
 
@@ -1067,25 +1723,33 @@ loadDocument();
    STATS
 ========================================================= */
 
-function updateStats(){
+function updateStats() {
 
-  const text = editor.innerText.trim();
+  const text =
+    editor.innerText.trim();
 
-  const words = text
-    ? text.split(/\s+/).filter(Boolean).length
-    : 0;
+  const words =
+    text
+      ? text.split(/\s+/).filter(Boolean).length
+      : 0;
 
-  document.getElementById("wordStatus").textContent =
+  const pages =
+    Math.max(
+      1,
+      Math.ceil(words / 250)
+    );
+
+  document.getElementById("wordStatus")
+    .textContent =
     `${words} words`;
 
-  const sceneCount =
-    editor.querySelectorAll(".scene-heading").length;
+  document.getElementById("pageStatus")
+    .textContent =
+    `Page ${pages}`;
 
-  document.getElementById("pageCount").textContent =
-    `${Math.max(1,Math.ceil(words / 250))} pages`;
-
-  document.getElementById("pageStatus").textContent =
-    `Page 1 of ${Math.max(1,Math.ceil(words / 250))}`;
+  document.getElementById("pageCount")
+    .textContent =
+    `${pages} ${pages === 1 ? "page" : "pages"}`;
 }
 
 updateStats();
@@ -1095,29 +1759,40 @@ updateStats();
    SIDEBAR TABS
 ========================================================= */
 
-const tabs = document.querySelectorAll(".side-tab");
+const tabs =
+  document.querySelectorAll(".side-tab");
 
 const panels = {
-  contents:document.getElementById("contentsPanel"),
-  comments:document.getElementById("commentsPanel"),
-  notes:document.getElementById("notesPanel")
+  contents:
+    document.getElementById("contentsPanel"),
+
+  comments:
+    document.getElementById("commentsPanel"),
+
+  notes:
+    document.getElementById("notesPanel")
 };
 
 tabs.forEach(tab => {
 
-  tab.addEventListener("click",()=>{
+  tab.addEventListener("click", () => {
 
-    const target = tab.dataset.tab;
+    const target =
+      tab.dataset.tab;
 
-    tabs.forEach(t => t.classList.remove("active"));
+    tabs.forEach(item => {
+      item.classList.remove("active");
+    });
 
     tab.classList.add("active");
 
-    Object.values(panels).forEach(panel => {
-      panel.classList.add("hidden");
-    });
+    Object.values(panels)
+      .forEach(panel => {
+        panel.classList.add("hidden");
+      });
 
-    panels[target].classList.remove("hidden");
+    panels[target]
+      .classList.remove("hidden");
 
   });
 
@@ -1125,37 +1800,50 @@ tabs.forEach(tab => {
 
 
 /* =========================================================
-   CURRENT EDITOR BLOCK
+   ACTIVE EDITOR BLOCK
 ========================================================= */
 
-function getBlockFromNode(node){
+function getBlockFromNode(node) {
 
-  if(!node) return null;
+  if (!node) {
+    return null;
+  }
 
-  if(node.nodeType === Node.TEXT_NODE){
+  if (node.nodeType === Node.TEXT_NODE) {
     node = node.parentElement;
   }
 
   return node.closest(".script > div");
 }
 
-function getCurrentBlock(){
+function getCurrentBlock() {
 
-  const selection = window.getSelection();
+  const selection =
+    window.getSelection();
 
-  if(!selection.rangeCount) return activeBlock;
+  if (
+    !selection ||
+    !selection.rangeCount
+  ) {
+    return activeBlock;
+  }
 
-  return getBlockFromNode(selection.anchorNode) || activeBlock;
+  return (
+    getBlockFromNode(
+      selection.anchorNode
+    ) || activeBlock
+  );
 }
 
-function setActiveBlock(block){
+function setActiveBlock(block) {
 
-  if(!block) return;
+  if (!block) {
+    return;
+  }
 
   activeBlock = block;
 
   updateFormatButtons(block);
-
 }
 
 
@@ -1163,24 +1851,37 @@ function setActiveBlock(block){
    FORMAT BUTTON STATE
 ========================================================= */
 
-function updateFormatButtons(block){
+function updateFormatButtons(block) {
 
-  document.querySelectorAll(".format-btn[data-format]")
+  document
+    .querySelectorAll(".format-btn[data-format]")
     .forEach(button => {
 
       button.classList.remove("active");
 
-      const format = button.dataset.format;
+      const format =
+        button.dataset.format;
 
-      const match =
-        (format === "scene" && block.classList.contains("scene-heading")) ||
-        (format === "action" && block.classList.contains("action")) ||
-        (format === "character" && block.classList.contains("character")) ||
-        (format === "parenthetical" && block.classList.contains("parenthetical")) ||
-        (format === "dialogue" && block.classList.contains("dialogue")) ||
-        (format === "transition" && block.classList.contains("transition"));
+      const matches =
+        (format === "scene" &&
+          block.classList.contains("scene-heading")) ||
 
-      if(match){
+        (format === "action" &&
+          block.classList.contains("action")) ||
+
+        (format === "character" &&
+          block.classList.contains("character")) ||
+
+        (format === "parenthetical" &&
+          block.classList.contains("parenthetical")) ||
+
+        (format === "dialogue" &&
+          block.classList.contains("dialogue")) ||
+
+        (format === "transition" &&
+          block.classList.contains("transition"));
+
+      if (matches) {
         button.classList.add("active");
       }
 
@@ -1190,40 +1891,47 @@ function updateFormatButtons(block){
 
 
 /* =========================================================
-   SHOW FORMAT BAR
+   FORMAT BAR
 ========================================================= */
 
-function showFormatBar(){
-
+function showFormatBar() {
   formatBar.classList.add("visible");
-
 }
 
-editor.addEventListener("focus",()=>{
+editor.addEventListener("focus", () => {
 
-  const block = getCurrentBlock();
+  const block =
+    getCurrentBlock();
 
-  if(block) setActiveBlock(block);
-
-  showFormatBar();
-
-});
-
-editor.addEventListener("click",()=>{
-
-  const block = getCurrentBlock();
-
-  if(block) setActiveBlock(block);
+  if (block) {
+    setActiveBlock(block);
+  }
 
   showFormatBar();
 
 });
 
-editor.addEventListener("keyup",()=>{
+editor.addEventListener("click", () => {
 
-  const block = getCurrentBlock();
+  const block =
+    getCurrentBlock();
 
-  if(block) setActiveBlock(block);
+  if (block) {
+    setActiveBlock(block);
+  }
+
+  showFormatBar();
+
+});
+
+editor.addEventListener("keyup", () => {
+
+  const block =
+    getCurrentBlock();
+
+  if (block) {
+    setActiveBlock(block);
+  }
 
   showFormatBar();
 
@@ -1231,7 +1939,7 @@ editor.addEventListener("keyup",()=>{
 
 
 /* =========================================================
-   FORMAT ENGINE
+   SCREENPLAY FORMATTING
 ========================================================= */
 
 const FORMAT_CLASSES = [
@@ -1244,54 +1952,61 @@ const FORMAT_CLASSES = [
   "blank"
 ];
 
-function cleanBlock(block){
+function clearFormat(block) {
 
-  block.classList.remove(...FORMAT_CLASSES);
+  block.classList.remove(
+    ...FORMAT_CLASSES
+  );
 
   block.style.textAlign = "";
-
 }
 
-function setCaretToEnd(element){
+function placeCaretAtEnd(element) {
 
-  const range = document.createRange();
+  const range =
+    document.createRange();
 
   range.selectNodeContents(element);
   range.collapse(false);
 
-  const selection = window.getSelection();
+  const selection =
+    window.getSelection();
 
   selection.removeAllRanges();
   selection.addRange(range);
 
   editor.focus();
-
 }
 
-function formatBlock(block,format){
+function formatBlock(block, format) {
 
-  if(!block) return;
+  if (!block) {
+    return;
+  }
 
-  const text = block.innerText.trim();
+  let text =
+    block.innerText.trim();
 
-  cleanBlock(block);
+  clearFormat(block);
 
-  if(format === "scene"){
+  if (format === "scene") {
 
-    block.classList.add("scene-heading");
+    block.classList.add(
+      "scene-heading"
+    );
 
     block.textContent =
       text.toUpperCase();
 
   }
 
-  else if(format === "action"){
+  else if (format === "action") {
 
     block.classList.add("action");
 
   }
 
-  else if(format === "character"){
+  else if (format === "character") {
 
     block.classList.add("character");
 
@@ -1300,25 +2015,35 @@ function formatBlock(block,format){
 
   }
 
-  else if(format === "parenthetical"){
+  else if (format === "parenthetical") {
 
-    block.classList.add("parenthetical");
+    block.classList.add(
+      "parenthetical"
+    );
 
-    if(text && !text.startsWith("(")){
-      block.textContent = `(${text})`;
+    if (
+      text &&
+      !text.startsWith("(")
+    ) {
+      block.textContent =
+        `(${text})`;
     }
 
   }
 
-  else if(format === "dialogue"){
+  else if (format === "dialogue") {
 
-    block.classList.add("dialogue");
+    block.classList.add(
+      "dialogue"
+    );
 
   }
 
-  else if(format === "transition"){
+  else if (format === "transition") {
 
-    block.classList.add("transition");
+    block.classList.add(
+      "transition"
+    );
 
     block.textContent =
       text.toUpperCase();
@@ -1327,7 +2052,7 @@ function formatBlock(block,format){
 
   setActiveBlock(block);
 
-  setCaretToEnd(block);
+  placeCaretAtEnd(block);
 
   scheduleSave();
 
@@ -1338,113 +2063,173 @@ function formatBlock(block,format){
    FORMAT BUTTON EVENTS
 ========================================================= */
 
-document.querySelectorAll(".format-btn[data-format]")
-.forEach(button => {
+document
+  .querySelectorAll(".format-btn[data-format]")
+  .forEach(button => {
 
-  button.addEventListener("mousedown",event=>{
-    event.preventDefault();
-  });
+    button.addEventListener(
+      "mousedown",
+      event => {
+        event.preventDefault();
+      }
+    );
 
-  button.addEventListener("click",()=>{
+    button.addEventListener(
+      "click",
+      () => {
 
-    const block =
-      activeBlock || getCurrentBlock();
+        const block =
+          activeBlock ||
+          getCurrentBlock();
 
-    if(!block) return;
+        if (!block) {
+          return;
+        }
 
-    formatBlock(
-      block,
-      button.dataset.format
+        formatBlock(
+          block,
+          button.dataset.format
+        );
+
+      }
     );
 
   });
 
-});
+
+/* =========================================================
+   BOLD
+========================================================= */
+
+document
+  .getElementById("boldButton")
+  .addEventListener("mousedown", event => {
+    event.preventDefault();
+  });
+
+document
+  .getElementById("boldButton")
+  .addEventListener("click", () => {
+
+    document.execCommand(
+      "bold",
+      false,
+      null
+    );
+
+    editor.focus();
+
+    scheduleSave();
+
+  });
 
 
 /* =========================================================
-   BOLD / ITALIC
+   ITALIC
 ========================================================= */
 
-document.getElementById("boldButton")
-.addEventListener("mousedown",event=>{
-  event.preventDefault();
-});
+document
+  .getElementById("italicButton")
+  .addEventListener("mousedown", event => {
+    event.preventDefault();
+  });
 
-document.getElementById("boldButton")
-.addEventListener("click",()=>{
+document
+  .getElementById("italicButton")
+  .addEventListener("click", () => {
 
-  document.execCommand("bold",false,null);
+    document.execCommand(
+      "italic",
+      false,
+      null
+    );
 
-  editor.focus();
+    editor.focus();
 
-  scheduleSave();
+    scheduleSave();
 
-});
-
-
-document.getElementById("italicButton")
-.addEventListener("mousedown",event=>{
-  event.preventDefault();
-});
-
-document.getElementById("italicButton")
-.addEventListener("click",()=>{
-
-  document.execCommand("italic",false,null);
-
-  editor.focus();
-
-  scheduleSave();
-
-});
+  });
 
 
 /* =========================================================
    SMART ENTER
 ========================================================= */
 
-editor.addEventListener("keydown",event=>{
+editor.addEventListener("keydown", event => {
 
-  if(event.key !== "Enter") return;
+  if (event.key !== "Enter") {
+    return;
+  }
 
   event.preventDefault();
 
-  const block = getCurrentBlock();
+  const block =
+    getCurrentBlock();
 
-  if(!block) return;
+  if (!block) {
+    return;
+  }
 
-  let nextFormat = "action";
+  let nextFormat =
+    "action";
 
-  if(block.classList.contains("scene-heading")){
+  if (
+    block.classList.contains(
+      "scene-heading"
+    )
+  ) {
     nextFormat = "action";
   }
 
-  else if(block.classList.contains("action")){
+  else if (
+    block.classList.contains(
+      "action"
+    )
+  ) {
     nextFormat = "action";
   }
 
-  else if(block.classList.contains("character")){
+  else if (
+    block.classList.contains(
+      "character"
+    )
+  ) {
     nextFormat = "dialogue";
   }
 
-  else if(block.classList.contains("parenthetical")){
+  else if (
+    block.classList.contains(
+      "parenthetical"
+    )
+  ) {
     nextFormat = "dialogue";
   }
 
-  else if(block.classList.contains("dialogue")){
+  else if (
+    block.classList.contains(
+      "dialogue"
+    )
+  ) {
     nextFormat = "action";
   }
 
-  else if(block.classList.contains("transition")){
-    nextFormat = "scene";
+  else if (
+    block.classList.contains(
+      "transition"
+    )
+  ) {
+    nextFormat = "scene-heading";
   }
 
-  const newBlock = document.createElement("div");
+  const newBlock =
+    document.createElement("div");
 
-  newBlock.classList.add(nextFormat);
+  newBlock.classList.add(
+    nextFormat
+  );
 
-  newBlock.innerHTML = "<br>";
+  newBlock.innerHTML =
+    "<br>";
 
   block.insertAdjacentElement(
     "afterend",
@@ -1453,7 +2238,7 @@ editor.addEventListener("keydown",event=>{
 
   setActiveBlock(newBlock);
 
-  setCaretToEnd(newBlock);
+  placeCaretAtEnd(newBlock);
 
   scheduleSave();
 
@@ -1461,51 +2246,66 @@ editor.addEventListener("keydown",event=>{
 
 
 /* =========================================================
-   BACKSPACE ON EMPTY ELEMENT
+   BACKSPACE EMPTY LINE
 ========================================================= */
 
-editor.addEventListener("keydown",event=>{
+editor.addEventListener("keydown", event => {
 
-  if(event.key !== "Backspace") return;
-
-  const block = getCurrentBlock();
-
-  if(!block) return;
-
-  if(block.innerText.trim() !== "") return;
-
-  const previous = block.previousElementSibling;
-
-  if(previous){
-
-    event.preventDefault();
-
-    block.remove();
-
-    setActiveBlock(previous);
-
-    setCaretToEnd(previous);
-
-    scheduleSave();
-
+  if (event.key !== "Backspace") {
+    return;
   }
+
+  const block =
+    getCurrentBlock();
+
+  if (!block) {
+    return;
+  }
+
+  if (
+    block.innerText.trim() !== ""
+  ) {
+    return;
+  }
+
+  const previous =
+    block.previousElementSibling;
+
+  if (!previous) {
+    return;
+  }
+
+  event.preventDefault();
+
+  block.remove();
+
+  setActiveBlock(previous);
+
+  placeCaretAtEnd(previous);
+
+  scheduleSave();
 
 });
 
 
 /* =========================================================
-   TAB KEY
+   TAB FORMAT CYCLING
 ========================================================= */
 
-editor.addEventListener("keydown",event=>{
+editor.addEventListener("keydown", event => {
 
-  if(event.key !== "Tab") return;
+  if (event.key !== "Tab") {
+    return;
+  }
 
   event.preventDefault();
 
-  const block = getCurrentBlock();
+  const block =
+    getCurrentBlock();
 
-  if(!block) return;
+  if (!block) {
+    return;
+  }
 
   const sequence = [
     "scene",
@@ -1517,49 +2317,88 @@ editor.addEventListener("keydown",event=>{
   ];
 
   const current =
-    block.classList.contains("scene-heading") ? "scene" :
-    block.classList.contains("action") ? "action" :
-    block.classList.contains("character") ? "character" :
-    block.classList.contains("parenthetical") ? "parenthetical" :
-    block.classList.contains("dialogue") ? "dialogue" :
-    block.classList.contains("transition") ? "transition" :
-    "action";
+    block.classList.contains(
+      "scene-heading"
+    )
+      ? "scene"
 
-  const index = sequence.indexOf(current);
+      : block.classList.contains(
+          "action"
+        )
+      ? "action"
+
+      : block.classList.contains(
+          "character"
+        )
+      ? "character"
+
+      : block.classList.contains(
+          "parenthetical"
+        )
+      ? "parenthetical"
+
+      : block.classList.contains(
+          "dialogue"
+        )
+      ? "dialogue"
+
+      : block.classList.contains(
+          "transition"
+        )
+      ? "transition"
+
+      : "action";
+
+  const index =
+    sequence.indexOf(current);
 
   const next =
-    sequence[(index + 1) % sequence.length];
+    sequence[
+      (index + 1) %
+      sequence.length
+    ];
 
-  formatBlock(block,next);
+  formatBlock(
+    block,
+    next
+  );
 
 });
 
 
 /* =========================================================
-   AUTO CHARACTER / PARENTHETICAL BEHAVIOR
+   INPUT
 ========================================================= */
 
-editor.addEventListener("input",()=>{
+editor.addEventListener("input", () => {
 
-  const block = getCurrentBlock();
+  const block =
+    getCurrentBlock();
 
-  if(block){
+  if (block) {
 
     setActiveBlock(block);
 
-    if(block.classList.contains("character")){
+    if (
+      block.classList.contains(
+        "character"
+      )
+    ) {
 
       const text =
-        block.innerText.replace(/\n/g,"");
+        block.innerText
+          .replace(/\n/g, "");
 
-      if(text !== text.toUpperCase()){
-        const position =
-          text.length;
+      if (
+        text !==
+        text.toUpperCase()
+      ) {
 
         block.textContent =
           text.toUpperCase();
 
-        setCaretToEnd(block);
+        placeCaretAtEnd(block);
+
       }
 
     }
@@ -1567,229 +2406,779 @@ editor.addEventListener("input",()=>{
   }
 
   scheduleSave();
-
   updateStats();
+  updateScenes();
 
 });
 
 
 /* =========================================================
-   SCENE NAVIGATION
+   SCENE INDEX
 ========================================================= */
 
-document.querySelectorAll(".scene-item")
-.forEach(item=>{
-
-  item.addEventListener("click",()=>{
-
-    document
-      .querySelectorAll(".scene-item")
-      .forEach(scene=>{
-        scene.classList.remove("active");
-      });
-
-    item.classList.add("active");
-
-    const number =
-      Number(item.dataset.scene);
-
-    const headings =
-      editor.querySelectorAll(".scene-heading");
-
-    const target =
-      headings[number - 1];
-
-    if(target){
-
-      target.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-      });
-
-      setActiveBlock(target);
-
-      setCaretToEnd(target);
-
-    }
-
-    document.getElementById("panelScene")
-      .textContent =
-      item.querySelector(".scene-title").textContent;
-
-  });
-
-});
-
-
-/* =========================================================
-   SCENE LIST AUTO UPDATE
-========================================================= */
-
-function updateSceneList(){
+function updateScenes() {
 
   const headings =
-    [...editor.querySelectorAll(".scene-heading")];
+    [
+      ...editor.querySelectorAll(
+        ".scene-heading"
+      )
+    ];
 
-  const sceneItems =
-    [...document.querySelectorAll(".scene-item")];
+  sceneList.innerHTML = "";
 
-  headings.forEach((heading,index)=>{
+  if (!headings.length) {
 
-    if(!sceneItems[index]) return;
+    sceneList.innerHTML = `
+      <div class="empty-state contents-empty">
+        <div class="empty-icon">
+          <i data-lucide="file-text"></i>
+        </div>
+
+        <div class="empty-title">
+          No scenes yet
+        </div>
+
+        <div class="empty-text">
+          Format a line as SCENE to build your screenplay structure.
+        </div>
+      </div>
+    `;
+
+    lucide.createIcons();
+
+    return;
+  }
+
+  headings.forEach((heading, index) => {
+
+    const item =
+      document.createElement("div");
+
+    item.className =
+      "scene-item";
+
+    if (heading === activeBlock) {
+      item.classList.add("active");
+    }
 
     const title =
       heading.innerText.trim() ||
       "UNTITLED SCENE";
 
-    sceneItems[index]
-      .querySelector(".scene-title")
-      .textContent = title;
+    item.innerHTML = `
+      <div class="scene-number">
+        ${String(index + 1).padStart(2,"0")}
+      </div>
+
+      <div class="scene-copy">
+
+        <div class="scene-title">
+          ${escapeHTML(title)}
+        </div>
+
+        <div class="scene-meta">
+          SCENE ${index + 1}
+        </div>
+
+      </div>
+    `;
+
+    item.addEventListener("click", () => {
+
+      heading.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+      setActiveBlock(heading);
+
+      placeCaretAtEnd(heading);
+
+    });
+
+    sceneList.appendChild(item);
 
   });
 
 }
 
+updateScenes();
+
 
 /* =========================================================
-   CONTEXT PANEL
+   COMMENTS / NOTES STORAGE
 ========================================================= */
 
-function openContextPanel(title="Scene"){
+function saveAnnotations() {
 
-  document.getElementById("panelTitle")
-    .textContent = title;
+  localStorage.setItem(
+    COMMENTS_KEY,
+    JSON.stringify(comments)
+  );
 
-  contextPanel.classList.add("open");
+  localStorage.setItem(
+    NOTES_KEY,
+    JSON.stringify(notes)
+  );
 
 }
 
-document.getElementById("panelClose")
-.addEventListener("click",()=>{
-  contextPanel.classList.remove("open");
-});
+
+/* =========================================================
+   ANNOTATION EMPTY STATE
+========================================================= */
+
+function renderEmpty(type) {
+
+  const icon =
+    type === "comment"
+      ? "message-square"
+      : "sticky-note";
+
+  const title =
+    type === "comment"
+      ? "No comments"
+      : "No notes";
+
+  const description =
+    type === "comment"
+      ? "Add a comment to leave yourself a thought about the screenplay."
+      : "Add a note to keep ideas, references, characters, or visual concepts close.";
+
+  return `
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        <i data-lucide="${icon}"></i>
+      </div>
+
+      <div class="empty-title">
+        ${title}
+      </div>
+
+      <div class="empty-text">
+        ${description}
+      </div>
+
+    </div>
+  `;
+}
 
 
 /* =========================================================
-   COMMENTS
+   RENDER ANNOTATIONS
 ========================================================= */
 
-document.getElementById("commentsButton")
-.addEventListener("click",()=>{
+function renderAnnotations() {
 
-  tabs.forEach(tab=>{
-    tab.classList.toggle(
-      "active",
-      tab.dataset.tab === "comments"
+  commentsList.innerHTML = "";
+
+  notesList.innerHTML = "";
+
+  if (!comments.length) {
+    commentsList.innerHTML =
+      renderEmpty("comment");
+  }
+
+  if (!notes.length) {
+    notesList.innerHTML =
+      renderEmpty("note");
+  }
+
+  comments.forEach(item => {
+
+    commentsList.appendChild(
+      createAnnotationElement(
+        item,
+        "comment"
+      )
     );
+
   });
 
-  Object.values(panels).forEach(panel=>{
-    panel.classList.add("hidden");
-  });
+  notes.forEach(item => {
 
-  panels.comments.classList.remove("hidden");
-
-});
-
-
-/* =========================================================
-   NOTES
-========================================================= */
-
-document.getElementById("notesButton")
-.addEventListener("click",()=>{
-
-  tabs.forEach(tab=>{
-    tab.classList.toggle(
-      "active",
-      tab.dataset.tab === "notes"
+    notesList.appendChild(
+      createAnnotationElement(
+        item,
+        "note"
+      )
     );
+
   });
 
-  Object.values(panels).forEach(panel=>{
-    panel.classList.add("hidden");
-  });
+  lucide.createIcons();
 
-  panels.notes.classList.remove("hidden");
+}
 
-});
+function createAnnotationElement(
+  item,
+  type
+) {
+
+  const element =
+    document.createElement("div");
+
+  element.className =
+    "annotation";
+
+  element.innerHTML = `
+
+    <div class="annotation-top">
+
+      <div class="annotation-title">
+        ${escapeHTML(
+          item.title ||
+          "Untitled"
+        )}
+      </div>
+
+      <div class="annotation-tag">
+        ${escapeHTML(
+          item.tag ||
+          "General"
+        )}
+      </div>
+
+    </div>
+
+    <div class="annotation-body">
+      ${escapeHTML(
+        item.body ||
+        ""
+      )}
+    </div>
+
+    <div class="annotation-meta">
+      ${type === "comment"
+        ? "Comment"
+        : "Note"}
+      · ${new Date(
+        item.created
+      ).toLocaleDateString()}
+    </div>
+  `;
+
+  element.addEventListener(
+    "dblclick",
+    () => {
+
+      if (
+        confirm(
+          `Delete "${item.title}"?`
+        )
+      ) {
+
+        if (type === "comment") {
+
+          comments =
+            comments.filter(
+              x => x.id !== item.id
+            );
+
+        } else {
+
+          notes =
+            notes.filter(
+              x => x.id !== item.id
+            );
+
+        }
+
+        saveAnnotations();
+        renderAnnotations();
+
+        showMessage(
+          `${type === "comment"
+            ? "Comment"
+            : "Note"} deleted`
+        );
+
+      }
+
+    }
+  );
+
+  return element;
+}
+
+renderAnnotations();
 
 
 /* =========================================================
-   DOCUMENT BUTTON
+   OPEN ANNOTATION MODAL
 ========================================================= */
 
-document.getElementById("moreButton")
-.addEventListener("click",()=>{
+function openAnnotationModal(type) {
 
-  openContextPanel("Document");
+  annotationMode =
+    type;
 
-});
+  annotationModalTitle.textContent =
+    type === "comment"
+      ? "New Comment"
+      : "New Note";
+
+  annotationTitle.value = "";
+  annotationBody.value = "";
+  annotationTag.value = "General";
+
+  annotationModal.classList.add(
+    "open"
+  );
+
+  setTimeout(() => {
+    annotationTitle.focus();
+  }, 80);
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeAnnotationModal() {
+
+  annotationModal.classList.remove(
+    "open"
+  );
+
+}
+
+
+/* =========================================================
+   ADD COMMENT
+========================================================= */
+
+document
+  .getElementById(
+    "addCommentButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+      openAnnotationModal(
+        "comment"
+      );
+    }
+  );
+
+
+/* =========================================================
+   ADD NOTE
+========================================================= */
+
+document
+  .getElementById(
+    "addNoteButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+      openAnnotationModal(
+        "note"
+      );
+    }
+  );
+
+
+/* =========================================================
+   SETTINGS BUTTONS
+========================================================= */
+
+document
+  .getElementById(
+    "commentSettingsButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      openAnnotationModal(
+        "comment"
+      );
+
+      annotationModalTitle.textContent =
+        "Comment Organization";
+
+      annotationBody.placeholder =
+        "Create a comment with a tag to organize it.";
+
+    }
+  );
+
+document
+  .getElementById(
+    "noteSettingsButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      openAnnotationModal(
+        "note"
+      );
+
+      annotationModalTitle.textContent =
+        "Note Organization";
+
+      annotationBody.placeholder =
+        "Create a note with a tag to organize it.";
+
+    }
+  );
+
+
+/* =========================================================
+   SAVE ANNOTATION
+========================================================= */
+
+annotationSave.addEventListener(
+  "click",
+  () => {
+
+    const title =
+      annotationTitle.value.trim();
+
+    const body =
+      annotationBody.value.trim();
+
+    const tag =
+      annotationTag.value;
+
+    if (!title && !body) {
+
+      annotationTitle.focus();
+
+      return;
+
+    }
+
+    const annotation = {
+
+      id:
+        Date.now().toString(),
+
+      title:
+        title ||
+        (
+          annotationMode === "comment"
+            ? "Untitled Comment"
+            : "Untitled Note"
+        ),
+
+      body:
+        body,
+
+      tag:
+        tag,
+
+      created:
+        Date.now()
+
+    };
+
+    if (
+      annotationMode ===
+      "comment"
+    ) {
+
+      comments.unshift(
+        annotation
+      );
+
+    } else {
+
+      notes.unshift(
+        annotation
+      );
+
+    }
+
+    saveAnnotations();
+
+    renderAnnotations();
+
+    closeAnnotationModal();
+
+    showMessage(
+      annotationMode === "comment"
+        ? "Comment created"
+        : "Note created"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   MODAL CLOSE
+========================================================= */
+
+annotationCancel.addEventListener(
+  "click",
+  closeAnnotationModal
+);
+
+annotationModalClose.addEventListener(
+  "click",
+  closeAnnotationModal
+);
+
+annotationModal.addEventListener(
+  "click",
+  event => {
+
+    if (
+      event.target ===
+      annotationModal
+    ) {
+      closeAnnotationModal();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   DELETE ALL COMMENTS
+========================================================= */
+
+document
+  .getElementById(
+    "clearCommentsButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if (!comments.length) {
+        showMessage(
+          "No comments to delete"
+        );
+        return;
+      }
+
+      const confirmed =
+        confirm(
+          "Delete all comments? This cannot be undone."
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      comments = [];
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      showMessage(
+        "All comments deleted"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   DELETE ALL NOTES
+========================================================= */
+
+document
+  .getElementById(
+    "clearNotesButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if (!notes.length) {
+        showMessage(
+          "No notes to delete"
+        );
+        return;
+      }
+
+      const confirmed =
+        confirm(
+          "Delete all notes? This cannot be undone."
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      notes = [];
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      showMessage(
+        "All notes deleted"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   DOCUMENT PANEL
+========================================================= */
+
+document
+  .getElementById(
+    "documentButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      contextPanel.classList.add(
+        "open"
+      );
+
+    }
+  );
+
+document
+  .getElementById(
+    "panelClose"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      contextPanel.classList.remove(
+        "open"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeAnnotationModal();
+
+      contextPanel.classList.remove(
+        "open"
+      );
+
+    }
+
+    if (
+      (event.metaKey ||
+       event.ctrlKey) &&
+      event.key.toLowerCase() === "s"
+    ) {
+
+      event.preventDefault();
+
+      saveDocument(true);
+
+    }
+
+  }
+);
 
 
 /* =========================================================
    TOAST
 ========================================================= */
 
-function showToast(message){
+function showMessage(message) {
 
-  toast.textContent = message;
+  toast.textContent =
+    message;
 
-  toast.classList.add("show");
+  toast.classList.add(
+    "show"
+  );
 
-  clearTimeout(toastTimer);
+  clearTimeout(
+    window.auteurToastTimer
+  );
 
-  toastTimer =
-    setTimeout(()=>{
-      toast.classList.remove("show");
-    },1200);
+  window.auteurToastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    }, 1200);
 
 }
 
 
 /* =========================================================
-   KEYBOARD SHORTCUTS
+   ESCAPE HTML
 ========================================================= */
 
-document.addEventListener("keydown",event=>{
+function escapeHTML(value) {
 
-  if(
-    (event.metaKey || event.ctrlKey) &&
-    event.key.toLowerCase() === "s"
-  ){
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
-    event.preventDefault();
-
-    saveDocument();
-
-  }
-
-  if(event.key === "Escape"){
-
-    contextPanel.classList.remove("open");
-
-  }
-
-});
+}
 
 
 /* =========================================================
-   INITIALIZE
+   INITIALIZATION
 ========================================================= */
 
-updateSceneList();
 updateStats();
+updateScenes();
+renderAnnotations();
 
-setTimeout(()=>{
+setTimeout(() => {
 
-  const first =
-    editor.querySelector(".scene-heading");
+  const firstBlock =
+    editor.querySelector(
+      ".script > div"
+    );
 
-  if(first){
-    setActiveBlock(first);
+  if (firstBlock) {
+    setActiveBlock(
+      firstBlock
+    );
   }
 
-},100);
+}, 100);
 
 </script>
 
