@@ -22,6 +22,7 @@
   --text: #161616;
   --muted: #81817c;
   --soft: #f4f4f1;
+  --danger: #775b5b;
 }
 
 html,
@@ -57,9 +58,14 @@ button {
 
 .app {
   display: grid;
-  grid-template-columns: 255px minmax(0, 1fr);
+  grid-template-columns: 255px minmax(0, 1fr) 0;
   width: 100%;
   height: 100%;
+  transition: grid-template-columns .22s ease;
+}
+
+.app.right-open {
+  grid-template-columns: 255px minmax(0, 1fr) 255px;
 }
 
 /* =========================================================
@@ -183,14 +189,6 @@ button {
    SCENES
 ========================================================= */
 
-.section-label {
-  padding: 14px 10px 8px;
-  color: #888883;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .12em;
-}
-
 .scene-item {
   display: grid;
   grid-template-columns: 32px minmax(0, 1fr);
@@ -236,7 +234,7 @@ button {
 }
 
 /* =========================================================
-   SIDEBAR TOOLBAR
+   TOOLBAR
 ========================================================= */
 
 .sidebar-toolbar {
@@ -335,7 +333,7 @@ button {
 }
 
 /* =========================================================
-   FOOTER
+   LEFT FOOTER
 ========================================================= */
 
 .sidebar-footer {
@@ -345,6 +343,275 @@ button {
   border-top: 1px solid var(--line);
   color: #858580;
   font-size: 10px;
+}
+
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
+
+.right-sidebar {
+  min-width: 0;
+  width: 255px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(12px);
+  transition:
+    opacity .18s ease,
+    transform .22s ease;
+}
+
+.app.right-open .right-sidebar {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.right-header {
+  height: 64px;
+  flex: 0 0 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.right-header-title {
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.right-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  padding: 13px 12px 10px;
+}
+
+.right-tab {
+  height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  cursor: pointer;
+}
+
+.right-tab:hover {
+  background: var(--hover);
+}
+
+.right-tab.active {
+  background: var(--active);
+}
+
+.right-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 10px 20px;
+}
+
+.right-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.right-content::-webkit-scrollbar-thumb {
+  background: #d0d0cb;
+  border-radius: 999px;
+}
+
+/* =========================================================
+   ELEMENT SECTIONS
+========================================================= */
+
+.element-section {
+  margin-bottom: 20px;
+}
+
+.element-section-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px 7px;
+}
+
+.element-section-title {
+  color: #858580;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.element-add {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.element-add:hover {
+  background: var(--hover);
+}
+
+.element-add svg {
+  width: 14px;
+  height: 14px;
+}
+
+.element-item {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.element-item:hover {
+  background: var(--hover);
+}
+
+.element-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-right: 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+}
+
+.element-icon svg {
+  width: 13px;
+  height: 13px;
+  color: #74746f;
+}
+
+.element-copy {
+  min-width: 0;
+}
+
+.element-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.element-description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+  color: #8a8a85;
+  font-size: 9px;
+}
+
+.element-delete {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.element-item:hover .element-delete {
+  opacity: 1;
+}
+
+.element-delete:hover {
+  background: #e8e5e3;
+}
+
+.element-delete svg {
+  width: 13px;
+  height: 13px;
+  color: var(--danger);
+}
+
+.element-empty {
+  padding: 6px 8px 8px;
+  color: #999994;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   STASH
+========================================================= */
+
+.stash-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.stash-entry-icon {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #ededeb;
+}
+
+.stash-entry-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.stash-entry-copy {
+  min-width: 0;
+}
+
+.stash-entry-title {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.stash-entry-body {
+  margin-top: 3px;
+  color: #858580;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.stash-delete {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.stash-entry:hover .stash-delete {
+  opacity: 1;
+}
+
+.stash-delete svg {
+  width: 13px;
+  height: 13px;
 }
 
 /* =========================================================
@@ -398,6 +665,10 @@ button {
 
 .icon-btn:hover {
   background: var(--hover);
+}
+
+.icon-btn.active {
+  background: var(--active);
 }
 
 .icon-btn svg {
@@ -469,12 +740,8 @@ button {
   border-radius: 999px;
 }
 
-/* =========================================================
-   PROFESSIONAL SCREENPLAY TITLE STRIP
-========================================================= */
-
 .page-title-bar {
-  width: min(850px, calc(100vw - 360px));
+  width: min(850px, calc(100vw - 600px));
   height: 38px;
   display: flex;
   align-items: center;
@@ -489,12 +756,8 @@ button {
   letter-spacing: .02em;
 }
 
-/* =========================================================
-   PAGE
-========================================================= */
-
 .page {
-  width: min(850px, calc(100vw - 360px));
+  width: min(850px, calc(100vw - 600px));
   min-height: 1080px;
   margin: 0 auto;
   padding: 95px 110px 110px;
@@ -555,10 +818,6 @@ button {
   text-transform: uppercase;
 }
 
-.script .blank {
-  height: 1.55em;
-}
-
 /* =========================================================
    FORMAT BAR
 ========================================================= */
@@ -598,14 +857,9 @@ button {
   font-size: 10px;
   font-weight: 700;
   cursor: pointer;
-  transition: .12s ease;
 }
 
-.format-btn:hover {
-  background: #ececea;
-  color: #111;
-}
-
+.format-btn:hover,
 .format-btn.active {
   background: #dededb;
   color: #111;
@@ -704,22 +958,8 @@ button {
   line-height: 1.45;
 }
 
-.chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.chip {
-  padding: 5px 7px;
-  border-radius: 5px;
-  background: #f0f0ed;
-  font-size: 9px;
-  font-weight: 650;
-}
-
 /* =========================================================
-   MODAL
+   MODALS
 ========================================================= */
 
 .modal-backdrop {
@@ -803,7 +1043,6 @@ button {
   background: white;
   color: #161616;
   font-size: 11px;
-  transition: border .12s ease;
 }
 
 .field-input,
@@ -813,7 +1052,7 @@ button {
 }
 
 .field-textarea {
-  min-height: 110px;
+  min-height: 100px;
   padding: 10px;
   resize: vertical;
   line-height: 1.5;
@@ -859,10 +1098,6 @@ button {
   color: white;
 }
 
-.modal-button.primary:hover {
-  background: #292929;
-}
-
 .modal-button.danger {
   border-color: #b5b0b0;
   color: #6c5555;
@@ -895,10 +1130,6 @@ button {
   margin-left: auto;
 }
 
-/* =========================================================
-   TOAST
-========================================================= */
-
 .toast {
   position: absolute;
   top: 20px;
@@ -928,30 +1159,31 @@ button {
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1050px) {
+@media(max-width:1200px) {
 
-  .app {
-    grid-template-columns: 220px minmax(0,1fr);
+  .app.right-open {
+    grid-template-columns: 220px minmax(0,1fr) 220px;
   }
 
   .page,
   .page-title-bar {
-    width: min(800px,calc(100vw - 280px));
+    width: min(760px, calc(100vw - 520px));
   }
 
   .page {
-    padding-left: 85px;
-    padding-right: 85px;
+    padding-left: 80px;
+    padding-right: 80px;
   }
 }
 
-@media(max-width:760px) {
+@media(max-width:850px) {
 
   .app {
     grid-template-columns: 1fr;
   }
 
-  .sidebar {
+  .sidebar,
+  .right-sidebar {
     display: none;
   }
 
@@ -961,18 +1193,11 @@ button {
   }
 
   .page {
-    min-height: 950px;
     padding: 70px 55px;
   }
 
   .editor-scroll {
     padding: 20px 14px 90px;
-  }
-
-  .context-panel {
-    right: 10px;
-    left: 10px;
-    width: auto;
   }
 }
 </style>
@@ -980,10 +1205,10 @@ button {
 
 <body>
 
-<div class="app">
+<div class="app" id="app">
 
   <!-- =====================================================
-       SIDEBAR
+       LEFT SIDEBAR
   ====================================================== -->
 
   <aside class="sidebar">
@@ -994,28 +1219,40 @@ button {
     </div>
 
     <div class="side-tabs">
-      <button class="side-tab active" data-tab="contents">
+
+      <button
+        class="side-tab active"
+        data-tab="contents"
+      >
         CONTENTS
       </button>
 
-      <button class="side-tab" data-tab="comments">
+      <button
+        class="side-tab"
+        data-tab="comments"
+      >
         COMMENTS
       </button>
 
-      <button class="side-tab" data-tab="notes">
+      <button
+        class="side-tab"
+        data-tab="notes"
+      >
         NOTES
       </button>
+
     </div>
 
     <div class="sidebar-content">
 
-      <!-- CONTENTS -->
-
-      <div id="contentsPanel">
+      <div
+        id="contentsPanel"
+      >
 
         <div id="sceneList">
 
           <div class="empty-state contents-empty">
+
             <div class="empty-icon">
               <i data-lucide="file-text"></i>
             </div>
@@ -1027,6 +1264,7 @@ button {
             <div class="empty-text">
               Your screenplay scenes will appear here as you write.
             </div>
+
           </div>
 
         </div>
@@ -1036,7 +1274,10 @@ button {
 
       <!-- COMMENTS -->
 
-      <div id="commentsPanel" class="hidden">
+      <div
+        id="commentsPanel"
+        class="hidden"
+      >
 
         <div class="sidebar-toolbar">
 
@@ -1071,32 +1312,17 @@ button {
         <div
           id="commentsList"
           class="annotation-list"
-        >
-
-          <div class="empty-state">
-
-            <div class="empty-icon">
-              <i data-lucide="message-square"></i>
-            </div>
-
-            <div class="empty-title">
-              No comments
-            </div>
-
-            <div class="empty-text">
-              Add a comment to leave yourself a note about the screenplay.
-            </div>
-
-          </div>
-
-        </div>
+        ></div>
 
       </div>
 
 
       <!-- NOTES -->
 
-      <div id="notesPanel" class="hidden">
+      <div
+        id="notesPanel"
+        class="hidden"
+      >
 
         <div class="sidebar-toolbar">
 
@@ -1131,25 +1357,7 @@ button {
         <div
           id="notesList"
           class="annotation-list"
-        >
-
-          <div class="empty-state">
-
-            <div class="empty-icon">
-              <i data-lucide="sticky-note"></i>
-            </div>
-
-            <div class="empty-title">
-              No notes
-            </div>
-
-            <div class="empty-text">
-              Add a note to keep ideas, references, characters, or visual concepts close.
-            </div>
-
-          </div>
-
-        </div>
+        ></div>
 
       </div>
 
@@ -1199,6 +1407,18 @@ button {
 
         </div>
 
+        <!-- RIGHT BAR TOGGLE -->
+
+        <button
+          class="icon-btn"
+          id="rightBarToggle"
+          title="Creative workspace"
+          aria-label="Toggle creative workspace"
+          aria-pressed="false"
+        >
+          <i data-lucide="panel-right"></i>
+        </button>
+
       </div>
 
 
@@ -1232,8 +1452,6 @@ button {
         id="editorScroll"
       >
 
-        <!-- SMALL PROFESSIONAL TITLE -->
-
         <div class="page-title-bar">
 
           <div class="page-title">
@@ -1241,9 +1459,6 @@ button {
           </div>
 
         </div>
-
-
-        <!-- SCREENPLAY PAGE -->
 
         <article class="page">
 
@@ -1263,9 +1478,7 @@ button {
       </div>
 
 
-      <!-- =================================================
-           SCREENPLAY FORMAT BAR
-      ================================================== -->
+      <!-- FORMAT BAR -->
 
       <div
         class="context-bar"
@@ -1333,9 +1546,7 @@ button {
       </div>
 
 
-      <!-- =================================================
-           CONTEXT PANEL
-      ================================================== -->
+      <!-- DOCUMENT PANEL -->
 
       <aside
         class="context-panel"
@@ -1344,10 +1555,7 @@ button {
 
         <div class="panel-header">
 
-          <div
-            class="panel-title"
-            id="panelTitle"
-          >
+          <div class="panel-title">
             Document
           </div>
 
@@ -1403,9 +1611,7 @@ button {
       </aside>
 
 
-      <!-- =================================================
-           ANNOTATION MODAL
-      ================================================== -->
+      <!-- ANNOTATION MODAL -->
 
       <div
         class="modal-backdrop"
@@ -1482,33 +1688,13 @@ button {
                 class="field-select"
               >
 
-                <option value="Characters">
-                  Characters
-                </option>
-
-                <option value="Landscapes">
-                  Landscapes
-                </option>
-
-                <option value="Story">
-                  Story
-                </option>
-
-                <option value="Dialogue">
-                  Dialogue
-                </option>
-
-                <option value="Visuals">
-                  Visuals
-                </option>
-
-                <option value="Research">
-                  Research
-                </option>
-
-                <option value="General">
-                  General
-                </option>
+                <option>Characters</option>
+                <option>Landscapes</option>
+                <option>Story</option>
+                <option>Dialogue</option>
+                <option>Visuals</option>
+                <option>Research</option>
+                <option>General</option>
 
               </select>
 
@@ -1539,6 +1725,183 @@ button {
       </div>
 
 
+      <!-- =================================================
+           ELEMENT CREATION MODAL
+      ================================================== -->
+
+      <div
+        class="modal-backdrop"
+        id="elementModal"
+      >
+
+        <div class="modal">
+
+          <div class="modal-header">
+
+            <div
+              class="modal-title"
+              id="elementModalTitle"
+            >
+              New Character
+            </div>
+
+            <button
+              class="modal-close"
+              id="elementModalClose"
+            >
+              <i data-lucide="x"></i>
+            </button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="elementName"
+              >
+                Name
+              </label>
+
+              <input
+                id="elementName"
+                class="field-input"
+                placeholder="Enter a name..."
+              >
+
+            </div>
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="elementDescription"
+              >
+                Description
+              </label>
+
+              <textarea
+                id="elementDescription"
+                class="field-textarea"
+                placeholder="Describe this element..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <button
+              class="modal-button"
+              id="elementCancel"
+            >
+              Cancel
+            </button>
+
+            <button
+              class="modal-button primary"
+              id="elementSave"
+            >
+              Create
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           STASH MODAL
+      ================================================== -->
+
+      <div
+        class="modal-backdrop"
+        id="stashModal"
+      >
+
+        <div class="modal">
+
+          <div class="modal-header">
+
+            <div class="modal-title">
+              New Stash Item
+            </div>
+
+            <button
+              class="modal-close"
+              id="stashModalClose"
+            >
+              <i data-lucide="x"></i>
+            </button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="stashTitle"
+              >
+                Title
+              </label>
+
+              <input
+                id="stashTitle"
+                class="field-input"
+                placeholder="Idea, fragment, reference..."
+              >
+
+            </div>
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="stashBody"
+              >
+                Content
+              </label>
+
+              <textarea
+                id="stashBody"
+                class="field-textarea"
+                placeholder="Put anything here..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <button
+              class="modal-button"
+              id="stashCancel"
+            >
+              Cancel
+            </button>
+
+            <button
+              class="modal-button primary"
+              id="stashSave"
+            >
+              Add to Stash
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
       <div
         class="toast"
         id="toast"
@@ -1548,8 +1911,6 @@ button {
 
     </section>
 
-
-    <!-- STATUS -->
 
     <footer class="statusbar">
 
@@ -1567,23 +1928,173 @@ button {
 
       <div class="status-right">
 
-        <span>
-          100%
-        </span>
-
-        <span>
-          Courier Prime
-        </span>
-
-        <span>
-          US Letter
-        </span>
+        <span>100%</span>
+        <span>Courier Prime</span>
+        <span>US Letter</span>
 
       </div>
 
     </footer>
 
   </main>
+
+
+  <!-- =====================================================
+       RIGHT SIDEBAR
+  ====================================================== -->
+
+  <aside
+    class="right-sidebar"
+    id="rightSidebar"
+  >
+
+    <div class="right-header">
+
+      <div class="right-header-title">
+        Creative Workspace
+      </div>
+
+    </div>
+
+    <div class="right-tabs">
+
+      <button
+        class="right-tab active"
+        data-right-tab="elements"
+      >
+        ELEMENTS
+      </button>
+
+      <button
+        class="right-tab"
+        data-right-tab="stash"
+      >
+        STASH
+      </button>
+
+    </div>
+
+    <div class="right-content">
+
+      <!-- ELEMENTS -->
+
+      <div
+        id="elementsPanel"
+      >
+
+        <!-- STORYLINE -->
+
+        <section class="element-section">
+
+          <div class="element-section-header">
+
+            <div class="element-section-title">
+              STORYLINE
+            </div>
+
+            <button
+              class="element-add"
+              data-element-type="storyline"
+              title="Create storyline"
+            >
+              <i data-lucide="plus"></i>
+            </button>
+
+          </div>
+
+          <div id="storylineList"></div>
+
+        </section>
+
+
+        <!-- CHARACTERS -->
+
+        <section class="element-section">
+
+          <div class="element-section-header">
+
+            <div class="element-section-title">
+              CHARACTERS
+            </div>
+
+            <button
+              class="element-add"
+              data-element-type="character"
+              title="Create character"
+            >
+              <i data-lucide="plus"></i>
+            </button>
+
+          </div>
+
+          <div id="characterList"></div>
+
+        </section>
+
+
+        <!-- LOCATIONS -->
+
+        <section class="element-section">
+
+          <div class="element-section-header">
+
+            <div class="element-section-title">
+              LOCATIONS
+            </div>
+
+            <button
+              class="element-add"
+              data-element-type="location"
+              title="Create location"
+            >
+              <i data-lucide="plus"></i>
+            </button>
+
+          </div>
+
+          <div id="locationList"></div>
+
+        </section>
+
+      </div>
+
+
+      <!-- STASH -->
+
+      <div
+        id="stashPanel"
+        class="hidden"
+      >
+
+        <div class="sidebar-toolbar">
+
+          <button
+            class="sidebar-tool"
+            id="addStashButton"
+            title="Add to stash"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+          <div class="sidebar-toolbar-spacer"></div>
+
+          <button
+            class="sidebar-tool danger"
+            id="clearStashButton"
+            title="Clear stash"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
+        </div>
+
+        <div id="stashList"></div>
+
+      </div>
+
+    </div>
+
+  </aside>
 
 </div>
 
@@ -1592,8 +2103,11 @@ button {
 lucide.createIcons();
 
 /* =========================================================
-   ELEMENTS
+   CORE ELEMENTS
 ========================================================= */
+
+const app =
+  document.getElementById("app");
 
 const editor =
   document.getElementById("scriptEditor");
@@ -1610,58 +2124,180 @@ const toast =
 const annotationModal =
   document.getElementById("annotationModal");
 
-const annotationModalTitle =
-  document.getElementById("annotationModalTitle");
+const elementModal =
+  document.getElementById("elementModal");
 
-const annotationTitle =
-  document.getElementById("annotationTitle");
+const stashModal =
+  document.getElementById("stashModal");
 
-const annotationBody =
-  document.getElementById("annotationBody");
 
-const annotationTag =
-  document.getElementById("annotationTag");
-
-const annotationSave =
-  document.getElementById("annotationSave");
-
-const annotationCancel =
-  document.getElementById("annotationCancel");
-
-const annotationModalClose =
-  document.getElementById("annotationModalClose");
-
-const commentsList =
-  document.getElementById("commentsList");
-
-const notesList =
-  document.getElementById("notesList");
-
-const sceneList =
-  document.getElementById("sceneList");
+/* =========================================================
+   STORAGE
+========================================================= */
 
 const STORAGE_KEY =
-  "auteur-sentient-mass-v7";
+  "auteur-sentient-mass-v8";
 
 const COMMENTS_KEY =
-  "auteur-comments-v1";
+  "auteur-comments-v2";
 
 const NOTES_KEY =
-  "auteur-notes-v1";
+  "auteur-notes-v2";
+
+const ELEMENTS_KEY =
+  "auteur-elements-v1";
+
+const STASH_KEY =
+  "auteur-stash-v1";
+
+
+/* =========================================================
+   STATE
+========================================================= */
 
 let activeBlock = null;
 
 let annotationMode = "comment";
 
+let elementMode = "character";
+
 let comments =
-  JSON.parse(localStorage.getItem(COMMENTS_KEY) || "[]");
+  JSON.parse(
+    localStorage.getItem(
+      COMMENTS_KEY
+    ) || "[]"
+  );
 
 let notes =
-  JSON.parse(localStorage.getItem(NOTES_KEY) || "[]");
+  JSON.parse(
+    localStorage.getItem(
+      NOTES_KEY
+    ) || "[]"
+  );
+
+let elements =
+  JSON.parse(
+    localStorage.getItem(
+      ELEMENTS_KEY
+    ) || JSON.stringify({
+      storyline: [],
+      character: [],
+      location: []
+    })
+  );
+
+let stash =
+  JSON.parse(
+    localStorage.getItem(
+      STASH_KEY
+    ) || "[]"
+  );
 
 
 /* =========================================================
-   SAVE SCREENPLAY
+   RIGHT SIDEBAR TOGGLE
+========================================================= */
+
+const rightBarToggle =
+  document.getElementById(
+    "rightBarToggle"
+  );
+
+rightBarToggle.addEventListener(
+  "click",
+  () => {
+
+    const open =
+      app.classList.toggle(
+        "right-open"
+      );
+
+    rightBarToggle.classList.toggle(
+      "active",
+      open
+    );
+
+    rightBarToggle.setAttribute(
+      "aria-pressed",
+      String(open)
+    );
+
+  }
+);
+
+
+/* =========================================================
+   RIGHT TABS
+========================================================= */
+
+const rightTabs =
+  document.querySelectorAll(
+    ".right-tab"
+  );
+
+const elementsPanel =
+  document.getElementById(
+    "elementsPanel"
+  );
+
+const stashPanel =
+  document.getElementById(
+    "stashPanel"
+  );
+
+rightTabs.forEach(tab => {
+
+  tab.addEventListener(
+    "click",
+    () => {
+
+      rightTabs.forEach(item => {
+        item.classList.remove(
+          "active"
+        );
+      });
+
+      tab.classList.add(
+        "active"
+      );
+
+      if (
+        tab.dataset.rightTab ===
+        "elements"
+      ) {
+
+        elementsPanel
+          .classList.remove(
+            "hidden"
+          );
+
+        stashPanel
+          .classList.add(
+            "hidden"
+          );
+
+      } else {
+
+        elementsPanel
+          .classList.add(
+            "hidden"
+          );
+
+        stashPanel
+          .classList.remove(
+            "hidden"
+          );
+
+      }
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   SCREENPLAY SAVE
 ========================================================= */
 
 function saveDocument(showToast = false) {
@@ -1672,7 +2308,9 @@ function saveDocument(showToast = false) {
   );
 
   const saveState =
-    document.querySelector(".save-state");
+    document.querySelector(
+      ".save-state"
+    );
 
   saveState.innerHTML = `
     <span class="save-dot"></span>
@@ -1685,30 +2323,39 @@ function saveDocument(showToast = false) {
 
   updateStats();
   updateScenes();
+
 }
 
 function scheduleSave() {
 
   const saveState =
-    document.querySelector(".save-state");
+    document.querySelector(
+      ".save-state"
+    );
 
   saveState.innerHTML = `
     <span class="save-dot"></span>
     Saving...
   `;
 
-  clearTimeout(window.auteurSaveTimer);
+  clearTimeout(
+    window.auteurSaveTimer
+  );
 
   window.auteurSaveTimer =
-    setTimeout(() => {
-      saveDocument(false);
-    }, 650);
+    setTimeout(
+      () => saveDocument(false),
+      650
+    );
+
 }
 
 function loadDocument() {
 
   const saved =
-    localStorage.getItem(STORAGE_KEY);
+    localStorage.getItem(
+      STORAGE_KEY
+    );
 
   if (saved) {
     editor.innerHTML = saved;
@@ -1730,7 +2377,10 @@ function updateStats() {
 
   const words =
     text
-      ? text.split(/\s+/).filter(Boolean).length
+      ? text
+          .split(/\s+/)
+          .filter(Boolean)
+          .length
       : 0;
 
   const pages =
@@ -1739,68 +2389,96 @@ function updateStats() {
       Math.ceil(words / 250)
     );
 
-  document.getElementById("wordStatus")
-    .textContent =
+  document.getElementById(
+    "wordStatus"
+  ).textContent =
     `${words} words`;
 
-  document.getElementById("pageStatus")
-    .textContent =
+  document.getElementById(
+    "pageStatus"
+  ).textContent =
     `Page ${pages}`;
 
-  document.getElementById("pageCount")
-    .textContent =
-    `${pages} ${pages === 1 ? "page" : "pages"}`;
-}
+  document.getElementById(
+    "pageCount"
+  ).textContent =
+    `${pages} ${
+      pages === 1
+        ? "page"
+        : "pages"
+    }`;
 
-updateStats();
+}
 
 
 /* =========================================================
-   SIDEBAR TABS
+   LEFT TABS
 ========================================================= */
 
-const tabs =
-  document.querySelectorAll(".side-tab");
+const leftTabs =
+  document.querySelectorAll(
+    ".side-tab"
+  );
 
-const panels = {
+const leftPanels = {
+
   contents:
-    document.getElementById("contentsPanel"),
+    document.getElementById(
+      "contentsPanel"
+    ),
 
   comments:
-    document.getElementById("commentsPanel"),
+    document.getElementById(
+      "commentsPanel"
+    ),
 
   notes:
-    document.getElementById("notesPanel")
+    document.getElementById(
+      "notesPanel"
+    )
+
 };
 
-tabs.forEach(tab => {
+leftTabs.forEach(tab => {
 
-  tab.addEventListener("click", () => {
+  tab.addEventListener(
+    "click",
+    () => {
 
-    const target =
-      tab.dataset.tab;
+      const target =
+        tab.dataset.tab;
 
-    tabs.forEach(item => {
-      item.classList.remove("active");
-    });
-
-    tab.classList.add("active");
-
-    Object.values(panels)
-      .forEach(panel => {
-        panel.classList.add("hidden");
+      leftTabs.forEach(item => {
+        item.classList.remove(
+          "active"
+        );
       });
 
-    panels[target]
-      .classList.remove("hidden");
+      tab.classList.add(
+        "active"
+      );
 
-  });
+      Object.values(
+        leftPanels
+      ).forEach(panel => {
+        panel.classList.add(
+          "hidden"
+        );
+      });
+
+      leftPanels[target]
+        .classList.remove(
+          "hidden"
+        );
+
+    }
+  );
 
 });
 
 
 /* =========================================================
-   ACTIVE EDITOR BLOCK
+   EDITOR BLOCK HELPERS
 ========================================================= */
 
 function getBlockFromNode(node) {
@@ -1809,11 +2487,18 @@ function getBlockFromNode(node) {
     return null;
   }
 
-  if (node.nodeType === Node.TEXT_NODE) {
-    node = node.parentElement;
+  if (
+    node.nodeType ===
+    Node.TEXT_NODE
+  ) {
+    node =
+      node.parentElement;
   }
 
-  return node.closest(".script > div");
+  return node.closest(
+    ".script > div"
+  );
+
 }
 
 function getCurrentBlock() {
@@ -1831,8 +2516,10 @@ function getCurrentBlock() {
   return (
     getBlockFromNode(
       selection.anchorNode
-    ) || activeBlock
+    ) ||
+    activeBlock
   );
+
 }
 
 function setActiveBlock(block) {
@@ -1841,9 +2528,13 @@ function setActiveBlock(block) {
     return;
   }
 
-  activeBlock = block;
+  activeBlock =
+    block;
 
-  updateFormatButtons(block);
+  updateFormatButtons(
+    block
+  );
+
 }
 
 
@@ -1851,38 +2542,58 @@ function setActiveBlock(block) {
    FORMAT BUTTON STATE
 ========================================================= */
 
-function updateFormatButtons(block) {
+function updateFormatButtons(
+  block
+) {
 
   document
-    .querySelectorAll(".format-btn[data-format]")
+    .querySelectorAll(
+      ".format-btn[data-format]"
+    )
     .forEach(button => {
 
-      button.classList.remove("active");
+      button.classList.remove(
+        "active"
+      );
 
       const format =
         button.dataset.format;
 
       const matches =
         (format === "scene" &&
-          block.classList.contains("scene-heading")) ||
+          block.classList.contains(
+            "scene-heading"
+          )) ||
 
         (format === "action" &&
-          block.classList.contains("action")) ||
+          block.classList.contains(
+            "action"
+          )) ||
 
         (format === "character" &&
-          block.classList.contains("character")) ||
+          block.classList.contains(
+            "character"
+          )) ||
 
         (format === "parenthetical" &&
-          block.classList.contains("parenthetical")) ||
+          block.classList.contains(
+            "parenthetical"
+          )) ||
 
         (format === "dialogue" &&
-          block.classList.contains("dialogue")) ||
+          block.classList.contains(
+            "dialogue"
+          )) ||
 
         (format === "transition" &&
-          block.classList.contains("transition"));
+          block.classList.contains(
+            "transition"
+          ));
 
       if (matches) {
-        button.classList.add("active");
+        button.classList.add(
+          "active"
+        );
       }
 
     });
@@ -1895,51 +2606,46 @@ function updateFormatButtons(block) {
 ========================================================= */
 
 function showFormatBar() {
-  formatBar.classList.add("visible");
+  formatBar.classList.add(
+    "visible"
+  );
 }
 
-editor.addEventListener("focus", () => {
+editor.addEventListener(
+  "focus",
+  () => {
 
-  const block =
-    getCurrentBlock();
+    const block =
+      getCurrentBlock();
 
-  if (block) {
-    setActiveBlock(block);
+    if (block) {
+      setActiveBlock(block);
+    }
+
+    showFormatBar();
+
   }
+);
 
-  showFormatBar();
+editor.addEventListener(
+  "click",
+  () => {
 
-});
+    const block =
+      getCurrentBlock();
 
-editor.addEventListener("click", () => {
+    if (block) {
+      setActiveBlock(block);
+    }
 
-  const block =
-    getCurrentBlock();
+    showFormatBar();
 
-  if (block) {
-    setActiveBlock(block);
   }
-
-  showFormatBar();
-
-});
-
-editor.addEventListener("keyup", () => {
-
-  const block =
-    getCurrentBlock();
-
-  if (block) {
-    setActiveBlock(block);
-  }
-
-  showFormatBar();
-
-});
+);
 
 
 /* =========================================================
-   SCREENPLAY FORMATTING
+   FORMAT SCREENPLAY
 ========================================================= */
 
 const FORMAT_CLASSES = [
@@ -1959,26 +2665,39 @@ function clearFormat(block) {
   );
 
   block.style.textAlign = "";
+
 }
 
-function placeCaretAtEnd(element) {
+function placeCaretAtEnd(
+  element
+) {
 
   const range =
     document.createRange();
 
-  range.selectNodeContents(element);
+  range.selectNodeContents(
+    element
+  );
+
   range.collapse(false);
 
   const selection =
     window.getSelection();
 
   selection.removeAllRanges();
-  selection.addRange(range);
+
+  selection.addRange(
+    range
+  );
 
   editor.focus();
+
 }
 
-function formatBlock(block, format) {
+function formatBlock(
+  block,
+  format
+) {
 
   if (!block) {
     return;
@@ -2000,22 +2719,32 @@ function formatBlock(block, format) {
 
   }
 
-  else if (format === "action") {
+  else if (
+    format === "action"
+  ) {
 
-    block.classList.add("action");
+    block.classList.add(
+      "action"
+    );
 
   }
 
-  else if (format === "character") {
+  else if (
+    format === "character"
+  ) {
 
-    block.classList.add("character");
+    block.classList.add(
+      "character"
+    );
 
     block.textContent =
       text.toUpperCase();
 
   }
 
-  else if (format === "parenthetical") {
+  else if (
+    format === "parenthetical"
+  ) {
 
     block.classList.add(
       "parenthetical"
@@ -2025,13 +2754,17 @@ function formatBlock(block, format) {
       text &&
       !text.startsWith("(")
     ) {
+
       block.textContent =
         `(${text})`;
+
     }
 
   }
 
-  else if (format === "dialogue") {
+  else if (
+    format === "dialogue"
+  ) {
 
     block.classList.add(
       "dialogue"
@@ -2039,7 +2772,9 @@ function formatBlock(block, format) {
 
   }
 
-  else if (format === "transition") {
+  else if (
+    format === "transition"
+  ) {
 
     block.classList.add(
       "transition"
@@ -2052,7 +2787,9 @@ function formatBlock(block, format) {
 
   setActiveBlock(block);
 
-  placeCaretAtEnd(block);
+  placeCaretAtEnd(
+    block
+  );
 
   scheduleSave();
 
@@ -2060,11 +2797,13 @@ function formatBlock(block, format) {
 
 
 /* =========================================================
-   FORMAT BUTTON EVENTS
+   FORMAT EVENTS
 ========================================================= */
 
 document
-  .querySelectorAll(".format-btn[data-format]")
+  .querySelectorAll(
+    ".format-btn[data-format]"
+  )
   .forEach(button => {
 
     button.addEventListener(
@@ -2097,323 +2836,171 @@ document
   });
 
 
-/* =========================================================
-   BOLD
-========================================================= */
+document
+  .getElementById(
+    "boldButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document.execCommand(
+        "bold",
+        false,
+        null
+      );
+
+      editor.focus();
+      scheduleSave();
+
+    }
+  );
+
 
 document
-  .getElementById("boldButton")
-  .addEventListener("mousedown", event => {
-    event.preventDefault();
-  });
+  .getElementById(
+    "italicButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
 
-document
-  .getElementById("boldButton")
-  .addEventListener("click", () => {
+      document.execCommand(
+        "italic",
+        false,
+        null
+      );
 
-    document.execCommand(
-      "bold",
-      false,
-      null
-    );
+      editor.focus();
+      scheduleSave();
 
-    editor.focus();
-
-    scheduleSave();
-
-  });
-
-
-/* =========================================================
-   ITALIC
-========================================================= */
-
-document
-  .getElementById("italicButton")
-  .addEventListener("mousedown", event => {
-    event.preventDefault();
-  });
-
-document
-  .getElementById("italicButton")
-  .addEventListener("click", () => {
-
-    document.execCommand(
-      "italic",
-      false,
-      null
-    );
-
-    editor.focus();
-
-    scheduleSave();
-
-  });
+    }
+  );
 
 
 /* =========================================================
    SMART ENTER
 ========================================================= */
 
-editor.addEventListener("keydown", event => {
+editor.addEventListener(
+  "keydown",
+  event => {
 
-  if (event.key !== "Enter") {
-    return;
-  }
+    if (
+      event.key !==
+      "Enter"
+    ) {
+      return;
+    }
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const block =
-    getCurrentBlock();
+    const block =
+      getCurrentBlock();
 
-  if (!block) {
-    return;
-  }
+    if (!block) {
+      return;
+    }
 
-  let nextFormat =
-    "action";
-
-  if (
-    block.classList.contains(
-      "scene-heading"
-    )
-  ) {
-    nextFormat = "action";
-  }
-
-  else if (
-    block.classList.contains(
-      "action"
-    )
-  ) {
-    nextFormat = "action";
-  }
-
-  else if (
-    block.classList.contains(
-      "character"
-    )
-  ) {
-    nextFormat = "dialogue";
-  }
-
-  else if (
-    block.classList.contains(
-      "parenthetical"
-    )
-  ) {
-    nextFormat = "dialogue";
-  }
-
-  else if (
-    block.classList.contains(
-      "dialogue"
-    )
-  ) {
-    nextFormat = "action";
-  }
-
-  else if (
-    block.classList.contains(
-      "transition"
-    )
-  ) {
-    nextFormat = "scene-heading";
-  }
-
-  const newBlock =
-    document.createElement("div");
-
-  newBlock.classList.add(
-    nextFormat
-  );
-
-  newBlock.innerHTML =
-    "<br>";
-
-  block.insertAdjacentElement(
-    "afterend",
-    newBlock
-  );
-
-  setActiveBlock(newBlock);
-
-  placeCaretAtEnd(newBlock);
-
-  scheduleSave();
-
-});
-
-
-/* =========================================================
-   BACKSPACE EMPTY LINE
-========================================================= */
-
-editor.addEventListener("keydown", event => {
-
-  if (event.key !== "Backspace") {
-    return;
-  }
-
-  const block =
-    getCurrentBlock();
-
-  if (!block) {
-    return;
-  }
-
-  if (
-    block.innerText.trim() !== ""
-  ) {
-    return;
-  }
-
-  const previous =
-    block.previousElementSibling;
-
-  if (!previous) {
-    return;
-  }
-
-  event.preventDefault();
-
-  block.remove();
-
-  setActiveBlock(previous);
-
-  placeCaretAtEnd(previous);
-
-  scheduleSave();
-
-});
-
-
-/* =========================================================
-   TAB FORMAT CYCLING
-========================================================= */
-
-editor.addEventListener("keydown", event => {
-
-  if (event.key !== "Tab") {
-    return;
-  }
-
-  event.preventDefault();
-
-  const block =
-    getCurrentBlock();
-
-  if (!block) {
-    return;
-  }
-
-  const sequence = [
-    "scene",
-    "action",
-    "character",
-    "parenthetical",
-    "dialogue",
-    "transition"
-  ];
-
-  const current =
-    block.classList.contains(
-      "scene-heading"
-    )
-      ? "scene"
-
-      : block.classList.contains(
-          "action"
-        )
-      ? "action"
-
-      : block.classList.contains(
-          "character"
-        )
-      ? "character"
-
-      : block.classList.contains(
-          "parenthetical"
-        )
-      ? "parenthetical"
-
-      : block.classList.contains(
-          "dialogue"
-        )
-      ? "dialogue"
-
-      : block.classList.contains(
-          "transition"
-        )
-      ? "transition"
-
-      : "action";
-
-  const index =
-    sequence.indexOf(current);
-
-  const next =
-    sequence[
-      (index + 1) %
-      sequence.length
-    ];
-
-  formatBlock(
-    block,
-    next
-  );
-
-});
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-editor.addEventListener("input", () => {
-
-  const block =
-    getCurrentBlock();
-
-  if (block) {
-
-    setActiveBlock(block);
+    let nextFormat =
+      "action";
 
     if (
       block.classList.contains(
         "character"
       )
     ) {
-
-      const text =
-        block.innerText
-          .replace(/\n/g, "");
-
-      if (
-        text !==
-        text.toUpperCase()
-      ) {
-
-        block.textContent =
-          text.toUpperCase();
-
-        placeCaretAtEnd(block);
-
-      }
-
+      nextFormat =
+        "dialogue";
     }
 
+    else if (
+      block.classList.contains(
+        "parenthetical"
+      )
+    ) {
+      nextFormat =
+        "dialogue";
+    }
+
+    else if (
+      block.classList.contains(
+        "dialogue"
+      )
+    ) {
+      nextFormat =
+        "action";
+    }
+
+    else if (
+      block.classList.contains(
+        "transition"
+      )
+    ) {
+      nextFormat =
+        "scene-heading";
+    }
+
+    const newBlock =
+      document.createElement(
+        "div"
+      );
+
+    newBlock.classList.add(
+      nextFormat
+    );
+
+    newBlock.innerHTML =
+      "<br>";
+
+    block.insertAdjacentElement(
+      "afterend",
+      newBlock
+    );
+
+    setActiveBlock(
+      newBlock
+    );
+
+    placeCaretAtEnd(
+      newBlock
+    );
+
+    scheduleSave();
+
   }
-
-  scheduleSave();
-  updateStats();
-  updateScenes();
-
-});
+);
 
 
 /* =========================================================
-   SCENE INDEX
+   INPUT
+========================================================= */
+
+editor.addEventListener(
+  "input",
+  () => {
+
+    const block =
+      getCurrentBlock();
+
+    if (block) {
+      setActiveBlock(
+        block
+      );
+    }
+
+    scheduleSave();
+
+    updateStats();
+
+    updateScenes();
+
+  }
+);
+
+
+/* =========================================================
+   SCENES
 ========================================================= */
 
 function updateScenes() {
@@ -2425,12 +3012,18 @@ function updateScenes() {
       )
     ];
 
+  const sceneList =
+    document.getElementById(
+      "sceneList"
+    );
+
   sceneList.innerHTML = "";
 
   if (!headings.length) {
 
     sceneList.innerHTML = `
       <div class="empty-state contents-empty">
+
         <div class="empty-icon">
           <i data-lucide="file-text"></i>
         </div>
@@ -2442,72 +3035,94 @@ function updateScenes() {
         <div class="empty-text">
           Format a line as SCENE to build your screenplay structure.
         </div>
+
       </div>
     `;
 
     lucide.createIcons();
 
     return;
+
   }
 
-  headings.forEach((heading, index) => {
+  headings.forEach(
+    (heading, index) => {
 
-    const item =
-      document.createElement("div");
+      const item =
+        document.createElement(
+          "div"
+        );
 
-    item.className =
-      "scene-item";
+      item.className =
+        "scene-item";
 
-    if (heading === activeBlock) {
-      item.classList.add("active");
+      if (
+        heading ===
+        activeBlock
+      ) {
+        item.classList.add(
+          "active"
+        );
+      }
+
+      const title =
+        heading.innerText.trim() ||
+        "UNTITLED SCENE";
+
+      item.innerHTML = `
+        <div class="scene-number">
+          ${String(
+            index + 1
+          ).padStart(2, "0")}
+        </div>
+
+        <div class="scene-copy">
+
+          <div class="scene-title">
+            ${escapeHTML(title)}
+          </div>
+
+          <div class="scene-meta">
+            SCENE ${index + 1}
+          </div>
+
+        </div>
+      `;
+
+      item.addEventListener(
+        "click",
+        () => {
+
+          heading.scrollIntoView({
+            behavior:
+              "smooth",
+            block:
+              "center"
+          });
+
+          setActiveBlock(
+            heading
+          );
+
+          placeCaretAtEnd(
+            heading
+          );
+
+        }
+      );
+
+      sceneList.appendChild(
+        item
+      );
+
     }
-
-    const title =
-      heading.innerText.trim() ||
-      "UNTITLED SCENE";
-
-    item.innerHTML = `
-      <div class="scene-number">
-        ${String(index + 1).padStart(2,"0")}
-      </div>
-
-      <div class="scene-copy">
-
-        <div class="scene-title">
-          ${escapeHTML(title)}
-        </div>
-
-        <div class="scene-meta">
-          SCENE ${index + 1}
-        </div>
-
-      </div>
-    `;
-
-    item.addEventListener("click", () => {
-
-      heading.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
-      setActiveBlock(heading);
-
-      placeCaretAtEnd(heading);
-
-    });
-
-    sceneList.appendChild(item);
-
-  });
+  );
 
 }
 
-updateScenes();
-
 
 /* =========================================================
-   COMMENTS / NOTES STORAGE
+   ANNOTATIONS
 ========================================================= */
 
 function saveAnnotations() {
@@ -2524,12 +3139,9 @@ function saveAnnotations() {
 
 }
 
-
-/* =========================================================
-   ANNOTATION EMPTY STATE
-========================================================= */
-
-function renderEmpty(type) {
+function renderEmpty(
+  type
+) {
 
   const icon =
     type === "comment"
@@ -2563,52 +3175,6 @@ function renderEmpty(type) {
 
     </div>
   `;
-}
-
-
-/* =========================================================
-   RENDER ANNOTATIONS
-========================================================= */
-
-function renderAnnotations() {
-
-  commentsList.innerHTML = "";
-
-  notesList.innerHTML = "";
-
-  if (!comments.length) {
-    commentsList.innerHTML =
-      renderEmpty("comment");
-  }
-
-  if (!notes.length) {
-    notesList.innerHTML =
-      renderEmpty("note");
-  }
-
-  comments.forEach(item => {
-
-    commentsList.appendChild(
-      createAnnotationElement(
-        item,
-        "comment"
-      )
-    );
-
-  });
-
-  notes.forEach(item => {
-
-    notesList.appendChild(
-      createAnnotationElement(
-        item,
-        "note"
-      )
-    );
-
-  });
-
-  lucide.createIcons();
 
 }
 
@@ -2618,7 +3184,9 @@ function createAnnotationElement(
 ) {
 
   const element =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   element.className =
     "annotation";
@@ -2654,10 +3222,13 @@ function createAnnotationElement(
       ${type === "comment"
         ? "Comment"
         : "Note"}
-      · ${new Date(
-        item.created
-      ).toLocaleDateString()}
+      · ${
+        new Date(
+          item.created
+        ).toLocaleDateString()
+      }
     </div>
+
   `;
 
   element.addEventListener(
@@ -2665,79 +3236,152 @@ function createAnnotationElement(
     () => {
 
       if (
-        confirm(
+        !confirm(
           `Delete "${item.title}"?`
         )
       ) {
+        return;
+      }
 
-        if (type === "comment") {
+      if (
+        type ===
+        "comment"
+      ) {
 
-          comments =
-            comments.filter(
-              x => x.id !== item.id
-            );
+        comments =
+          comments.filter(
+            x =>
+              x.id !==
+              item.id
+          );
 
-        } else {
+      } else {
 
-          notes =
-            notes.filter(
-              x => x.id !== item.id
-            );
-
-        }
-
-        saveAnnotations();
-        renderAnnotations();
-
-        showMessage(
-          `${type === "comment"
-            ? "Comment"
-            : "Note"} deleted`
-        );
+        notes =
+          notes.filter(
+            x =>
+              x.id !==
+              item.id
+          );
 
       }
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      showMessage(
+        `${type === "comment"
+          ? "Comment"
+          : "Note"} deleted`
+      );
 
     }
   );
 
   return element;
+
 }
 
-renderAnnotations();
+function renderAnnotations() {
+
+  const commentsList =
+    document.getElementById(
+      "commentsList"
+    );
+
+  const notesList =
+    document.getElementById(
+      "notesList"
+    );
+
+  commentsList.innerHTML =
+    comments.length
+      ? ""
+      : renderEmpty(
+          "comment"
+        );
+
+  notesList.innerHTML =
+    notes.length
+      ? ""
+      : renderEmpty(
+          "note"
+        );
+
+  comments.forEach(
+    item => {
+
+      commentsList.appendChild(
+        createAnnotationElement(
+          item,
+          "comment"
+        )
+      );
+
+    }
+  );
+
+  notes.forEach(
+    item => {
+
+      notesList.appendChild(
+        createAnnotationElement(
+          item,
+          "note"
+        )
+      );
+
+    }
+  );
+
+  lucide.createIcons();
+
+}
 
 
 /* =========================================================
-   OPEN ANNOTATION MODAL
+   ANNOTATION MODAL
 ========================================================= */
 
-function openAnnotationModal(type) {
+function openAnnotationModal(
+  type
+) {
 
   annotationMode =
     type;
 
-  annotationModalTitle.textContent =
+  document.getElementById(
+    "annotationModalTitle"
+  ).textContent =
     type === "comment"
       ? "New Comment"
       : "New Note";
 
-  annotationTitle.value = "";
-  annotationBody.value = "";
-  annotationTag.value = "General";
+  document.getElementById(
+    "annotationTitle"
+  ).value = "";
+
+  document.getElementById(
+    "annotationBody"
+  ).value = "";
 
   annotationModal.classList.add(
     "open"
   );
 
-  setTimeout(() => {
-    annotationTitle.focus();
-  }, 80);
+  setTimeout(
+    () =>
+      document
+        .getElementById(
+          "annotationTitle"
+        )
+        .focus(),
+    80
+  );
 
 }
 
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
 
 function closeAnnotationModal() {
 
@@ -2748,27 +3392,18 @@ function closeAnnotationModal() {
 }
 
 
-/* =========================================================
-   ADD COMMENT
-========================================================= */
-
 document
   .getElementById(
     "addCommentButton"
   )
   .addEventListener(
     "click",
-    () => {
+    () =>
       openAnnotationModal(
         "comment"
-      );
-    }
+      )
   );
 
-
-/* =========================================================
-   ADD NOTE
-========================================================= */
 
 document
   .getElementById(
@@ -2776,17 +3411,12 @@ document
   )
   .addEventListener(
     "click",
-    () => {
+    () =>
       openAnnotationModal(
         "note"
-      );
-    }
+      )
   );
 
-
-/* =========================================================
-   SETTINGS BUTTONS
-========================================================= */
 
 document
   .getElementById(
@@ -2794,20 +3424,12 @@ document
   )
   .addEventListener(
     "click",
-    () => {
-
+    () =>
       openAnnotationModal(
         "comment"
-      );
-
-      annotationModalTitle.textContent =
-        "Comment Organization";
-
-      annotationBody.placeholder =
-        "Create a comment with a tag to organize it.";
-
-    }
+      )
   );
+
 
 document
   .getElementById(
@@ -2815,136 +3437,111 @@ document
   )
   .addEventListener(
     "click",
-    () => {
-
+    () =>
       openAnnotationModal(
         "note"
+      )
+  );
+
+
+document
+  .getElementById(
+    "annotationSave"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      const title =
+        document.getElementById(
+          "annotationTitle"
+        ).value.trim();
+
+      const body =
+        document.getElementById(
+          "annotationBody"
+        ).value.trim();
+
+      const tag =
+        document.getElementById(
+          "annotationTag"
+        ).value;
+
+      if (!title && !body) {
+        return;
+      }
+
+      const annotation = {
+
+        id:
+          Date.now()
+            .toString(),
+
+        title:
+          title ||
+          "Untitled",
+
+        body,
+
+        tag,
+
+        created:
+          Date.now()
+
+      };
+
+      if (
+        annotationMode ===
+        "comment"
+      ) {
+
+        comments.unshift(
+          annotation
+        );
+
+      } else {
+
+        notes.unshift(
+          annotation
+        );
+
+      }
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      closeAnnotationModal();
+
+      showMessage(
+        annotationMode ===
+        "comment"
+          ? "Comment created"
+          : "Note created"
       );
-
-      annotationModalTitle.textContent =
-        "Note Organization";
-
-      annotationBody.placeholder =
-        "Create a note with a tag to organize it.";
 
     }
   );
 
 
-/* =========================================================
-   SAVE ANNOTATION
-========================================================= */
+document
+  .getElementById(
+    "annotationCancel"
+  )
+  .addEventListener(
+    "click",
+    closeAnnotationModal
+  );
 
-annotationSave.addEventListener(
-  "click",
-  () => {
+document
+  .getElementById(
+    "annotationModalClose"
+  )
+  .addEventListener(
+    "click",
+    closeAnnotationModal
+  );
 
-    const title =
-      annotationTitle.value.trim();
-
-    const body =
-      annotationBody.value.trim();
-
-    const tag =
-      annotationTag.value;
-
-    if (!title && !body) {
-
-      annotationTitle.focus();
-
-      return;
-
-    }
-
-    const annotation = {
-
-      id:
-        Date.now().toString(),
-
-      title:
-        title ||
-        (
-          annotationMode === "comment"
-            ? "Untitled Comment"
-            : "Untitled Note"
-        ),
-
-      body:
-        body,
-
-      tag:
-        tag,
-
-      created:
-        Date.now()
-
-    };
-
-    if (
-      annotationMode ===
-      "comment"
-    ) {
-
-      comments.unshift(
-        annotation
-      );
-
-    } else {
-
-      notes.unshift(
-        annotation
-      );
-
-    }
-
-    saveAnnotations();
-
-    renderAnnotations();
-
-    closeAnnotationModal();
-
-    showMessage(
-      annotationMode === "comment"
-        ? "Comment created"
-        : "Note created"
-    );
-
-  }
-);
-
-
-/* =========================================================
-   MODAL CLOSE
-========================================================= */
-
-annotationCancel.addEventListener(
-  "click",
-  closeAnnotationModal
-);
-
-annotationModalClose.addEventListener(
-  "click",
-  closeAnnotationModal
-);
-
-annotationModal.addEventListener(
-  "click",
-  event => {
-
-    if (
-      event.target ===
-      annotationModal
-    ) {
-      closeAnnotationModal();
-    }
-
-  }
-);
-
-
-/* =========================================================
-   DELETE ALL COMMENTS
-========================================================= */
 
 document
   .getElementById(
@@ -2961,12 +3558,11 @@ document
         return;
       }
 
-      const confirmed =
-        confirm(
+      if (
+        !confirm(
           "Delete all comments? This cannot be undone."
-        );
-
-      if (!confirmed) {
+        )
+      ) {
         return;
       }
 
@@ -2984,10 +3580,6 @@ document
   );
 
 
-/* =========================================================
-   DELETE ALL NOTES
-========================================================= */
-
 document
   .getElementById(
     "clearNotesButton"
@@ -3003,12 +3595,11 @@ document
         return;
       }
 
-      const confirmed =
-        confirm(
+      if (
+        !confirm(
           "Delete all notes? This cannot be undone."
-        );
-
-      if (!confirmed) {
+        )
+      ) {
         return;
       }
 
@@ -3027,6 +3618,643 @@ document
 
 
 /* =========================================================
+   ELEMENTS STORAGE
+========================================================= */
+
+function saveElements() {
+
+  localStorage.setItem(
+    ELEMENTS_KEY,
+    JSON.stringify(
+      elements
+    )
+  );
+
+}
+
+
+/* =========================================================
+   ELEMENT CONFIG
+========================================================= */
+
+const elementConfig = {
+
+  storyline: {
+    title:
+      "New Storyline",
+    icon:
+      "git-branch"
+  },
+
+  character: {
+    title:
+      "New Character",
+    icon:
+      "user"
+  },
+
+  location: {
+    title:
+      "New Location",
+    icon:
+      "map-pin"
+  }
+
+};
+
+
+/* =========================================================
+   CREATE ELEMENT
+========================================================= */
+
+function openElementModal(
+  type
+) {
+
+  elementMode =
+    type;
+
+  document.getElementById(
+    "elementModalTitle"
+  ).textContent =
+    elementConfig[type]
+      .title;
+
+  document.getElementById(
+    "elementName"
+  ).value = "";
+
+  document.getElementById(
+    "elementDescription"
+  ).value = "";
+
+  elementModal.classList.add(
+    "open"
+  );
+
+  setTimeout(
+    () =>
+      document
+        .getElementById(
+          "elementName"
+        )
+        .focus(),
+    80
+  );
+
+}
+
+
+document
+  .querySelectorAll(
+    ".element-add"
+  )
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        openElementModal(
+          button.dataset
+            .elementType
+        );
+
+      }
+    );
+
+  });
+
+
+document
+  .getElementById(
+    "elementSave"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      const name =
+        document.getElementById(
+          "elementName"
+        ).value.trim();
+
+      const description =
+        document.getElementById(
+          "elementDescription"
+        ).value.trim();
+
+      if (!name) {
+        return;
+      }
+
+      elements[
+        elementMode
+      ].push({
+
+        id:
+          Date.now()
+            .toString(),
+
+        name,
+
+        description,
+
+        created:
+          Date.now()
+
+      });
+
+      saveElements();
+
+      renderElements();
+
+      elementModal.classList.remove(
+        "open"
+      );
+
+      showMessage(
+        `${
+          elementConfig[
+            elementMode
+          ].title.replace(
+            "New ",
+            ""
+          )
+        } created`
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "elementCancel"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      elementModal.classList.remove(
+        "open"
+      )
+  );
+
+
+document
+  .getElementById(
+    "elementModalClose"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      elementModal.classList.remove(
+        "open"
+      )
+  );
+
+
+/* =========================================================
+   RENDER ELEMENTS
+========================================================= */
+
+function renderElementSection(
+  type,
+  containerId
+) {
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+  container.innerHTML = "";
+
+  if (
+    !elements[type].length
+  ) {
+
+    container.innerHTML = `
+      <div class="element-empty">
+        None created yet.
+      </div>
+    `;
+
+    return;
+  }
+
+  elements[type].forEach(
+    item => {
+
+      const element =
+        document.createElement(
+          "div"
+        );
+
+      element.className =
+        "element-item";
+
+      element.innerHTML = `
+
+        <div class="element-icon">
+          <i data-lucide="${
+            elementConfig[type]
+              .icon
+          }"></i>
+        </div>
+
+        <div class="element-copy">
+
+          <div class="element-name">
+            ${escapeHTML(
+              item.name
+            )}
+          </div>
+
+          ${
+            item.description
+              ? `
+                <div class="element-description">
+                  ${escapeHTML(
+                    item.description
+                  )}
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+
+        <button
+          class="element-delete"
+          title="Delete"
+        >
+          <i data-lucide="trash-2"></i>
+        </button>
+
+      `;
+
+      element
+        .querySelector(
+          ".element-delete"
+        )
+        .addEventListener(
+          "click",
+          event => {
+
+            event.stopPropagation();
+
+            if (
+              !confirm(
+                `Delete "${item.name}"?`
+              )
+            ) {
+              return;
+            }
+
+            elements[type] =
+              elements[type]
+                .filter(
+                  x =>
+                    x.id !==
+                    item.id
+                );
+
+            saveElements();
+
+            renderElements();
+
+            showMessage(
+              "Element deleted"
+            );
+
+          }
+        );
+
+      container.appendChild(
+        element
+      );
+
+    }
+  );
+
+}
+
+
+function renderElements() {
+
+  renderElementSection(
+    "storyline",
+    "storylineList"
+  );
+
+  renderElementSection(
+    "character",
+    "characterList"
+  );
+
+  renderElementSection(
+    "location",
+    "locationList"
+  );
+
+  lucide.createIcons();
+
+}
+
+
+/* =========================================================
+   STASH
+========================================================= */
+
+function saveStash() {
+
+  localStorage.setItem(
+    STASH_KEY,
+    JSON.stringify(
+      stash
+    )
+  );
+
+}
+
+
+function renderStash() {
+
+  const list =
+    document.getElementById(
+      "stashList"
+    );
+
+  list.innerHTML = "";
+
+  if (!stash.length) {
+
+    list.innerHTML = `
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          <i data-lucide="archive"></i>
+        </div>
+
+        <div class="empty-title">
+          Stash is empty
+        </div>
+
+        <div class="empty-text">
+          Keep ideas and fragments here until they're ready for the screenplay.
+        </div>
+
+      </div>
+    `;
+
+    lucide.createIcons();
+
+    return;
+
+  }
+
+  stash.forEach(
+    item => {
+
+      const entry =
+        document.createElement(
+          "div"
+        );
+
+      entry.className =
+        "stash-entry";
+
+      entry.innerHTML = `
+
+        <div class="stash-entry-icon">
+          <i data-lucide="archive"></i>
+        </div>
+
+        <div class="stash-entry-copy">
+
+          <div class="stash-entry-title">
+            ${escapeHTML(
+              item.title
+            )}
+          </div>
+
+          <div class="stash-entry-body">
+            ${escapeHTML(
+              item.body
+            )}
+          </div>
+
+        </div>
+
+        <button
+          class="stash-delete"
+          title="Delete"
+        >
+          <i data-lucide="trash-2"></i>
+        </button>
+
+      `;
+
+      entry
+        .querySelector(
+          ".stash-delete"
+        )
+        .addEventListener(
+          "click",
+          () => {
+
+            stash =
+              stash.filter(
+                x =>
+                  x.id !==
+                  item.id
+              );
+
+            saveStash();
+
+            renderStash();
+
+            showMessage(
+              "Stash item deleted"
+            );
+
+          }
+        );
+
+      list.appendChild(
+        entry
+      );
+
+    }
+  );
+
+  lucide.createIcons();
+
+}
+
+
+/* =========================================================
+   STASH MODAL
+========================================================= */
+
+function openStashModal() {
+
+  document.getElementById(
+    "stashTitle"
+  ).value = "";
+
+  document.getElementById(
+    "stashBody"
+  ).value = "";
+
+  stashModal.classList.add(
+    "open"
+  );
+
+  setTimeout(
+    () =>
+      document.getElementById(
+        "stashTitle"
+      ).focus(),
+    80
+  );
+
+}
+
+
+document
+  .getElementById(
+    "addStashButton"
+  )
+  .addEventListener(
+    "click",
+    openStashModal
+  );
+
+
+document
+  .getElementById(
+    "stashSave"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      const title =
+        document.getElementById(
+          "stashTitle"
+        ).value.trim();
+
+      const body =
+        document.getElementById(
+          "stashBody"
+        ).value.trim();
+
+      if (!title && !body) {
+        return;
+      }
+
+      stash.unshift({
+
+        id:
+          Date.now()
+            .toString(),
+
+        title:
+          title ||
+          "Untitled",
+
+        body,
+
+        created:
+          Date.now()
+
+      });
+
+      saveStash();
+
+      renderStash();
+
+      stashModal.classList.remove(
+        "open"
+      );
+
+      showMessage(
+        "Added to stash"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "stashCancel"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      stashModal.classList.remove(
+        "open"
+      )
+  );
+
+
+document
+  .getElementById(
+    "stashModalClose"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      stashModal.classList.remove(
+        "open"
+      )
+  );
+
+
+document
+  .getElementById(
+    "clearStashButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if (!stash.length) {
+
+        showMessage(
+          "Stash is already empty"
+        );
+
+        return;
+
+      }
+
+      if (
+        !confirm(
+          "Delete everything in the stash?"
+        )
+      ) {
+        return;
+      }
+
+      stash = [];
+
+      saveStash();
+
+      renderStash();
+
+      showMessage(
+        "Stash cleared"
+      );
+
+    }
+  );
+
+
+/* =========================================================
    DOCUMENT PANEL
 ========================================================= */
 
@@ -3036,14 +4264,12 @@ document
   )
   .addEventListener(
     "click",
-    () => {
-
+    () =>
       contextPanel.classList.add(
         "open"
-      );
-
-    }
+      )
   );
+
 
 document
   .getElementById(
@@ -3051,13 +4277,10 @@ document
   )
   .addEventListener(
     "click",
-    () => {
-
+    () =>
       contextPanel.classList.remove(
         "open"
-      );
-
-    }
+      )
   );
 
 
@@ -3070,10 +4293,21 @@ document.addEventListener(
   event => {
 
     if (
-      event.key === "Escape"
+      event.key ===
+      "Escape"
     ) {
 
-      closeAnnotationModal();
+      annotationModal.classList.remove(
+        "open"
+      );
+
+      elementModal.classList.remove(
+        "open"
+      );
+
+      stashModal.classList.remove(
+        "open"
+      );
 
       contextPanel.classList.remove(
         "open"
@@ -3084,7 +4318,8 @@ document.addEventListener(
     if (
       (event.metaKey ||
        event.ctrlKey) &&
-      event.key.toLowerCase() === "s"
+      event.key.toLowerCase() ===
+        "s"
     ) {
 
       event.preventDefault();
@@ -3101,7 +4336,9 @@ document.addEventListener(
    TOAST
 ========================================================= */
 
-function showMessage(message) {
+function showMessage(
+  message
+) {
 
   toast.textContent =
     message;
@@ -3115,13 +4352,13 @@ function showMessage(message) {
   );
 
   window.auteurToastTimer =
-    setTimeout(() => {
-
-      toast.classList.remove(
-        "show"
-      );
-
-    }, 1200);
+    setTimeout(
+      () =>
+        toast.classList.remove(
+          "show"
+        ),
+      1200
+    );
 
 }
 
@@ -3130,7 +4367,9 @@ function showMessage(message) {
    ESCAPE HTML
 ========================================================= */
 
-function escapeHTML(value) {
+function escapeHTML(
+  value
+) {
 
   return String(value)
     .replaceAll(
@@ -3158,27 +4397,36 @@ function escapeHTML(value) {
 
 
 /* =========================================================
-   INITIALIZATION
+   INITIALIZE
 ========================================================= */
 
 updateStats();
+
 updateScenes();
+
 renderAnnotations();
 
-setTimeout(() => {
+renderElements();
 
-  const firstBlock =
-    editor.querySelector(
-      ".script > div"
-    );
+renderStash();
 
-  if (firstBlock) {
-    setActiveBlock(
-      firstBlock
-    );
-  }
+setTimeout(
+  () => {
 
-}, 100);
+    const firstBlock =
+      editor.querySelector(
+        ".script > div"
+      );
+
+    if (firstBlock) {
+      setActiveBlock(
+        firstBlock
+      );
+    }
+
+  },
+  100
+);
 
 </script>
 
