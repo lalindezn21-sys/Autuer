@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Auteur</title>
 
 <style>
@@ -11,29 +10,25 @@
 
 :root {
     --bg: #f3f3f1;
-    --surface: #fafafa;
-    --surface-raised: #ffffff;
-    --surface-soft: #f0f0ee;
+    --panel: #fafaf9;
+    --white: #ffffff;
+    --paper: #ffffff;
 
-    --paper: #fff;
-    --ink: #242424;
-    --ink-soft: #555;
-    --muted: #969696;
+    --black: #111111;
+    --text: #171717;
+    --secondary: #444444;
+    --muted: #666666;
 
-    --line: #e3e3e0;
-    --line-strong: #d5d5d1;
+    --border: #dededb;
+    --border-dark: #c9c9c5;
 
-    --accent: #6650b8;
-    --accent-soft: #f0ecfb;
-    --accent-line: #dcd4f3;
+    --accent: #5d49a7;
+    --accent-light: #eeeafb;
+    --accent-border: #d4ccef;
 
-    --shadow-paper:
-        0 1px 2px rgba(0,0,0,.04),
-        0 8px 30px rgba(0,0,0,.07);
-
-    --topbar: 50px;
-    --left-panel: 250px;
-    --right-panel: 242px;
+    --topbar: 56px;
+    --left: 270px;
+    --right: 280px;
 }
 
 * {
@@ -49,7 +44,7 @@ body {
 
 body {
     background: var(--bg);
-    color: var(--ink);
+    color: var(--black);
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
@@ -59,18 +54,19 @@ button,
 input,
 textarea {
     font: inherit;
+    color: var(--black);
 }
 
 button {
     border: 0;
-    outline: 0;
     background: none;
 }
 
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-    box-shadow: 0 0 0 2px var(--accent-line);
+    outline: 2px solid var(--accent-border);
+    outline-offset: 1px;
 }
 
 /* =========================================================
@@ -78,6 +74,7 @@ textarea:focus-visible {
 ========================================================= */
 
 .app {
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -91,16 +88,16 @@ textarea:focus-visible {
     height: var(--topbar);
     flex-shrink: 0;
 
-    background: rgba(255,255,255,.96);
-    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,.98);
+    border-bottom: 1px solid var(--border);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 12px;
+    padding: 0 15px;
 
-    z-index: 20;
+    z-index: 50;
 }
 
 .top-left,
@@ -111,89 +108,87 @@ textarea:focus-visible {
 }
 
 .brand {
-    width: 76px;
-
-    color: #202020;
+    width: 92px;
 
     font-family: "EB Garamond", serif;
-    font-size: 23px;
+    font-size: 27px;
     font-weight: 600;
-    letter-spacing: -.035em;
+    letter-spacing: -.04em;
 
     cursor: pointer;
     user-select: none;
 }
 
 .project-title {
-    height: 29px;
+    height: 31px;
 
-    border-left: 1px solid var(--line);
-
-    padding-left: 15px;
+    padding-left: 17px;
+    border-left: 1px solid var(--border);
 
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
 
-    color: var(--muted);
-    font-size: 11px;
+    font-size: 12px;
+    color: var(--black);
 }
 
 .project-title strong {
-    color: #444;
     font-weight: 600;
 }
 
+.project-title span {
+    color: var(--muted);
+}
+
 .top-right {
-    gap: 3px;
+    gap: 4px;
 }
 
 .save-status {
-    color: #9a9a9a;
-    font-size: 10px;
-    margin-right: 6px;
-    min-width: 39px;
+    min-width: 50px;
+
+    margin-right: 8px;
+
     text-align: right;
+
+    color: var(--secondary);
+    font-size: 11px;
 }
 
 .top-button {
-    height: 31px;
-    min-width: 31px;
+    min-width: 34px;
+    height: 34px;
 
-    padding: 0 9px;
+    padding: 0 11px;
 
-    border-radius: 5px;
+    border-radius: 6px;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
 
-    color: #777;
+    color: var(--black);
+
     font-size: 11px;
+    font-weight: 500;
 
     cursor: pointer;
 
-    transition:
-        background .12s ease,
-        color .12s ease;
+    transition: .12s ease;
 }
 
 .top-button:hover {
-    background: #f0f0ee;
-    color: #333;
+    background: #eeeeec;
 }
 
 .top-button.share {
-    border: 1px solid var(--line-strong);
-    color: #555;
-    padding: 0 12px;
-    margin-left: 4px;
+    border: 1px solid var(--border-dark);
+    margin-left: 6px;
 }
 
 .top-button.share:hover {
-    background: #f8f8f7;
-    border-color: #c9c9c5;
+    background: #f7f7f5;
 }
 
 /* =========================================================
@@ -203,6 +198,7 @@ textarea:focus-visible {
 .workspace {
     flex: 1;
     min-height: 0;
+
     display: flex;
 }
 
@@ -211,39 +207,36 @@ textarea:focus-visible {
 ========================================================= */
 
 .left-panel {
-    width: var(--left-panel);
-    min-width: var(--left-panel);
+    width: var(--left);
+    min-width: var(--left);
 
-    background: rgba(250,250,249,.98);
-
-    border-right: 1px solid var(--line);
+    background: var(--panel);
+    border-right: 1px solid var(--border);
 
     display: flex;
     flex-direction: column;
 
-    transition:
-        width .18s ease,
-        min-width .18s ease;
+    transition: width .18s ease, min-width .18s ease;
 }
 
 .left-top {
-    height: 46px;
+    height: 51px;
     flex-shrink: 0;
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--border);
+
+    padding: 0 13px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 0 11px;
 }
 
 .mode-tabs {
     height: 100%;
     display: flex;
     align-items: center;
-    gap: 17px;
+    gap: 21px;
 }
 
 .mode-tab {
@@ -251,190 +244,173 @@ textarea:focus-visible {
 
     height: 100%;
 
-    color: #a0a0a0;
+    padding: 0 1px;
 
-    font-size: 9px;
+    color: var(--secondary);
+
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: .055em;
+    letter-spacing: .045em;
 
     cursor: pointer;
-
-    transition: color .12s ease;
 }
 
 .mode-tab:hover {
-    color: #666;
+    color: var(--black);
 }
 
 .mode-tab.active {
-    color: #343434;
+    color: var(--black);
 }
 
 .mode-tab.active::after {
     content: "";
 
     position: absolute;
+    bottom: -1px;
     left: 0;
     right: 0;
-    bottom: -1px;
 
     height: 2px;
 
     background: var(--accent);
-    border-radius: 2px 2px 0 0;
 }
 
 .collapse {
-    width: 28px;
-    height: 28px;
+    width: 31px;
+    height: 31px;
 
-    border-radius: 5px;
+    border-radius: 6px;
 
-    color: #999;
+    color: var(--black);
+
+    font-size: 18px;
 
     cursor: pointer;
-
-    transition:
-        background .12s ease,
-        color .12s ease;
 }
 
 .collapse:hover {
-    background: #ededeb;
-    color: #555;
+    background: #ebebe9;
 }
 
 .outline {
     flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
 
-    padding: 8px 8px 12px;
+    overflow-y: auto;
+
+    padding: 9px;
 }
 
 .outline::-webkit-scrollbar,
 .inspector::-webkit-scrollbar,
 .paper-scroll::-webkit-scrollbar {
-    width: 8px;
+    width: 9px;
 }
 
 .outline::-webkit-scrollbar-thumb,
 .inspector::-webkit-scrollbar-thumb,
 .paper-scroll::-webkit-scrollbar-thumb {
-    background: #d6d6d3;
+    background: #cfcfcb;
     border-radius: 10px;
     border: 2px solid transparent;
     background-clip: padding-box;
 }
 
-.outline-section {
-    padding: 0 2px;
-}
-
 .outline-label {
-    color: #aaa;
+    color: var(--secondary);
 
-    font-size: 8px;
+    padding: 14px 9px 7px;
+
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: .11em;
-
-    padding: 11px 8px 6px;
+    letter-spacing: .09em;
 }
 
 .outline-item {
-    min-height: 47px;
-
-    border-radius: 5px;
-
-    padding: 8px 9px;
-
-    cursor: pointer;
+    min-height: 52px;
 
     margin: 2px 0;
 
-    border: 1px solid transparent;
+    padding: 9px 10px;
 
-    transition:
-        background .12s ease,
-        border-color .12s ease;
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: .12s ease;
 }
 
 .outline-item:hover {
-    background: #f0f0ee;
+    background: #eeeeec;
 }
 
 .outline-item.active {
-    background: var(--accent-soft);
-    border-color: var(--accent-line);
+    background: var(--accent-light);
+    border-color: var(--accent-border);
 }
 
 .scene-number {
-    color: #aaa;
-
-    font-size: 8px;
-    font-weight: 500;
-
     margin-bottom: 4px;
+
+    color: var(--secondary);
+
+    font-size: 10px;
+    font-weight: 500;
 }
 
 .scene-name {
-    color: #555;
+    color: var(--black);
 
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.35;
-
     font-weight: 600;
 }
 
-.outline-item.active .scene-number {
-    color: #8778bd;
-}
-
+.outline-item.active .scene-number,
 .outline-item.active .scene-name {
-    color: #55439c;
+    color: #4e3c91;
 }
 
 .left-bottom {
     flex-shrink: 0;
 
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--border);
 
-    padding: 7px;
+    padding: 9px;
 }
 
 .utility-button {
     width: 100%;
-    height: 32px;
+    height: 38px;
 
-    border-radius: 5px;
+    padding: 0 10px;
+
+    border-radius: 6px;
 
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 10px;
 
-    padding: 0 9px;
+    color: var(--black);
 
-    color: #808080;
-    font-size: 10px;
+    font-size: 11px;
+    font-weight: 500;
 
     cursor: pointer;
 
-    transition:
-        background .12s ease,
-        color .12s ease;
+    transition: .12s ease;
 }
 
 .utility-button:hover {
-    background: #ededeb;
-    color: #4d4d4d;
+    background: #ebebe9;
 }
 
 .utility-button span:first-child {
-    width: 14px;
+    width: 17px;
 
-    color: #999;
+    font-size: 15px;
 
-    font-size: 12px;
     text-align: center;
 }
 
@@ -446,70 +422,114 @@ textarea:focus-visible {
     flex: 1;
     min-width: 0;
 
-    position: relative;
+    display: flex;
+    flex-direction: column;
 
     background:
         radial-gradient(
             ellipse at center top,
-            #fafaf9 0%,
-            #f4f4f2 58%,
+            #fbfbfa 0%,
+            #f5f5f3 60%,
             #eeeeec 100%
         );
-
-    display: flex;
-    flex-direction: column;
 }
 
 .editor-toolbar {
-    height: 43px;
+    min-height: 50px;
     flex-shrink: 0;
 
-    background: rgba(255,255,255,.93);
+    padding: 0 13px;
 
-    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,.97);
+    border-bottom: 1px solid var(--border);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 12px;
+    overflow: visible;
 }
 
-.format-tools {
+/* TOOLBAR GROUPS */
+
+.toolbar-groups {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 5px;
+}
+
+.tool-group {
+    position: relative;
+
+    height: 34px;
+
+    padding: 0 5px;
+
     display: flex;
     align-items: center;
     gap: 2px;
+
+    border-right: 1px solid var(--border);
 }
 
-.format-button {
-    height: 28px;
+.tool-group:last-child {
+    border-right: 0;
+}
 
-    min-width: 30px;
+.tool-group-label {
+    position: absolute;
 
-    padding: 0 8px;
+    top: -7px;
+    left: 9px;
 
-    border-radius: 4px;
+    padding: 0 3px;
 
-    color: #858585;
+    background: white;
 
-    font-size: 9px;
+    color: var(--secondary);
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: .07em;
+}
+
+.tool-button {
+    min-width: 34px;
+    height: 31px;
+
+    padding: 0 9px;
+
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    color: var(--black);
+
+    font-size: 10px;
     font-weight: 500;
 
     cursor: pointer;
 
-    transition:
-        background .12s ease,
-        color .12s ease;
+    transition: .12s ease;
 }
 
-.format-button:hover {
+.tool-button:hover {
     background: #eeeeec;
-    color: #4c4c4c;
 }
 
-.format-button.active {
-    background: var(--accent-soft);
+.tool-button.active {
+    background: var(--accent-light);
     color: var(--accent);
+}
+
+.tool-icon {
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .zoom {
@@ -517,28 +537,31 @@ textarea:focus-visible {
     align-items: center;
     gap: 3px;
 
-    color: #999;
-    font-size: 9px;
+    color: var(--black);
 }
 
 .zoom button {
-    width: 25px;
-    height: 25px;
+    width: 29px;
+    height: 29px;
 
-    border-radius: 4px;
+    border-radius: 5px;
 
-    color: #777;
+    font-size: 16px;
 
     cursor: pointer;
 }
 
 .zoom button:hover {
-    background: #ededeb;
+    background: #eeeeec;
 }
 
 #zoomLabel {
-    min-width: 37px;
+    min-width: 44px;
+
     text-align: center;
+
+    font-size: 10px;
+    font-weight: 600;
 }
 
 /* =========================================================
@@ -550,9 +573,7 @@ textarea:focus-visible {
 
     overflow: auto;
 
-    padding: 46px 60px 120px;
-
-    scroll-behavior: smooth;
+    padding: 52px 65px 130px;
 }
 
 .paper {
@@ -561,17 +582,17 @@ textarea:focus-visible {
 
     margin: 0 auto;
 
-    background: var(--paper);
-
-    box-shadow: var(--shadow-paper);
-
-    border: 1px solid rgba(0,0,0,.025);
-
     padding: 96px 108px;
 
-    transform-origin: top center;
+    background: var(--paper);
 
-    transition: transform .14s ease;
+    border: 1px solid rgba(0,0,0,.035);
+
+    box-shadow:
+        0 1px 3px rgba(0,0,0,.05),
+        0 14px 42px rgba(0,0,0,.075);
+
+    transform-origin: top center;
 }
 
 .script {
@@ -579,27 +600,23 @@ textarea:focus-visible {
 
     outline: none;
 
+    color: #111111;
+
     font-family:
         "Courier New",
         Courier,
         monospace;
 
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.52;
-
-    letter-spacing: 0;
 
     white-space: pre-wrap;
 
-    color: #151515;
-
-    caret-color: #555;
-
-    text-rendering: optimizeLegibility;
+    caret-color: #111;
 }
 
 .script::selection {
-    background: #ddd6f0;
+    background: #dcd6ef;
 }
 
 /* =========================================================
@@ -607,48 +624,45 @@ textarea:focus-visible {
 ========================================================= */
 
 .right-panel {
-    width: var(--right-panel);
-    min-width: var(--right-panel);
+    width: var(--right);
+    min-width: var(--right);
 
-    background: rgba(250,250,249,.98);
-
-    border-left: 1px solid var(--line);
+    background: var(--panel);
+    border-left: 1px solid var(--border);
 
     display: flex;
     flex-direction: column;
 }
 
 .right-tabs {
-    height: 46px;
+    height: 51px;
     flex-shrink: 0;
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--border);
 
     display: flex;
 }
 
 .right-tab {
-    flex: 1;
-
     position: relative;
 
-    color: #aaa;
+    flex: 1;
 
-    font-size: 8px;
+    color: var(--secondary);
+
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: .055em;
+    letter-spacing: .045em;
 
     cursor: pointer;
-
-    transition: color .12s ease;
 }
 
 .right-tab:hover {
-    color: #666;
+    color: var(--black);
 }
 
 .right-tab.active {
-    color: #444;
+    color: var(--black);
 }
 
 .right-tab.active::after {
@@ -657,14 +671,12 @@ textarea:focus-visible {
     position: absolute;
 
     bottom: -1px;
-    left: 16px;
-    right: 16px;
+    left: 14px;
+    right: 14px;
 
     height: 2px;
 
     background: var(--accent);
-
-    border-radius: 2px 2px 0 0;
 }
 
 .inspector {
@@ -672,7 +684,7 @@ textarea:focus-visible {
 
     overflow-y: auto;
 
-    padding: 16px 13px;
+    padding: 18px 14px;
 }
 
 .panel-view {
@@ -684,109 +696,98 @@ textarea:focus-visible {
 }
 
 .inspector-section {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 .inspector-heading {
-    color: #aaa;
+    margin-bottom: 10px;
+
+    color: var(--black);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .08em;
+}
+
+.field {
+    padding: 11px;
+
+    margin-bottom: 7px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+}
+
+.field-label {
+    margin-bottom: 6px;
+
+    color: var(--secondary);
 
     font-size: 8px;
     font-weight: 700;
 
-    letter-spacing: .10em;
-
-    margin-bottom: 9px;
-}
-
-.field {
-    background: #fff;
-
-    border: 1px solid var(--line);
-
-    border-radius: 5px;
-
-    padding: 10px;
-
-    margin-bottom: 6px;
-
-    transition:
-        border-color .12s ease,
-        box-shadow .12s ease;
-}
-
-.field:hover {
-    border-color: #d2d2cf;
-}
-
-.field-label {
-    color: #aaa;
-
-    font-size: 7px;
-    font-weight: 700;
-
-    letter-spacing: .04em;
-
-    margin-bottom: 5px;
+    letter-spacing: .05em;
 }
 
 .field-value {
-    color: #555;
+    color: var(--black);
 
-    font-size: 9px;
-
-    line-height: 1.5;
+    font-size: 11px;
+    line-height: 1.55;
 }
 
 .character {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 10px;
 
-    padding: 8px;
+    padding: 9px;
 
-    border-radius: 5px;
+    border-radius: 6px;
 
     cursor: pointer;
-
-    transition: background .12s ease;
 }
 
 .character:hover {
-    background: #ededeb;
+    background: #eeeeec;
 }
 
 .character-avatar {
-    width: 29px;
-    height: 29px;
+    width: 34px;
+    height: 34px;
 
     flex-shrink: 0;
 
     border-radius: 50%;
 
-    background: var(--accent-soft);
+    background: var(--accent-light);
 
-    color: #5e49a6;
+    color: var(--accent);
 
     display: grid;
     place-items: center;
 
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 700;
 }
 
 .character-name {
-    color: #4a4a4a;
+    color: var(--black);
 
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 600;
 }
 
 .character-role {
-    color: #aaa;
+    margin-top: 3px;
 
-    font-size: 8px;
+    color: var(--secondary);
 
-    margin-top: 2px;
+    font-size: 9px;
 }
 
 /* =========================================================
@@ -794,28 +795,28 @@ textarea:focus-visible {
 ========================================================= */
 
 .statusbar {
-    height: 25px;
+    height: 29px;
     flex-shrink: 0;
 
-    background: rgba(255,255,255,.96);
+    background: white;
+    border-top: 1px solid var(--border);
 
-    border-top: 1px solid var(--line);
+    padding: 0 13px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 12px;
+    color: var(--black);
 
-    color: #a0a0a0;
-
-    font-size: 8px;
+    font-size: 9px;
 }
 
 .status-left,
 .status-right {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 17px;
 }
 
 /* =========================================================
@@ -826,13 +827,13 @@ textarea:focus-visible {
     position: fixed;
     inset: 0;
 
-    z-index: 80;
+    z-index: 100;
 
     background:
         radial-gradient(
             ellipse at center top,
-            #fff 0,
-            #f5f5f3 65%
+            #ffffff 0,
+            #f5f5f3 70%
         );
 
     display: none;
@@ -844,45 +845,42 @@ textarea:focus-visible {
 }
 
 .project-header {
-    height: 55px;
+    height: 60px;
 
-    background: rgba(255,255,255,.96);
+    padding: 0 20px;
 
-    border-bottom: 1px solid var(--line);
+    background: white;
+    border-bottom: 1px solid var(--border);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 0 18px;
 }
 
 .project-header-left {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 18px;
 }
 
 .project-back {
-    color: #888;
+    color: var(--black);
 
-    font-size: 10px;
+    font-size: 11px;
 
     cursor: pointer;
-
-    transition: color .12s ease;
 }
 
 .project-back:hover {
-    color: #444;
+    text-decoration: underline;
 }
 
 .project-name {
     font-family: "EB Garamond", serif;
 
-    color: #272727;
+    color: var(--black);
 
-    font-size: 22px;
+    font-size: 25px;
 }
 
 .project-content {
@@ -890,37 +888,35 @@ textarea:focus-visible {
 
     overflow: auto;
 
-    padding: 70px 50px;
+    padding: 75px 50px;
 }
 
 .project-content-inner {
-    width: min(980px, 100%);
+    width: min(1000px, 100%);
 
     margin: 0 auto;
 }
 
 .project-eyebrow {
-    color: #999;
+    margin-bottom: 10px;
 
-    font-size: 8px;
+    color: var(--secondary);
+
+    font-size: 10px;
     font-weight: 700;
 
-    letter-spacing: .13em;
-
-    margin-bottom: 10px;
+    letter-spacing: .12em;
 }
 
 .project-heading {
-    color: #222;
+    margin-bottom: 42px;
+
+    color: var(--black);
 
     font-family: "EB Garamond", serif;
 
-    font-size: 52px;
+    font-size: 56px;
     line-height: .95;
-
-    letter-spacing: -.025em;
-
-    margin-bottom: 38px;
 }
 
 .project-grid {
@@ -928,65 +924,55 @@ textarea:focus-visible {
 
     grid-template-columns: 2fr 1fr;
 
-    gap: 12px;
+    gap: 13px;
 }
 
 .project-card {
-    min-height: 125px;
+    min-height: 140px;
 
-    background: rgba(255,255,255,.9);
+    padding: 21px;
 
-    border: 1px solid var(--line);
+    background: white;
 
+    border: 1px solid var(--border);
     border-radius: 7px;
 
-    padding: 19px;
-
-    box-shadow:
-        0 1px 2px rgba(0,0,0,.025);
-
-    transition:
-        transform .14s ease,
-        box-shadow .14s ease,
-        border-color .14s ease;
+    transition: .14s ease;
 }
 
 .project-card:hover {
     transform: translateY(-1px);
 
-    border-color: #d2d2cf;
+    border-color: var(--border-dark);
 
-    box-shadow:
-        0 5px 18px rgba(0,0,0,.05);
+    box-shadow: 0 7px 20px rgba(0,0,0,.05);
 }
 
 .project-card-title {
-    color: #999;
+    margin-bottom: 18px;
 
-    font-size: 8px;
+    color: var(--black);
+
+    font-size: 9px;
     font-weight: 700;
 
     letter-spacing: .1em;
-
-    margin-bottom: 16px;
 }
 
 .project-stat {
-    color: #333;
+    color: var(--black);
 
     font-family: "EB Garamond", serif;
 
-    font-size: 30px;
-
-    margin-bottom: 2px;
+    font-size: 32px;
 }
 
 .project-small {
-    color: #999;
+    color: var(--black);
 
-    font-size: 9px;
+    font-size: 10px;
 
-    line-height: 1.8;
+    line-height: 1.75;
 }
 
 /* =========================================================
@@ -997,16 +983,16 @@ textarea:focus-visible {
     position: fixed;
     inset: 0;
 
-    z-index: 100;
-
-    background: rgba(20,20,20,.24);
-
-    backdrop-filter: blur(3px);
+    z-index: 200;
 
     display: none;
 
     align-items: center;
     justify-content: center;
+
+    background: rgba(15,15,15,.24);
+
+    backdrop-filter: blur(3px);
 }
 
 .overlay.open {
@@ -1014,79 +1000,69 @@ textarea:focus-visible {
 }
 
 .modal {
-    width: 440px;
+    width: 450px;
 
-    background: #fff;
+    background: white;
 
-    border: 1px solid var(--line);
-
+    border: 1px solid var(--border);
     border-radius: 8px;
 
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.16);
+    box-shadow: 0 25px 80px rgba(0,0,0,.18);
 
     overflow: hidden;
 }
 
 .modal-header {
-    padding: 20px 21px;
+    padding: 21px;
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--border);
 }
 
 .modal-title {
-    color: #292929;
+    color: var(--black);
 
     font-family: "EB Garamond", serif;
 
-    font-size: 24px;
+    font-size: 25px;
 }
 
 .modal-body {
-    padding: 20px;
+    padding: 21px;
 }
 
 .modal-label {
     display: block;
 
-    color: #888;
-
-    font-size: 8px;
-    font-weight: 700;
-
-    letter-spacing: .08em;
-
     margin-bottom: 7px;
+
+    color: var(--black);
+
+    font-size: 9px;
+    font-weight: 700;
 }
 
 .modal-input {
     width: 100%;
-    height: 40px;
+    height: 41px;
 
-    border: 1px solid var(--line-strong);
+    padding: 0 11px;
 
+    border: 1px solid var(--border-dark);
     border-radius: 5px;
 
     outline: none;
-
-    padding: 0 10px;
-
-    color: #333;
 
     font-size: 11px;
 }
 
 .modal-input:focus {
-    border-color: #b7acd9;
-
-    box-shadow:
-        0 0 0 2px var(--accent-soft);
+    border-color: var(--accent);
 }
 
 .modal-footer {
-    padding: 12px 20px;
+    padding: 13px 21px;
 
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--border);
 
     display: flex;
     justify-content: flex-end;
@@ -1094,9 +1070,9 @@ textarea:focus-visible {
 }
 
 .modal-button {
-    height: 33px;
+    height: 35px;
 
-    padding: 0 13px;
+    padding: 0 14px;
 
     border-radius: 5px;
 
@@ -1108,7 +1084,6 @@ textarea:focus-visible {
 
 .modal-cancel {
     background: #eeeeec;
-    color: #666;
 }
 
 .modal-create {
@@ -1117,17 +1092,33 @@ textarea:focus-visible {
 }
 
 /* =========================================================
-   MOBILE / SMALL WINDOWS
+   SMALLER WINDOWS
 ========================================================= */
 
-@media (max-width: 1050px) {
+@media (max-width: 1250px) {
+
+    :root {
+        --left: 245px;
+        --right: 250px;
+    }
+
+    .tool-button {
+        padding: 0 7px;
+    }
+
+    .tool-button span:not(.tool-icon) {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
 
     .right-panel {
         display: none;
     }
 
     :root {
-        --left-panel: 225px;
+        --left: 240px;
     }
 }
 
@@ -1142,10 +1133,13 @@ textarea:focus-visible {
     }
 
     .paper {
-        transform: scale(.82);
+        transform: scale(.78);
         transform-origin: top center;
+        margin-bottom: -230px;
+    }
 
-        margin-bottom: -180px;
+    .toolbar-groups {
+        overflow-x: auto;
     }
 
     .project-content {
@@ -1171,63 +1165,41 @@ textarea:focus-visible {
 
     <div class="top-left">
 
-        <div
-            class="brand"
-            onclick="openProject()"
-        >
+        <div class="brand" onclick="openProject()">
             Auteur
         </div>
 
         <div class="project-title">
 
-            <strong id="topProjectName">
-                Sentient Mass
-            </strong>
+            <strong>Sentient Mass</strong>
 
             <span>›</span>
 
-            <span>
-                Screenplay
-            </span>
+            <span>Screenplay</span>
 
         </div>
 
     </div>
 
-
     <div class="top-right">
 
-        <span
-            class="save-status"
-            id="saveStatus"
-        >
+        <span class="save-status" id="saveStatus">
             Saved
         </span>
 
-        <button
-            class="top-button"
-            onclick="saveDocument()"
-            title="Save"
-        >
-            ↻
+        <button class="top-button" onclick="saveDocument()">
+            Save
         </button>
 
-        <button
-            class="top-button"
-            onclick="openProject()"
-        >
+        <button class="top-button" onclick="openProject()">
             Project
         </button>
 
-        <button
-            class="top-button share"
-        >
+        <button class="top-button share">
             Share
         </button>
 
-        <button
-            class="top-button"
-        >
+        <button class="top-button">
             ⋯
         </button>
 
@@ -1242,9 +1214,8 @@ textarea:focus-visible {
 
 <main class="workspace">
 
-
 <!-- =======================================================
-     LEFT PANEL
+     LEFT
 ======================================================= -->
 
 <aside class="left-panel">
@@ -1279,146 +1250,90 @@ textarea:focus-visible {
     </div>
 
 
-    <div
-        class="outline"
-        id="outlinePanel"
-    >
+    <div class="outline" id="outlinePanel">
 
-        <div class="outline-section">
+        <div class="outline-label">
+            ACT I
+        </div>
 
-            <div class="outline-label">
-                ACT I
+        <div
+            class="outline-item active"
+            onclick="selectScene(this,1)"
+        >
+            <div class="scene-number">01</div>
+            <div class="scene-name">
+                EXT. MEGA PLANET - DAY
             </div>
+        </div>
 
-            <div
-                class="outline-item active"
-                onclick="selectScene(this,1)"
-            >
-
-                <div class="scene-number">
-                    01
-                </div>
-
-                <div class="scene-name">
-                    EXT. MEGA PLANET - DAY
-                </div>
-
+        <div
+            class="outline-item"
+            onclick="selectScene(this,2)"
+        >
+            <div class="scene-number">02</div>
+            <div class="scene-name">
+                INT. OBSERVATORY - NIGHT
             </div>
+        </div>
 
-
-            <div
-                class="outline-item"
-                onclick="selectScene(this,2)"
-            >
-
-                <div class="scene-number">
-                    02
-                </div>
-
-                <div class="scene-name">
-                    INT. OBSERVATORY - NIGHT
-                </div>
-
+        <div
+            class="outline-item"
+            onclick="selectScene(this,3)"
+        >
+            <div class="scene-number">03</div>
+            <div class="scene-name">
+                EXT. CITY OF GLASS - SUNSET
             </div>
+        </div>
 
-
-            <div
-                class="outline-item"
-                onclick="selectScene(this,3)"
-            >
-
-                <div class="scene-number">
-                    03
-                </div>
-
-                <div class="scene-name">
-                    EXT. CITY OF GLASS - SUNSET
-                </div>
-
+        <div
+            class="outline-item"
+            onclick="selectScene(this,4)"
+        >
+            <div class="scene-number">04</div>
+            <div class="scene-name">
+                INT. APARTMENT - NIGHT
             </div>
-
-
-            <div
-                class="outline-item"
-                onclick="selectScene(this,4)"
-            >
-
-                <div class="scene-number">
-                    04
-                </div>
-
-                <div class="scene-name">
-                    INT. APARTMENT - NIGHT
-                </div>
-
-            </div>
-
         </div>
 
 
-        <div class="outline-section">
+        <div class="outline-label">
+            ACT II
+        </div>
 
-            <div class="outline-label">
-                ACT II
+        <div
+            class="outline-item"
+            onclick="selectScene(this,5)"
+        >
+            <div class="scene-number">05</div>
+            <div class="scene-name">
+                EXT. MOUNTAIN RANGE - DAY
             </div>
+        </div>
 
-
-            <div
-                class="outline-item"
-                onclick="selectScene(this,5)"
-            >
-
-                <div class="scene-number">
-                    05
-                </div>
-
-                <div class="scene-name">
-                    EXT. MOUNTAIN RANGE - DAY
-                </div>
-
+        <div
+            class="outline-item"
+            onclick="selectScene(this,6)"
+        >
+            <div class="scene-number">06</div>
+            <div class="scene-name">
+                EXT. THE GREAT CITY - NIGHT
             </div>
-
-
-            <div
-                class="outline-item"
-                onclick="selectScene(this,6)"
-            >
-
-                <div class="scene-number">
-                    06
-                </div>
-
-                <div class="scene-name">
-                    EXT. THE GREAT CITY - NIGHT
-                </div>
-
-            </div>
-
         </div>
 
 
-        <div class="outline-section">
+        <div class="outline-label">
+            ACT III
+        </div>
 
-            <div class="outline-label">
-                ACT III
+        <div
+            class="outline-item"
+            onclick="selectScene(this,7)"
+        >
+            <div class="scene-number">07</div>
+            <div class="scene-name">
+                EXT. CLIFFSIDE - DAWN
             </div>
-
-
-            <div
-                class="outline-item"
-                onclick="selectScene(this,7)"
-            >
-
-                <div class="scene-number">
-                    07
-                </div>
-
-                <div class="scene-name">
-                    EXT. CLIFFSIDE - DAWN
-                </div>
-
-            </div>
-
         </div>
 
     </div>
@@ -1431,9 +1346,8 @@ textarea:focus-visible {
             onclick="openProject()"
         >
             <span>⌂</span>
-            <span>Project overview</span>
+            <span>Project Overview</span>
         </button>
-
 
         <button
             class="utility-button"
@@ -1443,15 +1357,13 @@ textarea:focus-visible {
             <span>Characters</span>
         </button>
 
-
         <button
             class="utility-button"
             onclick="openStory()"
         >
             <span>⌁</span>
-            <span>Story structure</span>
+            <span>Story Structure</span>
         </button>
-
 
         <button
             class="utility-button"
@@ -1474,49 +1386,165 @@ textarea:focus-visible {
 
     <div class="editor-toolbar">
 
-        <div class="format-tools">
+        <div class="toolbar-groups">
 
-            <button
-                class="format-button active"
-                onclick="setFormat('action')"
-            >
-                Action
-            </button>
+            <!-- WRITING -->
 
-            <button
-                class="format-button"
-                onclick="setFormat('character')"
-            >
-                Character
-            </button>
+            <div class="tool-group">
 
-            <button
-                class="format-button"
-                onclick="setFormat('dialogue')"
-            >
-                Dialogue
-            </button>
+                <span class="tool-group-label">
+                    WRITING
+                </span>
 
-            <button
-                class="format-button"
-                onclick="setFormat('parenthetical')"
-            >
-                ( )
-            </button>
+                <button
+                    class="tool-button active"
+                    onclick="setFormat('action', this)"
+                >
+                    Action
+                </button>
 
-            <button
-                class="format-button"
-                onclick="setFormat('heading')"
-            >
-                Heading
-            </button>
+                <button
+                    class="tool-button"
+                    onclick="setFormat('character', this)"
+                >
+                    Character
+                </button>
 
-            <button
-                class="format-button"
-                onclick="setFormat('transition')"
-            >
-                Transition
-            </button>
+                <button
+                    class="tool-button"
+                    onclick="setFormat('dialogue', this)"
+                >
+                    Dialogue
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('parenthetical', this)"
+                >
+                    ( )
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('heading', this)"
+                >
+                    Heading
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('transition', this)"
+                >
+                    Transition
+                </button>
+
+            </div>
+
+
+            <!-- INSERT -->
+
+            <div class="tool-group">
+
+                <span class="tool-group-label">
+                    INSERT
+                </span>
+
+                <button
+                    class="tool-button"
+                    onclick="insertScene()"
+                >
+                    + Scene
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="insertCharacter()"
+                >
+                    + Character
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="insertNote()"
+                >
+                    + Note
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="insertPageBreak()"
+                >
+                    Page Break
+                </button>
+
+            </div>
+
+
+            <!-- FORMAT -->
+
+            <div class="tool-group">
+
+                <span class="tool-group-label">
+                    FORMAT
+                </span>
+
+                <button
+                    class="tool-button"
+                    onclick="formatText('bold')"
+                    title="Bold"
+                >
+                    <span class="tool-icon">B</span>
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="formatText('italic')"
+                    title="Italic"
+                >
+                    <span class="tool-icon"><i>I</i></span>
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="formatText('underline')"
+                    title="Underline"
+                >
+                    <span class="tool-icon"><u>U</u></span>
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="findReplace()"
+                >
+                    Find
+                </button>
+
+            </div>
+
+
+            <!-- VIEW -->
+
+            <div class="tool-group">
+
+                <span class="tool-group-label">
+                    VIEW
+                </span>
+
+                <button
+                    class="tool-button"
+                    onclick="toggleFocus()"
+                >
+                    Focus
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="toggleInspector()"
+                >
+                    Inspector
+                </button>
+
+            </div>
 
         </div>
 
@@ -1540,21 +1568,17 @@ textarea:focus-visible {
     </div>
 
 
-    <div
-        class="paper-scroll"
-        id="paperScroll"
-    >
+    <!-- PAPER -->
 
-        <article
-            class="paper"
-            id="paper"
-        >
+    <div class="paper-scroll" id="paperScroll">
+
+        <article class="paper" id="paper">
 
             <div
                 class="script"
                 id="script"
                 contenteditable="true"
-                spellcheck="false"
+                spellcheck="true"
             >FADE IN:
 
 EXT. MEGA PLANET - DAY
@@ -1610,21 +1634,21 @@ CUT TO:</div>
 
         <button
             class="right-tab active"
-            onclick="showRightPanel('scene',this)"
+            onclick="showRightPanel('scene', this)"
         >
             SCENE
         </button>
 
         <button
             class="right-tab"
-            onclick="showRightPanel('characters',this)"
+            onclick="showRightPanel('characters', this)"
         >
             CAST
         </button>
 
         <button
             class="right-tab"
-            onclick="showRightPanel('notes',this)"
+            onclick="showRightPanel('notes', this)"
         >
             NOTES
         </button>
@@ -1634,6 +1658,7 @@ CUT TO:</div>
 
     <div class="inspector">
 
+        <!-- SCENE -->
 
         <div
             class="panel-view active"
@@ -1645,7 +1670,6 @@ CUT TO:</div>
                 <div class="inspector-heading">
                     SCENE
                 </div>
-
 
                 <div class="field">
 
@@ -1659,7 +1683,6 @@ CUT TO:</div>
 
                 </div>
 
-
                 <div class="field">
 
                     <div class="field-label">
@@ -1668,6 +1691,18 @@ CUT TO:</div>
 
                     <div class="field-value">
                         DAY
+                    </div>
+
+                </div>
+
+                <div class="field">
+
+                    <div class="field-label">
+                        LOCATION
+                    </div>
+
+                    <div class="field-value">
+                        Mega Planet
                     </div>
 
                 </div>
@@ -1711,6 +1746,8 @@ CUT TO:</div>
         </div>
 
 
+        <!-- CHARACTERS -->
+
         <div
             class="panel-view"
             id="charactersPanel"
@@ -1721,7 +1758,6 @@ CUT TO:</div>
                 <div class="inspector-heading">
                     CHARACTERS IN SCENE
                 </div>
-
 
                 <div class="character">
 
@@ -1752,7 +1788,6 @@ CUT TO:</div>
                     PROJECT CAST
                 </div>
 
-
                 <div class="character">
 
                     <div class="character-avatar">
@@ -1772,7 +1807,6 @@ CUT TO:</div>
                     </div>
 
                 </div>
-
 
                 <div class="character">
 
@@ -1799,6 +1833,8 @@ CUT TO:</div>
         </div>
 
 
+        <!-- NOTES -->
+
         <div
             class="panel-view"
             id="notesPanel"
@@ -1814,16 +1850,16 @@ CUT TO:</div>
                     id="sceneNote"
                     style="
                         width:100%;
-                        min-height:130px;
+                        min-height:160px;
                         resize:vertical;
-                        border:1px solid #e3e3e0;
-                        border-radius:5px;
-                        padding:10px;
+                        padding:11px;
+                        border:1px solid #dededb;
+                        border-radius:6px;
                         background:#fff;
-                        outline:none;
-                        color:#555;
-                        font-size:9px;
+                        color:#111;
+                        font-size:11px;
                         line-height:1.55;
+                        outline:none;
                     "
                 >The first scene should establish that the scale of the world is beautiful before it becomes psychologically oppressive.</textarea>
 
@@ -1859,7 +1895,6 @@ CUT TO:</div>
         </span>
 
     </div>
-
 
     <div class="status-right">
 
@@ -1898,21 +1933,17 @@ CUT TO:</div>
                 ‹ Back to screenplay
             </button>
 
-            <span
-                class="project-name"
-                id="projectName"
-            >
+            <span class="project-name">
                 Sentient Mass
             </span>
 
         </div>
 
-
         <button
             class="top-button share"
             onclick="closeProject()"
         >
-            Open screenplay
+            Open Screenplay
         </button>
 
     </header>
@@ -1930,7 +1961,6 @@ CUT TO:</div>
                 Sentient Mass
             </div>
 
-
             <div class="project-grid">
 
                 <div class="project-card">
@@ -1940,11 +1970,11 @@ CUT TO:</div>
                     </div>
 
                     <div class="project-stat">
-                        7 scenes
+                        7 Scenes
                     </div>
 
                     <div class="project-small">
-                        1 draft · screenplay
+                        1 Draft · Screenplay
                     </div>
 
                 </div>
@@ -1961,7 +1991,7 @@ CUT TO:</div>
                     </div>
 
                     <div class="project-small">
-                        active characters
+                        Active characters
                     </div>
 
                 </div>
@@ -1995,7 +2025,7 @@ CUT TO:</div>
                     </div>
 
                     <div class="project-small">
-                        Visual language
+                        Visual Language
                     </div>
 
                     <div class="project-small">
@@ -2027,11 +2057,6 @@ let zoom = 1;
 let currentScene = 1;
 let saveTimer;
 
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
 const script =
     document.getElementById("script");
 
@@ -2055,7 +2080,7 @@ if (savedScript) {
 
 
 /* =========================================================
-   AUTOSAVE
+   SAVE
 ========================================================= */
 
 script.addEventListener("input", () => {
@@ -2068,7 +2093,7 @@ script.addEventListener("input", () => {
 
     saveTimer = setTimeout(
         saveDocument,
-        450
+        500
     );
 
 });
@@ -2133,34 +2158,8 @@ function selectScene(element, number) {
 
 
 /* =========================================================
-   LEFT PANEL
+   LEFT MODES
 ========================================================= */
-
-function toggleLeftPanel() {
-
-    const panel =
-        document.querySelector(".left-panel");
-
-    if (panel.style.width === "0px") {
-
-        panel.style.width =
-            "250px";
-
-        panel.style.minWidth =
-            "250px";
-
-    } else {
-
-        panel.style.width =
-            "0px";
-
-        panel.style.minWidth =
-            "0px";
-
-    }
-
-}
-
 
 function setLeftMode(mode, button) {
 
@@ -2172,52 +2171,49 @@ function setLeftMode(mode, button) {
 
     button.classList.add("active");
 
+    const outline =
+        document.getElementById("outlinePanel");
+
     if (mode === "index") {
 
-        document
-            .getElementById("outlinePanel")
-            .innerHTML = `
+        outline.innerHTML = `
 
-            <div class="outline-section">
+            <div class="outline-label">
+                INDEX CARDS
+            </div>
 
-                <div class="outline-label">
-                    INDEX CARDS
+            <div class="outline-item active">
+
+                <div class="scene-number">
+                    01
                 </div>
 
-                <div class="outline-item active">
-
-                    <div class="scene-number">
-                        01
-                    </div>
-
-                    <div class="scene-name">
-                        Ludwig discovers the scale of the planet.
-                    </div>
-
+                <div class="scene-name">
+                    Ludwig discovers the scale of the planet.
                 </div>
 
-                <div class="outline-item">
+            </div>
 
-                    <div class="scene-number">
-                        02
-                    </div>
+            <div class="outline-item">
 
-                    <div class="scene-name">
-                        The architecture begins changing.
-                    </div>
-
+                <div class="scene-number">
+                    02
                 </div>
 
-                <div class="outline-item">
+                <div class="scene-name">
+                    The architecture begins changing.
+                </div>
 
-                    <div class="scene-number">
-                        03
-                    </div>
+            </div>
 
-                    <div class="scene-name">
-                        Ludwig meets Amelia.
-                    </div>
+            <div class="outline-item">
 
+                <div class="scene-number">
+                    03
+                </div>
+
+                <div class="scene-name">
+                    Ludwig meets Amelia.
                 </div>
 
             </div>
@@ -2225,7 +2221,73 @@ function setLeftMode(mode, button) {
 
     } else {
 
-        location.reload();
+        outline.innerHTML = `
+
+            <div class="outline-label">
+                ACT I
+            </div>
+
+            ${sceneMarkup(1,"EXT. MEGA PLANET - DAY",true)}
+            ${sceneMarkup(2,"INT. OBSERVATORY - NIGHT")}
+            ${sceneMarkup(3,"EXT. CITY OF GLASS - SUNSET")}
+            ${sceneMarkup(4,"INT. APARTMENT - NIGHT")}
+
+            <div class="outline-label">
+                ACT II
+            </div>
+
+            ${sceneMarkup(5,"EXT. MOUNTAIN RANGE - DAY")}
+            ${sceneMarkup(6,"EXT. THE GREAT CITY - NIGHT")}
+
+            <div class="outline-label">
+                ACT III
+            </div>
+
+            ${sceneMarkup(7,"EXT. CLIFFSIDE - DAWN")}
+        `;
+    }
+
+}
+
+
+function sceneMarkup(number, name, active = false) {
+
+    return `
+        <div
+            class="outline-item ${active ? "active" : ""}"
+            onclick="selectScene(this,${number})"
+        >
+            <div class="scene-number">
+                ${String(number).padStart(2,"0")}
+            </div>
+
+            <div class="scene-name">
+                ${name}
+            </div>
+        </div>
+    `;
+
+}
+
+
+/* =========================================================
+   LEFT PANEL
+========================================================= */
+
+function toggleLeftPanel() {
+
+    const panel =
+        document.querySelector(".left-panel");
+
+    if (panel.style.width === "0px") {
+
+        panel.style.width = "270px";
+        panel.style.minWidth = "270px";
+
+    } else {
+
+        panel.style.width = "0px";
+        panel.style.minWidth = "0px";
 
     }
 
@@ -2259,10 +2321,6 @@ function showRightPanel(panel, button) {
 }
 
 
-/* =========================================================
-   SHORTCUT PANELS
-========================================================= */
-
 function openCharacters() {
 
     showRightPanel(
@@ -2286,7 +2344,7 @@ function openNotes() {
 function openStory() {
 
     alert(
-`Story Structure
+`STORY STRUCTURE
 
 Opening Image
 Inciting Incident
@@ -2326,15 +2384,22 @@ function closeProject() {
    FORMATTING
 ========================================================= */
 
-function setFormat(type) {
+function setFormat(type, button) {
 
     document
-        .querySelectorAll(".format-button")
-        .forEach(button =>
-            button.classList.remove("active")
-        );
+        .querySelectorAll(".tool-button")
+        .forEach(item => {
 
-    event.currentTarget.classList.add("active");
+            if (
+                ["Action","Character","Dialogue","( )","Heading","Transition"]
+                .includes(item.textContent.trim())
+            ) {
+                item.classList.remove("active");
+            }
+
+        });
+
+    button.classList.add("active");
 
     const selection =
         window.getSelection();
@@ -2353,28 +2418,17 @@ function setFormat(type) {
     switch (type) {
 
         case "character":
-            formatted =
-                text.toUpperCase();
-            break;
-
         case "heading":
-            formatted =
-                text.toUpperCase();
-            break;
-
         case "transition":
-            formatted =
-                text.toUpperCase();
+            formatted = text.toUpperCase();
             break;
 
         case "dialogue":
-            formatted =
-                "          " + text;
+            formatted = "          " + text;
             break;
 
         case "parenthetical":
-            formatted =
-                "(" + text + ")";
+            formatted = "(" + text + ")";
             break;
 
     }
@@ -2386,6 +2440,162 @@ function setFormat(type) {
     );
 
     saveDocument();
+
+}
+
+
+/* =========================================================
+   TEXT FORMAT
+========================================================= */
+
+function formatText(command) {
+
+    document.execCommand(
+        command,
+        false,
+        null
+    );
+
+    script.focus();
+
+    saveDocument();
+
+}
+
+
+/* =========================================================
+   INSERT TOOLS
+========================================================= */
+
+function insertScene() {
+
+    insertAtCursor(
+        "\n\nINT. NEW LOCATION - DAY\n\n"
+    );
+
+}
+
+
+function insertCharacter() {
+
+    insertAtCursor(
+        "\n\nCHARACTER NAME\n\n"
+    );
+
+}
+
+
+function insertNote() {
+
+    insertAtCursor(
+        "\n\n[NOTE: ]\n\n"
+    );
+
+}
+
+
+function insertPageBreak() {
+
+    insertAtCursor(
+        "\n\n\n\n\n\n"
+    );
+
+}
+
+
+function insertAtCursor(text) {
+
+    script.focus();
+
+    document.execCommand(
+        "insertText",
+        false,
+        text
+    );
+
+    saveDocument();
+
+}
+
+
+/* =========================================================
+   FIND
+========================================================= */
+
+function findReplace() {
+
+    const term =
+        prompt("Find text:");
+
+    if (!term)
+        return;
+
+    const replacement =
+        prompt(`Replace "${term}" with:`);
+
+    if (replacement === null)
+        return;
+
+    const current =
+        script.innerText;
+
+    script.innerText =
+        current.split(term).join(replacement);
+
+    saveDocument();
+
+}
+
+
+/* =========================================================
+   FOCUS MODE
+========================================================= */
+
+function toggleFocus() {
+
+    const left =
+        document.querySelector(".left-panel");
+
+    const right =
+        document.querySelector(".right-panel");
+
+    const top =
+        document.querySelector(".topbar");
+
+    const status =
+        document.querySelector(".statusbar");
+
+    const hidden =
+        left.style.display === "none";
+
+    left.style.display =
+        hidden ? "flex" : "none";
+
+    right.style.display =
+        hidden ? "flex" : "none";
+
+    top.style.display =
+        hidden ? "flex" : "flex";
+
+    status.style.display =
+        hidden ? "flex" : "flex";
+
+}
+
+
+/* =========================================================
+   INSPECTOR
+========================================================= */
+
+function toggleInspector() {
+
+    const panel =
+        document.querySelector(".right-panel");
+
+    panel.style.display =
+        panel.style.display === "none"
+            ? "flex"
+            : "none";
 
 }
 
@@ -2442,6 +2652,17 @@ document.addEventListener(
             event.preventDefault();
 
             saveDocument();
+
+        }
+
+        if (
+            (event.metaKey || event.ctrlKey) &&
+            event.key.toLowerCase() === "f"
+        ) {
+
+            event.preventDefault();
+
+            findReplace();
 
         }
 
