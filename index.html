@@ -2,87 +2,68 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Auteur</title>
 
 <style>
-:root{
-  --bg:#101114;
-  --bg2:#15161a;
-  --panel:#191a1f;
-  --panel2:#1e2026;
-  --panel3:#24262d;
+:root {
+    --bg: #17181a;
+    --bg-soft: #1d1e21;
+    --panel: #202125;
+    --panel-hover: #27282d;
 
-  --paper:#f7f3eb;
-  --paper2:#eee9df;
+    --paper: #f6f3ec;
+    --paper-line: #e8e3d8;
 
-  --text:#eeeef1;
-  --text2:#b5b6bd;
-  --muted:#777983;
+    --text: #f1f0ed;
+    --text-soft: #aaa9a5;
+    --text-muted: #777773;
 
-  --border:rgba(255,255,255,.075);
+    --ink: #292825;
 
-  --blue:#6e8cff;
-  --blue2:#8b9fff;
+    --accent: #7387c7;
+    --accent-soft: #8798d1;
 
-  --violet:#9b82ff;
-  --pink:#d47dba;
-  --cyan:#66b9cf;
-  --green:#79b89a;
-  --orange:#d49a69;
+    --green: #7ea58b;
+    --border: #303136;
 
-  --shadow:0 25px 70px rgba(0,0,0,.28);
-
-  --radius:10px;
+    --radius: 8px;
 }
 
-*{
-  box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
 html,
-body{
-  width:100%;
-  height:100%;
-  margin:0;
-  overflow:hidden;
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
 }
 
-body{
-  background:
-    radial-gradient(
-      circle at 15% 0%,
-      rgba(110,140,255,.09),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(155,130,255,.07),
-      transparent 30%
-    ),
-    var(--bg);
-
-  color:var(--text);
-
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
 button,
-input{
-  font:inherit;
+input {
+    font: inherit;
 }
 
-button{
-  cursor:pointer;
+button {
+    cursor: pointer;
 }
 
-.hidden{
-  display:none!important;
+.hidden {
+    display: none !important;
 }
 
 
@@ -90,1307 +71,1118 @@ button{
    HOME
 ========================================================= */
 
-.home{
-  width:100%;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
-.homeHeader{
-  height:64px;
-  flex-shrink:0;
-
-  display:flex;
-  align-items:center;
-
-  padding:0 30px;
-
-  background:
-    rgba(16,17,20,.78);
-
-  border-bottom:
-    1px solid var(--border);
-
-  backdrop-filter:blur(20px);
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  font-family:Georgia,serif;
-  font-size:21px;
-  letter-spacing:-.04em;
-}
-
-.logoMark{
-  width:29px;
-  height:29px;
-
-  display:grid;
-  place-items:center;
-
-  border-radius:8px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #8b9fff,
-      #695bd7
-    );
-
-  color:white;
-
-  font-family:Georgia,serif;
-  font-weight:bold;
-}
-
-.homeNav{
-  display:flex;
-  gap:3px;
-  margin-left:32px;
-}
-
-.homeNav button{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-
-  padding:8px 11px;
-
-  border-radius:7px;
-
-  font-size:11px;
-}
-
-.homeNav button:hover,
-.homeNav button.active{
-  background:#202228;
-  color:white;
-}
-
-.homeActions{
-  margin-left:auto;
-
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.btn{
-  height:34px;
-
-  padding:0 13px;
-
-  border-radius:7px;
-
-  border:1px solid var(--border);
-
-  background:#1b1c21;
-
-  color:var(--text);
-
-  font-size:10px;
-}
-
-.btn:hover{
-  background:#25272e;
-}
-
-.btnPrimary{
-  border-color:
-    rgba(110,140,255,.35);
-
-  background:
-    linear-gradient(
-      135deg,
-      #6d83ec,
-      #8067dc
-    );
-
-  color:white;
-
-  box-shadow:
-    0 4px 18px
-    rgba(110,140,255,.18);
-}
-
-.btnPrimary:hover{
-  filter:brightness(1.08);
-}
-
-.avatar{
-  width:30px;
-  height:30px;
-
-  border-radius:50%;
-
-  display:grid;
-  place-items:center;
-
-  margin-left:5px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #d58ab6,
-      #806bd1
-    );
-
-  font-size:10px;
-  font-weight:700;
+.home {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 
-/* HOME CONTENT */
+/* TOP NAV */
 
-.homeContent{
-  width:min(1120px,calc(100% - 60px));
-  margin:auto;
+.home-nav {
+    height: 62px;
+    flex-shrink: 0;
 
-  padding:38px 0;
+    display: flex;
+    align-items: center;
 
-  overflow:auto;
+    padding: 0 38px;
+
+    border-bottom: 1px solid var(--border);
 }
 
-.hero{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-  margin-bottom:32px;
+    color: var(--text);
+    text-decoration: none;
 }
 
-.eyebrow{
-  margin-bottom:8px;
+.brand-mark {
+    width: 28px;
+    height: 28px;
 
-  color:
-    var(--blue2);
+    display: grid;
+    place-items: center;
 
-  font-size:9px;
-  font-weight:700;
+    background: var(--accent);
+    color: white;
 
-  letter-spacing:.14em;
-  text-transform:uppercase;
+    border-radius: 7px;
+
+    font-family: Georgia, serif;
+    font-size: 16px;
 }
 
-.hero h1{
-  margin:0;
-
-  font-family:Georgia,serif;
-  font-size:40px;
-  font-weight:400;
-
-  letter-spacing:-.045em;
+.brand-name {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    letter-spacing: -0.04em;
 }
 
-.hero p{
-  margin:9px 0 0;
-
-  color:var(--muted);
-
-  font-size:11px;
+.home-links {
+    display: flex;
+    gap: 4px;
+    margin-left: 38px;
 }
 
-.searchBox{
-  width:235px;
-  height:35px;
+.home-links button {
+    border: 0;
+    background: transparent;
 
-  border:
-    1px solid var(--border);
+    color: var(--text-muted);
 
-  border-radius:8px;
+    padding: 8px 11px;
+    border-radius: 6px;
 
-  outline:0;
-
-  padding:0 11px;
-
-  background:#18191d;
-
-  color:white;
-
-  font-size:10px;
+    font-size: 11px;
 }
 
-.searchBox:focus{
-  border-color:
-    rgba(110,140,255,.45);
+.home-links button:hover,
+.home-links button.active {
+    color: var(--text);
+    background: var(--panel);
+}
+
+.home-user {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.home-user span {
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.user-avatar {
+    width: 29px;
+    height: 29px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #596276;
+
+    color: white;
+
+    font-size: 10px;
+    font-weight: 600;
 }
 
 
-/* PROJECTS */
+/* HOME MAIN */
 
-.sectionHeader{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.home-main {
+    flex: 1;
 
-  margin-bottom:12px;
+    width: min(1120px, calc(100% - 76px));
+
+    margin: 0 auto;
+
+    overflow: auto;
+
+    padding: 70px 0 50px;
 }
 
-.sectionHeader h2{
-  margin:0;
 
-  font-family:Georgia,serif;
-  font-weight:400;
-  font-size:18px;
+/* WELCOME */
+
+.welcome {
+    text-align: center;
+
+    margin-bottom: 62px;
 }
 
-.sectionHeader span{
-  color:var(--muted);
-  font-size:9px;
+.welcome-kicker {
+    color: var(--accent-soft);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+
+    margin-bottom: 14px;
 }
 
-.projects{
-  display:grid;
-  grid-template-columns:
-    repeat(4,1fr);
+.welcome h1 {
+    margin: 0;
 
-  gap:12px;
+    font-family: Georgia, serif;
+    font-size: 46px;
+    font-weight: 400;
+
+    letter-spacing: -0.055em;
+
+    color: #f5f2eb;
 }
 
-.project{
-  min-width:0;
+.welcome p {
+    margin: 12px 0 0;
 
-  padding:8px;
+    color: var(--text-muted);
 
-  border:
-    1px solid var(--border);
-
-  border-radius:11px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #191a1f,
-      #17181c
-    );
-
-  transition:
-    transform .18s,
-    border .18s,
-    box-shadow .18s;
+    font-size: 12px;
 }
 
-.project:hover{
-  transform:translateY(-3px);
 
-  border-color:
-    rgba(255,255,255,.13);
+/* NEW PROJECT */
 
-  box-shadow:
-    0 18px 40px
-    rgba(0,0,0,.23);
+.new-project-wrap {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 60px;
 }
 
-.cover{
-  height:137px;
+.new-project {
+    width: 310px;
 
-  display:flex;
-  align-items:end;
+    border: 1px solid #393b40;
 
-  padding:14px;
+    background: var(--panel);
 
-  position:relative;
+    border-radius: 9px;
 
-  overflow:hidden;
+    padding: 18px 20px;
 
-  border-radius:7px;
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    text-align: left;
+
+    transition:
+        background 0.15s,
+        border-color 0.15s;
 }
 
-.cover::before{
-  content:"";
-
-  position:absolute;
-  inset:0;
-
-  background:
-    radial-gradient(
-      circle at 80% 20%,
-      rgba(255,255,255,.22),
-      transparent 28%
-    );
+.new-project:hover {
+    background: var(--panel-hover);
+    border-color: #4a4c52;
 }
 
-.cover::after{
-  content:"";
+.new-project-icon {
+    width: 40px;
+    height: 40px;
 
-  position:absolute;
-  inset:0;
+    display: grid;
+    place-items: center;
 
-  background:
-    linear-gradient(
-      to top,
-      rgba(0,0,0,.62),
-      transparent 65%
-    );
+    border-radius: 7px;
+
+    background: #2a2b30;
+
+    color: var(--accent-soft);
+
+    font-size: 20px;
 }
 
-.cover1{
-  background:
-    linear-gradient(
-      145deg,
-      #394a89,
-      #1b213e
-    );
+.new-project strong {
+    display: block;
+
+    color: var(--text);
+
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-weight: 400;
 }
 
-.cover2{
-  background:
-    linear-gradient(
-      145deg,
-      #714b76,
-      #29203d
-    );
+.new-project span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
 }
 
-.cover3{
-  background:
-    linear-gradient(
-      145deg,
-      #397487,
-      #192c38
-    );
+
+/* PROJECT SECTION */
+
+.projects-heading {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
 }
 
-.projectTitle{
-  position:relative;
-  z-index:2;
+.projects-heading h2 {
+    margin: 0;
 
-  color:white;
-
-  font-family:Georgia,serif;
-  font-size:16px;
-
-  letter-spacing:-.025em;
+    font-family: Georgia, serif;
+    font-size: 17px;
+    font-weight: 400;
 }
 
-.projectInfo{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  padding:10px 3px 2px;
+.projects-heading span {
+    color: var(--text-muted);
+    font-size: 9px;
 }
 
-.projectInfo strong{
-  font-family:Georgia,serif;
-  font-weight:400;
-  font-size:12px;
+.projects {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
 }
 
-.projectInfo span{
-  color:var(--muted);
-  font-size:8px;
+.project {
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    transition:
+        background 0.15s,
+        border-color 0.15s;
 }
 
-.newProject{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-
-  min-height:174px;
-
-  gap:8px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #1c1e25,
-      #18191e
-    );
-
-  border:
-    1px dashed
-    rgba(255,255,255,.13);
+.project:hover {
+    background: var(--panel-hover);
+    border-color: #414349;
 }
 
-.newProject .plus{
-  width:34px;
-  height:34px;
+.project-cover {
+    height: 145px;
 
-  display:grid;
-  place-items:center;
+    display: flex;
+    align-items: flex-end;
 
-  border-radius:50%;
+    padding: 17px;
 
-  background:#23252c;
+    position: relative;
 
-  color:#aab5ff;
-
-  font-size:18px;
+    border-bottom: 1px solid var(--border);
 }
 
-.newProject strong{
-  font-size:10px;
+.cover-one {
+    background: #3c496c;
 }
 
-.newProject span{
-  color:var(--muted);
-  font-size:8px;
+.cover-two {
+    background: #604b60;
+}
+
+.cover-three {
+    background: #42606a;
+}
+
+.project-cover span {
+    position: relative;
+    z-index: 1;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 19px;
+
+    letter-spacing: -0.03em;
+}
+
+.project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 11px 13px;
+}
+
+.project-info strong {
+    color: var(--text);
+
+    font-family: Georgia, serif;
+
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.project-info span {
+    color: var(--text-muted);
+
+    font-size: 8px;
 }
 
 
 /* HOME LOWER */
 
-.homeBottom{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+.home-lower {
+    display: grid;
 
-  gap:12px;
+    grid-template-columns: 1fr 1fr;
 
-  margin-top:28px;
+    gap: 14px;
+
+    margin-top: 28px;
 }
 
-.homePanel{
-  padding:16px;
+.lower-panel {
+    border-top: 1px solid var(--border);
 
-  border:
-    1px solid var(--border);
-
-  border-radius:10px;
-
-  background:#18191e;
+    padding-top: 17px;
 }
 
-.homePanel h3{
-  margin:0 0 12px;
+.lower-panel h3 {
+    margin: 0 0 13px;
 
-  font-family:Georgia,serif;
-  font-weight:400;
-  font-size:15px;
+    color: var(--text);
+
+    font-family: Georgia, serif;
+
+    font-size: 15px;
+    font-weight: 400;
 }
 
-.recent{
-  display:grid;
-  grid-template-columns:30px 1fr auto;
+.recent-item {
+    display: grid;
 
-  gap:9px;
+    grid-template-columns: 28px 1fr auto;
 
-  align-items:center;
+    align-items: center;
 
-  padding:9px 0;
+    gap: 9px;
 
-  border-top:
-    1px solid var(--border);
+    padding: 8px 0;
+
+    border-top: 1px solid #292a2e;
 }
 
-.recent:first-of-type{
-  border-top:0;
+.recent-item:first-of-type {
+    border-top: 0;
 }
 
-.recentIcon{
-  width:28px;
-  height:28px;
+.recent-letter {
+    width: 28px;
+    height: 28px;
 
-  display:grid;
-  place-items:center;
+    display: grid;
+    place-items: center;
 
-  border-radius:7px;
+    background: #27282d;
 
-  background:#23252d;
+    border-radius: 6px;
 
-  color:#9aa8ff;
+    color: var(--accent-soft);
 
-  font-family:Georgia,serif;
-  font-size:11px;
+    font-family: Georgia, serif;
+    font-size: 11px;
 }
 
-.recent b{
-  font-size:10px;
-  font-weight:600;
+.recent-item strong {
+    display: block;
+
+    color: #d5d4d1;
+
+    font-size: 10px;
+    font-weight: 500;
 }
 
-.recent small{
-  display:block;
+.recent-item small {
+    display: block;
 
-  margin-top:3px;
+    margin-top: 3px;
 
-  color:var(--muted);
+    color: var(--text-muted);
 
-  font-size:8px;
+    font-size: 8px;
 }
 
-.recent time{
-  color:var(--muted);
-  font-size:8px;
-}
+.recent-item time {
+    color: var(--text-muted);
 
-.quickGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-
-  gap:7px;
-}
-
-.quick{
-  padding:12px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:8px;
-
-  background:#1e2026;
-
-  color:white;
-
-  text-align:left;
-}
-
-.quick:hover{
-  background:#252730;
-
-  border-color:
-    rgba(110,140,255,.2);
-}
-
-.quick strong{
-  display:block;
-
-  margin-bottom:3px;
-
-  font-family:Georgia,serif;
-  font-size:12px;
-  font-weight:400;
-}
-
-.quick span{
-  color:var(--muted);
-  font-size:8px;
+    font-size: 8px;
 }
 
 
 /* =========================================================
-   APPLICATION
+   APP
 ========================================================= */
 
-.app{
-  width:100%;
-  height:100vh;
+.app {
+    width: 100%;
+    height: 100vh;
 
-  display:grid;
+    display: grid;
 
-  grid-template-columns:
-    215px
-    minmax(0,1fr)
-    245px;
+    grid-template-columns:
+        205px
+        minmax(0, 1fr)
+        220px;
 
-  grid-template-rows:
-    55px
-    1fr;
+    grid-template-rows:
+        54px
+        minmax(0, 1fr);
 
-  background:#111216;
+    background: #292a2d;
 }
 
 
-/* TOP */
+/* TOP BAR */
 
-.topbar{
-  grid-column:1 / -1;
+.topbar {
+    grid-column: 1 / -1;
 
-  display:grid;
+    display: grid;
 
-  grid-template-columns:
-    215px
-    1fr
-    245px;
+    grid-template-columns:
+        205px
+        1fr
+        220px;
 
-  align-items:center;
+    align-items: center;
 
-  background:#15161a;
+    background: #191a1d;
 
-  border-bottom:
-    1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
-.topBrand{
-  height:100%;
+.topbar-brand {
+    height: 100%;
 
-  display:flex;
-  align-items:center;
+    display: flex;
+    align-items: center;
 
-  gap:9px;
+    gap: 9px;
 
-  padding-left:13px;
+    padding-left: 14px;
 
-  border-right:
-    1px solid var(--border);
+    border-right: 1px solid var(--border);
 }
 
-.topBrand span{
-  font-family:Georgia,serif;
-  font-size:18px;
+.topbar-brand .brand-mark {
+    width: 27px;
+    height: 27px;
 }
 
-.topBrand .logoMark{
-  width:27px;
-  height:27px;
+.topbar-brand span {
+    font-family: Georgia, serif;
+    font-size: 18px;
 }
 
-.documentName{
-  padding-left:18px;
+.document {
+    padding-left: 18px;
 
-  font-size:10px;
-  color:#d8d8dc;
+    color: #d8d7d4;
+
+    font-size: 10px;
 }
 
-.documentName small{
-  margin-left:6px;
+.document small {
+    margin-left: 7px;
 
-  color:var(--muted);
+    color: var(--text-muted);
+
+    font-size: 8px;
 }
 
-.topCenter{
-  justify-self:center;
+.view-tabs {
+    justify-self: center;
 
-  display:flex;
+    display: flex;
 
-  padding:3px;
+    gap: 2px;
 
-  border:
-    1px solid var(--border);
+    background: #141518;
 
-  border-radius:8px;
+    border: 1px solid #2c2d31;
 
-  background:#101115;
+    border-radius: 7px;
+
+    padding: 3px;
 }
 
-.viewButton{
-  border:0;
+.view-tabs button {
+    border: 0;
 
-  padding:6px 13px;
+    background: transparent;
 
-  border-radius:6px;
+    color: var(--text-muted);
 
-  background:transparent;
+    padding: 6px 13px;
 
-  color:var(--muted);
+    border-radius: 5px;
 
-  font-size:9px;
+    font-size: 9px;
 }
 
-.viewButton:hover{
-  color:white;
+.view-tabs button:hover {
+    color: var(--text);
 }
 
-.viewButton.active{
-  background:#292b34;
+.view-tabs button.active {
+    background: #292a2f;
 
-  color:white;
-
-  box-shadow:
-    0 2px 8px
-    rgba(0,0,0,.25);
+    color: var(--text);
 }
 
-.topActions{
-  display:flex;
-  justify-content:flex-end;
+.topbar-actions {
+    display: flex;
 
-  gap:5px;
+    justify-content: flex-end;
 
-  padding-right:12px;
+    gap: 5px;
+
+    padding-right: 12px;
 }
 
-.topAction{
-  width:30px;
-  height:30px;
+.topbar-actions button {
+    width: 29px;
+    height: 29px;
 
-  border:
-    1px solid var(--border);
+    border: 1px solid #303136;
 
-  border-radius:7px;
+    background: #202125;
 
-  background:#1b1c21;
+    color: #999a9e;
 
-  color:#aaaab2;
+    border-radius: 6px;
+
+    font-size: 11px;
 }
 
-.topAction:hover{
-  background:#25272e;
-  color:white;
+.topbar-actions button:hover {
+    background: var(--panel-hover);
+
+    color: white;
+}
+
+
+/* LEFT */
+
+.left {
+    min-height: 0;
+    overflow: hidden;
+
+    background: #191a1d;
+
+    border-right: 1px solid var(--border);
+}
+
+.left-label {
+    padding: 17px 13px 8px;
+
+    color: #67686d;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.left-nav {
+    padding: 0 7px;
+}
+
+.left-nav button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #85868a;
+
+    border-radius: 6px;
+
+    padding: 8px 9px;
+
+    text-align: left;
+
+    font-size: 9px;
+}
+
+.left-nav button:hover {
+    color: var(--text);
+    background: #222328;
+}
+
+.left-nav button.active {
+    color: #f0efec;
+    background: #25262b;
+}
+
+.left-icon {
+    width: 14px;
+
+    color: #696a70;
+
+    text-align: center;
+}
+
+.left-nav button.active .left-icon {
+    color: var(--accent-soft);
+}
+
+.scene-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 19px 13px 7px;
+
+    color: #67686d;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.scene-heading button {
+    border: 0;
+
+    background: transparent;
+
+    color: #88898e;
+
+    font-size: 15px;
+}
+
+.scene-list {
+    height: calc(100% - 214px);
+
+    overflow: auto;
+
+    padding: 0 7px;
+}
+
+.scene {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 25px 1fr 5px;
+
+    align-items: center;
+
+    gap: 5px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #818287;
+
+    border-radius: 6px;
+
+    padding: 7px 8px;
+
+    text-align: left;
+
+    font-size: 9px;
+}
+
+.scene:hover {
+    background: #222328;
+
+    color: #dddcd9;
+}
+
+.scene.active {
+    background: #292a30;
+
+    color: #f1f0ed;
+}
+
+.scene-number {
+    color: #5e6065;
+
+    font-family: Georgia, serif;
+}
+
+.scene.active .scene-number {
+    color: var(--accent-soft);
+}
+
+.scene-title {
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+.scene-status {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--green);
 }
 
 
 /* =========================================================
-   LEFT PANEL
+   CENTER EDITOR
 ========================================================= */
 
-.leftPanel{
-  min-width:0;
-  overflow:hidden;
+.editor {
+    min-width: 0;
+    min-height: 0;
 
-  background:#15161a;
+    display: flex;
+    flex-direction: column;
 
-  border-right:
-    1px solid var(--border);
+    background: #292a2d;
 }
 
-.panelLabel{
-  padding:
-    15px
-    13px
-    7px;
+.editor-toolbar {
+    height: 42px;
 
-  color:#666871;
+    flex-shrink: 0;
 
-  font-size:8px;
-  font-weight:700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  letter-spacing:.14em;
-  text-transform:uppercase;
+    gap: 2px;
+
+    background: #1e1f22;
+
+    border-bottom: 1px solid var(--border);
+
+    position: relative;
 }
 
-.mainNav{
-  padding:0 8px;
+.format {
+    border: 0;
+
+    background: transparent;
+
+    color: #85868b;
+
+    padding: 6px 8px;
+
+    border-radius: 5px;
+
+    font-size: 8px;
 }
 
-.mainNav button{
-  width:100%;
+.format:hover {
+    background: #292a2e;
 
-  display:flex;
-  align-items:center;
-
-  gap:9px;
-
-  padding:8px 9px;
-
-  border:0;
-  border-radius:7px;
-
-  background:transparent;
-
-  color:#85868e;
-
-  text-align:left;
-
-  font-size:9px;
+    color: var(--text);
 }
 
-.mainNav button:hover{
-  background:#1d1f25;
-  color:#e8e8ec;
+.format.active {
+    background: #292a30;
+
+    color: var(--accent-soft);
 }
 
-.mainNav button.active{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(110,140,255,.15),
-      rgba(110,140,255,.05)
-    );
+.toolbar-divider {
+    width: 1px;
+    height: 17px;
 
-  color:#f2f2f5;
+    background: #333438;
+
+    margin: 0 6px;
 }
 
-.navIcon{
-  width:15px;
+.editor-status {
+    position: absolute;
 
-  color:#71737d;
+    right: 12px;
 
-  text-align:center;
+    display: flex;
+    gap: 9px;
+
+    color: #66676c;
+
+    font-size: 8px;
 }
 
-.mainNav button.active .navIcon{
-  color:#93a4ff;
+.editor-status .saved {
+    color: var(--green);
 }
 
-.sceneHeader{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
 
-  padding:
-    17px
-    13px
-    7px;
+/* PAPER */
 
-  color:#666871;
+.paper-area {
+    flex: 1;
 
-  font-size:8px;
-  font-weight:700;
+    min-height: 0;
 
-  letter-spacing:.14em;
-  text-transform:uppercase;
+    overflow: auto;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 32px 30px 80px;
 }
 
-.addScene{
-  border:0;
-  background:transparent;
+.paper {
+    width: min(700px, 100%);
 
-  color:#81838b;
+    min-height: 850px;
 
-  font-size:15px;
+    background: var(--paper);
+
+    color: var(--ink);
+
+    padding: 72px 82px 100px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.24);
 }
 
-.scenes{
-  height:
-    calc(100% - 210px);
+.title-page-title {
+    text-align: center;
 
-  padding:0 8px;
+    font-family: "Courier New", monospace;
 
-  overflow:auto;
+    font-size: 11px;
+
+    letter-spacing: 0.05em;
+
+    margin-bottom: 50px;
 }
 
-.scene{
-  width:100%;
+.script {
+    outline: none;
 
-  display:grid;
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
 
-  grid-template-columns:
-    25px
-    1fr
-    7px;
+    font-size: 11px;
 
-  align-items:center;
-
-  gap:5px;
-
-  padding:7px 8px;
-
-  border:0;
-  border-radius:7px;
-
-  background:transparent;
-
-  color:#7d7e86;
-
-  text-align:left;
-
-  font-size:9px;
+    line-height: 1.65;
 }
 
-.scene:hover{
-  background:#1d1f25;
-  color:#dedee2;
+.script div {
+    min-height: 18px;
 }
 
-.scene.active{
-  background:#252731;
-  color:#f0f0f3;
+.scene-heading {
+    margin-top: 20px;
+
+    text-transform: uppercase;
+
+    font-weight: 700;
 }
 
-.sceneNumber{
-  color:#555761;
-  font-family:Georgia,serif;
+.action {
+    margin-bottom: 9px;
 }
 
-.scene.active .sceneNumber{
-  color:#929cff;
+.character {
+    width: 42%;
+
+    margin: 15px auto 0;
+
+    text-align: center;
 }
 
-.sceneTitle{
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.dialogue {
+    width: 58%;
+
+    margin: 0 auto 9px;
 }
 
-.sceneDot{
-  width:5px;
-  height:5px;
+.parenthetical {
+    width: 43%;
 
-  border-radius:50%;
+    margin: 0 auto;
 
-  background:#5c956f;
+    font-size: 10px;
+}
+
+.transition {
+    margin-top: 18px;
+
+    text-align: right;
+
+    text-transform: uppercase;
 }
 
 
 /* =========================================================
-   CENTER
+   RIGHT INSPECTOR
 ========================================================= */
 
-.center{
-  min-width:0;
-  min-height:0;
+.right {
+    min-width: 0;
+    min-height: 0;
 
-  display:flex;
-  flex-direction:column;
+    overflow: hidden;
 
-  background:#292b30;
+    background: #191a1d;
+
+    border-left: 1px solid var(--border);
 }
 
-.editorTools{
-  position:relative;
+.right-tabs {
+    height: 42px;
 
-  height:42px;
+    display: grid;
 
-  flex-shrink:0;
+    grid-template-columns: repeat(3, 1fr);
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  gap:1px;
-
-  background:#1a1b20;
-
-  border-bottom:
-    1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
-.formatButton{
-  padding:6px 8px;
+.right-tabs button {
+    border: 0;
 
-  border:0;
-  border-radius:5px;
+    background: transparent;
 
-  background:transparent;
+    color: #696a6f;
 
-  color:#85868e;
-
-  font-size:8px;
-  font-weight:600;
+    font-size: 8px;
 }
 
-.formatButton:hover{
-  color:white;
-  background:#25272e;
+.right-tabs button.active {
+    color: var(--text);
+
+    border-bottom: 2px solid var(--accent);
 }
 
-.formatButton.active{
-  color:#a5b2ff;
-  background:#242631;
+.inspector {
+    height: calc(100% - 42px);
+
+    overflow: auto;
+
+    padding: 11px;
 }
 
-.toolDivider{
-  width:1px;
-  height:17px;
+.inspector-section {
+    padding: 12px 0;
 
-  margin:0 6px;
-
-  background:var(--border);
+    border-bottom: 1px solid #292a2e;
 }
 
-.toolRight{
-  position:absolute;
-  right:12px;
-
-  display:flex;
-  align-items:center;
-
-  gap:9px;
+.inspector-section:first-child {
+    padding-top: 2px;
 }
 
-.wordCount,
-.saved{
-  color:#6e7078;
-  font-size:8px;
+.inspector-label {
+    color: #66676b;
+
+    font-size: 7px;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
 }
 
-.saved{
-  color:#679474;
+.inspector-value {
+    margin-top: 5px;
+
+    color: #c6c5c1;
+
+    font-size: 9px;
+
+    line-height: 1.5;
 }
 
-.paperArea{
-  flex:1;
+.stat-grid {
+    display: grid;
 
-  min-height:0;
+    grid-template-columns: 1fr 1fr;
 
-  overflow:auto;
+    gap: 6px;
 
-  display:flex;
-  justify-content:center;
-
-  padding:
-    30px
-    30px
-    70px;
+    margin-top: 10px;
 }
 
-.paper{
-  width:min(700px,100%);
+.stat {
+    padding: 9px;
 
-  min-height:850px;
+    background: #212226;
 
-  padding:
-    72px
-    82px
-    90px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #faf7f0,
-      #f7f2e9
-    );
-
-  color:#292825;
-
-  box-shadow:
-    0 25px 60px
-    rgba(0,0,0,.25);
+    border-radius: 6px;
 }
 
-.title{
-  margin-bottom:50px;
+.stat strong {
+    display: block;
 
-  text-align:center;
+    font-family: Georgia, serif;
 
-  font-family:
-    "Courier New",
-    monospace;
+    color: #e3e1dc;
 
-  font-size:11px;
+    font-size: 15px;
 
-  letter-spacing:.05em;
+    font-weight: 400;
 }
 
-.script{
-  min-height:650px;
+.stat span {
+    display: block;
 
-  outline:0;
+    margin-top: 2px;
 
-  font-family:
-    "Courier New",
-    Courier,
-    monospace;
+    color: #6e6f74;
 
-  font-size:11px;
-
-  line-height:1.65;
+    font-size: 7px;
 }
 
-.script div{
-  min-height:18px;
+.tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 4px;
+
+    margin-top: 9px;
 }
 
-.sceneHeading{
-  margin-top:20px;
+.tag {
+    padding: 5px 7px;
 
-  text-transform:uppercase;
+    border-radius: 5px;
 
-  font-weight:bold;
+    background: #27282d;
+
+    color: #999aa0;
+
+    font-size: 7px;
 }
 
-.action{
-  margin-bottom:9px;
+.tag.blue {
+    background: #273047;
+
+    color: #aab8df;
 }
 
-.character{
-  margin-top:15px;
+.tag.green {
+    background: #26342c;
 
-  text-align:center;
+    color: #9ab6a3;
 }
 
-.dialogue{
-  width:58%;
+.tag.purple {
+    background: #342c3a;
 
-  margin:
-    0 auto
-    9px;
-}
-
-.parenthetical{
-  width:44%;
-
-  margin:
-    0 auto;
-
-  font-size:10px;
-}
-
-.transition{
-  margin-top:18px;
-
-  text-align:right;
-
-  text-transform:uppercase;
-}
-
-
-/* =========================================================
-   RIGHT
-========================================================= */
-
-.rightPanel{
-  min-width:0;
-  overflow:hidden;
-
-  background:#15161a;
-
-  border-left:
-    1px solid var(--border);
-}
-
-.rightHeader{
-  height:42px;
-
-  display:grid;
-  grid-template-columns:
-    repeat(3,1fr);
-
-  border-bottom:
-    1px solid var(--border);
-}
-
-.rightTab{
-  border:0;
-
-  background:transparent;
-
-  color:#686a73;
-
-  font-size:8px;
-}
-
-.rightTab.active{
-  color:white;
-
-  border-bottom:
-    2px solid
-    var(--blue);
-}
-
-.inspector{
-  height:
-    calc(100% - 42px);
-
-  padding:11px;
-
-  overflow:auto;
-}
-
-.card{
-  margin-bottom:8px;
-
-  padding:11px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:9px;
-
-  background:#1b1c21;
-}
-
-.cardTitle{
-  margin-bottom:10px;
-
-  font-family:Georgia,serif;
-
-  font-size:13px;
-}
-
-.label{
-  color:#666871;
-
-  font-size:7px;
-
-  text-transform:uppercase;
-
-  letter-spacing:.08em;
-}
-
-.value{
-  margin-top:4px;
-
-  color:#bfc0c6;
-
-  font-size:9px;
-
-  line-height:1.45;
-}
-
-.progress{
-  height:3px;
-
-  margin-top:9px;
-
-  overflow:hidden;
-
-  border-radius:4px;
-
-  background:#292b31;
-}
-
-.progress span{
-  display:block;
-
-  width:72%;
-
-  height:100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--blue),
-      var(--violet)
-    );
-}
-
-.stats{
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:5px;
-}
-
-.stat{
-  padding:8px;
-
-  border-radius:6px;
-
-  background:#22242a;
-}
-
-.stat strong{
-  display:block;
-
-  font-family:Georgia,serif;
-
-  font-size:15px;
-  font-weight:400;
-}
-
-.stat small{
-  color:#696b74;
-  font-size:7px;
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-
-  gap:4px;
-}
-
-.tag{
-  padding:5px 7px;
-
-  border-radius:5px;
-
-  background:#252730;
-
-  color:#9b9da6;
-
-  font-size:7px;
-}
-
-.tag.red{
-  background:
-    rgba(212,125,186,.13);
-
-  color:#d596c1;
-}
-
-.tag.green{
-  background:
-    rgba(121,184,154,.12);
-
-  color:#83bd9f;
-}
-
-.tag.blue{
-  background:
-    rgba(110,140,255,.13);
-
-  color:#9aaaff;
+    color: #b9a7c4;
 }
 
 
@@ -1398,219 +1190,226 @@ button{
    UTILITY VIEWS
 ========================================================= */
 
-.utilityView{
-  width:min(900px,100%);
+.utility {
+    width: min(900px, 100%);
 
-  margin:auto;
+    margin: auto;
 
-  padding:30px;
+    padding: 30px;
 }
 
-.utilityTitle{
-  margin:
-    0
-    0
-    24px;
+.utility h1 {
+    margin: 0 0 25px;
 
-  font-family:Georgia,serif;
+    font-family: Georgia, serif;
 
-  font-size:30px;
-  font-weight:400;
+    font-size: 30px;
 
-  letter-spacing:-.04em;
+    font-weight: 400;
+
+    letter-spacing: -0.04em;
 }
 
-.storyBoard{
-  display:grid;
 
-  grid-template-columns:
-    repeat(3,1fr);
+/* STORY MAP */
 
-  gap:10px;
+.story-map {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
 }
 
-.storyColumn{
-  min-height:430px;
+.story-column {
+    min-height: 420px;
 
-  padding:11px;
+    border-left: 1px solid #3a3b40;
 
-  border:
-    1px solid var(--border);
-
-  border-radius:9px;
-
-  background:#18191e;
+    padding-left: 13px;
 }
 
-.storyColumn h3{
-  margin:
-    0
-    0
-    10px;
+.story-column h3 {
+    margin: 0 0 14px;
 
-  font-family:Georgia,serif;
+    color: var(--accent-soft);
 
-  font-size:13px;
-  font-weight:400;
+    font-family: Georgia, serif;
 
-  color:#aeb5ff;
+    font-size: 14px;
+
+    font-weight: 400;
 }
 
-.storyCard{
-  margin-bottom:7px;
+.story-card {
+    padding: 12px;
 
-  padding:11px;
+    margin-bottom: 7px;
 
-  border:
-    1px solid var(--border);
+    background: #202125;
 
-  border-radius:7px;
+    border: 1px solid #2f3035;
 
-  background:#202228;
+    border-radius: 7px;
 }
 
-.storyCard small{
-  display:block;
+.story-card small {
+    display: block;
 
-  margin-bottom:6px;
+    margin-bottom: 6px;
 
-  color:#666871;
+    color: #68696e;
 
-  font-size:7px;
+    font-size: 7px;
 }
 
-.storyCard strong{
-  font-family:Georgia,serif;
+.story-card strong {
+    color: #d5d4d0;
 
-  font-size:12px;
-  font-weight:400;
+    font-family: Georgia, serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
 }
 
-.outlineItem{
-  margin-bottom:6px;
 
-  padding:12px;
+/* OUTLINE */
 
-  border:
-    1px solid var(--border);
+.outline-item {
+    display: grid;
 
-  border-radius:7px;
+    grid-template-columns: 38px 1fr;
 
-  background:#191a1f;
+    padding: 13px;
 
-  color:#c6c7cc;
+    border-bottom: 1px solid #303136;
 
-  font-size:10px;
+    color: #c7c6c2;
+
+    font-size: 10px;
 }
 
-.characterGrid{
-  display:grid;
+.outline-item-number {
+    color: var(--accent-soft);
 
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:9px;
+    font-family: Georgia, serif;
 }
 
-.characterCard{
-  padding:14px;
 
-  border:
-    1px solid var(--border);
+/* CHARACTERS */
 
-  border-radius:9px;
+.character-grid {
+    display: grid;
 
-  background:#191a1f;
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
 }
 
-.characterAvatar{
-  width:38px;
-  height:38px;
+.character-card {
+    padding: 15px;
 
-  display:grid;
-  place-items:center;
+    background: #202125;
 
-  margin-bottom:10px;
+    border: 1px solid #303136;
 
-  border-radius:50%;
-
-  background:
-    linear-gradient(
-      145deg,
-      #343b65,
-      #29233f
-    );
-
-  color:#aab5ff;
-
-  font-family:Georgia,serif;
+    border-radius: 8px;
 }
 
-.characterCard h3{
-  margin:0 0 3px;
+.character-avatar {
+    width: 38px;
+    height: 38px;
 
-  font-family:Georgia,serif;
+    display: grid;
+    place-items: center;
 
-  font-size:14px;
-  font-weight:400;
+    margin-bottom: 12px;
+
+    border-radius: 50%;
+
+    background: #3c465e;
+
+    color: #d3d9ec;
+
+    font-family: Georgia, serif;
 }
 
-.characterCard p{
-  color:#777983;
+.character-card h3 {
+    margin: 0;
 
-  font-size:8px;
+    font-family: Georgia, serif;
 
-  line-height:1.5;
+    font-size: 14px;
+
+    font-weight: 400;
 }
 
-.notes{
-  display:grid;
+.character-card span {
+    display: block;
 
-  grid-template-columns:
-    repeat(2,1fr);
+    margin-top: 4px;
 
-  gap:9px;
+    color: var(--text-muted);
+
+    font-size: 8px;
 }
 
-.note{
-  min-height:120px;
+.character-card p {
+    margin: 10px 0 0;
 
-  padding:15px;
+    color: #77787d;
 
-  border:
-    1px solid
-    rgba(212,154,105,.18);
+    font-size: 8px;
 
-  border-radius:9px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(212,154,105,.10),
-      rgba(155,130,255,.05)
-    );
+    line-height: 1.5;
 }
 
-.note h3{
-  margin:
-    0
-    0
-    7px;
 
-  font-family:Georgia,serif;
+/* NOTES */
 
-  font-size:14px;
-  font-weight:400;
+.notes {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
 }
 
-.note p{
-  margin:0;
+.note {
+    min-height: 130px;
 
-  color:#8e8f96;
+    padding: 15px;
 
-  font-size:9px;
+    background: #292925;
 
-  line-height:1.55;
+    border: 1px solid #3a3933;
+
+    border-radius: 7px;
+}
+
+.note h3 {
+    margin: 0 0 8px;
+
+    font-family: Georgia, serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    color: #e1ded4;
+}
+
+.note p {
+    margin: 0;
+
+    color: #92918b;
+
+    font-size: 9px;
+
+    line-height: 1.55;
 }
 
 
@@ -1618,129 +1417,136 @@ button{
    MODAL
 ========================================================= */
 
-.modal{
-  position:fixed;
-  inset:0;
+.modal {
+    position: fixed;
 
-  display:grid;
-  place-items:center;
+    inset: 0;
 
-  z-index:50;
+    z-index: 50;
 
-  background:
-    rgba(5,6,8,.68);
+    display: grid;
 
-  backdrop-filter:
-    blur(12px);
+    place-items: center;
+
+    background: rgba(8, 9, 10, 0.72);
 }
 
-.modalBox{
-  width:390px;
+.modal-box {
+    width: 380px;
 
-  padding:21px;
+    padding: 22px;
 
-  border:
-    1px solid
-    rgba(255,255,255,.1);
+    background: #202125;
 
-  border-radius:11px;
+    border: 1px solid #393a3f;
 
-  background:#1a1b20;
-
-  box-shadow:var(--shadow);
+    border-radius: 9px;
 }
 
-.modalBox h2{
-  margin:
-    0
-    0
-    15px;
+.modal-box h2 {
+    margin: 0 0 17px;
 
-  font-family:Georgia,serif;
+    font-family: Georgia, serif;
 
-  font-size:22px;
-  font-weight:400;
+    font-size: 22px;
+
+    font-weight: 400;
 }
 
-.modalBox input{
-  width:100%;
-  height:39px;
+.modal-box input {
+    width: 100%;
 
-  padding:0 10px;
+    height: 39px;
 
-  outline:0;
+    padding: 0 10px;
 
-  border:
-    1px solid var(--border);
+    outline: none;
 
-  border-radius:7px;
+    border: 1px solid #36373c;
 
-  background:#111216;
+    border-radius: 6px;
 
-  color:white;
+    background: #17181a;
 
-  font-size:10px;
+    color: white;
+
+    font-size: 10px;
 }
 
-.modalBox input:focus{
-  border-color:
-    rgba(110,140,255,.45);
+.modal-box input:focus {
+    border-color: var(--accent);
 }
 
-.modalButtons{
-  display:flex;
-  justify-content:flex-end;
+.modal-actions {
+    display: flex;
 
-  gap:6px;
+    justify-content: flex-end;
 
-  margin-top:15px;
+    gap: 6px;
+
+    margin-top: 15px;
+}
+
+.modal-button {
+    height: 33px;
+
+    padding: 0 13px;
+
+    border: 1px solid #35363b;
+
+    border-radius: 6px;
+
+    background: #292a2f;
+
+    color: #ddd;
+
+    font-size: 9px;
+}
+
+.modal-button.primary {
+    background: var(--accent);
+
+    border-color: var(--accent);
+
+    color: white;
 }
 
 
-/* =========================================================
-   TOAST
-========================================================= */
+/* TOAST */
 
-.toast{
-  position:fixed;
+.toast {
+    position: fixed;
 
-  right:18px;
-  bottom:18px;
+    right: 18px;
+    bottom: 18px;
 
-  padding:
-    9px
-    13px;
+    padding: 9px 13px;
 
-  border:
-    1px solid var(--border);
+    background: #292a2e;
 
-  border-radius:7px;
+    border: 1px solid #3b3c41;
 
-  background:#202228;
+    border-radius: 6px;
 
-  color:white;
+    color: white;
 
-  font-size:8px;
+    font-size: 8px;
 
-  box-shadow:
-    0 10px 30px
-    rgba(0,0,0,.25);
+    opacity: 0;
 
-  opacity:0;
+    transform: translateY(5px);
 
-  transform:translateY(6px);
+    pointer-events: none;
 
-  pointer-events:none;
+    transition: 0.18s;
 
-  transition:.2s;
-
-  z-index:100;
+    z-index: 100;
 }
 
-.toast.show{
-  opacity:1;
+.toast.show {
+    opacity: 1;
 
-  transform:none;
+    transform: translateY(0);
 }
 
 
@@ -1748,114 +1554,101 @@ button{
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1050px){
+@media (max-width: 1050px) {
 
-  .app{
-    grid-template-columns:
-      190px
-      1fr;
-  }
+    .app {
+        grid-template-columns:
+            190px
+            minmax(0, 1fr);
+    }
 
-  .topbar{
-    grid-template-columns:
-      190px
-      1fr
-      190px;
-  }
+    .topbar {
+        grid-template-columns:
+            190px
+            1fr
+            190px;
+    }
 
-  .rightPanel{
-    display:none;
-  }
+    .right {
+        display: none;
+    }
 
-  .projects{
-    grid-template-columns:
-      repeat(3,1fr);
-  }
-
+    .projects {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
 }
 
-@media(max-width:780px){
+@media (max-width: 780px) {
 
-  .homeHeader{
-    padding:0 18px;
-  }
+    .home-nav {
+        padding: 0 18px;
+    }
 
-  .homeNav{
-    display:none;
-  }
+    .home-links {
+        display: none;
+    }
 
-  .homeContent{
-    width:
-      calc(100% - 30px);
-  }
+    .home-main {
+        width: calc(100% - 30px);
 
-  .hero{
-    flex-direction:column;
+        padding-top: 45px;
+    }
 
-    align-items:flex-start;
+    .welcome h1 {
+        font-size: 37px;
+    }
 
-    gap:18px;
-  }
+    .projects {
+        grid-template-columns: 1fr;
+    }
 
-  .searchBox{
-    width:100%;
-  }
+    .home-lower {
+        grid-template-columns: 1fr;
+    }
 
-  .projects{
-    grid-template-columns:
-      1fr 1fr;
-  }
+    .left {
+        display: none;
+    }
 
-  .homeBottom{
-    grid-template-columns:
-      1fr;
-  }
+    .app {
+        grid-template-columns: 1fr;
+    }
 
-  .leftPanel{
-    display:none;
-  }
+    .topbar {
+        grid-template-columns:
+            1fr auto;
+    }
 
-  .app{
-    grid-template-columns:
-      1fr;
-  }
+    .document,
+    .view-tabs {
+        display: none;
+    }
 
-  .topbar{
-    grid-template-columns:
-      1fr auto;
-  }
+    .paper-area {
+        padding: 15px;
+    }
 
-  .documentName,
-  .topCenter{
-    display:none;
-  }
+    .paper {
+        padding:
+            50px 35px 80px;
+    }
 
-  .paperArea{
-    padding:15px;
-  }
+    .editor-toolbar {
+        overflow-x: auto;
 
-  .paper{
-    padding:
-      50px
-      35px;
-  }
+        justify-content: flex-start;
+    }
 
-  .editorTools{
-    overflow:auto;
+    .editor-status {
+        display: none;
+    }
 
-    justify-content:flex-start;
-  }
-
-  .toolRight{
-    display:none;
-  }
-
-  .storyBoard,
-  .characterGrid{
-    grid-template-columns:
-      1fr;
-  }
-
+    .story-map,
+    .character-grid,
+    .notes {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
@@ -1863,1148 +1656,1071 @@ button{
 <body>
 
 
-<!-- =======================================================
+<!-- =========================================================
      HOME
-======================================================== -->
+========================================================= -->
 
-<section
-  class="home"
-  id="home"
->
+<section class="home" id="home">
 
-<header class="homeHeader">
+    <header class="home-nav">
 
-  <div class="logo">
+        <a class="brand">
 
-    <div class="logoMark">
-      A
-    </div>
+            <div class="brand-mark">A</div>
 
-    Auteur
+            <div class="brand-name">
+                Auteur
+            </div>
 
-  </div>
+        </a>
 
 
-  <nav class="homeNav">
+        <nav class="home-links">
 
-    <button class="active">
-      Projects
-    </button>
+            <button class="active">
+                Projects
+            </button>
 
-    <button>
-      Templates
-    </button>
+            <button>
+                Templates
+            </button>
 
-    <button>
-      Archive
-    </button>
+            <button>
+                Archive
+            </button>
 
-  </nav>
+        </nav>
 
 
-  <div class="homeActions">
+        <div class="home-user">
 
-    <button
-      class="btn"
-      id="importButton"
-    >
-      Import
-    </button>
+            <span>
+                Local workspace
+            </span>
 
-    <button
-      class="btn btnPrimary"
-      id="newProjectButton"
-    >
-      + New Project
-    </button>
-
-    <div class="avatar">
-      B
-    </div>
-
-  </div>
-
-</header>
-
-
-<main class="homeContent">
-
-  <div class="hero">
-
-    <div>
-
-      <div class="eyebrow">
-        Screenwriting Studio
-      </div>
-
-      <h1>
-        Welcome back.
-      </h1>
-
-      <p>
-        Write clearly. Think visually.
-      </p>
-
-    </div>
-
-
-    <input
-      class="searchBox"
-      id="searchProjects"
-      placeholder="Search projects..."
-    >
-
-  </div>
-
-
-  <div class="sectionHeader">
-
-    <h2>
-      Your projects
-    </h2>
-
-    <span>
-      3 projects
-    </span>
-
-  </div>
-
-
-  <div
-    class="projects"
-    id="projects"
-  >
-
-    <article
-      class="project"
-      data-project="The Last Signal"
-    >
-
-      <div class="cover cover1">
-
-        <div class="projectTitle">
-          The Last Signal
-        </div>
-
-      </div>
-
-      <div class="projectInfo">
-
-        <strong>
-          The Last Signal
-        </strong>
-
-        <span>
-          Today
-        </span>
-
-      </div>
-
-    </article>
-
-
-    <article
-      class="project"
-      data-project="Figures of Doom"
-    >
-
-      <div class="cover cover2">
-
-        <div class="projectTitle">
-          Figures of Doom
-        </div>
-
-      </div>
-
-      <div class="projectInfo">
-
-        <strong>
-          Figures of Doom
-        </strong>
-
-        <span>
-          Yesterday
-        </span>
-
-      </div>
-
-    </article>
-
-
-    <article
-      class="project"
-      data-project="Sentient Mass"
-    >
-
-      <div class="cover cover3">
-
-        <div class="projectTitle">
-          Sentient Mass
-        </div>
-
-      </div>
-
-      <div class="projectInfo">
-
-        <strong>
-          Sentient Mass
-        </strong>
-
-        <span>
-          Aug 12
-        </span>
-
-      </div>
-
-    </article>
-
-
-    <article
-      class="project newProject"
-      id="newProjectCard"
-    >
-
-      <div class="plus">
-        +
-      </div>
-
-      <strong>
-        New project
-      </strong>
-
-      <span>
-        Start something new
-      </span>
-
-    </article>
-
-  </div>
-
-
-  <div class="homeBottom">
-
-
-    <section class="homePanel">
-
-      <h3>
-        Continue writing
-      </h3>
-
-
-      <div class="recent">
-
-        <div class="recentIcon">
-          L
-        </div>
-
-        <div>
-
-          <b>
-            The Last Signal
-          </b>
-
-          <small>
-            Scene 1 · EXT. EMPTY ROAD - NIGHT
-          </small>
+            <div class="user-avatar">
+                B
+            </div>
 
         </div>
 
-        <time>
-          Today
-        </time>
-
-      </div>
+    </header>
 
 
-      <div class="recent">
+    <main class="home-main">
 
-        <div class="recentIcon">
-          F
+
+        <section class="welcome">
+
+            <div class="welcome-kicker">
+                Screenwriting Studio
+            </div>
+
+            <h1>
+                What are you writing?
+            </h1>
+
+            <p>
+                Your stories, scenes, characters and ideas. All in one place.
+            </p>
+
+        </section>
+
+
+        <div class="new-project-wrap">
+
+            <button
+                class="new-project"
+                id="newProjectButton"
+            >
+
+                <div class="new-project-icon">
+                    +
+                </div>
+
+                <div>
+
+                    <strong>
+                        New screenplay
+                    </strong>
+
+                    <span>
+                        Start with a blank page
+                    </span>
+
+                </div>
+
+            </button>
+
         </div>
 
-        <div>
 
-          <b>
-            Figures of Doom
-          </b>
+        <div class="projects-heading">
 
-          <small>
-            Scene 42 · EXT. WONDERLAND
-          </small>
+            <h2>
+                Recent projects
+            </h2>
 
-        </div>
-
-        <time>
-          Yesterday
-        </time>
-
-      </div>
-
-
-      <div class="recent">
-
-        <div class="recentIcon">
-          S
-        </div>
-
-        <div>
-
-          <b>
-            Sentient Mass
-          </b>
-
-          <small>
-            Scene 18 · INT. OMEGA CHAMBER
-          </small>
+            <span>
+                3 projects
+            </span>
 
         </div>
 
-        <time>
-          Aug 12
-        </time>
 
-      </div>
-
-    </section>
+        <section class="projects">
 
 
-    <section class="homePanel">
+            <article
+                class="project"
+                data-project="The Last Signal"
+            >
 
-      <h3>
-        Jump in
-      </h3>
+                <div class="project-cover cover-one">
 
+                    <span>
+                        The Last Signal
+                    </span>
 
-      <div class="quickGrid">
+                </div>
 
-        <button
-          class="quick"
-          id="quickWrite"
-        >
+                <div class="project-info">
 
-          <strong>
-            Write
-          </strong>
+                    <strong>
+                        The Last Signal
+                    </strong>
 
-          <span>
-            Start a screenplay
-          </span>
+                    <span>
+                        Today
+                    </span>
 
-        </button>
+                </div>
 
-
-        <button
-          class="quick"
-          id="quickMap"
-        >
-
-          <strong>
-            Story Map
-          </strong>
-
-          <span>
-            Build the structure
-          </span>
-
-        </button>
+            </article>
 
 
-        <button
-          class="quick"
-          id="quickCharacters"
-        >
+            <article
+                class="project"
+                data-project="Figures of Doom"
+            >
 
-          <strong>
-            Characters
-          </strong>
+                <div class="project-cover cover-two">
 
-          <span>
-            Develop your cast
-          </span>
+                    <span>
+                        Figures of Doom
+                    </span>
 
-        </button>
+                </div>
+
+                <div class="project-info">
+
+                    <strong>
+                        Figures of Doom
+                    </strong>
+
+                    <span>
+                        Yesterday
+                    </span>
+
+                </div>
+
+            </article>
 
 
-        <button
-          class="quick"
-          id="quickNotes"
-        >
+            <article
+                class="project"
+                data-project="Sentient Mass"
+            >
 
-          <strong>
-            Notes
-          </strong>
+                <div class="project-cover cover-three">
 
-          <span>
-            Capture ideas
-          </span>
+                    <span>
+                        Sentient Mass
+                    </span>
 
-        </button>
+                </div>
 
-      </div>
+                <div class="project-info">
 
-    </section>
+                    <strong>
+                        Sentient Mass
+                    </strong>
 
-  </div>
+                    <span>
+                        Aug 12
+                    </span>
 
-</main>
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+        <section class="home-lower">
+
+
+            <div class="lower-panel">
+
+                <h3>
+                    Continue writing
+                </h3>
+
+
+                <div class="recent-item">
+
+                    <div class="recent-letter">
+                        L
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            The Last Signal
+                        </strong>
+
+                        <small>
+                            Scene 01 · EXT. EMPTY ROAD - NIGHT
+                        </small>
+
+                    </div>
+
+                    <time>
+                        Today
+                    </time>
+
+                </div>
+
+
+                <div class="recent-item">
+
+                    <div class="recent-letter">
+                        F
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Figures of Doom
+                        </strong>
+
+                        <small>
+                            Scene 42 · EXT. WONDERLAND
+                        </small>
+
+                    </div>
+
+                    <time>
+                        Yesterday
+                    </time>
+
+                </div>
+
+
+                <div class="recent-item">
+
+                    <div class="recent-letter">
+                        S
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Sentient Mass
+                        </strong>
+
+                        <small>
+                            Scene 18 · INT. OMEGA CHAMBER
+                        </small>
+
+                    </div>
+
+                    <time>
+                        Aug 12
+                    </time>
+
+                </div>
+
+            </div>
+
+
+            <div class="lower-panel">
+
+                <h3>
+                    Workspace
+                </h3>
+
+                <div class="recent-item">
+
+                    <div class="recent-letter">
+                        W
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Writing
+                        </strong>
+
+                        <small>
+                            Continue your screenplay
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="recent-item">
+
+                    <div class="recent-letter">
+                        M
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Story Map
+                        </strong>
+
+                        <small>
+                            Structure your story visually
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="recent-item">
+
+                    <div class="recent-letter">
+                        N
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Notes
+                        </strong>
+
+                        <small>
+                            Keep your ideas beside the script
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
 
 </section>
 
 
 
-<!-- =======================================================
-     APP
-======================================================== -->
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
 
-<section
-  class="app hidden"
-  id="app"
->
+<section class="app hidden" id="app">
 
 
-<header class="topbar">
+    <header class="topbar">
 
 
-  <div class="topBrand">
+        <div class="topbar-brand">
 
-    <div class="logoMark">
-      A
-    </div>
+            <div class="brand-mark">
+                A
+            </div>
 
-    <span>
-      Auteur
-    </span>
+            <span>
+                Auteur
+            </span>
 
-  </div>
+        </div>
 
 
-  <div class="documentName">
+        <div class="document">
 
-    <span id="documentName">
-      The Last Signal
-    </span>
+            <span id="documentName">
+                The Last Signal
+            </span>
 
-    <small>
-      Screenplay
-    </small>
+            <small>
+                Screenplay
+            </small>
 
-  </div>
+        </div>
 
 
-  <div class="topCenter">
+        <div class="view-tabs">
 
-    <button
-      class="viewButton active"
-      data-view="write"
-    >
-      Write
-    </button>
+            <button
+                class="active"
+                data-view="write"
+            >
+                Write
+            </button>
 
-    <button
-      class="viewButton"
-      data-view="map"
-    >
-      Story Map
-    </button>
+            <button data-view="map">
+                Story Map
+            </button>
 
-    <button
-      class="viewButton"
-      data-view="outline"
-    >
-      Outline
-    </button>
+            <button data-view="outline">
+                Outline
+            </button>
 
-    <button
-      class="viewButton"
-      data-view="timeline"
-    >
-      Timeline
-    </button>
+        </div>
 
-  </div>
 
+        <div class="topbar-actions">
 
-  <div class="topActions">
+            <button id="focusButton">
+                ⛶
+            </button>
 
-    <button
-      class="topAction"
-      id="focusMode"
-    >
-      ⛶
-    </button>
+            <button id="saveButton">
+                ✓
+            </button>
 
-    <button
-      class="topAction"
-      id="saveButton"
-    >
-      ✓
-    </button>
+            <button id="closeButton">
+                ×
+            </button>
 
-    <button
-      class="topAction"
-      id="closeApp"
-    >
-      ←
-    </button>
+        </div>
 
-  </div>
+    </header>
 
-</header>
 
+    <!-- LEFT -->
 
+    <aside class="left">
 
-<aside class="leftPanel">
 
+        <div class="left-label">
+            Project
+        </div>
 
-<div class="panelLabel">
-  Project
-</div>
 
+        <nav class="left-nav">
 
-<nav class="mainNav">
+            <button
+                class="active"
+                data-panel="write"
+            >
 
+                <span class="left-icon">
+                    ▤
+                </span>
 
-<button
-  class="active"
-  data-panel="write"
->
+                Screenplay
 
-<span class="navIcon">
-  ▤
-</span>
+            </button>
 
-Screenplay
 
-</button>
+            <button data-panel="map">
 
+                <span class="left-icon">
+                    ▦
+                </span>
 
-<button data-panel="map">
+                Story Map
 
-<span class="navIcon">
-  ▦
-</span>
+            </button>
 
-Story Map
 
-</button>
+            <button data-panel="characters">
 
+                <span class="left-icon">
+                    ○
+                </span>
 
-<button data-panel="characters">
+                Characters
 
-<span class="navIcon">
-  ♙
-</span>
+            </button>
 
-Characters
 
-</button>
+            <button data-panel="locations">
 
+                <span class="left-icon">
+                    □
+                </span>
 
-<button data-panel="locations">
+                Locations
 
-<span class="navIcon">
-  ⌂
-</span>
+            </button>
 
-Locations
 
-</button>
+            <button data-panel="notes">
 
+                <span class="left-icon">
+                    N
+                </span>
 
-<button data-panel="notes">
+                Notes
 
-<span class="navIcon">
-  ✎
-</span>
+            </button>
 
-Notes
 
-</button>
+            <button data-panel="research">
 
+                <span class="left-icon">
+                    R
+                </span>
 
-<button data-panel="research">
+                Research
 
-<span class="navIcon">
-  ◇
-</span>
+            </button>
 
-Research
+        </nav>
 
-</button>
 
+        <div class="scene-heading">
 
-</nav>
+            <span>
+                Scenes
+            </span>
 
+            <button id="addScene">
+                +
+            </button>
 
-<div class="sceneHeader">
+        </div>
 
-<span>
-Scenes
-</span>
 
-<button
-  class="addScene"
-  id="addScene"
->
-+
-</button>
+        <div class="scene-list" id="sceneList">
 
-</div>
 
+            <button class="scene active">
 
-<div
-  class="scenes"
-  id="scenes"
->
+                <span class="scene-number">
+                    01
+                </span>
 
+                <span class="scene-title">
+                    EXT. EMPTY ROAD - NIGHT
+                </span>
 
-<button class="scene active">
+                <span class="scene-status"></span>
 
-<span class="sceneNumber">
-01
-</span>
+            </button>
 
-<span class="sceneTitle">
-EXT. EMPTY ROAD - NIGHT
-</span>
 
-<span class="sceneDot"></span>
+            <button class="scene">
 
-</button>
+                <span class="scene-number">
+                    02
+                </span>
 
+                <span class="scene-title">
+                    INT. APARTMENT - NIGHT
+                </span>
 
-<button class="scene">
+                <span class="scene-status"></span>
 
-<span class="sceneNumber">
-02
-</span>
+            </button>
 
-<span class="sceneTitle">
-INT. APARTMENT - NIGHT
-</span>
 
-<span class="sceneDot"></span>
+            <button class="scene">
 
-</button>
+                <span class="scene-number">
+                    03
+                </span>
 
+                <span class="scene-title">
+                    INT. SUBWAY - NIGHT
+                </span>
 
-<button class="scene">
+                <span class="scene-status"></span>
 
-<span class="sceneNumber">
-03
-</span>
+            </button>
 
-<span class="sceneTitle">
-INT. SUBWAY - NIGHT
-</span>
 
-<span class="sceneDot"></span>
+            <button class="scene">
 
-</button>
+                <span class="scene-number">
+                    04
+                </span>
 
+                <span class="scene-title">
+                    EXT. ROOFTOP - DAWN
+                </span>
 
-<button class="scene">
+                <span class="scene-status"></span>
 
-<span class="sceneNumber">
-04
-</span>
+            </button>
 
-<span class="sceneTitle">
-EXT. ROOFTOP - DAWN
-</span>
 
-<span class="sceneDot"></span>
+            <button class="scene">
 
-</button>
+                <span class="scene-number">
+                    05
+                </span>
 
+                <span class="scene-title">
+                    INT. SIGNAL ROOM - MORNING
+                </span>
 
-<button class="scene">
+                <span class="scene-status"></span>
 
-<span class="sceneNumber">
-05
-</span>
+            </button>
 
-<span class="sceneTitle">
-INT. SIGNAL ROOM - MORNING
-</span>
 
-</button>
+            <button class="scene">
 
+                <span class="scene-number">
+                    06
+                </span>
 
-<button class="scene">
+                <span class="scene-title">
+                    EXT. CITY - DAY
+                </span>
 
-<span class="sceneNumber">
-06
-</span>
+                <span class="scene-status"></span>
 
-<span class="sceneTitle">
-EXT. CITY - DAY
-</span>
+            </button>
 
-</button>
 
+            <button class="scene">
 
-<button class="scene">
+                <span class="scene-number">
+                    07
+                </span>
 
-<span class="sceneNumber">
-07
-</span>
+                <span class="scene-title">
+                    INT. HOSPITAL - DAY
+                </span>
 
-<span class="sceneTitle">
-INT. HOSPITAL - DAY
-</span>
+                <span class="scene-status"></span>
 
-</button>
+            </button>
 
 
-<button class="scene">
+            <button class="scene">
 
-<span class="sceneNumber">
-08
-</span>
+                <span class="scene-number">
+                    08
+                </span>
 
-<span class="sceneTitle">
-EXT. BRIDGE - SUNSET
-</span>
+                <span class="scene-title">
+                    EXT. BRIDGE - SUNSET
+                </span>
 
-</button>
+                <span class="scene-status"></span>
 
+            </button>
 
-</div>
 
-</aside>
+        </div>
 
+    </aside>
 
 
-<main class="center">
+    <!-- EDITOR -->
 
+    <main class="editor">
 
-<div class="editorTools">
 
+        <div class="editor-toolbar">
 
-<button
-  class="formatButton active"
-  data-format="scene"
->
-Scene
-</button>
 
+            <button
+                class="format active"
+                data-format="scene"
+            >
+                Scene
+            </button>
 
-<button
-  class="formatButton"
-  data-format="action"
->
-Action
-</button>
 
+            <button
+                class="format"
+                data-format="action"
+            >
+                Action
+            </button>
 
-<button
-  class="formatButton"
-  data-format="character"
->
-Character
-</button>
 
+            <button
+                class="format"
+                data-format="character"
+            >
+                Character
+            </button>
 
-<button
-  class="formatButton"
-  data-format="dialogue"
->
-Dialogue
-</button>
 
+            <button
+                class="format"
+                data-format="dialogue"
+            >
+                Dialogue
+            </button>
 
-<button
-  class="formatButton"
-  data-format="parenthetical"
->
-Parenthetical
-</button>
 
+            <button
+                class="format"
+                data-format="parenthetical"
+            >
+                Parenthetical
+            </button>
 
-<button
-  class="formatButton"
-  data-format="transition"
->
-Transition
-</button>
 
+            <button
+                class="format"
+                data-format="transition"
+            >
+                Transition
+            </button>
 
-<span class="toolDivider"></span>
 
+            <div class="toolbar-divider"></div>
 
-<button
-  class="formatButton"
-  id="bold"
->
-<b>B</b>
-</button>
 
+            <button
+                class="format"
+                id="boldButton"
+            >
+                B
+            </button>
 
-<button
-  class="formatButton"
-  id="italic"
->
-<i>I</i>
-</button>
 
+            <button
+                class="format"
+                id="italicButton"
+            >
+                I
+            </button>
 
-<div class="toolRight">
 
-<span
-  class="wordCount"
-  id="wordCount"
->
-0 words
-</span>
+            <div class="editor-status">
 
-<span class="saved">
-● Saved
-</span>
+                <span id="wordCount">
+                    0 words
+                </span>
 
-</div>
+                <span class="saved">
+                    Saved
+                </span>
 
+            </div>
 
-</div>
+        </div>
 
 
-<div
-  class="paperArea"
-  id="paperArea"
->
+        <div class="paper-area" id="paperArea">
 
 
-<article class="paper">
+            <article class="paper">
 
 
-<div class="title">
-THE LAST SIGNAL
-</div>
+                <div class="title-page-title">
+                    THE LAST SIGNAL
+                </div>
 
 
-<div
-  class="script"
-  id="script"
-  contenteditable="true"
-  spellcheck="false"
->
+                <div
+                    class="script"
+                    id="script"
+                    contenteditable="true"
+                    spellcheck="true"
+                >
 
+                    <div class="scene-heading">
+                        EXT. EMPTY ROAD - NIGHT
+                    </div>
 
-<div class="sceneHeading">
-EXT. EMPTY ROAD - NIGHT
-</div>
+                    <div class="action">
+                        Rain needles the asphalt. A dead city glows beyond the hills, every window dark.
+                    </div>
 
+                    <div class="action">
+                        A radio tower blinks red against the clouds.
+                    </div>
 
-<div class="action">
-Rain needles the asphalt. A dead city glows beyond the hills, every window dark.
-</div>
+                    <div class="character">
+                        MARA
+                    </div>
 
+                    <div class="dialogue">
+                        Do you hear that?
+                    </div>
 
-<div class="action">
-A radio tower blinks red against the clouds.
-</div>
+                    <div class="character">
+                        ELI
+                    </div>
 
+                    <div class="dialogue">
+                        Hear what?
+                    </div>
 
-<div class="character">
-MARA
-</div>
+                    <div class="parenthetical">
+                        (beat)
+                    </div>
 
+                    <div class="dialogue">
+                        The silence.
+                    </div>
 
-<div class="dialogue">
-Do you hear that?
-</div>
+                    <div class="action">
+                        Mara looks toward the tower.
+                    </div>
 
+                    <div class="action">
+                        For one impossible second, every streetlight turns on.
+                    </div>
 
-<div class="character">
-ELI
-</div>
+                    <div class="action">
+                        Then the radio in Eli's hand crackles.
+                    </div>
 
+                    <div class="character">
+                        RADIO
+                    </div>
 
-<div class="dialogue">
-Hear what?
-</div>
+                    <div class="dialogue">
+                        Mara Voss. If you can hear this, do not come home.
+                    </div>
 
+                </div>
 
-<div class="parenthetical">
-(beat)
-</div>
+            </article>
 
+        </div>
 
-<div class="dialogue">
-The silence.
-</div>
+    </main>
 
 
-<div class="action">
-Mara looks toward the tower.
-</div>
+    <!-- RIGHT -->
 
+    <aside class="right">
 
-<div class="action">
-For one impossible second, every streetlight turns on.
-</div>
 
+        <div class="right-tabs">
 
-<div class="action">
-Then the radio in Eli's hand crackles.
-</div>
+            <button class="active">
+                Inspector
+            </button>
 
+            <button>
+                Notes
+            </button>
 
-<div class="character">
-RADIO
-</div>
+            <button>
+                Details
+            </button>
 
+        </div>
 
-<div class="dialogue">
-Mara Voss. If you can hear this, do not come home.
-</div>
 
+        <div class="inspector">
 
-</div>
 
-</article>
+            <section class="inspector-section">
 
-</div>
+                <div class="inspector-label">
+                    Scene
+                </div>
 
-</main>
+                <div class="inspector-value">
+                    EXT. EMPTY ROAD - NIGHT
+                </div>
 
+            </section>
 
 
-<aside class="rightPanel">
+            <section class="inspector-section">
 
+                <div class="inspector-label">
+                    Scene details
+                </div>
 
-<div class="rightHeader">
 
-<button class="rightTab active">
-Inspector
-</button>
+                <div class="stat-grid">
 
-<button class="rightTab">
-Notes
-</button>
 
-<button class="rightTab">
-Details
-</button>
+                    <div class="stat">
 
-</div>
+                        <strong>
+                            2
+                        </strong>
 
+                        <span>
+                            Characters
+                        </span>
 
-<div class="inspector">
+                    </div>
 
 
-<div class="card">
+                    <div class="stat">
 
-<div class="cardTitle">
-Scene
-</div>
+                        <strong>
+                            4
+                        </strong>
 
-<div class="label">
-Heading
-</div>
+                        <span>
+                            Beats
+                        </span>
 
-<div class="value">
-EXT. EMPTY ROAD - NIGHT
-</div>
+                    </div>
 
-<div class="progress">
-<span></span>
-</div>
 
-<div
-  class="label"
-  style="margin-top:7px"
->
-Scene progress · 72%
-</div>
+                    <div class="stat">
 
-</div>
+                        <strong>
+                            Night
+                        </strong>
 
+                        <span>
+                            Time
+                        </span>
 
-<div class="card">
+                    </div>
 
-<div class="cardTitle">
-Details
-</div>
 
-<div class="stats">
+                    <div class="stat">
 
+                        <strong>
+                            Road
+                        </strong>
 
-<div class="stat">
+                        <span>
+                            Location
+                        </span>
 
-<strong>
-2
-</strong>
+                    </div>
 
-<small>
-Characters
-</small>
 
-</div>
+                </div>
 
+            </section>
 
-<div class="stat">
 
-<strong>
-4
-</strong>
+            <section class="inspector-section">
 
-<small>
-Beats
-</small>
+                <div class="inspector-label">
+                    Story threads
+                </div>
 
-</div>
 
+                <div class="tags">
 
-<div class="stat">
+                    <span class="tag blue">
+                        The Signal
+                    </span>
 
-<strong>
-Night
-</strong>
+                    <span class="tag green">
+                        Mara
+                    </span>
 
-<small>
-Time
-</small>
+                    <span class="tag purple">
+                        Blackout
+                    </span>
 
-</div>
+                </div>
 
+            </section>
 
-<div class="stat">
 
-<strong>
-Road
-</strong>
+            <section class="inspector-section">
 
-<small>
-Location
-</small>
+                <div class="inspector-label">
+                    Scene note
+                </div>
 
-</div>
+                <div class="inspector-value">
+                    Introduce the central mystery without explaining it. Let the silence become a character.
+                </div>
 
+            </section>
 
-</div>
 
-</div>
+            <section class="inspector-section">
 
+                <div class="inspector-label">
+                    Characters
+                </div>
 
-<div class="card">
+                <div class="inspector-value">
+                    Mara Voss
+                </div>
 
-<div class="cardTitle">
-Story threads
-</div>
+                <div class="inspector-label">
+                    Protagonist
+                </div>
 
-<div class="tags">
+                <div
+                    class="inspector-value"
+                    style="margin-top:10px"
+                >
+                    Eli Hart
+                </div>
 
-<span class="tag red">
-The Signal
-</span>
+                <div class="inspector-label">
+                    Supporting
+                </div>
 
-<span class="tag green">
-Mara
-</span>
+            </section>
 
-<span class="tag blue">
-Blackout
-</span>
 
-</div>
+        </div>
 
-</div>
-
-
-<div class="card">
-
-<div class="cardTitle">
-Scene note
-</div>
-
-<div class="value">
-Introduce the central mystery without explaining it. Let the silence become a character.
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="cardTitle">
-Characters
-</div>
-
-<div class="value">
-Mara Voss
-</div>
-
-<div class="label">
-Protagonist
-</div>
-
-<div
-  class="value"
-  style="margin-top:9px"
->
-Eli Hart
-</div>
-
-<div class="label">
-Supporting
-</div>
-
-</div>
-
-
-</div>
-
-</aside>
+    </aside>
 
 </section>
 
 
 
-<!-- MODAL -->
+<!-- =========================================================
+     MODAL
+========================================================= -->
 
 <div
-  class="modal hidden"
-  id="modal"
+    class="modal hidden"
+    id="modal"
 >
 
-<div class="modalBox">
+    <div class="modal-box">
 
-<h2>
-New screenplay
-</h2>
+        <h2>
+            New screenplay
+        </h2>
 
-<input
-  id="newTitle"
-  placeholder="Enter your project title"
->
+        <input
+            id="projectName"
+            placeholder="Title"
+            autocomplete="off"
+        >
 
-<div class="modalButtons">
+        <div class="modal-actions">
 
-<button
-  class="btn"
-  id="cancel"
->
-Cancel
-</button>
+            <button
+                class="modal-button"
+                id="cancelProject"
+            >
+                Cancel
+            </button>
 
-<button
-  class="btn btnPrimary"
-  id="create"
->
-Create
-</button>
+            <button
+                class="modal-button primary"
+                id="createProject"
+            >
+                Create
+            </button>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </div>
 
 
 <div
-  class="toast"
-  id="toast"
+    class="toast"
+    id="toast"
 ></div>
 
 
@@ -3012,396 +2728,295 @@ Create
 <script>
 
 const home =
-document.getElementById("home");
+    document.getElementById("home");
 
 const app =
-document.getElementById("app");
+    document.getElementById("app");
 
 const modal =
-document.getElementById("modal");
+    document.getElementById("modal");
 
 const script =
-document.getElementById("script");
+    document.getElementById("script");
 
 const toast =
-document.getElementById("toast");
+    document.getElementById("toast");
 
 
-function notify(message){
+function notify(message) {
 
-toast.textContent =
-message;
+    toast.textContent = message;
 
-toast.classList.add("show");
+    toast.classList.add("show");
 
-clearTimeout(
-window.toastTimer
-);
+    clearTimeout(window.__toast);
 
-window.toastTimer =
-setTimeout(
-()=>{
-toast.classList.remove("show");
-},
-1600
-);
+    window.__toast =
+        setTimeout(() => {
 
+            toast.classList.remove("show");
+
+        }, 1600);
 }
 
 
-function openProject(
-name="The Last Signal"
-){
+/* =========================================================
+   OPEN PROJECT
+========================================================= */
 
-document.getElementById(
-"documentName"
-).textContent=name;
+function openProject(name) {
 
-home.classList.add(
-"hidden"
-);
+    document.getElementById(
+        "documentName"
+    ).textContent = name;
 
-app.classList.remove(
-"hidden"
-);
+    home.classList.add("hidden");
 
-notify(
-"Opened "+name
-);
+    app.classList.remove("hidden");
 
+    notify("Opened " + name);
 }
 
 
-function openModal(){
+/* =========================================================
+   NEW PROJECT
+========================================================= */
 
-modal.classList.remove(
-"hidden"
-);
-
-setTimeout(
-()=>{
 document
-.getElementById("newTitle")
-.focus();
-},
-50
-);
+    .getElementById("newProjectButton")
+    .onclick = () => {
 
-}
+        modal.classList.remove("hidden");
 
+        setTimeout(() => {
 
-function closeModal(){
+            document
+                .getElementById("projectName")
+                .focus();
 
-modal.classList.add(
-"hidden"
-);
+        }, 50);
 
-document.getElementById(
-"newTitle"
-).value="";
-
-}
-
-
-document.getElementById(
-"newProjectButton"
-).onclick=openModal;
-
-document.getElementById(
-"newProjectCard"
-).onclick=openModal;
-
-document.getElementById(
-"cancel"
-).onclick=closeModal;
-
-
-document.getElementById(
-"create"
-).onclick=()=>{
-
-const name=
-document
-.getElementById("newTitle")
-.value
-.trim()
-||
-"Untitled Screenplay";
-
-openProject(name);
-
-closeModal();
-
-};
+    };
 
 
 document
-.querySelectorAll(
-"[data-project]"
-)
-.forEach(card=>{
+    .getElementById("cancelProject")
+    .onclick = () => {
 
-card.onclick=()=>
-openProject(
-card.dataset.project
-);
+        modal.classList.add("hidden");
 
-});
+    };
 
-
-document.getElementById(
-"searchProjects"
-).oninput=e=>{
-
-const query=
-e.target.value
-.toLowerCase();
 
 document
-.querySelectorAll(
-"[data-project]"
-)
-.forEach(card=>{
+    .getElementById("createProject")
+    .onclick = () => {
 
-const name=
-card.dataset.project
-.toLowerCase();
+        const input =
+            document.getElementById(
+                "projectName"
+            );
 
-card.style.display=
-name.includes(query)
-?""
-:"none";
+        const name =
+            input.value.trim() ||
+            "Untitled Screenplay";
 
-});
+        openProject(name);
 
-};
+        input.value = "";
 
+        modal.classList.add("hidden");
 
-document.getElementById(
-"quickWrite"
-).onclick=openModal;
+    };
 
 
-document.getElementById(
-"quickMap"
-).onclick=()=>{
+/* =========================================================
+   PROJECT CARDS
+========================================================= */
 
-openProject();
+document
+    .querySelectorAll("[data-project]")
+    .forEach(card => {
 
-setTimeout(
-()=>switchView("map"),
-20
-);
+        card.onclick = () => {
 
-};
+            openProject(
+                card.dataset.project
+            );
 
+        };
 
-document.getElementById(
-"quickCharacters"
-).onclick=()=>{
-
-openProject();
-
-setTimeout(
-()=>showPanel("characters"),
-20
-);
-
-};
+    });
 
 
-document.getElementById(
-"quickNotes"
-).onclick=()=>{
+/* =========================================================
+   CLOSE
+========================================================= */
 
-openProject();
+document
+    .getElementById("closeButton")
+    .onclick = () => {
 
-setTimeout(
-()=>showPanel("notes"),
-20
-);
+        app.classList.add("hidden");
 
-};
+        home.classList.remove("hidden");
 
-
-document.getElementById(
-"importButton"
-).onclick=()=>
-notify(
-"Fountain import ready"
-);
+    };
 
 
-document.getElementById(
-"closeApp"
-).onclick=()=>{
+/* =========================================================
+   LOCAL SAVE
+========================================================= */
 
-app.classList.add(
-"hidden"
-);
+const stored =
+    localStorage.getItem(
+        "auteur-screenplay"
+    );
 
-home.classList.remove(
-"hidden"
-);
+if (stored) {
 
-};
-
-
-function updateWordCount(){
-
-const words=
-script.innerText
-.trim()
-.split(/\s+/)
-.filter(Boolean)
-.length;
-
-document.getElementById(
-"wordCount"
-).textContent=
-words+" words";
+    script.innerHTML = stored;
 
 }
 
 
-function save(){
+function updateWords() {
 
-localStorage.setItem(
-"auteur-script",
-script.innerHTML
-);
+    const words =
+        script.innerText
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean)
+            .length;
 
-updateWordCount();
-
-notify(
-"Saved locally"
-);
+    document.getElementById(
+        "wordCount"
+    ).textContent =
+        words + " words";
 
 }
 
 
-const stored=
-localStorage.getItem(
-"auteur-script"
-);
-
-if(stored){
-script.innerHTML=stored;
-}
-
-updateWordCount();
+updateWords();
 
 
 script.addEventListener(
-"input",
-()=>{
+    "input",
+    () => {
 
-localStorage.setItem(
-"auteur-script",
-script.innerHTML
+        localStorage.setItem(
+            "auteur-screenplay",
+            script.innerHTML
+        );
+
+        updateWords();
+
+    }
 );
-
-updateWordCount();
-
-}
-);
-
-
-document.getElementById(
-"saveButton"
-).onclick=save;
 
 
 document
-.querySelectorAll(
-".formatButton[data-format]"
-)
-.forEach(button=>{
+    .getElementById("saveButton")
+    .onclick = () => {
 
-button.onclick=()=>{
+        localStorage.setItem(
+            "auteur-screenplay",
+            script.innerHTML
+        );
 
-document
-.querySelectorAll(
-".formatButton[data-format]"
-)
-.forEach(
-b=>b.classList.remove(
-"active"
-)
-);
+        notify("Saved locally");
 
-button.classList.add(
-"active"
-);
-
-notify(
-button.dataset.format
-+
-" formatting"
-);
-
-script.focus();
-
-};
-
-});
+    };
 
 
-document.getElementById(
-"bold"
-).onclick=()=>{
-
-document.execCommand(
-"bold"
-);
-
-script.focus();
-
-};
-
-
-document.getElementById(
-"italic"
-).onclick=()=>{
-
-document.execCommand(
-"italic"
-);
-
-script.focus();
-
-};
-
-
-function bindScenes(){
+/* =========================================================
+   FORMAT BUTTONS
+========================================================= */
 
 document
-.querySelectorAll(".scene")
-.forEach(scene=>{
+    .querySelectorAll(
+        ".format[data-format]"
+    )
+    .forEach(button => {
 
-scene.onclick=()=>{
+        button.onclick = () => {
+
+            document
+                .querySelectorAll(
+                    ".format[data-format]"
+                )
+                .forEach(b =>
+                    b.classList.remove(
+                        "active"
+                    )
+                );
+
+            button.classList.add(
+                "active"
+            );
+
+            script.focus();
+
+        };
+
+    });
+
 
 document
-.querySelectorAll(".scene")
-.forEach(
-s=>s.classList.remove(
-"active"
-)
-);
+    .getElementById("boldButton")
+    .onclick = () => {
 
-scene.classList.add(
-"active"
-);
+        document.execCommand("bold");
 
-notify(
-scene.querySelector(
-".sceneTitle"
-).textContent
-);
+        script.focus();
 
-};
+    };
 
-});
+
+document
+    .getElementById("italicButton")
+    .onclick = () => {
+
+        document.execCommand("italic");
+
+        script.focus();
+
+    };
+
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+function bindScenes() {
+
+    document
+        .querySelectorAll(".scene")
+        .forEach(scene => {
+
+            scene.onclick = () => {
+
+                document
+                    .querySelectorAll(".scene")
+                    .forEach(s =>
+                        s.classList.remove(
+                            "active"
+                        )
+                    );
+
+                scene.classList.add(
+                    "active"
+                );
+
+                notify(
+                    scene.querySelector(
+                        ".scene-title"
+                    ).textContent
+                );
+
+            };
+
+        });
 
 }
 
@@ -3409,553 +3024,585 @@ scene.querySelector(
 bindScenes();
 
 
-document.getElementById(
-"addScene"
-).onclick=()=>{
-
-const scenes=
-document.querySelectorAll(
-".scene"
-);
-
-const number=
-String(
-scenes.length+1
-).padStart(
-2,
-"0"
-);
-
-const scene=
-document.createElement(
-"button"
-);
-
-scene.className="scene";
-
-scene.innerHTML=`
-
-<span class="sceneNumber">
-${number}
-</span>
-
-<span class="sceneTitle">
-INT. NEW SCENE - DAY
-</span>
-
-<span class="sceneDot"></span>
-
-`;
-
 document
-.getElementById("scenes")
-.appendChild(scene);
+    .getElementById("addScene")
+    .onclick = () => {
 
-bindScenes();
+        const list =
+            document.getElementById(
+                "sceneList"
+            );
 
-notify(
-"New scene added"
-);
+        const number =
+            String(
+                list.children.length + 1
+            ).padStart(2, "0");
 
-};
 
+        const scene =
+            document.createElement(
+                "button"
+            );
 
-function switchView(view){
+        scene.className = "scene";
 
-document
-.querySelectorAll(".viewButton")
-.forEach(button=>{
+        scene.innerHTML = `
 
-button.classList.toggle(
-"active",
-button.dataset.view===view
-);
+            <span class="scene-number">
+                ${number}
+            </span>
 
-});
+            <span class="scene-title">
+                INT. NEW SCENE - DAY
+            </span>
 
+            <span class="scene-status"></span>
 
-const area=
-document.getElementById(
-"paperArea"
-);
+        `;
 
+        list.appendChild(scene);
 
-if(view==="write"){
+        bindScenes();
 
-location.reload();
+        notify("Scene added");
 
-return;
+    };
 
-}
 
+/* =========================================================
+   VIEWS
+========================================================= */
 
-if(view==="map"){
+function setView(view) {
 
-area.innerHTML=`
+    document
+        .querySelectorAll(
+            ".view-tabs button"
+        )
+        .forEach(button => {
 
-<div class="utilityView">
+            button.classList.toggle(
+                "active",
+                button.dataset.view === view
+            );
 
-<h1 class="utilityTitle">
-Story Map
-</h1>
+        });
 
-<div class="storyBoard">
 
-${storyColumn(
-"ACT I",
-[
-"The city goes dark",
-"Mara hears the signal",
-"Eli refuses to leave"
-]
-)}
+    if (view === "write") {
 
-${storyColumn(
-"ACT II",
-[
-"The tower activates",
-"The signal knows Mara",
-"Eli disappears"
-]
-)}
+        location.reload();
 
-${storyColumn(
-"ACT III",
-[
-"The final transmission",
-"Mara reaches the tower",
-"The silence answers"
-]
-)}
+        return;
 
-</div>
+    }
 
-</div>
 
-`;
+    const area =
+        document.getElementById(
+            "paperArea"
+        );
 
-}
 
+    if (view === "map") {
 
-if(view==="outline"){
+        area.innerHTML = `
 
-area.innerHTML=`
+            <div class="utility">
 
-<div class="utilityView">
+                <h1>
+                    Story Map
+                </h1>
 
-<h1 class="utilityTitle">
-Outline
-</h1>
+                <div class="story-map">
 
-<div class="outlineItem">
-<b>01.</b>
-The city loses power.
-</div>
+                    <div class="story-column">
 
-<div class="outlineItem">
-<b>02.</b>
-Mara discovers the transmission.
-</div>
+                        <h3>
+                            Act I
+                        </h3>
 
-<div class="outlineItem">
-<b>03.</b>
-Eli insists they investigate.
-</div>
+                        <div class="story-card">
+                            <small>01</small>
+                            <strong>
+                                The city goes dark
+                            </strong>
+                        </div>
 
-<div class="outlineItem">
-<b>04.</b>
-They cross the abandoned city.
-</div>
+                        <div class="story-card">
+                            <small>02</small>
+                            <strong>
+                                Mara hears the signal
+                            </strong>
+                        </div>
 
-<div class="outlineItem">
-<b>05.</b>
-The signal changes.
-</div>
+                        <div class="story-card">
+                            <small>03</small>
+                            <strong>
+                                Eli refuses to leave
+                            </strong>
+                        </div>
 
-<div class="outlineItem">
-<b>06.</b>
-Eli vanishes.
-</div>
+                    </div>
 
-</div>
 
-`;
+                    <div class="story-column">
 
-}
+                        <h3>
+                            Act II
+                        </h3>
 
+                        <div class="story-card">
+                            <small>04</small>
+                            <strong>
+                                The tower activates
+                            </strong>
+                        </div>
+
+                        <div class="story-card">
+                            <small>05</small>
+                            <strong>
+                                The signal knows Mara
+                            </strong>
+                        </div>
 
-if(view==="timeline"){
-
-area.innerHTML=`
-
-<div class="utilityView">
-
-<h1 class="utilityTitle">
-Timeline
-</h1>
-
-<div
-style="
-display:grid;
-grid-template-columns:
-repeat(8,1fr);
-gap:8px;
-border-top:
-1px solid
-rgba(255,255,255,.08);
-padding-top:25px;
-"
->
-
-${[1,2,3,4,5,6,7,8]
-.map(
-(n,i)=>`
-
-<div>
-
-<div
-style="
-height:${55+i*16}px;
-border-left:
-2px solid
-var(--blue);
-"
-></div>
-
-<small
-style="
-color:var(--muted);
-font-size:7px;
-"
->
-SCENE ${n}
-</small>
-
-</div>
-
-`
-)
-.join("")}
-
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
-
-document
-.querySelectorAll(".viewButton")
-.forEach(button=>{
-
-button.onclick=()=>
-switchView(
-button.dataset.view
-);
-
-});
-
-
-function storyColumn(
-title,
-cards
-){
-
-return`
-
-<section class="storyColumn">
-
-<h3>
-${title}
-</h3>
-
-${cards
-.map(
-(card,index)=>`
-
-<div class="storyCard">
-
-<small>
-SCENE ${index+1}
-</small>
-
-<strong>
-${card}
-</strong>
-
-</div>
-
-`
-)
-.join("")}
-
-</section>
-
-`;
-
-}
-
-
-function characterCard(
-name,
-role,
-letter
-){
-
-return`
-
-<div class="characterCard">
-
-<div class="characterAvatar">
-${letter}
-</div>
-
-<h3>
-${name}
-</h3>
-
-<div
-class="label"
-style="margin-bottom:7px"
->
-${role}
-</div>
-
-<p>
-Character profile, motivations,
-relationships and development.
-</p>
-
-</div>
-
-`;
-
-}
-
-
-function showPanel(panel){
-
-document
-.querySelectorAll(".mainNav button")
-.forEach(button=>{
-
-button.classList.toggle(
-"active",
-button.dataset.panel===panel
-);
-
-});
-
-
-const area=
-document.getElementById(
-"paperArea"
-);
-
-
-if(panel==="write"){
-
-location.reload();
-
-return;
-
-}
-
-
-if(panel==="map"){
-
-switchView("map");
-
-return;
-
-}
-
-
-if(panel==="characters"){
-
-area.innerHTML=`
-
-<div class="utilityView">
-
-<h1 class="utilityTitle">
-Characters
-</h1>
-
-<div class="characterGrid">
-
-${characterCard(
-"Mara Voss",
-"Protagonist",
-"M"
-)}
-
-${characterCard(
-"Eli Hart",
-"Supporting",
-"E"
-)}
-
-${characterCard(
-"The Radio",
-"Antagonistic force",
-"R"
-)}
-
-</div>
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-if(panel==="notes"){
-
-area.innerHTML=`
-
-<div class="utilityView">
-
-<h1 class="utilityTitle">
-Notes
-</h1>
-
-<div class="notes">
-
-<div class="note">
-
-<h3>
-The silence
-</h3>
-
-<p>
-The absence of sound should feel unnatural throughout the story.
-</p>
-
-</div>
-
-<div class="note">
-
-<h3>
-Mara's motivation
-</h3>
-
-<p>
-She is not looking for the truth. She is looking for her brother.
-</p>
-
-</div>
-
-<div class="note">
-
-<h3>
-Visual language
-</h3>
-
-<p>
-Empty spaces. Long lenses. Distant lights. Almost no crowds.
-</p>
-
-</div>
-
-<div class="note">
-
-<h3>
-Ending
-</h3>
-
-<p>
-The signal was never coming from the tower.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-notify(
-panel.charAt(0).toUpperCase()
-+
-panel.slice(1)
-);
+                        <div class="story-card">
+                            <small>06</small>
+                            <strong>
+                                Eli disappears
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="story-column">
+
+                        <h3>
+                            Act III
+                        </h3>
+
+                        <div class="story-card">
+                            <small>07</small>
+                            <strong>
+                                The final transmission
+                            </strong>
+                        </div>
+
+                        <div class="story-card">
+                            <small>08</small>
+                            <strong>
+                                Mara reaches the tower
+                            </strong>
+                        </div>
+
+                        <div class="story-card">
+                            <small>09</small>
+                            <strong>
+                                The silence answers
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    if (view === "outline") {
+
+        area.innerHTML = `
+
+            <div class="utility">
+
+                <h1>
+                    Outline
+                </h1>
+
+                <div class="outline-item">
+                    <span class="outline-item-number">
+                        01
+                    </span>
+
+                    <span>
+                        The city loses power.
+                    </span>
+                </div>
+
+                <div class="outline-item">
+                    <span class="outline-item-number">
+                        02
+                    </span>
+
+                    <span>
+                        Mara discovers the transmission.
+                    </span>
+                </div>
+
+                <div class="outline-item">
+                    <span class="outline-item-number">
+                        03
+                    </span>
+
+                    <span>
+                        Eli insists they investigate.
+                    </span>
+                </div>
+
+                <div class="outline-item">
+                    <span class="outline-item-number">
+                        04
+                    </span>
+
+                    <span>
+                        They cross the abandoned city.
+                    </span>
+                </div>
+
+                <div class="outline-item">
+                    <span class="outline-item-number">
+                        05
+                    </span>
+
+                    <span>
+                        The signal changes.
+                    </span>
+                </div>
+
+                <div class="outline-item">
+                    <span class="outline-item-number">
+                        06
+                    </span>
+
+                    <span>
+                        Eli vanishes.
+                    </span>
+                </div>
+
+            </div>
+
+        `;
+
+    }
 
 }
 
 
 document
-.querySelectorAll(".mainNav button")
-.forEach(button=>{
+    .querySelectorAll(
+        ".view-tabs button"
+    )
+    .forEach(button => {
 
-button.onclick=()=>
-showPanel(
-button.dataset.panel
-);
+        button.onclick = () => {
 
-});
+            setView(
+                button.dataset.view
+            );
+
+        };
+
+    });
 
 
-document.getElementById(
-"focusMode"
-).onclick=()=>{
+/* =========================================================
+   LEFT PANELS
+========================================================= */
 
-if(!document.fullscreenElement){
+document
+    .querySelectorAll(
+        ".left-nav button"
+    )
+    .forEach(button => {
 
-document.documentElement
-.requestFullscreen?.();
+        button.onclick = () => {
 
-}else{
+            document
+                .querySelectorAll(
+                    ".left-nav button"
+                )
+                .forEach(b =>
+                    b.classList.remove(
+                        "active"
+                    )
+                );
 
-document.exitFullscreen?.();
+            button.classList.add(
+                "active"
+            );
 
-}
 
-};
+            const panel =
+                button.dataset.panel;
 
+
+            if (panel === "write") {
+
+                location.reload();
+
+                return;
+
+            }
+
+
+            if (panel === "map") {
+
+                setView("map");
+
+                return;
+
+            }
+
+
+            const area =
+                document.getElementById(
+                    "paperArea"
+                );
+
+
+            if (panel === "characters") {
+
+                area.innerHTML = `
+
+                    <div class="utility">
+
+                        <h1>
+                            Characters
+                        </h1>
+
+                        <div class="character-grid">
+
+                            <div class="character-card">
+
+                                <div class="character-avatar">
+                                    M
+                                </div>
+
+                                <h3>
+                                    Mara Voss
+                                </h3>
+
+                                <span>
+                                    Protagonist
+                                </span>
+
+                                <p>
+                                    Driven by the need
+                                    to discover who is
+                                    behind the signal.
+                                </p>
+
+                            </div>
+
+
+                            <div class="character-card">
+
+                                <div class="character-avatar">
+                                    E
+                                </div>
+
+                                <h3>
+                                    Eli Hart
+                                </h3>
+
+                                <span>
+                                    Supporting
+                                </span>
+
+                                <p>
+                                    Mara's closest
+                                    companion and
+                                    reluctant ally.
+                                </p>
+
+                            </div>
+
+
+                            <div class="character-card">
+
+                                <div class="character-avatar">
+                                    R
+                                </div>
+
+                                <h3>
+                                    The Radio
+                                </h3>
+
+                                <span>
+                                    Unknown
+                                </span>
+
+                                <p>
+                                    A voice that appears
+                                    to know more than
+                                    anyone should.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            if (panel === "notes") {
+
+                area.innerHTML = `
+
+                    <div class="utility">
+
+                        <h1>
+                            Notes
+                        </h1>
+
+                        <div class="notes">
+
+                            <div class="note">
+
+                                <h3>
+                                    The silence
+                                </h3>
+
+                                <p>
+                                    The absence of sound
+                                    should feel unnatural
+                                    throughout the story.
+                                </p>
+
+                            </div>
+
+
+                            <div class="note">
+
+                                <h3>
+                                    Mara's motivation
+                                </h3>
+
+                                <p>
+                                    She is not looking for
+                                    the truth. She is looking
+                                    for her brother.
+                                </p>
+
+                            </div>
+
+
+                            <div class="note">
+
+                                <h3>
+                                    Visual language
+                                </h3>
+
+                                <p>
+                                    Empty spaces. Long
+                                    lenses. Distant lights.
+                                </p>
+
+                            </div>
+
+
+                            <div class="note">
+
+                                <h3>
+                                    Ending
+                                </h3>
+
+                                <p>
+                                    The signal was never
+                                    coming from the tower.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            notify(
+                panel.charAt(0).toUpperCase() +
+                panel.slice(1)
+            );
+
+        };
+
+    });
+
+
+/* =========================================================
+   FOCUS MODE
+========================================================= */
+
+document
+    .getElementById("focusButton")
+    .onclick = () => {
+
+        if (!document.fullscreenElement) {
+
+            document.documentElement
+                .requestFullscreen?.();
+
+        } else {
+
+            document
+                .exitFullscreen?.();
+
+        }
+
+    };
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
 document.addEventListener(
-"keydown",
-e=>{
+    "keydown",
+    event => {
 
-if(
-(e.metaKey||e.ctrlKey)
-&&
-e.key.toLowerCase()==="s"
-){
+        if (
+            (event.metaKey || event.ctrlKey) &&
+            event.key.toLowerCase() === "s"
+        ) {
 
-e.preventDefault();
+            event.preventDefault();
 
-save();
+            localStorage.setItem(
+                "auteur-screenplay",
+                script.innerHTML
+            );
 
-}
+            notify("Saved locally");
+
+        }
 
 
-if(
-e.key==="Escape"
-&&
-!modal.classList.contains(
-"hidden"
-)
-){
+        if (
+            event.key === "Escape" &&
+            !modal.classList.contains("hidden")
+        ) {
 
-closeModal();
+            modal.classList.add("hidden");
 
-}
+        }
 
-}
+    }
 );
 
 </script>
