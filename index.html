@@ -8,395 +8,482 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-:root{
-    --bg:#f3f3f1;
-    --panel:#fafaf9;
-    --white:#fff;
-    --paper:#fff;
-    --black:#111;
-    --text:#171717;
-    --secondary:#444;
-    --muted:#666;
-    --border:#dededb;
-    --border-dark:#c9c9c5;
-    --accent:#5d49a7;
-    --accent-light:#eeeafb;
-    --accent-border:#d4ccef;
+:root {
+    --bg: #f3f3f1;
+    --panel: #fafaf9;
+    --white: #ffffff;
+    --paper: #ffffff;
 
-    --topbar:56px;
-    --left:265px;
-    --right:300px;
+    --black: #111111;
+    --text: #171717;
+    --secondary: #444444;
+    --muted: #666666;
+
+    --border: #dededb;
+    --border-dark: #c9c9c5;
+
+    --accent: #5d49a7;
+    --accent-light: #eeeafb;
+    --accent-border: #d4ccef;
+
+    --topbar: 56px;
+    --left: 270px;
 }
 
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    margin:0;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
-body{
-    background:var(--bg);
-    color:var(--black);
-    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    overflow:hidden;
-    -webkit-font-smoothing:antialiased;
+body {
+    background: var(--bg);
+    color: var(--black);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-button,input,textarea{
-    font:inherit;
-    color:var(--black);
+button,
+input,
+textarea {
+    font: inherit;
+    color: var(--black);
 }
 
-button{
-    border:0;
-    background:none;
+button {
+    border: 0;
+    background: none;
 }
 
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible{
-    outline:2px solid var(--accent-border);
-    outline-offset:1px;
+textarea:focus-visible {
+    outline: 2px solid var(--accent-border);
+    outline-offset: 1px;
 }
 
 /* =========================================================
    APP
 ========================================================= */
 
-.app{
-    width:100%;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
+.app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* =========================================================
    TOP BAR
 ========================================================= */
 
-.topbar{
-    height:var(--topbar);
-    flex-shrink:0;
-    background:rgba(255,255,255,.98);
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 15px;
-    z-index:50;
+.topbar {
+    height: var(--topbar);
+    flex-shrink: 0;
+
+    background: rgba(255,255,255,.98);
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 15px;
+
+    z-index: 50;
 }
 
 .top-left,
-.top-right{
-    display:flex;
-    align-items:center;
-    height:100%;
+.top-right {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
-.brand{
-    width:92px;
-    font-family:"EB Garamond",serif;
-    font-size:27px;
-    font-weight:600;
-    letter-spacing:-.04em;
-    cursor:pointer;
-    user-select:none;
+.brand {
+    width: 92px;
+
+    font-family: "EB Garamond", serif;
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -.04em;
+
+    cursor: pointer;
+    user-select: none;
 }
 
-.project-title{
-    height:31px;
-    padding-left:17px;
-    border-left:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-size:12px;
+.project-title {
+    height: 31px;
+
+    padding-left: 17px;
+    border-left: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 12px;
 }
 
-.project-title strong{
-    font-weight:600;
+.project-title strong {
+    font-weight: 600;
 }
 
-.project-title span{
-    color:var(--muted);
+.project-title span {
+    color: var(--muted);
 }
 
-.top-right{
-    gap:4px;
+.top-right {
+    gap: 4px;
 }
 
-.save-status{
-    min-width:50px;
-    margin-right:8px;
-    text-align:right;
-    color:var(--secondary);
-    font-size:11px;
+.save-status {
+    min-width: 50px;
+    margin-right: 8px;
+
+    text-align: right;
+
+    color: var(--secondary);
+    font-size: 11px;
 }
 
-.top-button{
-    min-width:34px;
-    height:34px;
-    padding:0 11px;
-    border-radius:6px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--black);
-    font-size:11px;
-    font-weight:500;
-    cursor:pointer;
-    transition:.12s ease;
+.top-button {
+    min-width: 34px;
+    height: 34px;
+
+    padding: 0 11px;
+
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: .12s ease;
 }
 
-.top-button:hover{
-    background:#eeeeec;
+.top-button:hover {
+    background: #eeeeec;
 }
 
-.top-button.share{
-    border:1px solid var(--border-dark);
-    margin-left:6px;
+.top-button.share {
+    border: 1px solid var(--border-dark);
+    margin-left: 6px;
 }
 
-.top-button.share:hover{
-    background:#f7f7f5;
+.top-button.share:hover {
+    background: #f7f7f5;
 }
 
 /* =========================================================
    WORKSPACE
 ========================================================= */
 
-.workspace{
-    flex:1;
-    min-height:0;
-    display:flex;
+.workspace {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
 }
 
 /* =========================================================
-   LEFT PANEL
+   LEFT SIDEBAR
 ========================================================= */
 
-.left-panel{
-    width:var(--left);
-    min-width:var(--left);
-    background:var(--panel);
-    border-right:1px solid var(--border);
-    display:flex;
-    flex-direction:column;
-    transition:width .18s ease,min-width .18s ease;
+.left-panel {
+    width: var(--left);
+    min-width: var(--left);
+
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+
+    display: flex;
+    flex-direction: column;
+
+    transition: width .18s ease, min-width .18s ease;
 }
 
-.left-top{
-    height:51px;
-    flex-shrink:0;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    padding:0 10px;
+.left-top {
+    height: 51px;
+    flex-shrink: 0;
+
+    border-bottom: 1px solid var(--border);
+
+    padding: 0 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.left-tabs{
-    width:100%;
-    height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
+.mode-tabs {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
 }
 
-.left-tab{
-    position:relative;
-    height:100%;
-    padding:0 9px;
-    color:var(--secondary);
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.06em;
-    cursor:pointer;
+.mode-tab {
+    position: relative;
+
+    height: 100%;
+
+    padding: 0 1px;
+
+    color: var(--secondary);
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+
+    cursor: pointer;
 }
 
-.left-tab:hover{
-    color:var(--black);
+.mode-tab:hover {
+    color: var(--black);
 }
 
-.left-tab.active{
-    color:var(--black);
+.mode-tab.active {
+    color: var(--black);
 }
 
-.left-tab.active::after{
-    content:"";
-    position:absolute;
-    bottom:-1px;
-    left:5px;
-    right:5px;
-    height:2px;
-    background:var(--accent);
+.mode-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -1px;
+
+    height: 2px;
+
+    background: var(--accent);
 }
 
-.left-content{
-    flex:1;
-    min-height:0;
-    overflow-y:auto;
-    padding:9px;
+.collapse {
+    width: 31px;
+    height: 31px;
+
+    border-radius: 6px;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.collapse:hover {
+    background: #ebebe9;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.left-content {
+    flex: 1;
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 9px;
 }
 
 .left-content::-webkit-scrollbar,
-.inspector::-webkit-scrollbar,
-.paper-scroll::-webkit-scrollbar{
-    width:9px;
+.paper-scroll::-webkit-scrollbar {
+    width: 9px;
 }
 
 .left-content::-webkit-scrollbar-thumb,
-.inspector::-webkit-scrollbar-thumb,
-.paper-scroll::-webkit-scrollbar-thumb{
-    background:#cfcfcb;
-    border-radius:10px;
-    border:2px solid transparent;
-    background-clip:padding-box;
+.paper-scroll::-webkit-scrollbar-thumb {
+    background: #cfcfcb;
+    border-radius: 10px;
+
+    border: 2px solid transparent;
+    background-clip: padding-box;
 }
 
-.content-view{
-    display:none;
+/* =========================================================
+   CONTENTS
+========================================================= */
+
+.outline-label {
+    color: var(--secondary);
+
+    padding: 14px 9px 7px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .09em;
 }
 
-.content-view.active{
-    display:block;
+.outline-item {
+    min-height: 52px;
+
+    margin: 2px 0;
+
+    padding: 9px 10px;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: .12s ease;
 }
 
-.outline-label{
-    color:var(--secondary);
-    padding:14px 9px 7px;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.09em;
+.outline-item:hover {
+    background: #eeeeec;
 }
 
-.outline-item{
-    min-height:52px;
-    margin:2px 0;
-    padding:9px 10px;
-    border:1px solid transparent;
-    border-radius:6px;
-    cursor:pointer;
-    transition:.12s ease;
+.outline-item.active {
+    background: var(--accent-light);
+    border-color: var(--accent-border);
 }
 
-.outline-item:hover{
-    background:#eeeeec;
+.scene-number {
+    margin-bottom: 4px;
+
+    color: var(--secondary);
+
+    font-size: 10px;
+    font-weight: 500;
 }
 
-.outline-item.active{
-    background:var(--accent-light);
-    border-color:var(--accent-border);
-}
-
-.scene-number{
-    margin-bottom:4px;
-    color:var(--secondary);
-    font-size:10px;
-    font-weight:500;
-}
-
-.scene-name{
-    color:var(--black);
-    font-size:12px;
-    line-height:1.35;
-    font-weight:600;
+.scene-name {
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 600;
 }
 
 .outline-item.active .scene-number,
-.outline-item.active .scene-name{
-    color:#4e3c91;
+.outline-item.active .scene-name {
+    color: #4e3c91;
 }
 
-.comment-card,
-.note-card{
-    margin:7px 0;
-    padding:12px;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:6px;
+/* =========================================================
+   COMMENTS
+========================================================= */
+
+.comment-card {
+    padding: 12px;
+
+    margin-bottom: 8px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
 }
 
-.comment-card:hover,
-.note-card:hover{
-    border-color:var(--border-dark);
+.comment-author {
+    margin-bottom: 6px;
+
+    font-size: 10px;
+    font-weight: 700;
 }
 
-.comment-meta,
-.note-meta{
-    margin-bottom:7px;
-    color:var(--secondary);
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.05em;
+.comment-text {
+    font-size: 11px;
+    line-height: 1.5;
 }
 
-.comment-text,
-.note-text{
-    color:var(--black);
-    font-size:11px;
-    line-height:1.55;
+/* =========================================================
+   NOTES
+========================================================= */
+
+.note-area {
+    width: 100%;
+    min-height: 240px;
+
+    resize: vertical;
+
+    padding: 12px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    outline: none;
+
+    font-size: 11px;
+    line-height: 1.6;
 }
 
-.add-small{
-    width:100%;
-    height:36px;
-    margin-top:8px;
-    border:1px solid var(--border);
-    border-radius:6px;
-    background:white;
-    font-size:10px;
-    font-weight:600;
-    cursor:pointer;
+.note-area:focus {
+    border-color: var(--accent);
 }
 
-.add-small:hover{
-    background:#eeeeec;
+/* =========================================================
+   LEFT BOTTOM
+========================================================= */
+
+.left-bottom {
+    flex-shrink: 0;
+
+    border-top: 1px solid var(--border);
+
+    padding: 9px;
 }
 
-.left-bottom{
-    flex-shrink:0;
-    border-top:1px solid var(--border);
-    padding:9px;
+.utility-button {
+    width: 100%;
+    height: 37px;
+
+    padding: 0 10px;
+
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: .12s ease;
 }
 
-.utility-button{
-    width:100%;
-    height:36px;
-    padding:0 10px;
-    border-radius:6px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:var(--black);
-    font-size:11px;
-    font-weight:500;
-    cursor:pointer;
-    transition:.12s ease;
+.utility-button:hover {
+    background: #ebebe9;
 }
 
-.utility-button:hover{
-    background:#ebebe9;
-}
+.utility-icon {
+    width: 17px;
 
-.utility-icon{
-    width:17px;
-    text-align:center;
-    font-size:14px;
+    font-size: 14px;
+
+    text-align: center;
 }
 
 /* =========================================================
    EDITOR
 ========================================================= */
 
-.editor{
-    flex:1;
-    min-width:0;
-    display:flex;
-    flex-direction:column;
+.editor {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
     background:
         radial-gradient(
             ellipse at center top,
@@ -406,557 +493,379 @@ textarea:focus-visible{
         );
 }
 
-.editor-header{
-    height:46px;
-    flex-shrink:0;
-    padding:0 16px;
-    background:rgba(255,255,255,.96);
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
+/* =========================================================
+   CONTEXTUAL WRITING BAR
+========================================================= */
+
+.writing-toolbar {
+    height: 48px;
+    flex-shrink: 0;
+
+    padding: 0 15px;
+
+    background: rgba(255,255,255,.97);
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    opacity: 0;
+    transform: translateY(-5px);
+
+    pointer-events: none;
+
+    transition:
+        opacity .14s ease,
+        transform .14s ease;
 }
 
-.zoom{
-    display:flex;
-    align-items:center;
-    gap:3px;
+.writing-toolbar.visible {
+    opacity: 1;
+    transform: translateY(0);
+
+    pointer-events: auto;
 }
 
-.zoom button{
-    width:29px;
-    height:29px;
-    border-radius:5px;
-    font-size:16px;
-    cursor:pointer;
+.writing-toolbar-label {
+    margin-right: 8px;
+
+    color: var(--secondary);
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: .08em;
 }
 
-.zoom button:hover{
-    background:#eeeeec;
+.write-button {
+    height: 30px;
+
+    padding: 0 11px;
+
+    border-radius: 5px;
+
+    color: var(--black);
+
+    font-size: 10px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: .12s ease;
 }
 
-#zoomLabel{
-    min-width:44px;
-    text-align:center;
-    font-size:10px;
-    font-weight:600;
+.write-button:hover {
+    background: #eeeeec;
 }
 
-.paper-scroll{
-    flex:1;
-    overflow:auto;
-    padding:52px 65px 130px;
+.write-button.active {
+    background: var(--accent-light);
+    color: var(--accent);
 }
 
-.paper{
-    width:816px;
-    min-height:1056px;
-    margin:0 auto;
-    padding:96px 108px;
-    background:var(--paper);
-    border:1px solid rgba(0,0,0,.035);
-    box-shadow:
-        0 1px 3px rgba(0,0,0,.05),
-        0 14px 42px rgba(0,0,0,.075);
-    transform-origin:top center;
+.write-divider {
+    width: 1px;
+    height: 22px;
+
+    background: var(--border);
+
+    margin: 0 5px;
 }
 
-.script{
-    min-height:860px;
-    outline:none;
-    color:#111;
-    font-family:"Courier New",Courier,monospace;
-    font-size:13px;
-    line-height:1.52;
-    white-space:pre-wrap;
-    caret-color:#111;
+.write-spacer {
+    flex: 1;
 }
 
-.script::selection{
-    background:#dcd6ef;
+.write-small {
+    height: 30px;
+
+    padding: 0 9px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+.write-small:hover {
+    background: #eeeeec;
 }
 
 /* =========================================================
-   RIGHT PANEL
+   PAPER
 ========================================================= */
 
-.right-panel{
-    width:var(--right);
-    min-width:var(--right);
-    background:var(--panel);
-    border-left:1px solid var(--border);
-    display:flex;
-    flex-direction:column;
+.paper-scroll {
+    flex: 1;
+
+    overflow: auto;
+
+    padding: 52px 65px 130px;
 }
 
-.right-header{
-    height:51px;
-    flex-shrink:0;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    padding:0 15px;
+.paper {
+    width: 816px;
+    min-height: 1056px;
+
+    margin: 0 auto;
+
+    padding: 96px 108px;
+
+    background: var(--paper);
+
+    border: 1px solid rgba(0,0,0,.035);
+
+    box-shadow:
+        0 1px 3px rgba(0,0,0,.05),
+        0 14px 42px rgba(0,0,0,.075);
+
+    transform-origin: top center;
 }
 
-.right-title{
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.08em;
+.script {
+    min-height: 860px;
+
+    outline: none;
+
+    color: #111111;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    font-size: 13px;
+    line-height: 1.52;
+
+    white-space: pre-wrap;
+
+    caret-color: #111;
 }
 
-.inspector{
-    flex:1;
-    overflow-y:auto;
-    padding:13px;
-}
-
-.tool-section{
-    margin-bottom:17px;
-}
-
-.tool-section-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:7px;
-    padding:0 2px;
-}
-
-.tool-section-title{
-    color:var(--black);
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.09em;
-}
-
-.tool-section-subtitle{
-    color:var(--muted);
-    font-size:8px;
-}
-
-.tool-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:5px;
-}
-
-.tool-button{
-    min-height:36px;
-    padding:0 9px;
-    border:1px solid var(--border);
-    border-radius:6px;
-    background:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    color:var(--black);
-    font-size:10px;
-    font-weight:500;
-    cursor:pointer;
-    transition:.12s ease;
-}
-
-.tool-button:hover{
-    background:#eeeeec;
-    border-color:var(--border-dark);
-}
-
-.tool-button.active{
-    background:var(--accent-light);
-    border-color:var(--accent-border);
-    color:var(--accent);
-}
-
-.tool-button.wide{
-    grid-column:1 / -1;
-}
-
-.tool-icon{
-    font-size:12px;
-    font-weight:700;
-}
-
-.divider{
-    height:1px;
-    background:var(--border);
-    margin:17px 0;
-}
-
-.field{
-    padding:11px;
-    margin-bottom:7px;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:6px;
-}
-
-.field-label{
-    margin-bottom:6px;
-    color:var(--secondary);
-    font-size:8px;
-    font-weight:700;
-    letter-spacing:.05em;
-}
-
-.field-value{
-    color:var(--black);
-    font-size:11px;
-    line-height:1.55;
-}
-
-.character{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:9px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.character:hover{
-    background:#eeeeec;
-}
-
-.character-avatar{
-    width:34px;
-    height:34px;
-    flex-shrink:0;
-    border-radius:50%;
-    background:var(--accent-light);
-    color:var(--accent);
-    display:grid;
-    place-items:center;
-    font-size:9px;
-    font-weight:700;
-}
-
-.character-name{
-    color:var(--black);
-    font-size:11px;
-    font-weight:600;
-}
-
-.character-role{
-    margin-top:3px;
-    color:var(--secondary);
-    font-size:9px;
-}
-
-.scene-note{
-    width:100%;
-    min-height:120px;
-    resize:vertical;
-    padding:11px;
-    border:1px solid var(--border);
-    border-radius:6px;
-    background:white;
-    color:#111;
-    font-size:10px;
-    line-height:1.55;
-    outline:none;
-}
-
-.scene-note:focus{
-    border-color:var(--accent);
+.script::selection {
+    background: #dcd6ef;
 }
 
 /* =========================================================
    STATUS BAR
 ========================================================= */
 
-.statusbar{
-    height:29px;
-    flex-shrink:0;
-    background:white;
-    border-top:1px solid var(--border);
-    padding:0 13px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    color:var(--black);
-    font-size:9px;
+.statusbar {
+    height: 29px;
+    flex-shrink: 0;
+
+    background: white;
+    border-top: 1px solid var(--border);
+
+    padding: 0 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 9px;
 }
 
 .status-left,
-.status-right{
-    display:flex;
-    align-items:center;
-    gap:17px;
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 17px;
 }
 
 /* =========================================================
    PROJECT SCREEN
 ========================================================= */
 
-.project-screen{
-    position:fixed;
-    inset:0;
-    z-index:100;
+.project-screen {
+    position: fixed;
+    inset: 0;
+
+    z-index: 100;
+
     background:
         radial-gradient(
             ellipse at center top,
-            #fff 0,
+            #ffffff 0,
             #f5f5f3 70%
         );
-    display:none;
-    flex-direction:column;
+
+    display: none;
+    flex-direction: column;
 }
 
-.project-screen.open{
-    display:flex;
+.project-screen.open {
+    display: flex;
 }
 
-.project-header{
-    height:60px;
-    padding:0 20px;
-    background:white;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+.project-header {
+    height: 60px;
+
+    padding: 0 20px;
+
+    background: white;
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.project-header-left{
-    display:flex;
-    align-items:center;
-    gap:18px;
+.project-header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
-.project-back{
-    color:var(--black);
-    font-size:11px;
-    cursor:pointer;
+.project-back {
+    font-size: 11px;
+    cursor: pointer;
 }
 
-.project-back:hover{
-    text-decoration:underline;
+.project-back:hover {
+    text-decoration: underline;
 }
 
-.project-name{
-    font-family:"EB Garamond",serif;
-    color:var(--black);
-    font-size:25px;
+.project-name {
+    font-family: "EB Garamond", serif;
+    font-size: 25px;
 }
 
-.project-content{
-    flex:1;
-    overflow:auto;
-    padding:75px 50px;
+.project-content {
+    flex: 1;
+
+    overflow: auto;
+
+    padding: 75px 50px;
 }
 
-.project-content-inner{
-    width:min(1000px,100%);
-    margin:0 auto;
+.project-content-inner {
+    width: min(1000px, 100%);
+
+    margin: 0 auto;
 }
 
-.project-eyebrow{
-    margin-bottom:10px;
-    color:var(--secondary);
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.12em;
+.project-eyebrow {
+    margin-bottom: 10px;
+
+    color: var(--secondary);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .12em;
 }
 
-.project-heading{
-    margin-bottom:42px;
-    color:var(--black);
-    font-family:"EB Garamond",serif;
-    font-size:56px;
-    line-height:.95;
+.project-heading {
+    margin-bottom: 42px;
+
+    font-family: "EB Garamond", serif;
+
+    font-size: 56px;
+    line-height: .95;
 }
 
-.project-grid{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:13px;
+.project-grid {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+
+    gap: 13px;
 }
 
-.project-card{
-    min-height:140px;
-    padding:21px;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:7px;
-    transition:.14s ease;
+.project-card {
+    min-height: 140px;
+
+    padding: 21px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    transition: .14s ease;
 }
 
-.project-card:hover{
-    transform:translateY(-1px);
-    border-color:var(--border-dark);
-    box-shadow:0 7px 20px rgba(0,0,0,.05);
+.project-card:hover {
+    transform: translateY(-1px);
+
+    border-color: var(--border-dark);
+
+    box-shadow: 0 7px 20px rgba(0,0,0,.05);
 }
 
-.project-card-title{
-    margin-bottom:18px;
-    color:var(--black);
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.1em;
+.project-card-title {
+    margin-bottom: 18px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: .1em;
 }
 
-.project-stat{
-    color:var(--black);
-    font-family:"EB Garamond",serif;
-    font-size:32px;
+.project-stat {
+    font-family: "EB Garamond", serif;
+    font-size: 32px;
 }
 
-.project-small{
-    color:var(--black);
-    font-size:10px;
-    line-height:1.75;
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.overlay{
-    position:fixed;
-    inset:0;
-    z-index:200;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    background:rgba(15,15,15,.24);
-    backdrop-filter:blur(3px);
-}
-
-.overlay.open{
-    display:flex;
-}
-
-.modal{
-    width:450px;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:8px;
-    box-shadow:0 25px 80px rgba(0,0,0,.18);
-    overflow:hidden;
-}
-
-.modal-header{
-    padding:21px;
-    border-bottom:1px solid var(--border);
-}
-
-.modal-title{
-    color:var(--black);
-    font-family:"EB Garamond",serif;
-    font-size:25px;
-}
-
-.modal-body{
-    padding:21px;
-}
-
-.modal-label{
-    display:block;
-    margin-bottom:7px;
-    color:var(--black);
-    font-size:9px;
-    font-weight:700;
-}
-
-.modal-input{
-    width:100%;
-    height:41px;
-    padding:0 11px;
-    border:1px solid var(--border-dark);
-    border-radius:5px;
-    outline:none;
-    font-size:11px;
-}
-
-.modal-input:focus{
-    border-color:var(--accent);
-}
-
-.modal-footer{
-    padding:13px 21px;
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:flex-end;
-    gap:7px;
-}
-
-.modal-button{
-    height:35px;
-    padding:0 14px;
-    border-radius:5px;
-    font-size:10px;
-    font-weight:600;
-    cursor:pointer;
-}
-
-.modal-cancel{
-    background:#eeeeec;
-}
-
-.modal-create{
-    background:var(--accent);
-    color:white;
+.project-small {
+    font-size: 10px;
+    line-height: 1.75;
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1250px){
+@media (max-width: 1100px) {
 
-    :root{
-        --left:235px;
-        --right:280px;
+    :root {
+        --left: 240px;
     }
 
-    .paper-scroll{
-        padding-left:35px;
-        padding-right:35px;
+    .paper-scroll {
+        padding-left: 30px;
+        padding-right: 30px;
     }
+
 }
 
-@media(max-width:1000px){
+@media (max-width: 760px) {
 
-    .right-panel{
-        width:270px;
-        min-width:270px;
+    .left-panel {
+        display: none;
     }
 
-    :root{
-        --left:225px;
-    }
-}
-
-@media(max-width:800px){
-
-    .right-panel{
-        display:none;
+    .paper-scroll {
+        padding: 25px 15px 100px;
     }
 
-    .project-grid{
-        grid-template-columns:1fr;
-    }
-}
+    .paper {
+        transform: scale(.78);
+        transform-origin: top center;
 
-@media(max-width:650px){
-
-    .left-panel{
-        display:none;
+        margin-bottom: -230px;
     }
 
-    .paper-scroll{
-        padding:25px 15px 100px;
+    .writing-toolbar {
+        overflow-x: auto;
     }
 
-    .paper{
-        transform:scale(.78);
-        transform-origin:top center;
-        margin-bottom:-230px;
+    .writing-toolbar-label {
+        display: none;
     }
 
-    .project-content{
-        padding:35px 20px;
+    .project-content {
+        padding: 35px 20px;
     }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 </style>
 </head>
@@ -965,9 +874,9 @@ textarea:focus-visible{
 
 <div class="app">
 
-<!-- =========================================================
+<!-- =======================================================
      TOP BAR
-========================================================= -->
+======================================================= -->
 
 <header class="topbar">
 
@@ -978,9 +887,13 @@ textarea:focus-visible{
         </div>
 
         <div class="project-title">
+
             <strong>Sentient Mass</strong>
+
             <span>›</span>
+
             <span>Screenplay</span>
+
         </div>
 
     </div>
@@ -991,11 +904,17 @@ textarea:focus-visible{
             Saved
         </span>
 
-        <button class="top-button" onclick="saveDocument()">
+        <button
+            class="top-button"
+            onclick="saveDocument()"
+        >
             Save
         </button>
 
-        <button class="top-button" onclick="openProject()">
+        <button
+            class="top-button"
+            onclick="openProject()"
+        >
             Project
         </button>
 
@@ -1012,87 +931,102 @@ textarea:focus-visible{
 </header>
 
 
-<!-- =========================================================
+<!-- =======================================================
      WORKSPACE
-========================================================= -->
+======================================================= -->
 
 <main class="workspace">
 
-<!-- =========================================================
+<!-- =======================================================
      LEFT PANEL
-========================================================= -->
+======================================================= -->
 
 <aside class="left-panel">
 
     <div class="left-top">
 
-        <div class="left-tabs">
+        <div class="mode-tabs">
 
             <button
-                class="left-tab active"
-                onclick="showLeftView('contents',this)"
+                class="mode-tab active"
+                onclick="setLeftMode('contents', this)"
             >
                 CONTENTS
             </button>
 
             <button
-                class="left-tab"
-                onclick="showLeftView('comments',this)"
+                class="mode-tab"
+                onclick="setLeftMode('comments', this)"
             >
                 COMMENTS
             </button>
 
             <button
-                class="left-tab"
-                onclick="showLeftView('notes',this)"
+                class="mode-tab"
+                onclick="setLeftMode('notes', this)"
             >
                 NOTES
             </button>
 
         </div>
 
+        <button
+            class="collapse"
+            onclick="toggleLeftPanel()"
+        >
+            ‹
+        </button>
+
     </div>
 
 
-    <div class="left-content">
+    <div
+        class="left-content"
+        id="leftContent"
+    >
 
         <!-- CONTENTS -->
 
-        <div
-            class="content-view active"
-            id="contentsView"
-        >
+        <div id="contentsView">
 
             <div class="outline-label">
                 ACT I
             </div>
 
-            <div class="outline-item active"
-                 onclick="selectScene(this,1)">
+            <div
+                class="outline-item active"
+                onclick="selectScene(this,1)"
+            >
                 <div class="scene-number">01</div>
                 <div class="scene-name">
                     EXT. MEGA PLANET - DAY
                 </div>
             </div>
 
-            <div class="outline-item"
-                 onclick="selectScene(this,2)">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,2)"
+            >
                 <div class="scene-number">02</div>
                 <div class="scene-name">
                     INT. OBSERVATORY - NIGHT
                 </div>
             </div>
 
-            <div class="outline-item"
-                 onclick="selectScene(this,3)">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,3)"
+            >
                 <div class="scene-number">03</div>
                 <div class="scene-name">
                     EXT. CITY OF GLASS - SUNSET
                 </div>
             </div>
 
-            <div class="outline-item"
-                 onclick="selectScene(this,4)">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,4)"
+            >
                 <div class="scene-number">04</div>
                 <div class="scene-name">
                     INT. APARTMENT - NIGHT
@@ -1103,16 +1037,20 @@ textarea:focus-visible{
                 ACT II
             </div>
 
-            <div class="outline-item"
-                 onclick="selectScene(this,5)">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,5)"
+            >
                 <div class="scene-number">05</div>
                 <div class="scene-name">
                     EXT. MOUNTAIN RANGE - DAY
                 </div>
             </div>
 
-            <div class="outline-item"
-                 onclick="selectScene(this,6)">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,6)"
+            >
                 <div class="scene-number">06</div>
                 <div class="scene-name">
                     EXT. THE GREAT CITY - NIGHT
@@ -1123,8 +1061,10 @@ textarea:focus-visible{
                 ACT III
             </div>
 
-            <div class="outline-item"
-                 onclick="selectScene(this,7)">
+            <div
+                class="outline-item"
+                onclick="selectScene(this,7)"
+            >
                 <div class="scene-number">07</div>
                 <div class="scene-name">
                     EXT. CLIFFSIDE - DAWN
@@ -1137,8 +1077,8 @@ textarea:focus-visible{
         <!-- COMMENTS -->
 
         <div
-            class="content-view"
             id="commentsView"
+            style="display:none"
         >
 
             <div class="outline-label">
@@ -1147,33 +1087,34 @@ textarea:focus-visible{
 
             <div class="comment-card">
 
-                <div class="comment-meta">
-                    SCENE 01 · LUDWIG
+                <div class="comment-author">
+                    YOU
                 </div>
 
                 <div class="comment-text">
-                    Consider making the first reveal of the planet even quieter before the scale becomes overwhelming.
+                    The opening should feel enormous before the psychological tension starts creeping in.
                 </div>
 
             </div>
 
             <div class="comment-card">
 
-                <div class="comment-meta">
-                    SCENE 03 · VISUAL
+                <div class="comment-author">
+                    STORY
                 </div>
 
                 <div class="comment-text">
-                    The city should feel beautiful first and unsettling second.
+                    Consider introducing Amelia slightly earlier.
                 </div>
 
             </div>
 
             <button
-                class="add-small"
+                class="utility-button"
                 onclick="addComment()"
             >
-                + Add Comment
+                <span class="utility-icon">+</span>
+                <span>Add Comment</span>
             </button>
 
         </div>
@@ -1182,56 +1123,23 @@ textarea:focus-visible{
         <!-- NOTES -->
 
         <div
-            class="content-view"
             id="notesView"
+            style="display:none"
         >
 
             <div class="outline-label">
                 PROJECT NOTES
             </div>
 
-            <div class="note-card">
+            <textarea
+                class="note-area"
+                id="projectNotes"
+                placeholder="Write project notes..."
+            >Visual language:
+Massive architecture, distant landscapes, restrained color, overwhelming scale.
 
-                <div class="note-meta">
-                    VISUAL LANGUAGE
-                </div>
-
-                <div class="note-text">
-                    Massive distant compositions. Architecture should dominate the frame without feeling artificial.
-                </div>
-
-            </div>
-
-            <div class="note-card">
-
-                <div class="note-meta">
-                    THEME
-                </div>
-
-                <div class="note-text">
-                    Humanity's desire to create something larger than itself.
-                </div>
-
-            </div>
-
-            <div class="note-card">
-
-                <div class="note-meta">
-                    WORLD
-                </div>
-
-                <div class="note-text">
-                    A planet whose scale makes conventional human geography feel almost meaningless.
-                </div>
-
-            </div>
-
-            <button
-                class="add-small"
-                onclick="addProjectNote()"
-            >
-                + Add Note
-            </button>
+Theme:
+Human beings will always return to loving other humans.</textarea>
 
         </div>
 
@@ -1250,10 +1158,10 @@ textarea:focus-visible{
 
         <button
             class="utility-button"
-            onclick="toggleLeftPanel()"
+            onclick="openStory()"
         >
-            <span class="utility-icon">‹</span>
-            <span>Collapse Sidebar</span>
+            <span class="utility-icon">⌁</span>
+            <span>Story Structure</span>
         </button>
 
     </div>
@@ -1261,32 +1169,108 @@ textarea:focus-visible{
 </aside>
 
 
-<!-- =========================================================
+<!-- =======================================================
      EDITOR
-========================================================= -->
+======================================================= -->
 
 <section class="editor">
 
-    <div class="editor-header">
+    <!-- CONTEXTUAL TOOLBAR -->
 
-        <div class="zoom">
+    <div
+        class="writing-toolbar"
+        id="writingToolbar"
+    >
 
-            <button onclick="changeZoom(-.05)">
-                −
-            </button>
+        <span class="writing-toolbar-label">
+            WRITE
+        </span>
 
-            <span id="zoomLabel">
-                100%
-            </span>
+        <button
+            class="write-button active"
+            onclick="setFormat('action', this)"
+        >
+            Action
+        </button>
 
-            <button onclick="changeZoom(.05)">
-                +
-            </button>
+        <button
+            class="write-button"
+            onclick="setFormat('heading', this)"
+        >
+            INT. / EXT.
+        </button>
 
-        </div>
+        <button
+            class="write-button"
+            onclick="setFormat('character', this)"
+        >
+            Character
+        </button>
+
+        <button
+            class="write-button"
+            onclick="setFormat('dialogue', this)"
+        >
+            Dialogue
+        </button>
+
+        <button
+            class="write-button"
+            onclick="setFormat('parenthetical', this)"
+        >
+            Parenthetical
+        </button>
+
+        <button
+            class="write-button"
+            onclick="setFormat('transition', this)"
+        >
+            Transition
+        </button>
+
+        <div class="write-divider"></div>
+
+        <button
+            class="write-small"
+            onclick="insertScene()"
+        >
+            + Scene
+        </button>
+
+        <button
+            class="write-small"
+            onclick="insertNote()"
+        >
+            + Note
+        </button>
+
+        <div class="write-spacer"></div>
+
+        <button
+            class="write-small"
+            onclick="formatText('bold')"
+        >
+            B
+        </button>
+
+        <button
+            class="write-small"
+            onclick="formatText('italic')"
+        >
+            <i>I</i>
+        </button>
+
+        <button
+            class="write-small"
+            onclick="formatText('underline')"
+        >
+            <u>U</u>
+        </button>
 
     </div>
 
+
+    <!-- PAPER -->
 
     <div
         class="paper-scroll"
@@ -1347,380 +1331,12 @@ CUT TO:</div>
 
 </section>
 
-
-<!-- =========================================================
-     RIGHT TOOLS
-========================================================= -->
-
-<aside class="right-panel">
-
-    <div class="right-header">
-        <span class="right-title">
-            TOOLS & INSPECTOR
-        </span>
-    </div>
-
-
-    <div class="inspector">
-
-
-        <!-- WRITING -->
-
-        <section class="tool-section">
-
-            <div class="tool-section-header">
-
-                <span class="tool-section-title">
-                    WRITING
-                </span>
-
-                <span class="tool-section-subtitle">
-                    FORMAT
-                </span>
-
-            </div>
-
-            <div class="tool-grid">
-
-                <button
-                    class="tool-button active"
-                    onclick="setFormat('action',this)"
-                >
-                    Action
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('character',this)"
-                >
-                    Character
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('dialogue',this)"
-                >
-                    Dialogue
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('parenthetical',this)"
-                >
-                    ( )
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('heading',this)"
-                >
-                    Heading
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('transition',this)"
-                >
-                    Transition
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <section class="tool-section">
-
-            <div class="tool-section-header">
-
-                <span class="tool-section-title">
-                    INSERT
-                </span>
-
-            </div>
-
-            <div class="tool-grid">
-
-                <button
-                    class="tool-button"
-                    onclick="insertScene()"
-                >
-                    + Scene
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="insertCharacter()"
-                >
-                    + Character
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="insertNote()"
-                >
-                    + Note
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="insertPageBreak()"
-                >
-                    Page Break
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <section class="tool-section">
-
-            <div class="tool-section-header">
-
-                <span class="tool-section-title">
-                    FORMAT
-                </span>
-
-            </div>
-
-            <div class="tool-grid">
-
-                <button
-                    class="tool-button"
-                    onclick="formatText('bold')"
-                >
-                    <span class="tool-icon">B</span>
-                    Bold
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="formatText('italic')"
-                >
-                    <span class="tool-icon"><i>I</i></span>
-                    Italic
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="formatText('underline')"
-                >
-                    <span class="tool-icon"><u>U</u></span>
-                    Underline
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="findReplace()"
-                >
-                    Find
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <section class="tool-section">
-
-            <div class="tool-section-header">
-
-                <span class="tool-section-title">
-                    VIEW
-                </span>
-
-            </div>
-
-            <div class="tool-grid">
-
-                <button
-                    class="tool-button wide"
-                    onclick="toggleFocus()"
-                >
-                    Focus Mode
-                </button>
-
-                <button
-                    class="tool-button wide"
-                    onclick="toggleInspector()"
-                >
-                    Hide Tools
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <div class="divider"></div>
-
-
-        <!-- SCENE -->
-
-        <section class="tool-section">
-
-            <div class="tool-section-header">
-
-                <span class="tool-section-title">
-                    SCENE
-                </span>
-
-            </div>
-
-            <div class="field">
-
-                <div class="field-label">
-                    HEADING
-                </div>
-
-                <div
-                    class="field-value"
-                    id="sceneHeading"
-                >
-                    EXT. MEGA PLANET - DAY
-                </div>
-
-            </div>
-
-            <div class="field">
-
-                <div class="field-label">
-                    LOCATION
-                </div>
-
-                <div class="field-value">
-                    Mega Planet
-                </div>
-
-            </div>
-
-            <div class="field">
-
-                <div class="field-label">
-                    TIME
-                </div>
-
-                <div class="field-value">
-                    DAY
-                </div>
-
-            </div>
-
-            <div class="field">
-
-                <div class="field-label">
-                    SUMMARY
-                </div>
-
-                <div class="field-value">
-                    Ludwig observes the impossible scale of the planet and begins questioning whether humanity can ever be satisfied.
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CHARACTERS -->
-
-        <section class="tool-section">
-
-            <div class="tool-section-header">
-
-                <span class="tool-section-title">
-                    CHARACTERS
-                </span>
-
-            </div>
-
-            <div class="character">
-
-                <div class="character-avatar">
-                    LJ
-                </div>
-
-                <div>
-                    <div class="character-name">
-                        Ludwig James
-                    </div>
-
-                    <div class="character-role">
-                        Protagonist
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="character">
-
-                <div class="character-avatar">
-                    AM
-                </div>
-
-                <div>
-                    <div class="character-name">
-                        Amelia Vale
-                    </div>
-
-                    <div class="character-role">
-                        Supporting
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="character">
-
-                <div class="character-avatar">
-                    RH
-                </div>
-
-                <div>
-                    <div class="character-name">
-                        Richard Hale
-                    </div>
-
-                    <div class="character-role">
-                        Supporting
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- NOTES -->
-
-        <section class="tool-section">
-
-            <div class="tool-section-header">
-
-                <span class="tool-section-title">
-                    SCENE NOTE
-                </span>
-
-            </div>
-
-            <textarea
-                class="scene-note"
-                id="sceneNote"
-            >The first scene should establish that the scale of the world is beautiful before it becomes psychologically oppressive.</textarea>
-
-        </section>
-
-
-    </div>
-
-</aside>
-
 </main>
 
 
-<!-- =========================================================
+<!-- =======================================================
      STATUS BAR
-========================================================= -->
+======================================================= -->
 
 <footer class="statusbar">
 
@@ -1757,9 +1373,9 @@ CUT TO:</div>
 </div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      PROJECT OVERVIEW
-========================================================= -->
+======================================================= -->
 
 <section
     class="project-screen"
@@ -1907,6 +1523,9 @@ const saveStatus =
 const wordStatus =
     document.getElementById("wordStatus");
 
+const writingToolbar =
+    document.getElementById("writingToolbar");
+
 
 /* =========================================================
    LOAD
@@ -1915,7 +1534,7 @@ const wordStatus =
 const savedScript =
     localStorage.getItem("auteur-sentient-mass");
 
-if(savedScript){
+if (savedScript) {
     script.innerText = savedScript;
 }
 
@@ -1924,15 +1543,15 @@ if(savedScript){
    SAVE
 ========================================================= */
 
-script.addEventListener("input",()=>{
+script.addEventListener("input", () => {
 
-    saveStatus.textContent="Saving...";
+    saveStatus.textContent = "Saving...";
 
     updateWordCount();
 
     clearTimeout(saveTimer);
 
-    saveTimer=setTimeout(
+    saveTimer = setTimeout(
         saveDocument,
         500
     );
@@ -1940,16 +1559,17 @@ script.addEventListener("input",()=>{
 });
 
 
-function saveDocument(){
+function saveDocument() {
 
     localStorage.setItem(
         "auteur-sentient-mass",
         script.innerText
     );
 
-    saveStatus.textContent="Saved";
+    saveStatus.textContent = "Saved";
 
     updateWordCount();
+
 }
 
 
@@ -1957,52 +1577,56 @@ function saveDocument(){
    WORD COUNT
 ========================================================= */
 
-function updateWordCount(){
+function updateWordCount() {
 
     const text =
         script.innerText.trim();
 
     const words =
         text
-        ? text.split(/\s+/).length
-        : 0;
+            ? text.split(/\s+/).length
+            : 0;
 
     wordStatus.textContent =
         `${words} words`;
+
 }
 
 
 /* =========================================================
-   LEFT VIEWS
+   CONTEXTUAL WRITING BAR
 ========================================================= */
 
-function showLeftView(view,button){
+script.addEventListener("focus", () => {
 
-    document
-        .querySelectorAll(".left-tab")
-        .forEach(tab =>
-            tab.classList.remove("active")
-        );
+    writingToolbar.classList.add("visible");
 
-    button.classList.add("active");
+});
 
-    document
-        .querySelectorAll(".content-view")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
+script.addEventListener("blur", event => {
 
-    document
-        .getElementById(view+"View")
-        .classList.add("active");
-}
+    if (
+        !writingToolbar.contains(event.relatedTarget)
+    ) {
+        writingToolbar.classList.remove("visible");
+    }
+
+});
+
+
+writingToolbar.addEventListener(
+    "mousedown",
+    event => {
+        event.preventDefault();
+    }
+);
 
 
 /* =========================================================
    SCENES
 ========================================================= */
 
-function selectScene(element,number){
+function selectScene(element, number) {
 
     document
         .querySelectorAll(".outline-item")
@@ -2012,24 +1636,48 @@ function selectScene(element,number){
 
     element.classList.add("active");
 
-    currentScene=number;
+    currentScene = number;
 
     document
         .getElementById("pageStatus")
         .textContent =
         `Scene ${String(number).padStart(2,"0")}`;
 
-    const heading =
-        element.querySelector(".scene-name");
+}
 
-    if(heading){
+
+/* =========================================================
+   LEFT NAVIGATION
+========================================================= */
+
+function setLeftMode(mode, button) {
+
+    document
+        .querySelectorAll(".mode-tab")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    const views = {
+        contents: "contentsView",
+        comments: "commentsView",
+        notes: "notesView"
+    };
+
+    Object.values(views).forEach(id => {
 
         document
-            .getElementById("sceneHeading")
-            .textContent =
-            heading.textContent.trim();
+            .getElementById(id)
+            .style.display = "none";
 
-    }
+    });
+
+    document
+        .getElementById(views[mode])
+        .style.display = "block";
+
 }
 
 
@@ -2037,19 +1685,78 @@ function selectScene(element,number){
    LEFT PANEL
 ========================================================= */
 
-function toggleLeftPanel(){
+function toggleLeftPanel() {
 
     const panel =
         document.querySelector(".left-panel");
 
-    const collapsed =
-        panel.style.width==="0px";
+    if (panel.style.width === "0px") {
 
-    panel.style.width =
-        collapsed ? "265px" : "0px";
+        panel.style.width = "270px";
+        panel.style.minWidth = "270px";
 
-    panel.style.minWidth =
-        collapsed ? "265px" : "0px";
+    } else {
+
+        panel.style.width = "0px";
+        panel.style.minWidth = "0px";
+
+    }
+
+}
+
+
+/* =========================================================
+   COMMENTS
+========================================================= */
+
+function addComment() {
+
+    const comment =
+        prompt("Comment:");
+
+    if (!comment)
+        return;
+
+    const card =
+        document.createElement("div");
+
+    card.className = "comment-card";
+
+    card.innerHTML = `
+        <div class="comment-author">
+            YOU
+        </div>
+
+        <div class="comment-text">
+            ${escapeHTML(comment)}
+        </div>
+    `;
+
+    document
+        .getElementById("commentsView")
+        .appendChild(card);
+
+}
+
+
+/* =========================================================
+   STORY
+========================================================= */
+
+function openStory() {
+
+    alert(
+`STORY STRUCTURE
+
+Opening Image
+Inciting Incident
+First Turning Point
+Midpoint
+Second Turning Point
+Climax
+Final Image`
+    );
+
 }
 
 
@@ -2057,30 +1764,32 @@ function toggleLeftPanel(){
    PROJECT
 ========================================================= */
 
-function openProject(){
+function openProject() {
 
     document
         .getElementById("projectScreen")
         .classList.add("open");
+
 }
 
 
-function closeProject(){
+function closeProject() {
 
     document
         .getElementById("projectScreen")
         .classList.remove("open");
+
 }
 
 
 /* =========================================================
-   WRITING FORMAT
+   SCREENPLAY FORMATTING
 ========================================================= */
 
-function setFormat(type,button){
+function setFormat(type, button) {
 
     document
-        .querySelectorAll(".tool-button")
+        .querySelectorAll(".write-button")
         .forEach(item =>
             item.classList.remove("active")
         );
@@ -2092,32 +1801,54 @@ function setFormat(type,button){
     const selection =
         window.getSelection();
 
-    if(!selection.rangeCount)
+    if (!selection.rangeCount)
         return;
 
     const text =
         selection.toString();
 
-    if(!text)
+    if (!text)
         return;
 
-    let formatted=text;
+    let formatted = text;
 
-    switch(type){
+    switch (type) {
+
+        case "heading":
+
+            formatted =
+                text.toUpperCase();
+
+            break;
 
         case "character":
-        case "heading":
-        case "transition":
-            formatted=text.toUpperCase();
+
+            formatted =
+                text.toUpperCase();
+
             break;
 
         case "dialogue":
-            formatted="          "+text;
+
+            formatted =
+                "          " + text;
+
             break;
 
         case "parenthetical":
-            formatted="("+text+")";
+
+            formatted =
+                "(" + text + ")";
+
             break;
+
+        case "transition":
+
+            formatted =
+                text.toUpperCase();
+
+            break;
+
     }
 
     document.execCommand(
@@ -2127,6 +1858,7 @@ function setFormat(type,button){
     );
 
     saveDocument();
+
 }
 
 
@@ -2134,7 +1866,7 @@ function setFormat(type,button){
    TEXT FORMAT
 ========================================================= */
 
-function formatText(command){
+function formatText(command) {
 
     script.focus();
 
@@ -2145,6 +1877,7 @@ function formatText(command){
     );
 
     saveDocument();
+
 }
 
 
@@ -2152,39 +1885,25 @@ function formatText(command){
    INSERT
 ========================================================= */
 
-function insertScene(){
+function insertScene() {
 
     insertAtCursor(
         "\n\nINT. NEW LOCATION - DAY\n\n"
     );
+
 }
 
 
-function insertCharacter(){
-
-    insertAtCursor(
-        "\n\nCHARACTER NAME\n\n"
-    );
-}
-
-
-function insertNote(){
+function insertNote() {
 
     insertAtCursor(
         "\n\n[NOTE: ]\n\n"
     );
+
 }
 
 
-function insertPageBreak(){
-
-    insertAtCursor(
-        "\n\n\n\n\n\n"
-    );
-}
-
-
-function insertAtCursor(text){
+function insertAtCursor(text) {
 
     script.focus();
 
@@ -2195,151 +1914,69 @@ function insertAtCursor(text){
     );
 
     saveDocument();
+
 }
+
+
+/* =========================================================
+   KEYBOARD SCREENPLAY SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            (event.metaKey || event.ctrlKey) &&
+            event.key.toLowerCase() === "s"
+        ) {
+
+            event.preventDefault();
+
+            saveDocument();
+
+        }
+
+        if (
+            (event.metaKey || event.ctrlKey) &&
+            event.key.toLowerCase() === "f"
+        ) {
+
+            event.preventDefault();
+
+            findReplace();
+
+        }
+
+    }
+);
 
 
 /* =========================================================
    FIND / REPLACE
 ========================================================= */
 
-function findReplace(){
+function findReplace() {
 
     const term =
         prompt("Find text:");
 
-    if(!term)
+    if (!term)
         return;
 
     const replacement =
         prompt(`Replace "${term}" with:`);
 
-    if(replacement===null)
+    if (replacement === null)
         return;
 
     script.innerText =
         script.innerText
-        .split(term)
-        .join(replacement);
+            .split(term)
+            .join(replacement);
 
     saveDocument();
-}
 
-
-/* =========================================================
-   COMMENTS / NOTES
-========================================================= */
-
-function addComment(){
-
-    const comment =
-        prompt("Comment:");
-
-    if(!comment)
-        return;
-
-    const container =
-        document.getElementById("commentsView");
-
-    const button =
-        container.querySelector(".add-small");
-
-    const card =
-        document.createElement("div");
-
-    card.className="comment-card";
-
-    card.innerHTML=`
-        <div class="comment-meta">
-            SCENE ${String(currentScene).padStart(2,"0")}
-        </div>
-        <div class="comment-text">
-            ${escapeHtml(comment)}
-        </div>
-    `;
-
-    container.insertBefore(card,button);
-}
-
-
-function addProjectNote(){
-
-    const note =
-        prompt("Note:");
-
-    if(!note)
-        return;
-
-    const container =
-        document.getElementById("notesView");
-
-    const button =
-        container.querySelector(".add-small");
-
-    const card =
-        document.createElement("div");
-
-    card.className="note-card";
-
-    card.innerHTML=`
-        <div class="note-meta">
-            PROJECT NOTE
-        </div>
-        <div class="note-text">
-            ${escapeHtml(note)}
-        </div>
-    `;
-
-    container.insertBefore(card,button);
-}
-
-
-function escapeHtml(text){
-
-    const div =
-        document.createElement("div");
-
-    div.textContent=text;
-
-    return div.innerHTML;
-}
-
-
-/* =========================================================
-   FOCUS MODE
-========================================================= */
-
-function toggleFocus(){
-
-    const left =
-        document.querySelector(".left-panel");
-
-    const right =
-        document.querySelector(".right-panel");
-
-    const hidden =
-        left.style.display==="none";
-
-    left.style.display =
-        hidden ? "flex" : "none";
-
-    right.style.display =
-        hidden ? "flex" : "none";
-}
-
-
-/* =========================================================
-   INSPECTOR
-========================================================= */
-
-function toggleInspector(){
-
-    const panel =
-        document.querySelector(".right-panel");
-
-    panel.style.display =
-        panel.style.display==="none"
-        ? "flex"
-        : "none";
 }
 
 
@@ -2347,14 +1984,14 @@ function toggleInspector(){
    ZOOM
 ========================================================= */
 
-function changeZoom(amount){
+function changeZoom(amount) {
 
     zoom =
         Math.max(
             .65,
             Math.min(
                 1.35,
-                zoom+amount
+                zoom + amount
             )
         );
 
@@ -2364,50 +2001,30 @@ function changeZoom(amount){
         `scale(${zoom})`;
 
     const percent =
-        Math.round(zoom*100);
-
-    document
-        .getElementById("zoomLabel")
-        .textContent =
-        `${percent}%`;
+        Math.round(zoom * 100);
 
     document
         .getElementById("statusZoom")
         .textContent =
         `${percent}%`;
+
 }
 
 
 /* =========================================================
-   KEYBOARD SHORTCUTS
+   ESCAPE HTML
 ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    event => {
+function escapeHTML(value) {
 
-        if(
-            (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase()==="s"
-        ){
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-            event.preventDefault();
-
-            saveDocument();
-        }
-
-        if(
-            (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase()==="f"
-        ){
-
-            event.preventDefault();
-
-            findReplace();
-        }
-
-    }
-);
+}
 
 
 /* =========================================================
