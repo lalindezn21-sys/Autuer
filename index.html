@@ -1,1486 +1,925 @@
+Yes, Boss. You're right. The previous version was **scaled incorrectly**. The reference is a 1656×900 screenshot, and the UI proportions need to be matched to that viewport instead of making everything oversized.
+
+For the next pass I'm treating the screenshot as a **pixel-reference**, not merely a design inspiration:
+
+* **Top bar:** ~54px, not 66px
+* **Sidebar:** ~314px wide, not 389px
+* **Dashboard header:** ~50px
+* **Search bar:** ~57px tall
+* **Typography:** smaller and closer to the reference
+* **Sidebar spacing:** tighter
+* **File rows:** ~56px
+* **Content margins:** matched to the screenshot
+* **Bottom feature bar:** positioned and sized like the reference
+* **Purple:** matched much more closely
+* **Icons:** closer in size/weight
+* **Overall zoom:** corrected to the actual screenshot proportions
+* **No unnecessary UI additions**
+
+And yes, going forward, when you give me a reference image, I'll treat **the image itself as the specification**. No "inspired by" interpretation unless you specifically ask for creative changes.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auteur — Dashboard</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            purple: {
-              500: "#5b21f5",
-              600: "#5420d9"
-            }
-          },
-          fontFamily: {
-            sans: [
-              "Inter",
-              "-apple-system",
-              "BlinkMacSystemFont",
-              "Segoe UI",
-              "Helvetica Neue",
-              "Arial",
-              "sans-serif"
-            ]
-          }
-        }
-      }
-    };
-  </script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      background: #ffffff;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #303033;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      border: 0;
-    }
-
-    .app {
-      width: 100vw;
-      height: 100vh;
-      min-width: 1000px;
-      display: flex;
-      flex-direction: column;
-      background: white;
-    }
-
-    /* ─────────────────────────────────────────────
-       TOP BAR
-    ───────────────────────────────────────────── */
-
-    .topbar {
-      height: 66px;
-      flex-shrink: 0;
-      border-bottom: 1px solid #e8e8eb;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      background: rgba(255,255,255,.98);
-      z-index: 20;
-    }
-
-    .top-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .top-icon {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      color: #2f3033;
-      cursor: pointer;
-      transition: background .15s ease, color .15s ease;
-    }
-
-    .top-icon:hover {
-      background: #f1f1f4;
-    }
-
-    .top-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke-width: 2;
-    }
-
-    .top-right {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .updated {
-      color: #858594;
-      font-size: 14px;
-      font-weight: 600;
-      margin-right: 1px;
-    }
-
-    .refresh-button {
-      width: 29px;
-      height: 29px;
-      display: grid;
-      place-items: center;
-      color: #9699a5;
-      cursor: pointer;
-      border-radius: 50%;
-      transition: all .2s ease;
-    }
-
-    .refresh-button:hover {
-      background: #f1f1f3;
-      color: #5b21f5;
-    }
-
-    .refresh-button svg {
-      width: 17px;
-      height: 17px;
-    }
-
-    .create-button {
-      height: 40px;
-      padding: 0 17px;
-      background: #5721cf;
-      color: white;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 650;
-      cursor: pointer;
-      box-shadow: 0 1px 2px rgba(30, 10, 80, .1);
-      transition: background .15s ease, transform .1s ease;
-    }
-
-    .create-button:hover {
-      background: #4b18bc;
-    }
-
-    .create-button:active {
-      transform: translateY(1px);
-    }
-
-    .create-button svg {
-      width: 19px;
-      height: 19px;
-      stroke-width: 2;
-    }
-
-    /* ─────────────────────────────────────────────
-       MAIN LAYOUT
-    ───────────────────────────────────────────── */
-
-    .body {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-    }
-
-    /* ─────────────────────────────────────────────
-       SIDEBAR
-    ───────────────────────────────────────────── */
-
-    .sidebar {
-      width: 389px;
-      flex-shrink: 0;
-      background: #f7f8fa;
-      border-right: 1px solid #ebebee;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .profile {
-      height: 86px;
-      padding: 0 22px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #1686f5;
-      color: white;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      font-weight: 800;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .avatar::after {
-      content: "";
-      position: absolute;
-      right: -1px;
-      bottom: -1px;
-      width: 7px;
-      height: 7px;
-      border: 1.5px solid #f7f8fa;
-      background: #28c76f;
-      border-radius: 50%;
-    }
-
-    .profile-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: #343438;
-      white-space: nowrap;
-    }
-
-    .profile-chevron {
-      color: #898c96;
-      width: 15px;
-      height: 15px;
-      margin-left: 1px;
-    }
-
-    .nav {
-      padding: 0 12px;
-    }
-
-    .nav-item {
-      height: 45px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 0 13px;
-      border-radius: 6px;
-      color: #3d3e42;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .15s ease, color .15s ease;
-      margin-bottom: 2px;
-      text-align: left;
-    }
-
-    .nav-item:hover {
-      background: #eef0f3;
-    }
-
-    .nav-item.active {
-      color: #5121d4;
-      background: #eef0f3;
-    }
-
-    .nav-item svg {
-      width: 18px;
-      height: 18px;
-      stroke-width: 2;
-      flex-shrink: 0;
-    }
-
-    .nav-plus {
-      margin-left: auto;
-      color: #858993;
-    }
-
-    .secondary-nav {
-      margin-top: 23px;
-    }
-
-    .upgrade-card {
-      margin: auto 12px 12px;
-      min-height: 175px;
-      border-radius: 6px;
-      background: #e9edf1;
-      padding: 22px 18px 18px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .upgrade-title {
-      color: #303136;
-      font-size: 16px;
-      line-height: 1.25;
-      font-weight: 750;
-      max-width: 260px;
-    }
-
-    .upgrade-button {
-      margin-top: auto;
-      width: max-content;
-      height: 36px;
-      padding: 0 12px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: #dce0e4;
-      border-radius: 5px;
-      color: #36373a;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .15s ease;
-    }
-
-    .upgrade-button:hover {
-      background: #d2d6db;
-    }
-
-    .upgrade-button svg {
-      width: 15px;
-      height: 15px;
-    }
-
-    /* ─────────────────────────────────────────────
-       CONTENT
-    ───────────────────────────────────────────── */
-
-    .content {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      background: white;
-      position: relative;
-    }
-
-    .content-header {
-      height: 62px;
-      flex-shrink: 0;
-      border-bottom: 1px solid #ededf0;
-      display: flex;
-      align-items: center;
-      padding: 0 45px;
-    }
-
-    .dashboard-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #343437;
-      letter-spacing: -.25px;
-    }
-
-    .content-scroll {
-      flex: 1;
-      overflow: auto;
-      padding: 35px 45px 92px;
-    }
-
-    /* ─────────────────────────────────────────────
-       SEARCH
-    ───────────────────────────────────────────── */
-
-    .search-wrap {
-      height: 70px;
-      width: 100%;
-      background: #f4f4f8;
-      border-radius: 38px;
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      margin-bottom: 36px;
-    }
-
-    .search-wrap svg {
-      width: 25px;
-      height: 25px;
-      color: #15161a;
-      stroke-width: 2.5;
-      flex-shrink: 0;
-    }
-
-    .search-input {
-      flex: 1;
-      min-width: 0;
-      border: none;
-      outline: none;
-      background: transparent;
-      margin-left: 15px;
-      font-size: 18px;
-      color: #35363a;
-    }
-
-    .search-input::placeholder {
-      color: #c9cbd2;
-      opacity: 1;
-    }
-
-    /* ─────────────────────────────────────────────
-       SECTION
-    ───────────────────────────────────────────── */
-
-    .section {
-      width: 100%;
-    }
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #303136;
-      margin-bottom: 13px;
-    }
-
-    .file-list {
-      border-top: 1px solid #ececef;
-    }
-
-    .file-row {
-      height: 70px;
-      border-bottom: 1px solid #ececef;
-      display: flex;
-      align-items: center;
-      padding: 0 17px;
-      gap: 17px;
-      cursor: pointer;
-      transition: background .12s ease;
-    }
-
-    .file-row:hover {
-      background: #fafafd;
-    }
-
-    .cloud-icon {
-      width: 27px;
-      height: 27px;
-      color: #b6bec7;
-      stroke-width: 2;
-      flex-shrink: 0;
-    }
-
-    .file-name {
-      font-size: 17px;
-      font-weight: 650;
-      color: #36373a;
-      letter-spacing: -.1px;
-    }
-
-    .recent {
-      margin-bottom: 61px;
-    }
-
-    /* ─────────────────────────────────────────────
-       ALL FILES
-    ───────────────────────────────────────────── */
-
-    .files-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0;
-    }
-
-    .tabs {
-      display: flex;
-      align-items: center;
-      gap: 19px;
-      height: 47px;
-    }
-
-    .tab {
-      height: 47px;
-      display: flex;
-      align-items: center;
-      position: relative;
-      color: #9297a1;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: color .15s ease;
-    }
-
-    .tab:hover {
-      color: #5b21f5;
-    }
-
-    .tab.active {
-      color: #38383c;
-      font-weight: 700;
-    }
-
-    .tab.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -1px;
-      height: 2px;
-      background: #5b21f5;
-    }
-
-    .file-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .sort {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: #858a95;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 7px 3px;
-    }
-
-    .sort svg {
-      width: 14px;
-      height: 14px;
-    }
-
-    .view-buttons {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      margin-left: 2px;
-    }
-
-    .view-button {
-      width: 39px;
-      height: 39px;
-      border-radius: 5px;
-      display: grid;
-      place-items: center;
-      color: #858a93;
-      cursor: pointer;
-      transition: all .15s ease;
-    }
-
-    .view-button:hover {
-      background: #f2f2f5;
-    }
-
-    .view-button.active {
-      background: #f2f2f6;
-      color: #5b21f5;
-    }
-
-    .view-button svg {
-      width: 18px;
-      height: 18px;
-      stroke-width: 2;
-    }
-
-    /* ─────────────────────────────────────────────
-       FEATURE BAR
-    ───────────────────────────────────────────── */
-
-    .feature-bar {
-      position: absolute;
-      left: 15px;
-      right: 15px;
-      bottom: 5px;
-      height: 55px;
-      border: 2px solid #5822dc;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 15px;
-      z-index: 10;
-    }
-
-    .feature-left {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 18px;
-      font-weight: 700;
-      color: #36373a;
-    }
-
-    .feature-left svg {
-      width: 20px;
-      height: 20px;
-      stroke-width: 2;
-    }
-
-    .show-button {
-      background: transparent;
-      color: #838793;
-      font-size: 15px;
-      font-weight: 650;
-      cursor: pointer;
-      padding: 6px 4px;
-    }
-
-    .show-button:hover {
-      color: #5822dc;
-    }
-
-    /* ─────────────────────────────────────────────
-       MODAL
-    ───────────────────────────────────────────── */
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(20,20,28,.24);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      backdrop-filter: blur(2px);
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .create-modal {
-      width: 440px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 24px 70px rgba(0,0,0,.18);
-      padding: 27px;
-      animation: modalIn .18s ease-out;
-    }
-
-    @keyframes modalIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px) scale(.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 22px;
-    }
-
-    .modal-title {
-      font-size: 21px;
-      font-weight: 750;
-    }
-
-    .close-modal {
-      width: 32px;
-      height: 32px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: #777a83;
-      cursor: pointer;
-    }
-
-    .close-modal:hover {
-      background: #f2f2f4;
-    }
-
-    .close-modal svg {
-      width: 18px;
-    }
-
-    .modal-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: #666972;
-      margin-bottom: 7px;
-    }
-
-    .modal-input {
-      width: 100%;
-      height: 44px;
-      border: 1px solid #d9d9df;
-      border-radius: 6px;
-      padding: 0 12px;
-      outline: none;
-      color: #303136;
-    }
-
-    .modal-input:focus {
-      border-color: #6b35e8;
-      box-shadow: 0 0 0 3px rgba(91,33,245,.1);
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 9px;
-      margin-top: 22px;
-    }
-
-    .cancel-button,
-    .modal-create {
-      height: 40px;
-      padding: 0 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 650;
-    }
-
-    .cancel-button {
-      background: #f1f1f3;
-      color: #55575d;
-    }
-
-    .modal-create {
-      background: #5721cf;
-      color: white;
-    }
-
-    /* ─────────────────────────────────────────────
-       EMPTY SEARCH
-    ───────────────────────────────────────────── */
-
-    .no-results {
-      display: none;
-      padding: 55px 20px;
-      text-align: center;
-      color: #9296a0;
-      font-size: 15px;
-    }
-
-    /* ─────────────────────────────────────────────
-       RESPONSIVE
-    ───────────────────────────────────────────── */
-
-    @media (max-width: 1200px) {
-      .sidebar {
-        width: 315px;
-      }
-
-      .content-header {
-        padding-left: 32px;
-        padding-right: 32px;
-      }
-
-      .content-scroll {
-        padding-left: 32px;
-        padding-right: 32px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auteur</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:#363638;
+  background:#fff;
+  font-size:14px;
+}
+button,input{font:inherit}
+button{border:0;background:none}
+
+.app{
+  width:100vw;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* TOP BAR */
+.topbar{
+  height:54px;
+  min-height:54px;
+  border-bottom:1px solid #e7e8eb;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 9px 0 12px;
+  background:#fff;
+}
+
+.top-left,
+.top-right{
+  display:flex;
+  align-items:center;
+}
+
+.top-left{gap:3px}
+.top-right{gap:8px}
+
+.top-icon{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:6px;
+  color:#303136;
+  cursor:pointer;
+}
+
+.top-icon:hover{background:#f3f3f5}
+
+.top-icon svg{
+  width:20px;
+  height:20px;
+  stroke-width:2.1;
+}
+
+.updated{
+  color:#858895;
+  font-size:13px;
+  font-weight:600;
+  margin-right:1px;
+}
+
+.refresh{
+  width:27px;
+  height:27px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#969aa4;
+  cursor:pointer;
+  border-radius:50%;
+}
+
+.refresh:hover{background:#f3f3f5}
+
+.refresh svg{
+  width:16px;
+  height:16px;
+}
+
+.create{
+  height:36px;
+  padding:0 13px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:#5620c9;
+  color:#fff;
+  border-radius:5px;
+  font-size:14px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+.create:hover{background:#4c1bb5}
+
+.create svg{
+  width:18px;
+  height:18px;
+  stroke-width:2;
+}
+
+/* BODY */
+.body{
+  flex:1;
+  min-height:0;
+  display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:314px;
+  min-width:314px;
+  background:#f7f8fa;
+  border-right:1px solid #e9eaed;
+  display:flex;
+  flex-direction:column;
+}
+
+.profile{
+  height:68px;
+  display:flex;
+  align-items:center;
+  padding:0 19px;
+  gap:8px;
+}
+
+.avatar{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:#1688f5;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:800;
+  position:relative;
+}
+
+.avatar:after{
+  content:"";
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#32c96c;
+  right:-1px;
+  bottom:-1px;
+  border:1px solid #f7f8fa;
+}
+
+.profile-name{
+  font-size:16px;
+  font-weight:500;
+  white-space:nowrap;
+}
+
+.profile svg{
+  width:14px;
+  height:14px;
+  color:#858992;
+}
+
+.nav{
+  padding:0 10px;
+}
+
+.nav-item{
+  width:100%;
+  height:39px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 10px;
+  border-radius:5px;
+  color:#3d3e42;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  text-align:left;
+}
+
+.nav-item:hover{
+  background:#eef0f3;
+}
+
+.nav-item.active{
+  color:#5120ce;
+  background:#eef0f3;
+}
+
+.nav-item svg{
+  width:17px;
+  height:17px;
+  stroke-width:2;
+}
+
+.nav-plus{
+  margin-left:auto;
+  color:#858991;
+}
+
+.secondary{
+  margin-top:22px;
+}
+
+.upgrade{
+  margin:auto 10px 13px;
+  height:142px;
+  background:#e8ebef;
+  border-radius:5px;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+}
+
+.upgrade-title{
+  font-size:16px;
+  line-height:1.22;
+  font-weight:700;
+  color:#303136;
+}
+
+.upgrade-btn{
+  margin-top:auto;
+  align-self:flex-start;
+  height:34px;
+  padding:0 11px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  border-radius:5px;
+  background:#dce0e4;
+  color:#38393d;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.upgrade-btn svg{
+  width:14px;
+  height:14px;
+}
+
+/* CONTENT */
+.content{
+  flex:1;
+  min-width:0;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+}
+
+.content-header{
+  height:50px;
+  min-height:50px;
+  border-bottom:1px solid #ececef;
+  display:flex;
+  align-items:center;
+  padding:0 38px;
+}
+
+.page-title{
+  font-size:20px;
+  font-weight:700;
+  color:#353538;
+}
+
+.scroll{
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  padding:29px 38px 68px;
+}
+
+/* SEARCH */
+.search{
+  height:57px;
+  border-radius:30px;
+  background:#f4f4f8;
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  margin-bottom:28px;
+}
+
+.search svg{
+  width:23px;
+  height:23px;
+  color:#15161a;
+  stroke-width:2.4;
+}
+
+.search input{
+  flex:1;
+  border:0;
+  outline:0;
+  background:transparent;
+  margin-left:13px;
+  font-size:17px;
+  color:#33343a;
+}
+
+.search input::placeholder{
+  color:#c8cad1;
+}
+
+/* SECTIONS */
+.section-title{
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:11px;
+  color:#303136;
+}
+
+.file-list{
+  border-top:1px solid #ececef;
+}
+
+.file{
+  height:56px;
+  border-bottom:1px solid #ececef;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  gap:15px;
+  cursor:pointer;
+}
+
+.file:hover{
+  background:#fafafd;
+}
+
+.file svg{
+  width:27px;
+  height:27px;
+  color:#b8c0c9;
+  stroke-width:2;
+}
+
+.file-name{
+  font-size:16px;
+  font-weight:650;
+}
+
+.recent{
+  margin-bottom:49px;
+}
+
+/* FILE HEADER */
+.file-header{
+  height:47px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.tabs{
+  height:100%;
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.tab{
+  height:100%;
+  display:flex;
+  align-items:center;
+  position:relative;
+  color:#9297a0;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.tab.active{
+  color:#37373b;
+  font-weight:700;
+}
+
+.tab.active:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:2px;
+  background:#5b21d1;
+}
+
+.controls{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.sort{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  color:#858a94;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.sort svg{
+  width:13px;
+  height:13px;
+}
+
+.views{
+  display:flex;
+  align-items:center;
+  gap:1px;
+  margin-left:3px;
+}
+
+.view{
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:4px;
+  color:#858991;
+  cursor:pointer;
+}
+
+.view.active{
+  background:#f2f2f5;
+  color:#5b21d1;
+}
+
+.view svg{
+  width:17px;
+  height:17px;
+}
+
+/* BOTTOM BAR */
+.feature{
+  position:absolute;
+  left:15px;
+  right:15px;
+  bottom:5px;
+  height:45px;
+  border:2px solid #5820d8;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 13px;
+  z-index:5;
+}
+
+.feature-left{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.feature-left svg{
+  width:17px;
+  height:17px;
+}
+
+.show{
+  color:#858994;
+  font-size:14px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+/* MODAL */
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(20,20,25,.2);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+}
+
+.modal-bg.open{display:flex}
+
+.modal{
+  width:410px;
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+  padding:24px;
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.modal input{
+  width:100%;
+  height:42px;
+  border:1px solid #d9dae0;
+  border-radius:5px;
+  outline:none;
+  padding:0 11px;
+}
+
+.modal-actions{
+  margin-top:18px;
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+.modal-actions button{
+  height:36px;
+  padding:0 13px;
+  border-radius:5px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.cancel{
+  background:#f0f1f3;
+}
+
+.confirm{
+  background:#5620c9;
+  color:#fff;
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- TOP BAR -->
-  <header class="topbar">
+<header class="topbar">
 
-    <div class="top-left">
+  <div class="top-left">
+    <button class="top-icon"><i data-lucide="home"></i></button>
+    <button class="top-icon"><i data-lucide="panel-top"></i></button>
+    <button class="top-icon" id="searchTop"><i data-lucide="search"></i></button>
+    <button class="top-icon"><i data-lucide="bell"></i></button>
+  </div>
 
-      <button class="top-icon" title="Home">
-        <i data-lucide="home"></i>
+  <div class="top-right">
+    <span class="updated">Updated just now</span>
+
+    <button class="refresh">
+      <i data-lucide="rotate-cw"></i>
+    </button>
+
+    <button class="create" id="create">
+      <i data-lucide="plus"></i>
+      <span>Create</span>
+    </button>
+  </div>
+
+</header>
+
+<div class="body">
+
+<aside class="sidebar">
+
+  <div class="profile">
+    <div class="avatar">NL</div>
+    <span class="profile-name">Noah LaLindez</span>
+    <i data-lucide="chevron-down"></i>
+  </div>
+
+  <nav class="nav">
+
+    <button class="nav-item active">
+      <i data-lucide="gauge"></i>
+      <span>Dashboard</span>
+    </button>
+
+    <button class="nav-item">
+      <i data-lucide="file-text"></i>
+      <span>Scripts</span>
+      <i class="nav-plus" data-lucide="plus"></i>
+    </button>
+
+    <button class="nav-item">
+      <i data-lucide="layout-grid"></i>
+      <span>Projects</span>
+    </button>
+
+    <div class="secondary">
+
+      <button class="nav-item">
+        <i data-lucide="circle-help"></i>
+        <span>Support</span>
       </button>
 
-      <button class="top-icon" title="Library">
-        <i data-lucide="panel-top"></i>
+      <button class="nav-item">
+        <i data-lucide="party-popper"></i>
+        <span>What's new?</span>
       </button>
 
-      <button class="top-icon" title="Search" id="globalSearchButton">
-        <i data-lucide="search"></i>
-      </button>
-
-      <button class="top-icon" title="Notifications">
-        <i data-lucide="bell"></i>
+      <button class="nav-item">
+        <i data-lucide="gift"></i>
+        <span>Refer a friend</span>
       </button>
 
     </div>
 
-    <div class="top-right">
+  </nav>
 
-      <span class="updated" id="updatedText">
-        Updated just now
-      </span>
+  <div class="upgrade">
 
-      <button class="refresh-button" id="refreshButton" title="Refresh">
-        <i data-lucide="rotate-cw"></i>
-      </button>
-
-      <button class="create-button" id="createButton">
-        <i data-lucide="plus"></i>
-        <span>Create</span>
-      </button>
-
+    <div class="upgrade-title">
+      Upgrade Arc Studio to get<br>
+      access to all features
     </div>
 
-  </header>
-
-
-  <div class="body">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-      <div class="profile">
-
-        <div class="avatar">
-          NL
-        </div>
-
-        <span class="profile-name">
-          Noah LaLindez
-        </span>
-
-        <i class="profile-chevron" data-lucide="chevron-down"></i>
-
-      </div>
-
-
-      <nav class="nav">
-
-        <button class="nav-item active" data-page="Dashboard">
-          <i data-lucide="gauge"></i>
-          <span>Dashboard</span>
-        </button>
-
-        <button class="nav-item" data-page="Scripts">
-          <i data-lucide="file-text"></i>
-          <span>Scripts</span>
-          <i class="nav-plus" data-lucide="plus"></i>
-        </button>
-
-        <button class="nav-item" data-page="Projects">
-          <i data-lucide="layout-grid"></i>
-          <span>Projects</span>
-        </button>
-
-
-        <div class="secondary-nav">
-
-          <button class="nav-item" data-page="Support">
-            <i data-lucide="circle-help"></i>
-            <span>Support</span>
-          </button>
-
-          <button class="nav-item" data-page="What's new?">
-            <i data-lucide="party-popper"></i>
-            <span>What's new?</span>
-          </button>
-
-          <button class="nav-item" data-page="Refer a friend">
-            <i data-lucide="gift"></i>
-            <span>Refer a friend</span>
-          </button>
-
-        </div>
-
-      </nav>
-
-
-      <div class="upgrade-card">
-
-        <div class="upgrade-title">
-          Upgrade Arc Studio to get<br>
-          access to all features
-        </div>
-
-        <button class="upgrade-button">
-          <i data-lucide="rocket"></i>
-          <span>Upgrade now!</span>
-        </button>
-
-      </div>
-
-    </aside>
-
-
-    <!-- MAIN CONTENT -->
-    <main class="content">
-
-      <div class="content-header">
-        <h1 class="dashboard-title" id="pageTitle">
-          Dashboard
-        </h1>
-      </div>
-
-
-      <div class="content-scroll">
-
-        <!-- SEARCH -->
-        <div class="search-wrap">
-
-          <i data-lucide="search"></i>
-
-          <input
-            id="searchInput"
-            class="search-input"
-            type="text"
-            placeholder="Search scripts..."
-            autocomplete="off"
-          />
-
-        </div>
-
-
-        <!-- RECENTLY EDITED -->
-        <section class="section recent">
-
-          <h2 class="section-title">
-            Recently edited
-          </h2>
-
-          <div class="file-list" id="recentFiles">
-
-            <div class="file-row" data-name="Xenophon's Anabasis">
-
-              <i class="cloud-icon" data-lucide="cloud"></i>
-
-              <span class="file-name">
-                Xenophon's Anabasis
-              </span>
-
-            </div>
-
-            <div class="file-row" data-name="Sentient Mass">
-
-              <i class="cloud-icon" data-lucide="cloud"></i>
-
-              <span class="file-name">
-                Sentient Mass
-              </span>
-
-            </div>
-
-          </div>
-
-          <div class="no-results" id="recentEmpty">
-            No matching scripts found.
-          </div>
-
-        </section>
-
-
-        <!-- ALL FILES -->
-        <section class="section">
-
-          <div class="files-heading">
-
-            <div class="tabs">
-
-              <button class="tab active" data-tab="All Files">
-                All Files
-              </button>
-
-              <button class="tab" data-tab="My Files">
-                My Files
-              </button>
-
-              <button class="tab" data-tab="Shared With Me">
-                Shared With Me
-              </button>
-
-              <button class="tab" data-tab="Archived">
-                Archived
-              </button>
-
-            </div>
-
-
-            <div class="file-controls">
-
-              <button class="sort" id="sortButton">
-                <span id="sortText">by last edited</span>
-                <i data-lucide="chevron-down"></i>
-              </button>
-
-              <div class="view-buttons">
-
-                <button class="view-button active" title="List view">
-                  <i data-lucide="list"></i>
-                </button>
-
-                <button class="view-button" title="Grid view">
-                  <i data-lucide="grid-2x2"></i>
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="file-list" id="allFiles">
-
-            <div class="file-row" data-name="Xenophon's Anabasis">
-
-              <i class="cloud-icon" data-lucide="cloud"></i>
-
-              <span class="file-name">
-                Xenophon's Anabasis
-              </span>
-
-            </div>
-
-            <div class="file-row" data-name="Sentient Mass">
-
-              <i class="cloud-icon" data-lucide="cloud"></i>
-
-              <span class="file-name">
-                Sentient Mass
-              </span>
-
-            </div>
-
-          </div>
-
-          <div class="no-results" id="allEmpty">
-            No files found.
-          </div>
-
-        </section>
-
-      </div>
-
-
-      <!-- FEATURE BAR -->
-      <div class="feature-bar">
-
-        <div class="feature-left">
-          <i data-lucide="chevron-right"></i>
-          <span>Featured Guides &amp; Events</span>
-        </div>
-
-        <button class="show-button" id="showButton">
-          Show
-        </button>
-
-      </div>
-
-    </main>
+    <button class="upgrade-btn">
+      <i data-lucide="rocket"></i>
+      Upgrade now!
+    </button>
 
   </div>
 
-</div>
+</aside>
 
+<main class="content">
 
-<!-- CREATE MODAL -->
-<div class="modal-backdrop" id="modalBackdrop">
+  <div class="content-header">
+    <div class="page-title">Dashboard</div>
+  </div>
 
-  <div class="create-modal">
+  <div class="scroll">
 
-    <div class="modal-header">
-
-      <div class="modal-title">
-        Create new script
-      </div>
-
-      <button class="close-modal" id="closeModal">
-        <i data-lucide="x"></i>
-      </button>
-
+    <div class="search">
+      <i data-lucide="search"></i>
+      <input id="search" placeholder="Search scripts..." autocomplete="off">
     </div>
 
-    <label class="modal-label" for="scriptName">
-      Script name
-    </label>
+    <section class="recent">
 
-    <input
-      id="scriptName"
-      class="modal-input"
-      type="text"
-      placeholder="Untitled screenplay"
-    />
+      <div class="section-title">
+        Recently edited
+      </div>
+
+      <div class="file-list" id="recentFiles">
+
+        <div class="file" data-name="Xenophon's Anabasis">
+          <i data-lucide="cloud"></i>
+          <span class="file-name">Xenophon's Anabasis</span>
+        </div>
+
+        <div class="file" data-name="Sentient Mass">
+          <i data-lucide="cloud"></i>
+          <span class="file-name">Sentient Mass</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section>
+
+      <div class="file-header">
+
+        <div class="tabs">
+
+          <button class="tab active">All Files</button>
+          <button class="tab">My Files</button>
+          <button class="tab">Shared With Me</button>
+          <button class="tab">Archived</button>
+
+        </div>
+
+        <div class="controls">
+
+          <button class="sort">
+            by last edited
+            <i data-lucide="chevron-down"></i>
+          </button>
+
+          <div class="views">
+
+            <button class="view active">
+              <i data-lucide="list"></i>
+            </button>
+
+            <button class="view">
+              <i data-lucide="grid-2x2"></i>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="file-list" id="allFiles">
+
+        <div class="file" data-name="Xenophon's Anabasis">
+          <i data-lucide="cloud"></i>
+          <span class="file-name">Xenophon's Anabasis</span>
+        </div>
+
+        <div class="file" data-name="Sentient Mass">
+          <i data-lucide="cloud"></i>
+          <span class="file-name">Sentient Mass</span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="feature">
+
+    <div class="feature-left">
+      <i data-lucide="chevron-right"></i>
+      <span>Featured Guides &amp; Events</span>
+    </div>
+
+    <button class="show">Show</button>
+
+  </div>
+
+</main>
+
+</div>
+</div>
+
+<div class="modal-bg" id="modal">
+
+  <div class="modal">
+
+    <div class="modal-title">Create new script</div>
+
+    <input id="newName" placeholder="Untitled screenplay">
 
     <div class="modal-actions">
-
-      <button class="cancel-button" id="cancelCreate">
-        Cancel
-      </button>
-
-      <button class="modal-create" id="confirmCreate">
-        Create script
-      </button>
-
+      <button class="cancel" id="cancel">Cancel</button>
+      <button class="confirm" id="confirm">Create script</button>
     </div>
 
   </div>
 
 </div>
 
-
 <script>
+lucide.createIcons();
+
+const modal=document.getElementById("modal");
+const create=document.getElementById("create");
+const cancel=document.getElementById("cancel");
+const confirm=document.getElementById("confirm");
+const newName=document.getElementById("newName");
+const search=document.getElementById("search");
+const searchTop=document.getElementById("searchTop");
+
+create.onclick=()=>{
+  modal.classList.add("open");
+  setTimeout(()=>newName.focus(),50);
+};
+
+cancel.onclick=()=>{
+  modal.classList.remove("open");
+  newName.value="";
+};
+
+modal.onclick=e=>{
+  if(e.target===modal){
+    modal.classList.remove("open");
+    newName.value="";
+  }
+};
+
+confirm.onclick=createFile;
+
+newName.onkeydown=e=>{
+  if(e.key==="Enter")createFile();
+  if(e.key==="Escape")cancel.click();
+};
+
+function createFile(){
+
+  const name=newName.value.trim()||"Untitled screenplay";
+
+  ["recentFiles","allFiles"].forEach(id=>{
+
+    const container=document.getElementById(id);
+
+    const file=document.createElement("div");
+    file.className="file";
+    file.dataset.name=name;
+
+    file.innerHTML=`
+      <i data-lucide="cloud"></i>
+      <span class="file-name">${escapeHtml(name)}</span>
+    `;
+
+    container.prepend(file);
+  });
+
   lucide.createIcons();
 
+  modal.classList.remove("open");
+  newName.value="";
+}
 
-  /* ─────────────────────────────────────────────
-     ELEMENTS
-  ───────────────────────────────────────────── */
+search.oninput=()=>{
 
-  const createButton = document.getElementById("createButton");
-  const modalBackdrop = document.getElementById("modalBackdrop");
-  const closeModal = document.getElementById("closeModal");
-  const cancelCreate = document.getElementById("cancelCreate");
-  const confirmCreate = document.getElementById("confirmCreate");
-  const scriptName = document.getElementById("scriptName");
+  const q=search.value.toLowerCase().trim();
 
-  const searchInput = document.getElementById("searchInput");
-  const globalSearchButton = document.getElementById("globalSearchButton");
+  document.querySelectorAll(".file").forEach(file=>{
 
-  const pageTitle = document.getElementById("pageTitle");
-  const updatedText = document.getElementById("updatedText");
-
-  const tabs = document.querySelectorAll(".tab");
-  const navItems = document.querySelectorAll(".nav-item");
-  const viewButtons = document.querySelectorAll(".view-button");
-
-  const recentFiles = document.getElementById("recentFiles");
-  const allFiles = document.getElementById("allFiles");
-
-  const recentEmpty = document.getElementById("recentEmpty");
-  const allEmpty = document.getElementById("allEmpty");
-
-  const showButton = document.getElementById("showButton");
-  const featureBar = document.querySelector(".feature-bar");
-
-  const refreshButton = document.getElementById("refreshButton");
-  const sortButton = document.getElementById("sortButton");
-  const sortText = document.getElementById("sortText");
-
-
-  /* ─────────────────────────────────────────────
-     MODAL
-  ───────────────────────────────────────────── */
-
-  function openCreateModal() {
-    modalBackdrop.classList.add("open");
-
-    setTimeout(() => {
-      scriptName.focus();
-    }, 50);
-  }
-
-  function closeCreateModal() {
-    modalBackdrop.classList.remove("open");
-    scriptName.value = "";
-  }
-
-  createButton.addEventListener("click", openCreateModal);
-  closeModal.addEventListener("click", closeCreateModal);
-  cancelCreate.addEventListener("click", closeCreateModal);
-
-  modalBackdrop.addEventListener("click", event => {
-    if (event.target === modalBackdrop) {
-      closeCreateModal();
-    }
-  });
-
-
-  /* ─────────────────────────────────────────────
-     CREATE SCRIPT
-  ───────────────────────────────────────────── */
-
-  function createScript() {
-
-    const name =
-      scriptName.value.trim() ||
-      "Untitled screenplay";
-
-    const rows = [recentFiles, allFiles];
-
-    rows.forEach(container => {
-
-      const row = document.createElement("div");
-
-      row.className = "file-row";
-      row.dataset.name = name;
-
-      row.innerHTML = `
-        <i class="cloud-icon" data-lucide="cloud"></i>
-        <span class="file-name">${escapeHtml(name)}</span>
-      `;
-
-      container.prepend(row);
-
-    });
-
-    lucide.createIcons();
-
-    updatedText.textContent = "Updated just now";
-
-    closeCreateModal();
-  }
-
-  confirmCreate.addEventListener("click", createScript);
-
-  scriptName.addEventListener("keydown", event => {
-    if (event.key === "Enter") {
-      createScript();
-    }
-
-    if (event.key === "Escape") {
-      closeCreateModal();
-    }
-  });
-
-
-  /* ─────────────────────────────────────────────
-     SEARCH
-  ───────────────────────────────────────────── */
-
-  function filterFiles() {
-
-    const query = searchInput.value
-      .trim()
-      .toLowerCase();
-
-    let recentMatches = 0;
-    let allMatches = 0;
-
-    recentFiles.querySelectorAll(".file-row").forEach(row => {
-
-      const match =
-        row.dataset.name.toLowerCase().includes(query);
-
-      row.style.display = match ? "flex" : "none";
-
-      if (match) recentMatches++;
-
-    });
-
-    allFiles.querySelectorAll(".file-row").forEach(row => {
-
-      const match =
-        row.dataset.name.toLowerCase().includes(query);
-
-      row.style.display = match ? "flex" : "none";
-
-      if (match) allMatches++;
-
-    });
-
-    recentEmpty.style.display =
-      recentMatches === 0 ? "block" : "none";
-
-    allEmpty.style.display =
-      allMatches === 0 ? "block" : "none";
-  }
-
-  searchInput.addEventListener("input", filterFiles);
-
-  globalSearchButton.addEventListener("click", () => {
-    searchInput.focus();
-    searchInput.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  });
-
-
-  /* ─────────────────────────────────────────────
-     SIDEBAR NAVIGATION
-  ───────────────────────────────────────────── */
-
-  navItems.forEach(item => {
-
-    item.addEventListener("click", () => {
-
-      navItems.forEach(nav => {
-        nav.classList.remove("active");
-      });
-
-      item.classList.add("active");
-
-      const page = item.dataset.page;
-
-      pageTitle.textContent = page;
-
-      if (page === "Dashboard") {
-        pageTitle.textContent = "Dashboard";
-      }
-
-    });
+    file.style.display=
+      file.dataset.name.toLowerCase().includes(q)
+      ?"flex"
+      :"none";
 
   });
+};
 
-
-  /* ─────────────────────────────────────────────
-     TABS
-  ───────────────────────────────────────────── */
-
-  tabs.forEach(tab => {
-
-    tab.addEventListener("click", () => {
-
-      tabs.forEach(t => {
-        t.classList.remove("active");
-      });
-
-      tab.classList.add("active");
-
-      const selectedTab = tab.dataset.tab;
-
-      if (selectedTab !== "All Files") {
-
-        allFiles.querySelectorAll(".file-row")
-          .forEach(row => {
-
-            row.style.display = "flex";
-
-          });
-
-      }
-
-    });
-
+searchTop.onclick=()=>{
+  search.focus();
+  search.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
   });
+};
 
+document.querySelectorAll(".nav-item").forEach(item=>{
 
-  /* ─────────────────────────────────────────────
-     VIEW TOGGLE
-  ───────────────────────────────────────────── */
+  item.onclick=()=>{
 
-  viewButtons.forEach(button => {
+    document.querySelectorAll(".nav-item")
+      .forEach(x=>x.classList.remove("active"));
 
-    button.addEventListener("click", () => {
+    item.classList.add("active");
 
-      viewButtons.forEach(btn => {
-        btn.classList.remove("active");
-      });
+  };
 
-      button.classList.add("active");
+});
 
-    });
+document.querySelectorAll(".tab").forEach(tab=>{
 
-  });
+  tab.onclick=()=>{
 
+    document.querySelectorAll(".tab")
+      .forEach(x=>x.classList.remove("active"));
 
-  /* ─────────────────────────────────────────────
-     SORT
-  ───────────────────────────────────────────── */
+    tab.classList.add("active");
 
-  let alphabetical = false;
+  };
 
-  sortButton.addEventListener("click", () => {
+});
 
-    alphabetical = !alphabetical;
+document.querySelectorAll(".view").forEach(view=>{
 
-    sortText.textContent =
-      alphabetical
-        ? "alphabetically"
-        : "by last edited";
+  view.onclick=()=>{
 
-    const containers = [
-      recentFiles,
-      allFiles
-    ];
+    document.querySelectorAll(".view")
+      .forEach(x=>x.classList.remove("active"));
 
-    containers.forEach(container => {
+    view.classList.add("active");
 
-      const rows = [...container.querySelectorAll(".file-row")];
+  };
 
-      rows.sort((a, b) => {
+});
 
-        return alphabetical
-          ? a.dataset.name.localeCompare(b.dataset.name)
-          : 0;
-
-      });
-
-      if (alphabetical) {
-        rows.forEach(row => container.appendChild(row));
-      }
-
-    });
-
-  });
-
-
-  /* ─────────────────────────────────────────────
-     REFRESH
-  ───────────────────────────────────────────── */
-
-  refreshButton.addEventListener("click", () => {
-
-    refreshButton.animate(
-      [
-        { transform: "rotate(0deg)" },
-        { transform: "rotate(360deg)" }
-      ],
-      {
-        duration: 500,
-        easing: "ease"
-      }
-    );
-
-    updatedText.textContent = "Updated just now";
-
-  });
-
-
-  /* ─────────────────────────────────────────────
-     FEATURE BAR
-  ───────────────────────────────────────────── */
-
-  let featureVisible = true;
-
-  showButton.addEventListener("click", () => {
-
-    featureVisible = !featureVisible;
-
-    if (featureVisible) {
-
-      featureBar.style.height = "55px";
-      featureBar.style.opacity = "1";
-      showButton.textContent = "Show";
-
-    } else {
-
-      featureBar.style.height = "0";
-      featureBar.style.opacity = "0";
-      featureBar.style.overflow = "hidden";
-      showButton.textContent = "Show";
-
-    }
-
-  });
-
-
-  /* ─────────────────────────────────────────────
-     FILE CLICK
-  ───────────────────────────────────────────── */
-
-  document.addEventListener("click", event => {
-
-    const row = event.target.closest(".file-row");
-
-    if (!row) return;
-
-    const name = row.dataset.name;
-
-    console.log("Opening script:", name);
-
-    /*
-      This is the insertion point for Auteur's
-      actual screenplay editor.
-    */
-
-  });
-
-
-  /* ─────────────────────────────────────────────
-     ESCAPE HTML
-  ───────────────────────────────────────────── */
-
-  function escapeHtml(value) {
-
-    return value
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
+function escapeHtml(str){
+  return str
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 </script>
 
 </body>
 </html>
+```
