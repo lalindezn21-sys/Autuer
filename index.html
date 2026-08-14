@@ -8,423 +8,395 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-    --bg: #f3f3f1;
-    --panel: #fafaf9;
-    --white: #ffffff;
-    --paper: #ffffff;
+:root{
+    --bg:#f3f3f1;
+    --panel:#fafaf9;
+    --white:#fff;
+    --paper:#fff;
+    --black:#111;
+    --text:#171717;
+    --secondary:#444;
+    --muted:#666;
+    --border:#dededb;
+    --border-dark:#c9c9c5;
+    --accent:#5d49a7;
+    --accent-light:#eeeafb;
+    --accent-border:#d4ccef;
 
-    --black: #111111;
-    --text: #171717;
-    --secondary: #444444;
-    --muted: #666666;
-
-    --border: #dededb;
-    --border-dark: #c9c9c5;
-
-    --accent: #5d49a7;
-    --accent-light: #eeeafb;
-    --accent-border: #d4ccef;
-
-    --topbar: 56px;
-    --left: 270px;
-    --right: 280px;
+    --topbar:56px;
+    --left:265px;
+    --right:300px;
 }
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
+html,body{
+    width:100%;
+    height:100%;
+    margin:0;
 }
 
-body {
-    background: var(--bg);
-    color: var(--black);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
+body{
+    background:var(--bg);
+    color:var(--black);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
 }
 
-button,
-input,
-textarea {
-    font: inherit;
-    color: var(--black);
+button,input,textarea{
+    font:inherit;
+    color:var(--black);
 }
 
-button {
-    border: 0;
-    background: none;
+button{
+    border:0;
+    background:none;
 }
 
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
-    outline: 2px solid var(--accent-border);
-    outline-offset: 1px;
+textarea:focus-visible{
+    outline:2px solid var(--accent-border);
+    outline-offset:1px;
 }
 
 /* =========================================================
    APP
 ========================================================= */
 
-.app {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+.app{
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
 }
 
 /* =========================================================
    TOP BAR
 ========================================================= */
 
-.topbar {
-    height: var(--topbar);
-    flex-shrink: 0;
-
-    background: rgba(255,255,255,.98);
-    border-bottom: 1px solid var(--border);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 15px;
-
-    z-index: 50;
+.topbar{
+    height:var(--topbar);
+    flex-shrink:0;
+    background:rgba(255,255,255,.98);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    z-index:50;
 }
 
 .top-left,
-.top-right {
-    display: flex;
-    align-items: center;
-    height: 100%;
+.top-right{
+    display:flex;
+    align-items:center;
+    height:100%;
 }
 
-.brand {
-    width: 92px;
-
-    font-family: "EB Garamond", serif;
-    font-size: 27px;
-    font-weight: 600;
-    letter-spacing: -.04em;
-
-    cursor: pointer;
-    user-select: none;
+.brand{
+    width:92px;
+    font-family:"EB Garamond",serif;
+    font-size:27px;
+    font-weight:600;
+    letter-spacing:-.04em;
+    cursor:pointer;
+    user-select:none;
 }
 
-.project-title {
-    height: 31px;
-
-    padding-left: 17px;
-    border-left: 1px solid var(--border);
-
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    font-size: 12px;
-    color: var(--black);
+.project-title{
+    height:31px;
+    padding-left:17px;
+    border-left:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:12px;
 }
 
-.project-title strong {
-    font-weight: 600;
+.project-title strong{
+    font-weight:600;
 }
 
-.project-title span {
-    color: var(--muted);
+.project-title span{
+    color:var(--muted);
 }
 
-.top-right {
-    gap: 4px;
+.top-right{
+    gap:4px;
 }
 
-.save-status {
-    min-width: 50px;
-
-    margin-right: 8px;
-
-    text-align: right;
-
-    color: var(--secondary);
-    font-size: 11px;
+.save-status{
+    min-width:50px;
+    margin-right:8px;
+    text-align:right;
+    color:var(--secondary);
+    font-size:11px;
 }
 
-.top-button {
-    min-width: 34px;
-    height: 34px;
-
-    padding: 0 11px;
-
-    border-radius: 6px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--black);
-
-    font-size: 11px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: .12s ease;
+.top-button{
+    min-width:34px;
+    height:34px;
+    padding:0 11px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--black);
+    font-size:11px;
+    font-weight:500;
+    cursor:pointer;
+    transition:.12s ease;
 }
 
-.top-button:hover {
-    background: #eeeeec;
+.top-button:hover{
+    background:#eeeeec;
 }
 
-.top-button.share {
-    border: 1px solid var(--border-dark);
-    margin-left: 6px;
+.top-button.share{
+    border:1px solid var(--border-dark);
+    margin-left:6px;
 }
 
-.top-button.share:hover {
-    background: #f7f7f5;
+.top-button.share:hover{
+    background:#f7f7f5;
 }
 
 /* =========================================================
    WORKSPACE
 ========================================================= */
 
-.workspace {
-    flex: 1;
-    min-height: 0;
-
-    display: flex;
+.workspace{
+    flex:1;
+    min-height:0;
+    display:flex;
 }
 
 /* =========================================================
    LEFT PANEL
 ========================================================= */
 
-.left-panel {
-    width: var(--left);
-    min-width: var(--left);
-
-    background: var(--panel);
-    border-right: 1px solid var(--border);
-
-    display: flex;
-    flex-direction: column;
-
-    transition: width .18s ease, min-width .18s ease;
+.left-panel{
+    width:var(--left);
+    min-width:var(--left);
+    background:var(--panel);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    transition:width .18s ease,min-width .18s ease;
 }
 
-.left-top {
-    height: 51px;
-    flex-shrink: 0;
-
-    border-bottom: 1px solid var(--border);
-
-    padding: 0 13px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.left-top{
+    height:51px;
+    flex-shrink:0;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    padding:0 10px;
 }
 
-.mode-tabs {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 21px;
+.left-tabs{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
 }
 
-.mode-tab {
-    position: relative;
-
-    height: 100%;
-
-    padding: 0 1px;
-
-    color: var(--secondary);
-
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .045em;
-
-    cursor: pointer;
+.left-tab{
+    position:relative;
+    height:100%;
+    padding:0 9px;
+    color:var(--secondary);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.06em;
+    cursor:pointer;
 }
 
-.mode-tab:hover {
-    color: var(--black);
+.left-tab:hover{
+    color:var(--black);
 }
 
-.mode-tab.active {
-    color: var(--black);
+.left-tab.active{
+    color:var(--black);
 }
 
-.mode-tab.active::after {
-    content: "";
-
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-
-    height: 2px;
-
-    background: var(--accent);
+.left-tab.active::after{
+    content:"";
+    position:absolute;
+    bottom:-1px;
+    left:5px;
+    right:5px;
+    height:2px;
+    background:var(--accent);
 }
 
-.collapse {
-    width: 31px;
-    height: 31px;
-
-    border-radius: 6px;
-
-    color: var(--black);
-
-    font-size: 18px;
-
-    cursor: pointer;
+.left-content{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    padding:9px;
 }
 
-.collapse:hover {
-    background: #ebebe9;
-}
-
-.outline {
-    flex: 1;
-
-    overflow-y: auto;
-
-    padding: 9px;
-}
-
-.outline::-webkit-scrollbar,
+.left-content::-webkit-scrollbar,
 .inspector::-webkit-scrollbar,
-.paper-scroll::-webkit-scrollbar {
-    width: 9px;
+.paper-scroll::-webkit-scrollbar{
+    width:9px;
 }
 
-.outline::-webkit-scrollbar-thumb,
+.left-content::-webkit-scrollbar-thumb,
 .inspector::-webkit-scrollbar-thumb,
-.paper-scroll::-webkit-scrollbar-thumb {
-    background: #cfcfcb;
-    border-radius: 10px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
+.paper-scroll::-webkit-scrollbar-thumb{
+    background:#cfcfcb;
+    border-radius:10px;
+    border:2px solid transparent;
+    background-clip:padding-box;
 }
 
-.outline-label {
-    color: var(--secondary);
-
-    padding: 14px 9px 7px;
-
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .09em;
+.content-view{
+    display:none;
 }
 
-.outline-item {
-    min-height: 52px;
-
-    margin: 2px 0;
-
-    padding: 9px 10px;
-
-    border: 1px solid transparent;
-    border-radius: 6px;
-
-    cursor: pointer;
-
-    transition: .12s ease;
+.content-view.active{
+    display:block;
 }
 
-.outline-item:hover {
-    background: #eeeeec;
+.outline-label{
+    color:var(--secondary);
+    padding:14px 9px 7px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.09em;
 }
 
-.outline-item.active {
-    background: var(--accent-light);
-    border-color: var(--accent-border);
+.outline-item{
+    min-height:52px;
+    margin:2px 0;
+    padding:9px 10px;
+    border:1px solid transparent;
+    border-radius:6px;
+    cursor:pointer;
+    transition:.12s ease;
 }
 
-.scene-number {
-    margin-bottom: 4px;
-
-    color: var(--secondary);
-
-    font-size: 10px;
-    font-weight: 500;
+.outline-item:hover{
+    background:#eeeeec;
 }
 
-.scene-name {
-    color: var(--black);
+.outline-item.active{
+    background:var(--accent-light);
+    border-color:var(--accent-border);
+}
 
-    font-size: 12px;
-    line-height: 1.35;
-    font-weight: 600;
+.scene-number{
+    margin-bottom:4px;
+    color:var(--secondary);
+    font-size:10px;
+    font-weight:500;
+}
+
+.scene-name{
+    color:var(--black);
+    font-size:12px;
+    line-height:1.35;
+    font-weight:600;
 }
 
 .outline-item.active .scene-number,
-.outline-item.active .scene-name {
-    color: #4e3c91;
+.outline-item.active .scene-name{
+    color:#4e3c91;
 }
 
-.left-bottom {
-    flex-shrink: 0;
-
-    border-top: 1px solid var(--border);
-
-    padding: 9px;
+.comment-card,
+.note-card{
+    margin:7px 0;
+    padding:12px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:6px;
 }
 
-.utility-button {
-    width: 100%;
-    height: 38px;
-
-    padding: 0 10px;
-
-    border-radius: 6px;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    color: var(--black);
-
-    font-size: 11px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: .12s ease;
+.comment-card:hover,
+.note-card:hover{
+    border-color:var(--border-dark);
 }
 
-.utility-button:hover {
-    background: #ebebe9;
+.comment-meta,
+.note-meta{
+    margin-bottom:7px;
+    color:var(--secondary);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.05em;
 }
 
-.utility-button span:first-child {
-    width: 17px;
+.comment-text,
+.note-text{
+    color:var(--black);
+    font-size:11px;
+    line-height:1.55;
+}
 
-    font-size: 15px;
+.add-small{
+    width:100%;
+    height:36px;
+    margin-top:8px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    background:white;
+    font-size:10px;
+    font-weight:600;
+    cursor:pointer;
+}
 
-    text-align: center;
+.add-small:hover{
+    background:#eeeeec;
+}
+
+.left-bottom{
+    flex-shrink:0;
+    border-top:1px solid var(--border);
+    padding:9px;
+}
+
+.utility-button{
+    width:100%;
+    height:36px;
+    padding:0 10px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--black);
+    font-size:11px;
+    font-weight:500;
+    cursor:pointer;
+    transition:.12s ease;
+}
+
+.utility-button:hover{
+    background:#ebebe9;
+}
+
+.utility-icon{
+    width:17px;
+    text-align:center;
+    font-size:14px;
 }
 
 /* =========================================================
    EDITOR
 ========================================================= */
 
-.editor {
-    flex: 1;
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-
+.editor{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
     background:
         radial-gradient(
             ellipse at center top,
@@ -434,720 +406,556 @@ textarea:focus-visible {
         );
 }
 
-.editor-toolbar {
-    min-height: 50px;
-    flex-shrink: 0;
-
-    padding: 0 13px;
-
-    background: rgba(255,255,255,.97);
-    border-bottom: 1px solid var(--border);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    overflow: visible;
+.editor-header{
+    height:46px;
+    flex-shrink:0;
+    padding:0 16px;
+    background:rgba(255,255,255,.96);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
 }
 
-/* TOOLBAR GROUPS */
-
-.toolbar-groups {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    gap: 5px;
+.zoom{
+    display:flex;
+    align-items:center;
+    gap:3px;
 }
 
-.tool-group {
-    position: relative;
-
-    height: 34px;
-
-    padding: 0 5px;
-
-    display: flex;
-    align-items: center;
-    gap: 2px;
-
-    border-right: 1px solid var(--border);
+.zoom button{
+    width:29px;
+    height:29px;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
 }
 
-.tool-group:last-child {
-    border-right: 0;
+.zoom button:hover{
+    background:#eeeeec;
 }
 
-.tool-group-label {
-    position: absolute;
-
-    top: -7px;
-    left: 9px;
-
-    padding: 0 3px;
-
-    background: white;
-
-    color: var(--secondary);
-
-    font-size: 7px;
-    font-weight: 700;
-
-    letter-spacing: .07em;
+#zoomLabel{
+    min-width:44px;
+    text-align:center;
+    font-size:10px;
+    font-weight:600;
 }
 
-.tool-button {
-    min-width: 34px;
-    height: 31px;
-
-    padding: 0 9px;
-
-    border-radius: 5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-
-    color: var(--black);
-
-    font-size: 10px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: .12s ease;
+.paper-scroll{
+    flex:1;
+    overflow:auto;
+    padding:52px 65px 130px;
 }
 
-.tool-button:hover {
-    background: #eeeeec;
-}
-
-.tool-button.active {
-    background: var(--accent-light);
-    color: var(--accent);
-}
-
-.tool-icon {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.zoom {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-
-    color: var(--black);
-}
-
-.zoom button {
-    width: 29px;
-    height: 29px;
-
-    border-radius: 5px;
-
-    font-size: 16px;
-
-    cursor: pointer;
-}
-
-.zoom button:hover {
-    background: #eeeeec;
-}
-
-#zoomLabel {
-    min-width: 44px;
-
-    text-align: center;
-
-    font-size: 10px;
-    font-weight: 600;
-}
-
-/* =========================================================
-   PAPER
-========================================================= */
-
-.paper-scroll {
-    flex: 1;
-
-    overflow: auto;
-
-    padding: 52px 65px 130px;
-}
-
-.paper {
-    width: 816px;
-    min-height: 1056px;
-
-    margin: 0 auto;
-
-    padding: 96px 108px;
-
-    background: var(--paper);
-
-    border: 1px solid rgba(0,0,0,.035);
-
+.paper{
+    width:816px;
+    min-height:1056px;
+    margin:0 auto;
+    padding:96px 108px;
+    background:var(--paper);
+    border:1px solid rgba(0,0,0,.035);
     box-shadow:
         0 1px 3px rgba(0,0,0,.05),
         0 14px 42px rgba(0,0,0,.075);
-
-    transform-origin: top center;
+    transform-origin:top center;
 }
 
-.script {
-    min-height: 860px;
-
-    outline: none;
-
-    color: #111111;
-
-    font-family:
-        "Courier New",
-        Courier,
-        monospace;
-
-    font-size: 13px;
-    line-height: 1.52;
-
-    white-space: pre-wrap;
-
-    caret-color: #111;
+.script{
+    min-height:860px;
+    outline:none;
+    color:#111;
+    font-family:"Courier New",Courier,monospace;
+    font-size:13px;
+    line-height:1.52;
+    white-space:pre-wrap;
+    caret-color:#111;
 }
 
-.script::selection {
-    background: #dcd6ef;
+.script::selection{
+    background:#dcd6ef;
 }
 
 /* =========================================================
    RIGHT PANEL
 ========================================================= */
 
-.right-panel {
-    width: var(--right);
-    min-width: var(--right);
-
-    background: var(--panel);
-    border-left: 1px solid var(--border);
-
-    display: flex;
-    flex-direction: column;
+.right-panel{
+    width:var(--right);
+    min-width:var(--right);
+    background:var(--panel);
+    border-left:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
 }
 
-.right-tabs {
-    height: 51px;
-    flex-shrink: 0;
-
-    border-bottom: 1px solid var(--border);
-
-    display: flex;
+.right-header{
+    height:51px;
+    flex-shrink:0;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    padding:0 15px;
 }
 
-.right-tab {
-    position: relative;
-
-    flex: 1;
-
-    color: var(--secondary);
-
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .045em;
-
-    cursor: pointer;
+.right-title{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.08em;
 }
 
-.right-tab:hover {
-    color: var(--black);
+.inspector{
+    flex:1;
+    overflow-y:auto;
+    padding:13px;
 }
 
-.right-tab.active {
-    color: var(--black);
+.tool-section{
+    margin-bottom:17px;
 }
 
-.right-tab.active::after {
-    content: "";
-
-    position: absolute;
-
-    bottom: -1px;
-    left: 14px;
-    right: 14px;
-
-    height: 2px;
-
-    background: var(--accent);
+.tool-section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:7px;
+    padding:0 2px;
 }
 
-.inspector {
-    flex: 1;
-
-    overflow-y: auto;
-
-    padding: 18px 14px;
+.tool-section-title{
+    color:var(--black);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.09em;
 }
 
-.panel-view {
-    display: none;
+.tool-section-subtitle{
+    color:var(--muted);
+    font-size:8px;
 }
 
-.panel-view.active {
-    display: block;
+.tool-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:5px;
 }
 
-.inspector-section {
-    margin-bottom: 24px;
+.tool-button{
+    min-height:36px;
+    padding:0 9px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    color:var(--black);
+    font-size:10px;
+    font-weight:500;
+    cursor:pointer;
+    transition:.12s ease;
 }
 
-.inspector-heading {
-    margin-bottom: 10px;
-
-    color: var(--black);
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: .08em;
+.tool-button:hover{
+    background:#eeeeec;
+    border-color:var(--border-dark);
 }
 
-.field {
-    padding: 11px;
-
-    margin-bottom: 7px;
-
-    background: white;
-
-    border: 1px solid var(--border);
-
-    border-radius: 6px;
+.tool-button.active{
+    background:var(--accent-light);
+    border-color:var(--accent-border);
+    color:var(--accent);
 }
 
-.field-label {
-    margin-bottom: 6px;
-
-    color: var(--secondary);
-
-    font-size: 8px;
-    font-weight: 700;
-
-    letter-spacing: .05em;
+.tool-button.wide{
+    grid-column:1 / -1;
 }
 
-.field-value {
-    color: var(--black);
-
-    font-size: 11px;
-    line-height: 1.55;
+.tool-icon{
+    font-size:12px;
+    font-weight:700;
 }
 
-.character {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 9px;
-
-    border-radius: 6px;
-
-    cursor: pointer;
+.divider{
+    height:1px;
+    background:var(--border);
+    margin:17px 0;
 }
 
-.character:hover {
-    background: #eeeeec;
+.field{
+    padding:11px;
+    margin-bottom:7px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:6px;
 }
 
-.character-avatar {
-    width: 34px;
-    height: 34px;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    background: var(--accent-light);
-
-    color: var(--accent);
-
-    display: grid;
-    place-items: center;
-
-    font-size: 9px;
-    font-weight: 700;
+.field-label{
+    margin-bottom:6px;
+    color:var(--secondary);
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.05em;
 }
 
-.character-name {
-    color: var(--black);
-
-    font-size: 11px;
-    font-weight: 600;
+.field-value{
+    color:var(--black);
+    font-size:11px;
+    line-height:1.55;
 }
 
-.character-role {
-    margin-top: 3px;
+.character{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px;
+    border-radius:6px;
+    cursor:pointer;
+}
 
-    color: var(--secondary);
+.character:hover{
+    background:#eeeeec;
+}
 
-    font-size: 9px;
+.character-avatar{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:var(--accent-light);
+    color:var(--accent);
+    display:grid;
+    place-items:center;
+    font-size:9px;
+    font-weight:700;
+}
+
+.character-name{
+    color:var(--black);
+    font-size:11px;
+    font-weight:600;
+}
+
+.character-role{
+    margin-top:3px;
+    color:var(--secondary);
+    font-size:9px;
+}
+
+.scene-note{
+    width:100%;
+    min-height:120px;
+    resize:vertical;
+    padding:11px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    background:white;
+    color:#111;
+    font-size:10px;
+    line-height:1.55;
+    outline:none;
+}
+
+.scene-note:focus{
+    border-color:var(--accent);
 }
 
 /* =========================================================
    STATUS BAR
 ========================================================= */
 
-.statusbar {
-    height: 29px;
-    flex-shrink: 0;
-
-    background: white;
-    border-top: 1px solid var(--border);
-
-    padding: 0 13px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    color: var(--black);
-
-    font-size: 9px;
+.statusbar{
+    height:29px;
+    flex-shrink:0;
+    background:white;
+    border-top:1px solid var(--border);
+    padding:0 13px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--black);
+    font-size:9px;
 }
 
 .status-left,
-.status-right {
-    display: flex;
-    align-items: center;
-    gap: 17px;
+.status-right{
+    display:flex;
+    align-items:center;
+    gap:17px;
 }
 
 /* =========================================================
    PROJECT SCREEN
 ========================================================= */
 
-.project-screen {
-    position: fixed;
-    inset: 0;
-
-    z-index: 100;
-
+.project-screen{
+    position:fixed;
+    inset:0;
+    z-index:100;
     background:
         radial-gradient(
             ellipse at center top,
-            #ffffff 0,
+            #fff 0,
             #f5f5f3 70%
         );
-
-    display: none;
-    flex-direction: column;
+    display:none;
+    flex-direction:column;
 }
 
-.project-screen.open {
-    display: flex;
+.project-screen.open{
+    display:flex;
 }
 
-.project-header {
-    height: 60px;
-
-    padding: 0 20px;
-
-    background: white;
-    border-bottom: 1px solid var(--border);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.project-header{
+    height:60px;
+    padding:0 20px;
+    background:white;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.project-header-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.project-header-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
 }
 
-.project-back {
-    color: var(--black);
-
-    font-size: 11px;
-
-    cursor: pointer;
+.project-back{
+    color:var(--black);
+    font-size:11px;
+    cursor:pointer;
 }
 
-.project-back:hover {
-    text-decoration: underline;
+.project-back:hover{
+    text-decoration:underline;
 }
 
-.project-name {
-    font-family: "EB Garamond", serif;
-
-    color: var(--black);
-
-    font-size: 25px;
+.project-name{
+    font-family:"EB Garamond",serif;
+    color:var(--black);
+    font-size:25px;
 }
 
-.project-content {
-    flex: 1;
-
-    overflow: auto;
-
-    padding: 75px 50px;
+.project-content{
+    flex:1;
+    overflow:auto;
+    padding:75px 50px;
 }
 
-.project-content-inner {
-    width: min(1000px, 100%);
-
-    margin: 0 auto;
+.project-content-inner{
+    width:min(1000px,100%);
+    margin:0 auto;
 }
 
-.project-eyebrow {
-    margin-bottom: 10px;
-
-    color: var(--secondary);
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: .12em;
+.project-eyebrow{
+    margin-bottom:10px;
+    color:var(--secondary);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.12em;
 }
 
-.project-heading {
-    margin-bottom: 42px;
-
-    color: var(--black);
-
-    font-family: "EB Garamond", serif;
-
-    font-size: 56px;
-    line-height: .95;
+.project-heading{
+    margin-bottom:42px;
+    color:var(--black);
+    font-family:"EB Garamond",serif;
+    font-size:56px;
+    line-height:.95;
 }
 
-.project-grid {
-    display: grid;
-
-    grid-template-columns: 2fr 1fr;
-
-    gap: 13px;
+.project-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:13px;
 }
 
-.project-card {
-    min-height: 140px;
-
-    padding: 21px;
-
-    background: white;
-
-    border: 1px solid var(--border);
-    border-radius: 7px;
-
-    transition: .14s ease;
+.project-card{
+    min-height:140px;
+    padding:21px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:7px;
+    transition:.14s ease;
 }
 
-.project-card:hover {
-    transform: translateY(-1px);
-
-    border-color: var(--border-dark);
-
-    box-shadow: 0 7px 20px rgba(0,0,0,.05);
+.project-card:hover{
+    transform:translateY(-1px);
+    border-color:var(--border-dark);
+    box-shadow:0 7px 20px rgba(0,0,0,.05);
 }
 
-.project-card-title {
-    margin-bottom: 18px;
-
-    color: var(--black);
-
-    font-size: 9px;
-    font-weight: 700;
-
-    letter-spacing: .1em;
+.project-card-title{
+    margin-bottom:18px;
+    color:var(--black);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.1em;
 }
 
-.project-stat {
-    color: var(--black);
-
-    font-family: "EB Garamond", serif;
-
-    font-size: 32px;
+.project-stat{
+    color:var(--black);
+    font-family:"EB Garamond",serif;
+    font-size:32px;
 }
 
-.project-small {
-    color: var(--black);
-
-    font-size: 10px;
-
-    line-height: 1.75;
+.project-small{
+    color:var(--black);
+    font-size:10px;
+    line-height:1.75;
 }
 
 /* =========================================================
    MODAL
 ========================================================= */
 
-.overlay {
-    position: fixed;
-    inset: 0;
-
-    z-index: 200;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(15,15,15,.24);
-
-    backdrop-filter: blur(3px);
+.overlay{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(15,15,15,.24);
+    backdrop-filter:blur(3px);
 }
 
-.overlay.open {
-    display: flex;
+.overlay.open{
+    display:flex;
 }
 
-.modal {
-    width: 450px;
-
-    background: white;
-
-    border: 1px solid var(--border);
-    border-radius: 8px;
-
-    box-shadow: 0 25px 80px rgba(0,0,0,.18);
-
-    overflow: hidden;
+.modal{
+    width:450px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:8px;
+    box-shadow:0 25px 80px rgba(0,0,0,.18);
+    overflow:hidden;
 }
 
-.modal-header {
-    padding: 21px;
-
-    border-bottom: 1px solid var(--border);
+.modal-header{
+    padding:21px;
+    border-bottom:1px solid var(--border);
 }
 
-.modal-title {
-    color: var(--black);
-
-    font-family: "EB Garamond", serif;
-
-    font-size: 25px;
+.modal-title{
+    color:var(--black);
+    font-family:"EB Garamond",serif;
+    font-size:25px;
 }
 
-.modal-body {
-    padding: 21px;
+.modal-body{
+    padding:21px;
 }
 
-.modal-label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: var(--black);
-
-    font-size: 9px;
-    font-weight: 700;
+.modal-label{
+    display:block;
+    margin-bottom:7px;
+    color:var(--black);
+    font-size:9px;
+    font-weight:700;
 }
 
-.modal-input {
-    width: 100%;
-    height: 41px;
-
-    padding: 0 11px;
-
-    border: 1px solid var(--border-dark);
-    border-radius: 5px;
-
-    outline: none;
-
-    font-size: 11px;
+.modal-input{
+    width:100%;
+    height:41px;
+    padding:0 11px;
+    border:1px solid var(--border-dark);
+    border-radius:5px;
+    outline:none;
+    font-size:11px;
 }
 
-.modal-input:focus {
-    border-color: var(--accent);
+.modal-input:focus{
+    border-color:var(--accent);
 }
 
-.modal-footer {
-    padding: 13px 21px;
-
-    border-top: 1px solid var(--border);
-
-    display: flex;
-    justify-content: flex-end;
-    gap: 7px;
+.modal-footer{
+    padding:13px 21px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:flex-end;
+    gap:7px;
 }
 
-.modal-button {
-    height: 35px;
-
-    padding: 0 14px;
-
-    border-radius: 5px;
-
-    font-size: 10px;
-    font-weight: 600;
-
-    cursor: pointer;
+.modal-button{
+    height:35px;
+    padding:0 14px;
+    border-radius:5px;
+    font-size:10px;
+    font-weight:600;
+    cursor:pointer;
 }
 
-.modal-cancel {
-    background: #eeeeec;
+.modal-cancel{
+    background:#eeeeec;
 }
 
-.modal-create {
-    background: var(--accent);
-    color: white;
+.modal-create{
+    background:var(--accent);
+    color:white;
 }
 
 /* =========================================================
-   SMALLER WINDOWS
+   RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1250px) {
+@media(max-width:1250px){
 
-    :root {
-        --left: 245px;
-        --right: 250px;
+    :root{
+        --left:235px;
+        --right:280px;
     }
 
-    .tool-button {
-        padding: 0 7px;
-    }
-
-    .tool-button span:not(.tool-icon) {
-        display: none;
+    .paper-scroll{
+        padding-left:35px;
+        padding-right:35px;
     }
 }
 
-@media (max-width: 1000px) {
+@media(max-width:1000px){
 
-    .right-panel {
-        display: none;
+    .right-panel{
+        width:270px;
+        min-width:270px;
     }
 
-    :root {
-        --left: 240px;
+    :root{
+        --left:225px;
     }
 }
 
-@media (max-width: 760px) {
+@media(max-width:800px){
 
-    .left-panel {
-        display: none;
+    .right-panel{
+        display:none;
     }
 
-    .paper-scroll {
-        padding: 25px 15px 100px;
+    .project-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .left-panel{
+        display:none;
     }
 
-    .paper {
-        transform: scale(.78);
-        transform-origin: top center;
-        margin-bottom: -230px;
+    .paper-scroll{
+        padding:25px 15px 100px;
     }
 
-    .toolbar-groups {
-        overflow-x: auto;
+    .paper{
+        transform:scale(.78);
+        transform-origin:top center;
+        margin-bottom:-230px;
     }
 
-    .project-content {
-        padding: 35px 20px;
-    }
-
-    .project-grid {
-        grid-template-columns: 1fr;
+    .project-content{
+        padding:35px 20px;
     }
 }
 </style>
@@ -1157,9 +965,9 @@ textarea:focus-visible {
 
 <div class="app">
 
-<!-- =======================================================
+<!-- =========================================================
      TOP BAR
-======================================================= -->
+========================================================= -->
 
 <header class="topbar">
 
@@ -1170,13 +978,9 @@ textarea:focus-visible {
         </div>
 
         <div class="project-title">
-
             <strong>Sentient Mass</strong>
-
             <span>›</span>
-
             <span>Screenplay</span>
-
         </div>
 
     </div>
@@ -1208,132 +1012,227 @@ textarea:focus-visible {
 </header>
 
 
-<!-- =======================================================
+<!-- =========================================================
      WORKSPACE
-======================================================= -->
+========================================================= -->
 
 <main class="workspace">
 
-<!-- =======================================================
-     LEFT
-======================================================= -->
+<!-- =========================================================
+     LEFT PANEL
+========================================================= -->
 
 <aside class="left-panel">
 
     <div class="left-top">
 
-        <div class="mode-tabs">
+        <div class="left-tabs">
 
             <button
-                class="mode-tab active"
-                onclick="setLeftMode('outline', this)"
+                class="left-tab active"
+                onclick="showLeftView('contents',this)"
             >
-                OUTLINE
+                CONTENTS
             </button>
 
             <button
-                class="mode-tab"
-                onclick="setLeftMode('index', this)"
+                class="left-tab"
+                onclick="showLeftView('comments',this)"
             >
-                INDEX
+                COMMENTS
+            </button>
+
+            <button
+                class="left-tab"
+                onclick="showLeftView('notes',this)"
+            >
+                NOTES
             </button>
 
         </div>
-
-        <button
-            class="collapse"
-            onclick="toggleLeftPanel()"
-        >
-            ‹
-        </button>
 
     </div>
 
 
-    <div class="outline" id="outlinePanel">
+    <div class="left-content">
 
-        <div class="outline-label">
-            ACT I
-        </div>
+        <!-- CONTENTS -->
 
         <div
-            class="outline-item active"
-            onclick="selectScene(this,1)"
+            class="content-view active"
+            id="contentsView"
         >
-            <div class="scene-number">01</div>
-            <div class="scene-name">
-                EXT. MEGA PLANET - DAY
+
+            <div class="outline-label">
+                ACT I
             </div>
+
+            <div class="outline-item active"
+                 onclick="selectScene(this,1)">
+                <div class="scene-number">01</div>
+                <div class="scene-name">
+                    EXT. MEGA PLANET - DAY
+                </div>
+            </div>
+
+            <div class="outline-item"
+                 onclick="selectScene(this,2)">
+                <div class="scene-number">02</div>
+                <div class="scene-name">
+                    INT. OBSERVATORY - NIGHT
+                </div>
+            </div>
+
+            <div class="outline-item"
+                 onclick="selectScene(this,3)">
+                <div class="scene-number">03</div>
+                <div class="scene-name">
+                    EXT. CITY OF GLASS - SUNSET
+                </div>
+            </div>
+
+            <div class="outline-item"
+                 onclick="selectScene(this,4)">
+                <div class="scene-number">04</div>
+                <div class="scene-name">
+                    INT. APARTMENT - NIGHT
+                </div>
+            </div>
+
+            <div class="outline-label">
+                ACT II
+            </div>
+
+            <div class="outline-item"
+                 onclick="selectScene(this,5)">
+                <div class="scene-number">05</div>
+                <div class="scene-name">
+                    EXT. MOUNTAIN RANGE - DAY
+                </div>
+            </div>
+
+            <div class="outline-item"
+                 onclick="selectScene(this,6)">
+                <div class="scene-number">06</div>
+                <div class="scene-name">
+                    EXT. THE GREAT CITY - NIGHT
+                </div>
+            </div>
+
+            <div class="outline-label">
+                ACT III
+            </div>
+
+            <div class="outline-item"
+                 onclick="selectScene(this,7)">
+                <div class="scene-number">07</div>
+                <div class="scene-name">
+                    EXT. CLIFFSIDE - DAWN
+                </div>
+            </div>
+
         </div>
+
+
+        <!-- COMMENTS -->
 
         <div
-            class="outline-item"
-            onclick="selectScene(this,2)"
+            class="content-view"
+            id="commentsView"
         >
-            <div class="scene-number">02</div>
-            <div class="scene-name">
-                INT. OBSERVATORY - NIGHT
+
+            <div class="outline-label">
+                COMMENTS
             </div>
+
+            <div class="comment-card">
+
+                <div class="comment-meta">
+                    SCENE 01 · LUDWIG
+                </div>
+
+                <div class="comment-text">
+                    Consider making the first reveal of the planet even quieter before the scale becomes overwhelming.
+                </div>
+
+            </div>
+
+            <div class="comment-card">
+
+                <div class="comment-meta">
+                    SCENE 03 · VISUAL
+                </div>
+
+                <div class="comment-text">
+                    The city should feel beautiful first and unsettling second.
+                </div>
+
+            </div>
+
+            <button
+                class="add-small"
+                onclick="addComment()"
+            >
+                + Add Comment
+            </button>
+
         </div>
+
+
+        <!-- NOTES -->
 
         <div
-            class="outline-item"
-            onclick="selectScene(this,3)"
+            class="content-view"
+            id="notesView"
         >
-            <div class="scene-number">03</div>
-            <div class="scene-name">
-                EXT. CITY OF GLASS - SUNSET
+
+            <div class="outline-label">
+                PROJECT NOTES
             </div>
-        </div>
 
-        <div
-            class="outline-item"
-            onclick="selectScene(this,4)"
-        >
-            <div class="scene-number">04</div>
-            <div class="scene-name">
-                INT. APARTMENT - NIGHT
+            <div class="note-card">
+
+                <div class="note-meta">
+                    VISUAL LANGUAGE
+                </div>
+
+                <div class="note-text">
+                    Massive distant compositions. Architecture should dominate the frame without feeling artificial.
+                </div>
+
             </div>
-        </div>
 
+            <div class="note-card">
 
-        <div class="outline-label">
-            ACT II
-        </div>
+                <div class="note-meta">
+                    THEME
+                </div>
 
-        <div
-            class="outline-item"
-            onclick="selectScene(this,5)"
-        >
-            <div class="scene-number">05</div>
-            <div class="scene-name">
-                EXT. MOUNTAIN RANGE - DAY
+                <div class="note-text">
+                    Humanity's desire to create something larger than itself.
+                </div>
+
             </div>
-        </div>
 
-        <div
-            class="outline-item"
-            onclick="selectScene(this,6)"
-        >
-            <div class="scene-number">06</div>
-            <div class="scene-name">
-                EXT. THE GREAT CITY - NIGHT
+            <div class="note-card">
+
+                <div class="note-meta">
+                    WORLD
+                </div>
+
+                <div class="note-text">
+                    A planet whose scale makes conventional human geography feel almost meaningless.
+                </div>
+
             </div>
-        </div>
 
+            <button
+                class="add-small"
+                onclick="addProjectNote()"
+            >
+                + Add Note
+            </button>
 
-        <div class="outline-label">
-            ACT III
-        </div>
-
-        <div
-            class="outline-item"
-            onclick="selectScene(this,7)"
-        >
-            <div class="scene-number">07</div>
-            <div class="scene-name">
-                EXT. CLIFFSIDE - DAWN
-            </div>
         </div>
 
     </div>
@@ -1345,32 +1244,16 @@ textarea:focus-visible {
             class="utility-button"
             onclick="openProject()"
         >
-            <span>⌂</span>
+            <span class="utility-icon">⌂</span>
             <span>Project Overview</span>
         </button>
 
         <button
             class="utility-button"
-            onclick="openCharacters()"
+            onclick="toggleLeftPanel()"
         >
-            <span>♙</span>
-            <span>Characters</span>
-        </button>
-
-        <button
-            class="utility-button"
-            onclick="openStory()"
-        >
-            <span>⌁</span>
-            <span>Story Structure</span>
-        </button>
-
-        <button
-            class="utility-button"
-            onclick="openNotes()"
-        >
-            <span>□</span>
-            <span>Notes</span>
+            <span class="utility-icon">‹</span>
+            <span>Collapse Sidebar</span>
         </button>
 
     </div>
@@ -1378,176 +1261,13 @@ textarea:focus-visible {
 </aside>
 
 
-<!-- =======================================================
+<!-- =========================================================
      EDITOR
-======================================================= -->
+========================================================= -->
 
 <section class="editor">
 
-    <div class="editor-toolbar">
-
-        <div class="toolbar-groups">
-
-            <!-- WRITING -->
-
-            <div class="tool-group">
-
-                <span class="tool-group-label">
-                    WRITING
-                </span>
-
-                <button
-                    class="tool-button active"
-                    onclick="setFormat('action', this)"
-                >
-                    Action
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('character', this)"
-                >
-                    Character
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('dialogue', this)"
-                >
-                    Dialogue
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('parenthetical', this)"
-                >
-                    ( )
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('heading', this)"
-                >
-                    Heading
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="setFormat('transition', this)"
-                >
-                    Transition
-                </button>
-
-            </div>
-
-
-            <!-- INSERT -->
-
-            <div class="tool-group">
-
-                <span class="tool-group-label">
-                    INSERT
-                </span>
-
-                <button
-                    class="tool-button"
-                    onclick="insertScene()"
-                >
-                    + Scene
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="insertCharacter()"
-                >
-                    + Character
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="insertNote()"
-                >
-                    + Note
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="insertPageBreak()"
-                >
-                    Page Break
-                </button>
-
-            </div>
-
-
-            <!-- FORMAT -->
-
-            <div class="tool-group">
-
-                <span class="tool-group-label">
-                    FORMAT
-                </span>
-
-                <button
-                    class="tool-button"
-                    onclick="formatText('bold')"
-                    title="Bold"
-                >
-                    <span class="tool-icon">B</span>
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="formatText('italic')"
-                    title="Italic"
-                >
-                    <span class="tool-icon"><i>I</i></span>
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="formatText('underline')"
-                    title="Underline"
-                >
-                    <span class="tool-icon"><u>U</u></span>
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="findReplace()"
-                >
-                    Find
-                </button>
-
-            </div>
-
-
-            <!-- VIEW -->
-
-            <div class="tool-group">
-
-                <span class="tool-group-label">
-                    VIEW
-                </span>
-
-                <button
-                    class="tool-button"
-                    onclick="toggleFocus()"
-                >
-                    Focus
-                </button>
-
-                <button
-                    class="tool-button"
-                    onclick="toggleInspector()"
-                >
-                    Inspector
-                </button>
-
-            </div>
-
-        </div>
-
+    <div class="editor-header">
 
         <div class="zoom">
 
@@ -1568,11 +1288,15 @@ textarea:focus-visible {
     </div>
 
 
-    <!-- PAPER -->
+    <div
+        class="paper-scroll"
+        id="paperScroll"
+    >
 
-    <div class="paper-scroll" id="paperScroll">
-
-        <article class="paper" id="paper">
+        <article
+            class="paper"
+            id="paper"
+        >
 
             <div
                 class="script"
@@ -1624,248 +1348,368 @@ CUT TO:</div>
 </section>
 
 
-<!-- =======================================================
-     RIGHT PANEL
-======================================================= -->
+<!-- =========================================================
+     RIGHT TOOLS
+========================================================= -->
 
 <aside class="right-panel">
 
-    <div class="right-tabs">
-
-        <button
-            class="right-tab active"
-            onclick="showRightPanel('scene', this)"
-        >
-            SCENE
-        </button>
-
-        <button
-            class="right-tab"
-            onclick="showRightPanel('characters', this)"
-        >
-            CAST
-        </button>
-
-        <button
-            class="right-tab"
-            onclick="showRightPanel('notes', this)"
-        >
-            NOTES
-        </button>
-
+    <div class="right-header">
+        <span class="right-title">
+            TOOLS & INSPECTOR
+        </span>
     </div>
 
 
     <div class="inspector">
 
+
+        <!-- WRITING -->
+
+        <section class="tool-section">
+
+            <div class="tool-section-header">
+
+                <span class="tool-section-title">
+                    WRITING
+                </span>
+
+                <span class="tool-section-subtitle">
+                    FORMAT
+                </span>
+
+            </div>
+
+            <div class="tool-grid">
+
+                <button
+                    class="tool-button active"
+                    onclick="setFormat('action',this)"
+                >
+                    Action
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('character',this)"
+                >
+                    Character
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('dialogue',this)"
+                >
+                    Dialogue
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('parenthetical',this)"
+                >
+                    ( )
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('heading',this)"
+                >
+                    Heading
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="setFormat('transition',this)"
+                >
+                    Transition
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="tool-section">
+
+            <div class="tool-section-header">
+
+                <span class="tool-section-title">
+                    INSERT
+                </span>
+
+            </div>
+
+            <div class="tool-grid">
+
+                <button
+                    class="tool-button"
+                    onclick="insertScene()"
+                >
+                    + Scene
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="insertCharacter()"
+                >
+                    + Character
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="insertNote()"
+                >
+                    + Note
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="insertPageBreak()"
+                >
+                    Page Break
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="tool-section">
+
+            <div class="tool-section-header">
+
+                <span class="tool-section-title">
+                    FORMAT
+                </span>
+
+            </div>
+
+            <div class="tool-grid">
+
+                <button
+                    class="tool-button"
+                    onclick="formatText('bold')"
+                >
+                    <span class="tool-icon">B</span>
+                    Bold
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="formatText('italic')"
+                >
+                    <span class="tool-icon"><i>I</i></span>
+                    Italic
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="formatText('underline')"
+                >
+                    <span class="tool-icon"><u>U</u></span>
+                    Underline
+                </button>
+
+                <button
+                    class="tool-button"
+                    onclick="findReplace()"
+                >
+                    Find
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="tool-section">
+
+            <div class="tool-section-header">
+
+                <span class="tool-section-title">
+                    VIEW
+                </span>
+
+            </div>
+
+            <div class="tool-grid">
+
+                <button
+                    class="tool-button wide"
+                    onclick="toggleFocus()"
+                >
+                    Focus Mode
+                </button>
+
+                <button
+                    class="tool-button wide"
+                    onclick="toggleInspector()"
+                >
+                    Hide Tools
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <div class="divider"></div>
+
+
         <!-- SCENE -->
 
-        <div
-            class="panel-view active"
-            id="scenePanel"
-        >
+        <section class="tool-section">
 
-            <div class="inspector-section">
+            <div class="tool-section-header">
 
-                <div class="inspector-heading">
+                <span class="tool-section-title">
                     SCENE
+                </span>
+
+            </div>
+
+            <div class="field">
+
+                <div class="field-label">
+                    HEADING
                 </div>
 
-                <div class="field">
-
-                    <div class="field-label">
-                        HEADING
-                    </div>
-
-                    <div class="field-value">
-                        EXT. MEGA PLANET - DAY
-                    </div>
-
-                </div>
-
-                <div class="field">
-
-                    <div class="field-label">
-                        TIME
-                    </div>
-
-                    <div class="field-value">
-                        DAY
-                    </div>
-
-                </div>
-
-                <div class="field">
-
-                    <div class="field-label">
-                        LOCATION
-                    </div>
-
-                    <div class="field-value">
-                        Mega Planet
-                    </div>
-
+                <div
+                    class="field-value"
+                    id="sceneHeading"
+                >
+                    EXT. MEGA PLANET - DAY
                 </div>
 
             </div>
 
+            <div class="field">
 
-            <div class="inspector-section">
-
-                <div class="inspector-heading">
-                    SCENE SUMMARY
+                <div class="field-label">
+                    LOCATION
                 </div>
 
-                <div class="field">
-
-                    <div class="field-value">
-                        Ludwig observes the impossible scale of the planet and begins questioning whether humanity can ever be satisfied.
-                    </div>
-
+                <div class="field-value">
+                    Mega Planet
                 </div>
 
             </div>
 
+            <div class="field">
 
-            <div class="inspector-section">
-
-                <div class="inspector-heading">
-                    TAGS
+                <div class="field-label">
+                    TIME
                 </div>
 
-                <div class="field">
-
-                    <div class="field-value">
-                        Architecture · Wonder · Obsession
-                    </div>
-
+                <div class="field-value">
+                    DAY
                 </div>
 
             </div>
 
-        </div>
+            <div class="field">
+
+                <div class="field-label">
+                    SUMMARY
+                </div>
+
+                <div class="field-value">
+                    Ludwig observes the impossible scale of the planet and begins questioning whether humanity can ever be satisfied.
+                </div>
+
+            </div>
+
+        </section>
 
 
         <!-- CHARACTERS -->
 
-        <div
-            class="panel-view"
-            id="charactersPanel"
-        >
+        <section class="tool-section">
 
-            <div class="inspector-section">
+            <div class="tool-section-header">
 
-                <div class="inspector-heading">
-                    CHARACTERS IN SCENE
+                <span class="tool-section-title">
+                    CHARACTERS
+                </span>
+
+            </div>
+
+            <div class="character">
+
+                <div class="character-avatar">
+                    LJ
                 </div>
 
-                <div class="character">
-
-                    <div class="character-avatar">
-                        LJ
+                <div>
+                    <div class="character-name">
+                        Ludwig James
                     </div>
 
-                    <div>
-
-                        <div class="character-name">
-                            Ludwig James
-                        </div>
-
-                        <div class="character-role">
-                            Protagonist
-                        </div>
-
+                    <div class="character-role">
+                        Protagonist
                     </div>
-
                 </div>
 
             </div>
 
+            <div class="character">
 
-            <div class="inspector-section">
-
-                <div class="inspector-heading">
-                    PROJECT CAST
+                <div class="character-avatar">
+                    AM
                 </div>
 
-                <div class="character">
-
-                    <div class="character-avatar">
-                        AM
+                <div>
+                    <div class="character-name">
+                        Amelia Vale
                     </div>
 
-                    <div>
-
-                        <div class="character-name">
-                            Amelia Vale
-                        </div>
-
-                        <div class="character-role">
-                            Supporting
-                        </div>
-
+                    <div class="character-role">
+                        Supporting
                     </div>
-
-                </div>
-
-                <div class="character">
-
-                    <div class="character-avatar">
-                        RH
-                    </div>
-
-                    <div>
-
-                        <div class="character-name">
-                            Richard Hale
-                        </div>
-
-                        <div class="character-role">
-                            Supporting
-                        </div>
-
-                    </div>
-
                 </div>
 
             </div>
 
-        </div>
+            <div class="character">
+
+                <div class="character-avatar">
+                    RH
+                </div>
+
+                <div>
+                    <div class="character-name">
+                        Richard Hale
+                    </div>
+
+                    <div class="character-role">
+                        Supporting
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
 
 
         <!-- NOTES -->
 
-        <div
-            class="panel-view"
-            id="notesPanel"
-        >
+        <section class="tool-section">
 
-            <div class="inspector-section">
+            <div class="tool-section-header">
 
-                <div class="inspector-heading">
+                <span class="tool-section-title">
                     SCENE NOTE
-                </div>
-
-                <textarea
-                    id="sceneNote"
-                    style="
-                        width:100%;
-                        min-height:160px;
-                        resize:vertical;
-                        padding:11px;
-                        border:1px solid #dededb;
-                        border-radius:6px;
-                        background:#fff;
-                        color:#111;
-                        font-size:11px;
-                        line-height:1.55;
-                        outline:none;
-                    "
-                >The first scene should establish that the scale of the world is beautiful before it becomes psychologically oppressive.</textarea>
+                </span>
 
             </div>
 
-        </div>
+            <textarea
+                class="scene-note"
+                id="sceneNote"
+            >The first scene should establish that the scale of the world is beautiful before it becomes psychologically oppressive.</textarea>
+
+        </section>
+
 
     </div>
 
@@ -1874,9 +1718,9 @@ CUT TO:</div>
 </main>
 
 
-<!-- =======================================================
+<!-- =========================================================
      STATUS BAR
-======================================================= -->
+========================================================= -->
 
 <footer class="statusbar">
 
@@ -1913,9 +1757,9 @@ CUT TO:</div>
 </div>
 
 
-<!-- =======================================================
+<!-- =========================================================
      PROJECT OVERVIEW
-======================================================= -->
+========================================================= -->
 
 <section
     class="project-screen"
@@ -1979,7 +1823,6 @@ CUT TO:</div>
 
                 </div>
 
-
                 <div class="project-card">
 
                     <div class="project-card-title">
@@ -1995,7 +1838,6 @@ CUT TO:</div>
                     </div>
 
                 </div>
-
 
                 <div class="project-card">
 
@@ -2016,7 +1858,6 @@ CUT TO:</div>
                     </div>
 
                 </div>
-
 
                 <div class="project-card">
 
@@ -2074,7 +1915,7 @@ const wordStatus =
 const savedScript =
     localStorage.getItem("auteur-sentient-mass");
 
-if (savedScript) {
+if(savedScript){
     script.innerText = savedScript;
 }
 
@@ -2083,15 +1924,15 @@ if (savedScript) {
    SAVE
 ========================================================= */
 
-script.addEventListener("input", () => {
+script.addEventListener("input",()=>{
 
-    saveStatus.textContent = "Saving...";
+    saveStatus.textContent="Saving...";
 
     updateWordCount();
 
     clearTimeout(saveTimer);
 
-    saveTimer = setTimeout(
+    saveTimer=setTimeout(
         saveDocument,
         500
     );
@@ -2099,17 +1940,16 @@ script.addEventListener("input", () => {
 });
 
 
-function saveDocument() {
+function saveDocument(){
 
     localStorage.setItem(
         "auteur-sentient-mass",
         script.innerText
     );
 
-    saveStatus.textContent = "Saved";
+    saveStatus.textContent="Saved";
 
     updateWordCount();
-
 }
 
 
@@ -2117,19 +1957,44 @@ function saveDocument() {
    WORD COUNT
 ========================================================= */
 
-function updateWordCount() {
+function updateWordCount(){
 
     const text =
         script.innerText.trim();
 
     const words =
         text
-            ? text.split(/\s+/).length
-            : 0;
+        ? text.split(/\s+/).length
+        : 0;
 
     wordStatus.textContent =
         `${words} words`;
+}
 
+
+/* =========================================================
+   LEFT VIEWS
+========================================================= */
+
+function showLeftView(view,button){
+
+    document
+        .querySelectorAll(".left-tab")
+        .forEach(tab =>
+            tab.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    document
+        .querySelectorAll(".content-view")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+    document
+        .getElementById(view+"View")
+        .classList.add("active");
 }
 
 
@@ -2137,7 +2002,7 @@ function updateWordCount() {
    SCENES
 ========================================================= */
 
-function selectScene(element, number) {
+function selectScene(element,number){
 
     document
         .querySelectorAll(".outline-item")
@@ -2147,126 +2012,24 @@ function selectScene(element, number) {
 
     element.classList.add("active");
 
-    currentScene = number;
+    currentScene=number;
 
     document
         .getElementById("pageStatus")
         .textContent =
         `Scene ${String(number).padStart(2,"0")}`;
 
-}
+    const heading =
+        element.querySelector(".scene-name");
 
+    if(heading){
 
-/* =========================================================
-   LEFT MODES
-========================================================= */
+        document
+            .getElementById("sceneHeading")
+            .textContent =
+            heading.textContent.trim();
 
-function setLeftMode(mode, button) {
-
-    document
-        .querySelectorAll(".mode-tab")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
-
-    button.classList.add("active");
-
-    const outline =
-        document.getElementById("outlinePanel");
-
-    if (mode === "index") {
-
-        outline.innerHTML = `
-
-            <div class="outline-label">
-                INDEX CARDS
-            </div>
-
-            <div class="outline-item active">
-
-                <div class="scene-number">
-                    01
-                </div>
-
-                <div class="scene-name">
-                    Ludwig discovers the scale of the planet.
-                </div>
-
-            </div>
-
-            <div class="outline-item">
-
-                <div class="scene-number">
-                    02
-                </div>
-
-                <div class="scene-name">
-                    The architecture begins changing.
-                </div>
-
-            </div>
-
-            <div class="outline-item">
-
-                <div class="scene-number">
-                    03
-                </div>
-
-                <div class="scene-name">
-                    Ludwig meets Amelia.
-                </div>
-
-            </div>
-        `;
-
-    } else {
-
-        outline.innerHTML = `
-
-            <div class="outline-label">
-                ACT I
-            </div>
-
-            ${sceneMarkup(1,"EXT. MEGA PLANET - DAY",true)}
-            ${sceneMarkup(2,"INT. OBSERVATORY - NIGHT")}
-            ${sceneMarkup(3,"EXT. CITY OF GLASS - SUNSET")}
-            ${sceneMarkup(4,"INT. APARTMENT - NIGHT")}
-
-            <div class="outline-label">
-                ACT II
-            </div>
-
-            ${sceneMarkup(5,"EXT. MOUNTAIN RANGE - DAY")}
-            ${sceneMarkup(6,"EXT. THE GREAT CITY - NIGHT")}
-
-            <div class="outline-label">
-                ACT III
-            </div>
-
-            ${sceneMarkup(7,"EXT. CLIFFSIDE - DAWN")}
-        `;
     }
-
-}
-
-
-function sceneMarkup(number, name, active = false) {
-
-    return `
-        <div
-            class="outline-item ${active ? "active" : ""}"
-            onclick="selectScene(this,${number})"
-        >
-            <div class="scene-number">
-                ${String(number).padStart(2,"0")}
-            </div>
-
-            <div class="scene-name">
-                ${name}
-            </div>
-        </div>
-    `;
-
 }
 
 
@@ -2274,87 +2037,19 @@ function sceneMarkup(number, name, active = false) {
    LEFT PANEL
 ========================================================= */
 
-function toggleLeftPanel() {
+function toggleLeftPanel(){
 
     const panel =
         document.querySelector(".left-panel");
 
-    if (panel.style.width === "0px") {
+    const collapsed =
+        panel.style.width==="0px";
 
-        panel.style.width = "270px";
-        panel.style.minWidth = "270px";
+    panel.style.width =
+        collapsed ? "265px" : "0px";
 
-    } else {
-
-        panel.style.width = "0px";
-        panel.style.minWidth = "0px";
-
-    }
-
-}
-
-
-/* =========================================================
-   RIGHT PANEL
-========================================================= */
-
-function showRightPanel(panel, button) {
-
-    document
-        .querySelectorAll(".right-tab")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
-
-    button.classList.add("active");
-
-    document
-        .querySelectorAll(".panel-view")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
-
-    document
-        .getElementById(panel + "Panel")
-        .classList.add("active");
-
-}
-
-
-function openCharacters() {
-
-    showRightPanel(
-        "characters",
-        document.querySelectorAll(".right-tab")[1]
-    );
-
-}
-
-
-function openNotes() {
-
-    showRightPanel(
-        "notes",
-        document.querySelectorAll(".right-tab")[2]
-    );
-
-}
-
-
-function openStory() {
-
-    alert(
-`STORY STRUCTURE
-
-Opening Image
-Inciting Incident
-First Turning Point
-Midpoint
-Second Turning Point
-Climax
-Final Image`
-    );
-
+    panel.style.minWidth =
+        collapsed ? "265px" : "0px";
 }
 
 
@@ -2362,75 +2057,67 @@ Final Image`
    PROJECT
 ========================================================= */
 
-function openProject() {
+function openProject(){
 
     document
         .getElementById("projectScreen")
         .classList.add("open");
-
 }
 
 
-function closeProject() {
+function closeProject(){
 
     document
         .getElementById("projectScreen")
         .classList.remove("open");
-
 }
 
 
 /* =========================================================
-   FORMATTING
+   WRITING FORMAT
 ========================================================= */
 
-function setFormat(type, button) {
+function setFormat(type,button){
 
     document
         .querySelectorAll(".tool-button")
-        .forEach(item => {
-
-            if (
-                ["Action","Character","Dialogue","( )","Heading","Transition"]
-                .includes(item.textContent.trim())
-            ) {
-                item.classList.remove("active");
-            }
-
-        });
+        .forEach(item =>
+            item.classList.remove("active")
+        );
 
     button.classList.add("active");
+
+    script.focus();
 
     const selection =
         window.getSelection();
 
-    if (!selection.rangeCount)
+    if(!selection.rangeCount)
         return;
 
     const text =
         selection.toString();
 
-    if (!text)
+    if(!text)
         return;
 
-    let formatted = text;
+    let formatted=text;
 
-    switch (type) {
+    switch(type){
 
         case "character":
         case "heading":
         case "transition":
-            formatted = text.toUpperCase();
+            formatted=text.toUpperCase();
             break;
 
         case "dialogue":
-            formatted = "          " + text;
+            formatted="          "+text;
             break;
 
         case "parenthetical":
-            formatted = "(" + text + ")";
+            formatted="("+text+")";
             break;
-
     }
 
     document.execCommand(
@@ -2440,7 +2127,6 @@ function setFormat(type, button) {
     );
 
     saveDocument();
-
 }
 
 
@@ -2448,7 +2134,9 @@ function setFormat(type, button) {
    TEXT FORMAT
 ========================================================= */
 
-function formatText(command) {
+function formatText(command){
+
+    script.focus();
 
     document.execCommand(
         command,
@@ -2456,54 +2144,47 @@ function formatText(command) {
         null
     );
 
-    script.focus();
-
     saveDocument();
-
 }
 
 
 /* =========================================================
-   INSERT TOOLS
+   INSERT
 ========================================================= */
 
-function insertScene() {
+function insertScene(){
 
     insertAtCursor(
         "\n\nINT. NEW LOCATION - DAY\n\n"
     );
-
 }
 
 
-function insertCharacter() {
+function insertCharacter(){
 
     insertAtCursor(
         "\n\nCHARACTER NAME\n\n"
     );
-
 }
 
 
-function insertNote() {
+function insertNote(){
 
     insertAtCursor(
         "\n\n[NOTE: ]\n\n"
     );
-
 }
 
 
-function insertPageBreak() {
+function insertPageBreak(){
 
     insertAtCursor(
         "\n\n\n\n\n\n"
     );
-
 }
 
 
-function insertAtCursor(text) {
+function insertAtCursor(text){
 
     script.focus();
 
@@ -2514,36 +2195,112 @@ function insertAtCursor(text) {
     );
 
     saveDocument();
-
 }
 
 
 /* =========================================================
-   FIND
+   FIND / REPLACE
 ========================================================= */
 
-function findReplace() {
+function findReplace(){
 
     const term =
         prompt("Find text:");
 
-    if (!term)
+    if(!term)
         return;
 
     const replacement =
         prompt(`Replace "${term}" with:`);
 
-    if (replacement === null)
+    if(replacement===null)
         return;
 
-    const current =
-        script.innerText;
-
     script.innerText =
-        current.split(term).join(replacement);
+        script.innerText
+        .split(term)
+        .join(replacement);
 
     saveDocument();
+}
 
+
+/* =========================================================
+   COMMENTS / NOTES
+========================================================= */
+
+function addComment(){
+
+    const comment =
+        prompt("Comment:");
+
+    if(!comment)
+        return;
+
+    const container =
+        document.getElementById("commentsView");
+
+    const button =
+        container.querySelector(".add-small");
+
+    const card =
+        document.createElement("div");
+
+    card.className="comment-card";
+
+    card.innerHTML=`
+        <div class="comment-meta">
+            SCENE ${String(currentScene).padStart(2,"0")}
+        </div>
+        <div class="comment-text">
+            ${escapeHtml(comment)}
+        </div>
+    `;
+
+    container.insertBefore(card,button);
+}
+
+
+function addProjectNote(){
+
+    const note =
+        prompt("Note:");
+
+    if(!note)
+        return;
+
+    const container =
+        document.getElementById("notesView");
+
+    const button =
+        container.querySelector(".add-small");
+
+    const card =
+        document.createElement("div");
+
+    card.className="note-card";
+
+    card.innerHTML=`
+        <div class="note-meta">
+            PROJECT NOTE
+        </div>
+        <div class="note-text">
+            ${escapeHtml(note)}
+        </div>
+    `;
+
+    container.insertBefore(card,button);
+}
+
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
 }
 
 
@@ -2551,7 +2308,7 @@ function findReplace() {
    FOCUS MODE
 ========================================================= */
 
-function toggleFocus() {
+function toggleFocus(){
 
     const left =
         document.querySelector(".left-panel");
@@ -2559,27 +2316,14 @@ function toggleFocus() {
     const right =
         document.querySelector(".right-panel");
 
-    const top =
-        document.querySelector(".topbar");
-
-    const status =
-        document.querySelector(".statusbar");
-
     const hidden =
-        left.style.display === "none";
+        left.style.display==="none";
 
     left.style.display =
         hidden ? "flex" : "none";
 
     right.style.display =
         hidden ? "flex" : "none";
-
-    top.style.display =
-        hidden ? "flex" : "flex";
-
-    status.style.display =
-        hidden ? "flex" : "flex";
-
 }
 
 
@@ -2587,16 +2331,15 @@ function toggleFocus() {
    INSPECTOR
 ========================================================= */
 
-function toggleInspector() {
+function toggleInspector(){
 
     const panel =
         document.querySelector(".right-panel");
 
     panel.style.display =
-        panel.style.display === "none"
-            ? "flex"
-            : "none";
-
+        panel.style.display==="none"
+        ? "flex"
+        : "none";
 }
 
 
@@ -2604,14 +2347,14 @@ function toggleInspector() {
    ZOOM
 ========================================================= */
 
-function changeZoom(amount) {
+function changeZoom(amount){
 
     zoom =
         Math.max(
             .65,
             Math.min(
                 1.35,
-                zoom + amount
+                zoom+amount
             )
         );
 
@@ -2621,7 +2364,7 @@ function changeZoom(amount) {
         `scale(${zoom})`;
 
     const percent =
-        Math.round(zoom * 100);
+        Math.round(zoom*100);
 
     document
         .getElementById("zoomLabel")
@@ -2632,7 +2375,6 @@ function changeZoom(amount) {
         .getElementById("statusZoom")
         .textContent =
         `${percent}%`;
-
 }
 
 
@@ -2644,26 +2386,24 @@ document.addEventListener(
     "keydown",
     event => {
 
-        if (
+        if(
             (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase() === "s"
-        ) {
+            event.key.toLowerCase()==="s"
+        ){
 
             event.preventDefault();
 
             saveDocument();
-
         }
 
-        if (
+        if(
             (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase() === "f"
-        ) {
+            event.key.toLowerCase()==="f"
+        ){
 
             event.preventDefault();
 
             findReplace();
-
         }
 
     }
