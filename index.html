@@ -2,1314 +2,741 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Auteur</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auteur — Screenwriting</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-
-:root{
-    --bg:#f7f7f6;
-    --surface:#ffffff;
-    --surface-2:#fbfbfa;
-    --border:#e5e5e2;
-    --border-2:#d5d5d1;
-    --text:#171717;
-    --muted:#777772;
-    --purple:#6544d8;
-    --purple-light:#f0ecff;
-    --purple-border:#d9d0ff;
-    --green:#38a169;
-
-    --top:58px;
-    --sidebar:368px;
-}
-
-*{
-    box-sizing:border-box;
-}
-
-html,
-body{
-    width:100%;
-    height:100%;
-    margin:0;
-}
-
-body{
-    overflow:hidden;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    -webkit-font-smoothing:antialiased;
-}
-
-button,
-input,
-textarea{
-    font:inherit;
-    color:var(--text);
-}
-
-button{
-    border:0;
-    background:none;
-    cursor:pointer;
-}
-
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible{
-    outline:2px solid var(--purple-border);
-    outline-offset:1px;
-}
-
-/* =========================================================
-   APP
-========================================================= */
-
-.app{
-    width:100%;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-}
-
-/* =========================================================
-   TOP BAR
-========================================================= */
-
-.topbar{
-    height:var(--top);
-    flex-shrink:0;
-
-    background:rgba(255,255,255,.97);
-    border-bottom:1px solid var(--border);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 14px;
-
-    z-index:50;
-}
-
-.top-left{
-    height:100%;
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.top-icon{
-    width:34px;
-    height:34px;
-    border-radius:7px;
-
-    display:grid;
-    place-items:center;
-
-    font-size:18px;
-    color:#292929;
-
-    transition:.12s ease;
-}
-
-.top-icon:hover{
-    background:#eeeeec;
-}
-
-.brand{
-    width:27px;
-    height:34px;
-
-    display:grid;
-    place-items:center;
-
-    font-family:"EB Garamond",serif;
-    font-size:25px;
-    font-weight:600;
-
-    cursor:pointer;
-}
-
-.project-title{
-    margin-left:5px;
-
-    height:34px;
-
-    padding:0 13px;
-
-    border-left:1px solid var(--border);
-
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    font-size:13px;
-}
-
-.project-title strong{
-    font-weight:650;
-}
-
-.project-title span{
-    color:#a0a09b;
-}
-
-.save-dot{
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:var(--green);
-
-    box-shadow:0 0 0 3px #edf8f2;
-}
-
-.top-center{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-
-    height:100%;
-
-    display:flex;
-    align-items:center;
-    gap:4px;
-}
-
-.nav-tab{
-    position:relative;
-
-    height:100%;
-
-    padding:0 13px;
-
-    color:#aaa9a5;
-
-    font-size:14px;
-    font-weight:600;
-
-    transition:.12s ease;
-}
-
-.nav-tab:hover{
-    color:#555550;
-}
-
-.nav-tab.active{
-    color:var(--purple);
-}
-
-.nav-tab.active::after{
-    content:"";
-
-    position:absolute;
-
-    left:10px;
-    right:10px;
-    bottom:0;
-
-    height:2px;
-
-    background:var(--purple);
-}
-
-.top-right{
-    display:flex;
-    align-items:center;
-    gap:3px;
-}
-
-.avatar{
-    width:30px;
-    height:30px;
-
-    margin-right:5px;
-
-    border-radius:50%;
-
-    background:#1685e6;
-    color:white;
-
-    display:grid;
-    place-items:center;
-
-    font-size:11px;
-    font-weight:700;
-
-    position:relative;
-}
-
-.avatar::after{
-    content:"";
-
-    position:absolute;
-
-    width:8px;
-    height:8px;
-
-    right:-1px;
-    bottom:-1px;
-
-    border-radius:50%;
-
-    background:#4bc878;
-    border:2px solid white;
-}
-
-.top-action{
-    width:33px;
-    height:33px;
-
-    border-radius:7px;
-
-    display:grid;
-    place-items:center;
-
-    font-size:17px;
-}
-
-.top-action:hover{
-    background:#eeeeec;
-}
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.workspace{
-    flex:1;
-    min-height:0;
-
-    display:flex;
-}
-
-/* =========================================================
-   LEFT SIDEBAR
-========================================================= */
-
-.sidebar{
-    width:var(--sidebar);
-    min-width:var(--sidebar);
-
-    background:var(--surface);
-
-    border-right:1px solid var(--border);
-
-    display:flex;
-    flex-direction:column;
-}
-
-.sidebar-nav{
-    height:50px;
-    flex-shrink:0;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 12px;
-
-    border-bottom:1px solid var(--border);
-
-    gap:3px;
-}
-
-.sidebar-nav-icon{
-    width:32px;
-    height:32px;
-
-    margin-right:4px;
-
-    border-radius:50%;
-
-    background:var(--purple-light);
-    color:var(--purple);
-
-    display:grid;
-    place-items:center;
-
-    font-size:14px;
-}
-
-.side-tab{
-    position:relative;
-
-    height:100%;
-
-    padding:0 9px;
-
-    color:#777773;
-
-    font-size:13px;
-    font-weight:600;
-}
-
-.side-tab:hover{
-    color:#222;
-}
-
-.side-tab.active{
-    color:#222;
-}
-
-.side-tab.active::after{
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    right:0;
-    bottom:0;
-
-    height:2px;
-
-    background:var(--purple);
-}
-
-.sidebar-content{
-    flex:1;
-    min-height:0;
-
-    overflow:auto;
-}
-
-.sidebar-content::-webkit-scrollbar{
-    width:8px;
-}
-
-.sidebar-content::-webkit-scrollbar-thumb{
-    background:#d3d3cf;
-    border-radius:8px;
-}
-
-/* =========================================================
-   DRAFTS
-========================================================= */
-
-.panel{
-    display:none;
-    height:100%;
-}
-
-.panel.active{
-    display:block;
-}
-
-.panel-header{
-    height:58px;
-
-    padding:0 18px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    border-bottom:1px solid #f0f0ee;
-}
-
-.panel-title{
-    font-size:13px;
-    font-weight:700;
-}
-
-.panel-count{
-    color:#777;
-    font-size:12px;
-}
-
-.panel-button{
-    width:28px;
-    height:28px;
-
-    border-radius:6px;
-
-    font-size:18px;
-}
-
-.panel-button:hover{
-    background:#eeeeec;
-}
-
-.draft-card{
-    margin:10px 12px;
-    padding:12px;
-
-    border:1px solid var(--border);
-    border-radius:7px;
-
-    cursor:pointer;
-
-    transition:.12s ease;
-}
-
-.draft-card:hover{
-    background:#fafaf9;
-    border-color:var(--border-2);
-}
-
-.draft-card.active{
-    background:var(--purple-light);
-    border-color:var(--purple-border);
-}
-
-.draft-name{
-    font-size:13px;
-    font-weight:650;
-}
-
-.draft-meta{
-    margin-top:5px;
-
-    color:var(--muted);
-
-    font-size:10px;
-}
-
-/* =========================================================
-   CONTENTS
-========================================================= */
-
-.contents-tools{
-    height:48px;
-
-    padding:0 12px;
-
-    display:flex;
-    align-items:center;
-    gap:3px;
-
-    border-bottom:1px solid #f0f0ee;
-}
-
-.content-tool{
-    width:31px;
-    height:31px;
-
-    border-radius:6px;
-
-    display:grid;
-    place-items:center;
-
-    color:#666;
-
-    font-size:14px;
-}
-
-.content-tool:hover{
-    background:#eeeeec;
-}
-
-.content-search{
-    flex:1;
-
-    height:31px;
-
-    margin-left:4px;
-
-    padding:0 9px;
-
-    background:#f5f5f3;
-
-    border:0;
-    border-radius:6px;
-
-    outline:none;
-
-    font-size:11px;
-}
-
-.content-search:focus{
-    background:white;
-    box-shadow:inset 0 0 0 1px var(--border-2);
-}
-
-.act{
-    padding:13px 14px 5px;
-
-    color:#6f6f6a;
-
-    font-size:10px;
-    font-weight:700;
-
-    letter-spacing:.07em;
-}
-
-.scene{
-    min-height:49px;
-
-    margin:2px 9px;
-
-    padding:8px 10px;
-
-    border:1px solid transparent;
-    border-radius:6px;
-
-    display:flex;
-    align-items:center;
-
-    cursor:pointer;
-
-    transition:.12s ease;
-}
-
-.scene:hover{
-    background:#f2f2f0;
-}
-
-.scene.active{
-    background:var(--purple-light);
-    border-color:var(--purple-border);
-}
-
-.scene-number{
-    width:28px;
-
-    color:#aaa9a5;
-
-    font-size:10px;
-    font-weight:600;
-}
-
-.scene.active .scene-number{
-    color:var(--purple);
-}
-
-.scene-content{
-    min-width:0;
-}
-
-.scene-heading{
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-
-    font-family:"Courier New",monospace;
-
-    font-size:11px;
-    font-weight:700;
-}
-
-.scene-description{
-    margin-top:3px;
-
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-
-    color:#858580;
-
-    font-size:10px;
-}
-
-/* =========================================================
-   COMMENTS
-========================================================= */
-
-.comment{
-    margin:12px;
-
-    padding:12px;
-
-    border:1px solid var(--border);
-    border-radius:7px;
-
-    background:white;
-}
-
-.comment-top{
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    margin-bottom:9px;
-}
-
-.comment-avatar{
-    width:25px;
-    height:25px;
-
-    border-radius:50%;
-
-    background:#1685e6;
-    color:white;
-
-    display:grid;
-    place-items:center;
-
-    font-size:9px;
-    font-weight:700;
-}
-
-.comment-author{
-    font-size:11px;
-    font-weight:700;
-}
-
-.comment-time{
-    color:#aaa;
-
-    font-size:9px;
-}
-
-.comment-text{
-    color:#444;
-
-    font-size:11px;
-    line-height:1.55;
-}
-
-.comment-line{
-    margin-top:10px;
-
-    padding-top:9px;
-
-    border-top:1px solid #eeeeec;
-
-    color:#8a8a85;
-
-    font-size:9px;
-}
-
-/* =========================================================
-   NOTES
-========================================================= */
-
-.notes-area{
-    width:100%;
-    height:calc(100% - 58px);
-
-    padding:15px;
-
-    border:0;
-
-    resize:none;
-
-    background:white;
-
-    outline:none;
-
-    font-family:Inter,sans-serif;
-
-    font-size:12px;
-    line-height:1.7;
-}
-
-.notes-area::placeholder{
-    color:#aaa;
-}
-
-/* =========================================================
-   EDITOR
-========================================================= */
-
-.editor{
-    flex:1;
-    min-width:0;
-
-    display:flex;
-    flex-direction:column;
-
-    background:
-        radial-gradient(
-            ellipse at center top,
-            #ffffff 0%,
-            #f8f8f7 55%,
-            #eeeeec 100%
-        );
-}
-
-/* =========================================================
-   DRAFT BAR
-========================================================= */
-
-.draftbar{
-    height:49px;
-    flex-shrink:0;
-
-    background:rgba(255,255,255,.96);
-    border-bottom:1px solid var(--border);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 14px;
-}
-
-.draftbar-left{
-    display:flex;
-    align-items:center;
-    gap:5px;
-}
-
-.draft-selector{
-    height:32px;
-
-    padding:0 11px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    border-radius:6px;
-
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    font-size:12px;
-    font-weight:600;
-}
-
-.draft-selector:hover{
-    background:#fafaf9;
-}
-
-.plus{
-    font-size:17px;
-    color:#666;
-}
-
-.draftbar-right{
-    display:flex;
-    align-items:center;
-    gap:4px;
-}
-
-.editor-button{
-    width:32px;
-    height:32px;
-
-    border-radius:6px;
-
-    display:grid;
-    place-items:center;
-
-    color:#555;
-
-    font-size:15px;
-}
-
-.editor-button:hover{
-    background:#eeeeec;
-}
-
-/* =========================================================
-   PAPER AREA
-========================================================= */
-
-.paper-scroll{
-    flex:1;
-    min-height:0;
-
-    overflow:auto;
-
-    padding:28px 45px 100px;
-}
-
-.paper-scroll::-webkit-scrollbar{
-    width:10px;
-}
-
-.paper-scroll::-webkit-scrollbar-thumb{
-    background:#d0d0cc;
-    border-radius:10px;
-}
-
-.paper{
-    position:relative;
-
-    width:860px;
-    min-height:1115px;
-
-    margin:0 auto;
-
-    padding:92px 112px 130px;
-
-    background:white;
-
+  * {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #f5f5f3;
+    --panel: #ffffff;
+    --paper: #ffffff;
+    --line: #e7e7e4;
+    --line-dark: #d8d8d4;
+    --text: #171717;
+    --muted: #777773;
+    --soft: #f0f0ed;
+    --hover: #ecece9;
+    --accent: #111111;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    color: inherit;
+  }
+
+  ::selection {
+    background: #dcdcd7;
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: 255px minmax(0, 1fr);
+    width: 100%;
+    height: 100%;
+  }
+
+  /* -------------------------------------------------------
+     LEFT SIDEBAR
+  ------------------------------------------------------- */
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    background: #fafaf8;
+    border-right: 1px solid var(--line);
+    min-width: 0;
+  }
+
+  .brand {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    letter-spacing: -0.04em;
+  }
+
+  .project-name {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .side-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 13px 12px 10px;
+    gap: 4px;
+  }
+
+  .side-tab {
+    height: 34px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition: .15s ease;
+  }
+
+  .side-tab:hover {
+    background: var(--hover);
+  }
+
+  .side-tab.active {
+    background: #e8e8e5;
+  }
+
+  .sidebar-content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 4px 10px 20px;
+  }
+
+  .sidebar-content::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .sidebar-content::-webkit-scrollbar-thumb {
+    background: #d5d5d1;
+    border-radius: 999px;
+  }
+
+  .section-label {
+    padding: 14px 10px 8px;
+    color: #858580;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+
+  .scene-item {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 7px;
+    align-items: center;
+    min-height: 46px;
+    padding: 6px 8px;
+    margin-bottom: 2px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background .14s ease;
+  }
+
+  .scene-item:hover {
+    background: var(--hover);
+  }
+
+  .scene-item.active {
+    background: #e8e8e5;
+  }
+
+  .scene-number {
+    font-size: 10px;
+    color: #8a8a85;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scene-copy {
+    min-width: 0;
+  }
+
+  .scene-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .scene-meta {
+    margin-top: 2px;
+    color: #8b8b86;
+    font-size: 9px;
+  }
+
+  .comment-item,
+  .note-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+
+  .comment-item:hover,
+  .note-item:hover {
+    background: var(--hover);
+  }
+
+  .comment-title,
+  .note-title {
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .comment-body,
+  .note-body {
+    margin-top: 4px;
+    color: #777773;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  .sidebar-footer {
+    padding: 11px 14px;
+    border-top: 1px solid var(--line);
+    color: #858580;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* -------------------------------------------------------
+     MAIN
+  ------------------------------------------------------- */
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .topbar {
+    height: 64px;
+    flex: 0 0 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: rgba(250,250,248,.95);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .top-left,
+  .top-right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .top-left {
+    min-width: 0;
+  }
+
+  .script-title {
+    margin-left: 7px;
+    font-size: 13px;
+    font-weight: 650;
+    letter-spacing: -.01em;
+  }
+
+  .save-state {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+    color: #888883;
+    font-size: 10px;
+  }
+
+  .save-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #8b8b86;
+  }
+
+  .top-right {
+    margin-left: auto;
+  }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    cursor: pointer;
+    transition: background .14s ease;
+  }
+
+  .icon-btn:hover {
+    background: var(--hover);
+  }
+
+  .icon-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.7;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin-left: 7px;
+    background: #202020;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  /* -------------------------------------------------------
+     EDITOR AREA
+  ------------------------------------------------------- */
+
+  .workspace {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    background: #efefec;
+  }
+
+  .editor-scroll {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 54px 30px 110px;
+  }
+
+  .editor-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .editor-scroll::-webkit-scrollbar-thumb {
+    background: #d0d0cc;
+    border-radius: 999px;
+  }
+
+  .page {
+    width: min(850px, calc(100vw - 360px));
+    min-height: 1080px;
+    margin: 0 auto;
+    padding: 95px 110px 110px;
+    background: var(--paper);
     box-shadow:
-        0 1px 3px rgba(0,0,0,.04),
-        0 10px 30px rgba(0,0,0,.065);
-
-    border:1px solid rgba(0,0,0,.035);
-}
-
-.script{
-    min-height:890px;
-
-    outline:none;
-
-    white-space:pre-wrap;
-
-    color:#111;
-
-    font-family:"Courier New",Courier,monospace;
-
-    font-size:13px;
-    line-height:1.52;
-
-    caret-color:#111;
-}
-
-.script:empty::before{
-    content:"Start writing...";
-    color:#aaa;
-}
-
-.script::selection{
-    background:#e3ddfa;
-}
-
-/* =========================================================
-   CONTEXTUAL WRITING PALETTE
-========================================================= */
-
-.writing-palette{
-    position:fixed;
-
-    left:50%;
-    bottom:42px;
-
-    transform:translateX(-50%) translateY(15px);
-
-    min-height:43px;
-
-    padding:5px;
-
-    background:#202124;
-
-    border-radius:8px;
-
-    box-shadow:
-        0 9px 25px rgba(0,0,0,.2),
-        0 2px 5px rgba(0,0,0,.12);
-
-    display:flex;
-    align-items:center;
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:
-        opacity .14s ease,
-        transform .14s ease;
-
-    z-index:100;
-}
-
-.writing-palette.visible{
-    opacity:1;
-    pointer-events:auto;
-
-    transform:translateX(-50%) translateY(0);
-}
-
-.palette-group{
-    display:flex;
-    align-items:center;
-
-    padding:0 4px;
-
-    border-right:1px solid #404144;
-}
-
-.palette-group:last-child{
-    border-right:0;
-}
-
-.palette-button{
-    min-width:35px;
-    height:33px;
-
-    padding:0 9px;
-
-    border-radius:5px;
-
-    color:#eee;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:5px;
-
-    font-size:10px;
-    font-weight:600;
-
-    transition:.1s ease;
-}
-
-.palette-button:hover{
-    background:#37383b;
-}
-
-.palette-button.active{
-    background:#50409a;
-    color:white;
-}
-
-.palette-button.scene-element{
-    font-family:"Courier New",monospace;
-    font-size:10px;
-}
-
-/* =========================================================
-   ELEMENT POPUP
-========================================================= */
-
-.element-popup{
-    position:fixed;
-
-    width:235px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    border-radius:8px;
-
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.16);
-
-    padding:6px;
-
-    z-index:150;
-
-    display:none;
-}
-
-.element-popup.open{
-    display:block;
-}
-
-.element-option{
-    width:100%;
-
-    height:36px;
-
-    padding:0 10px;
-
-    border-radius:5px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    text-align:left;
-}
-
-.element-option:hover{
-    background:#f1f1ef;
-}
-
-.element-name{
-    font-size:11px;
-    font-weight:600;
-}
-
-.element-shortcut{
-    color:#aaa;
-
-    font-size:9px;
-}
-
-/* =========================================================
-   STATUS BAR
-========================================================= */
-
-.statusbar{
-    position:absolute;
-
-    left:0;
-    right:0;
-    bottom:0;
-
-    height:29px;
-
-    background:rgba(255,255,255,.95);
-
-    border-top:1px solid var(--border);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 14px;
-
-    color:#555;
-
-    font-size:9px;
-
-    z-index:80;
-}
-
-.status-left,
-.status-right{
-    display:flex;
-    align-items:center;
-    gap:16px;
-}
-
-/* =========================================================
-   BEATS / OUTLINE VIEWS
-========================================================= */
-
-.view{
-    display:none;
-
-    flex:1;
-    min-height:0;
-
-    overflow:auto;
-
-    background:#f7f7f6;
-}
-
-.view.active{
-    display:block;
-}
-
-.beats-wrap,
-.outline-wrap{
-    width:min(1100px,calc(100% - 70px));
-
-    margin:40px auto;
-}
-
-.view-title{
-    font-family:"EB Garamond",serif;
-
-    font-size:42px;
-
-    margin-bottom:8px;
-}
-
-.view-subtitle{
-    color:#777;
-
-    font-size:12px;
-
-    margin-bottom:30px;
-}
-
-.beat-board{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-}
-
-.beat-column{
-    min-height:400px;
-
-    background:#f0f0ee;
-
-    border:1px solid var(--border);
-
-    border-radius:8px;
-
-    padding:12px;
-}
-
-.beat-column-title{
-    margin-bottom:10px;
-
-    color:#777;
-
-    font-size:10px;
-    font-weight:700;
-
-    letter-spacing:.08em;
-}
-
-.beat-card{
-    margin-bottom:9px;
-
-    padding:14px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    border-radius:7px;
-
-    box-shadow:0 1px 2px rgba(0,0,0,.025);
-}
-
-.beat-card strong{
-    display:block;
-
-    margin-bottom:6px;
-
-    font-size:12px;
-}
-
-.beat-card span{
-    color:#777;
-
-    font-size:10px;
-    line-height:1.5;
-}
-
-.outline-row{
-    display:grid;
-    grid-template-columns:50px 1fr 150px;
-
-    padding:14px 15px;
-
-    border-bottom:1px solid var(--border);
-
-    background:white;
-}
-
-.outline-row:first-child{
-    border-radius:8px 8px 0 0;
-}
-
-.outline-row:last-child{
-    border-radius:0 0 8px 8px;
-}
-
-.outline-num{
-    color:#aaa;
-
-    font-size:10px;
-}
-
-.outline-heading{
-    font-family:"Courier New",monospace;
-
-    font-size:12px;
-    font-weight:700;
-}
-
-.outline-type{
-    color:#888;
-
-    font-size:10px;
-    text-align:right;
-}
-
-/* =========================================================
-   SEARCH MODAL
-========================================================= */
-
-.search-overlay{
-    position:fixed;
-    inset:0;
-
-    z-index:300;
-
-    background:rgba(20,20,20,.18);
-
-    backdrop-filter:blur(3px);
-
-    display:none;
-
-    align-items:flex-start;
-    justify-content:center;
-
-    padding-top:120px;
-}
-
-.search-overlay.open{
-    display:flex;
-}
-
-.search-box{
-    width:530px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    border-radius:9px;
-
-    box-shadow:0 25px 70px rgba(0,0,0,.18);
-
-    overflow:hidden;
-}
-
-.search-input{
-    width:100%;
-    height:52px;
-
-    padding:0 16px;
-
-    border:0;
-    outline:none;
-
-    font-size:14px;
-}
-
-.search-result{
-    padding:12px 16px;
-
-    border-top:1px solid var(--border);
-
-    cursor:pointer;
-}
-
-.search-result:hover{
-    background:#f5f5f3;
-}
-
-.search-result-heading{
-    font-family:"Courier New",monospace;
-
-    font-size:11px;
-    font-weight:700;
-}
-
-.search-result-preview{
-    margin-top:4px;
-
-    color:#777;
-
-    font-size:10px;
-}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:1000px){
-    :root{
-        --sidebar:300px;
+      0 1px 3px rgba(0,0,0,.05),
+      0 14px 45px rgba(0,0,0,.06);
+  }
+
+  .script {
+    min-height: 850px;
+    outline: none;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #111;
+  }
+
+  .script p,
+  .script div {
+    min-height: 1.55em;
+    margin: 0;
+  }
+
+  .script .scene-heading {
+    margin-top: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .script .action {
+    margin-top: 11px;
+    max-width: 100%;
+  }
+
+  .script .character {
+    margin-top: 13px;
+    margin-left: 35%;
+    width: 30%;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .script .parenthetical {
+    margin-left: 29%;
+    width: 42%;
+  }
+
+  .script .dialogue {
+    margin-left: 22%;
+    width: 56%;
+  }
+
+  .script .transition {
+    margin-top: 14px;
+    margin-left: auto;
+    width: 32%;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .script .blank {
+    height: 1.55em;
+  }
+
+  /* -------------------------------------------------------
+     CONTEXT FORMAT BAR
+  ------------------------------------------------------- */
+
+  .context-bar {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 5px;
+    background: rgba(255,255,255,.96);
+    border: 1px solid #ddddda;
+    border-radius: 9px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.10);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .16s ease, transform .16s ease;
+  }
+
+  .context-bar.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(-3px);
+  }
+
+  .format-btn {
+    height: 30px;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #44443f;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .format-btn:hover {
+    background: #ededeb;
+    color: #111;
+  }
+
+  .format-divider {
+    width: 1px;
+    height: 18px;
+    background: #dededb;
+    margin: 0 3px;
+  }
+
+  /* -------------------------------------------------------
+     CONTEXT PANEL
+  ------------------------------------------------------- */
+
+  .context-panel {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 265px;
+    background: rgba(255,255,255,.98);
+    border: 1px solid #dededb;
+    border-radius: 9px;
+    box-shadow: 0 14px 45px rgba(0,0,0,.09);
+    transform: translateX(18px);
+    opacity: 0;
+    pointer-events: none;
+    transition: .18s ease;
+    overflow: hidden;
+  }
+
+  .context-panel.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .panel-header {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0 13px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .panel-title {
+    font-size: 11px;
+    font-weight: 750;
+  }
+
+  .panel-close {
+    margin-left: auto;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .panel-close:hover {
+    background: var(--hover);
+  }
+
+  .panel-body {
+    padding: 13px;
+  }
+
+  .panel-section {
+    margin-bottom: 16px;
+  }
+
+  .panel-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .panel-label {
+    color: #8a8a85;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .panel-value {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .chip {
+    padding: 5px 7px;
+    border-radius: 5px;
+    background: #f0f0ed;
+    font-size: 9px;
+    font-weight: 650;
+  }
+
+  /* -------------------------------------------------------
+     BOTTOM STATUS
+  ------------------------------------------------------- */
+
+  .statusbar {
+    height: 30px;
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-top: 1px solid var(--line);
+    background: #fafaf8;
+    color: #83837e;
+    font-size: 9px;
+  }
+
+  .status-left,
+  .status-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .status-right {
+    margin-left: auto;
+  }
+
+  /* -------------------------------------------------------
+     OVERLAY
+  ------------------------------------------------------- */
+
+  .search-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px;
+    background: rgba(239,239,236,.72);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    pointer-events: none;
+    transition: .16s ease;
+  }
+
+  .search-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .search-box {
+    width: min(580px, calc(100% - 40px));
+    background: white;
+    border: 1px solid #dededb;
+    border-radius: 10px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.14);
+    overflow: hidden;
+  }
+
+  .search-input {
+    width: 100%;
+    height: 55px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    outline: none;
+    padding: 0 18px;
+    font-size: 14px;
+  }
+
+  .search-results {
+    max-height: 330px;
+    overflow-y: auto;
+  }
+
+  .search-result {
+    padding: 12px 18px;
+    border-bottom: 1px solid #eeeeeb;
+    cursor: pointer;
+  }
+
+  .search-result:hover {
+    background: #f4f4f1;
+  }
+
+  .search-result-title {
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .search-result-meta {
+    margin-top: 3px;
+    color: #888883;
+    font-size: 9px;
+  }
+
+  /* -------------------------------------------------------
+     TOAST
+  ------------------------------------------------------- */
+
+  .toast {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    z-index: 100;
+    transform: translate(-50%, -12px);
+    padding: 9px 13px;
+    border: 1px solid #dededb;
+    border-radius: 7px;
+    background: #171717;
+    color: white;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .18s ease;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  /* -------------------------------------------------------
+     RESPONSIVE
+  ------------------------------------------------------- */
+
+  @media (max-width: 1050px) {
+    .app {
+      grid-template-columns: 220px minmax(0, 1fr);
     }
 
-    .paper{
-        width:780px;
+    .page {
+      width: min(800px, calc(100vw - 280px));
+      padding-left: 85px;
+      padding-right: 85px;
     }
 
-    .paper-scroll{
-        padding-left:25px;
-        padding-right:25px;
+    .context-panel {
+      right: 12px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .app {
+      grid-template-columns: 1fr;
     }
 
-    .top-center{
-        display:none;
-    }
-}
-
-@media(max-width:760px){
-    :root{
-        --sidebar:0px;
+    .sidebar {
+      display: none;
     }
 
-    .sidebar{
-        display:none;
+    .page {
+      width: calc(100vw - 28px);
+      min-height: 950px;
+      padding: 70px 55px;
     }
 
-    .paper{
-        width:700px;
-        padding-left:80px;
-        padding-right:80px;
+    .editor-scroll {
+      padding: 20px 14px 90px;
     }
-}
+
+    .context-panel {
+      right: 10px;
+      left: 10px;
+      width: auto;
+    }
+  }
 </style>
 </head>
 
@@ -1317,2168 +744,1042 @@ textarea:focus-visible{
 
 <div class="app">
 
-<!-- =======================================================
-     TOP BAR
-======================================================= -->
+  <!-- =====================================================
+       LEFT NAVIGATION
+  ====================================================== -->
 
-<header class="topbar">
+  <aside class="sidebar">
 
-    <div class="top-left">
-
-        <button class="top-icon" title="Home">⌂</button>
-
-        <button class="top-icon" onclick="toggleSidebar()" title="Sidebar">▣</button>
-
-        <button class="top-icon" onclick="openSearch()" title="Search">⌕</button>
-
-        <button class="top-icon" title="Notifications">♧</button>
-
-        <div class="save-dot" id="saveDot"></div>
-
-        <div class="project-title">
-            <strong>Sentient Mass</strong>
-            <span>•</span>
-            <span>Screenplay</span>
-        </div>
-
+    <div class="brand">
+      <div class="brand-name">Auteur</div>
+      <div class="project-name">Draft</div>
     </div>
 
-
-    <nav class="top-center">
-
-        <button
-            class="nav-tab active"
-            onclick="switchMainView('script',this)"
-        >
-            Script
-        </button>
-
-        <button
-            class="nav-tab"
-            onclick="switchMainView('beats',this)"
-        >
-            Beats
-        </button>
-
-        <button
-            class="nav-tab"
-            onclick="switchMainView('outline',this)"
-        >
-            Outline
-        </button>
-
-    </nav>
-
-
-    <div class="top-right">
-
-        <div class="avatar">N</div>
-
-        <button class="top-action">◐</button>
-        <button class="top-action">⇧</button>
-        <button class="top-action">⚙</button>
-
+    <div class="side-tabs">
+      <button class="side-tab active" data-tab="contents">CONTENTS</button>
+      <button class="side-tab" data-tab="comments">COMMENTS</button>
+      <button class="side-tab" data-tab="notes">NOTES</button>
     </div>
-
-</header>
-
-
-<!-- =======================================================
-     WORKSPACE
-======================================================= -->
-
-<main class="workspace">
-
-<!-- =======================================================
-     LEFT SIDEBAR
-======================================================= -->
-
-<aside class="sidebar" id="sidebar">
-
-    <div class="sidebar-nav">
-
-        <div class="sidebar-nav-icon">
-            ✦
-        </div>
-
-        <button
-            class="side-tab"
-            onclick="showSidebarPanel('drafts',this)"
-        >
-            Drafts
-        </button>
-
-        <button
-            class="side-tab active"
-            onclick="showSidebarPanel('contents',this)"
-        >
-            Contents
-        </button>
-
-        <button
-            class="side-tab"
-            onclick="showSidebarPanel('comments',this)"
-        >
-            Comments
-        </button>
-
-        <button
-            class="side-tab"
-            onclick="showSidebarPanel('notes',this)"
-        >
-            Notes
-        </button>
-
-    </div>
-
 
     <div class="sidebar-content">
 
-        <!-- DRAFTS -->
-
-        <section class="panel" id="draftsPanel">
-
-            <div class="panel-header">
-
-                <span class="panel-title">
-                    Drafts
-                </span>
-
-                <button
-                    class="panel-button"
-                    onclick="newDraft()"
-                >
-                    +
-                </button>
-
-            </div>
-
-            <div
-                class="draft-card active"
-                onclick="selectDraft(this)"
-            >
-
-                <div class="draft-name">
-                    Main Draft
-                </div>
-
-                <div class="draft-meta">
-                    Draft 1 · Edited just now
-                </div>
-
-            </div>
-
-            <div
-                class="draft-card"
-                onclick="selectDraft(this)"
-            >
-
-                <div class="draft-name">
-                    First Draft
-                </div>
-
-                <div class="draft-meta">
-                    Archived · 7 scenes
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CONTENTS -->
-
-        <section
-            class="panel active"
-            id="contentsPanel"
-        >
-
-            <div class="panel-header">
-
-                <span class="panel-title">
-                    Contents
-                </span>
-
-                <span class="panel-count">
-                    7
-                </span>
-
-            </div>
-
-
-            <div class="contents-tools">
-
-                <button class="content-tool" title="Scenes">
-                    ◈
-                </button>
-
-                <button class="content-tool" title="Cards">
-                    ▧
-                </button>
-
-                <button class="content-tool" title="Sort">
-                    ≡
-                </button>
-
-                <button class="content-tool" title="Filter">
-                    ◇
-                </button>
-
-                <input
-                    class="content-search"
-                    id="contentSearch"
-                    placeholder="Filter..."
-                    oninput="filterScenes(this.value)"
-                >
-
-            </div>
-
-
-            <div id="sceneList">
-
-                <div class="act">
-                    ACT I
-                </div>
-
-                <div
-                    class="scene active"
-                    data-scene="1"
-                    onclick="jumpToScene(1,this)"
-                >
-
-                    <div class="scene-number">
-                        01
-                    </div>
-
-                    <div class="scene-content">
-
-                        <div class="scene-heading">
-                            EXT. MEGA PLANET - DAY
-                        </div>
-
-                        <div class="scene-description">
-                            The world reveals its impossible scale.
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="scene"
-                    data-scene="2"
-                    onclick="jumpToScene(2,this)"
-                >
-
-                    <div class="scene-number">
-                        02
-                    </div>
-
-                    <div class="scene-content">
-
-                        <div class="scene-heading">
-                            INT. OBSERVATORY - NIGHT
-                        </div>
-
-                        <div class="scene-description">
-                            Ludwig studies the architecture.
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="scene"
-                    data-scene="3"
-                    onclick="jumpToScene(3,this)"
-                >
-
-                    <div class="scene-number">
-                        03
-                    </div>
-
-                    <div class="scene-content">
-
-                        <div class="scene-heading">
-                            EXT. CITY OF GLASS - SUNSET
-                        </div>
-
-                        <div class="scene-description">
-                            A city stretches beyond the horizon.
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="scene"
-                    data-scene="4"
-                    onclick="jumpToScene(4,this)"
-                >
-
-                    <div class="scene-number">
-                        04
-                    </div>
-
-                    <div class="scene-content">
-
-                        <div class="scene-heading">
-                            INT. APARTMENT - NIGHT
-                        </div>
-
-                        <div class="scene-description">
-                            Ludwig confronts his obsession.
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="act">
-                    ACT II
-                </div>
-
-
-                <div
-                    class="scene"
-                    data-scene="5"
-                    onclick="jumpToScene(5,this)"
-                >
-
-                    <div class="scene-number">
-                        05
-                    </div>
-
-                    <div class="scene-content">
-
-                        <div class="scene-heading">
-                            EXT. MOUNTAIN RANGE - DAY
-                        </div>
-
-                        <div class="scene-description">
-                            Nature overwhelms the city.
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="scene"
-                    data-scene="6"
-                    onclick="jumpToScene(6,this)"
-                >
-
-                    <div class="scene-number">
-                        06
-                    </div>
-
-                    <div class="scene-content">
-
-                        <div class="scene-heading">
-                            EXT. THE GREAT CITY - NIGHT
-                        </div>
-
-                        <div class="scene-description">
-                            Humanity gathers beneath impossible towers.
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="act">
-                    ACT III
-                </div>
-
-
-                <div
-                    class="scene"
-                    data-scene="7"
-                    onclick="jumpToScene(7,this)"
-                >
-
-                    <div class="scene-number">
-                        07
-                    </div>
-
-                    <div class="scene-content">
-
-                        <div class="scene-heading">
-                            EXT. CLIFFSIDE - DAWN
-                        </div>
-
-                        <div class="scene-description">
-                            Ludwig finally understands the world.
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- COMMENTS -->
-
-        <section
-            class="panel"
-            id="commentsPanel"
-        >
-
-            <div class="panel-header">
-
-                <span class="panel-title">
-                    Comments
-                </span>
-
-                <button
-                    class="panel-button"
-                    onclick="addComment()"
-                >
-                    +
-                </button>
-
-            </div>
-
-
-            <div id="commentsList">
-
-                <div class="comment">
-
-                    <div class="comment-top">
-
-                        <div class="comment-avatar">
-                            N
-                        </div>
-
-                        <div>
-                            <div class="comment-author">
-                                Noah
-                            </div>
-
-                            <div class="comment-time">
-                                Today
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="comment-text">
-                        Make the opening image feel enormous before we understand what we're looking at.
-                    </div>
-
-                    <div class="comment-line">
-                        Scene 01 · Opening Image
-                    </div>
-
-                </div>
-
-
-                <div class="comment">
-
-                    <div class="comment-top">
-
-                        <div
-                            class="comment-avatar"
-                            style="background:#d94d7a"
-                        >
-                            A
-                        </div>
-
-                        <div>
-                            <div class="comment-author">
-                                Anne
-                            </div>
-
-                            <div class="comment-time">
-                                Yesterday
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="comment-text">
-                        The transition into the city could use a stronger visual idea.
-                    </div>
-
-                    <div class="comment-line">
-                        Scene 03
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- NOTES -->
-
-        <section
-            class="panel"
-            id="notesPanel"
-        >
-
-            <div class="panel-header">
-
-                <span class="panel-title">
-                    Notes
-                </span>
-
-                <button
-                    class="panel-button"
-                    onclick="saveNotes()"
-                >
-                    ✓
-                </button>
-
-            </div>
-
-            <textarea
-                class="notes-area"
-                id="projectNotes"
-                placeholder="Keep ideas, research, visual references, and reminders here..."
-            ></textarea>
-
-        </section>
+      <div id="contentsPanel">
+
+        <div class="section-label">ACT I</div>
+
+        <div class="scene-item active" data-scene="1">
+          <div class="scene-number">01</div>
+          <div class="scene-copy">
+            <div class="scene-title">EXT. MEGA PLANET</div>
+            <div class="scene-meta">DAY · 2/8</div>
+          </div>
+        </div>
+
+        <div class="scene-item" data-scene="2">
+          <div class="scene-number">02</div>
+          <div class="scene-copy">
+            <div class="scene-title">INT. OBSERVATION ROOM</div>
+            <div class="scene-meta">NIGHT · 3/8</div>
+          </div>
+        </div>
+
+        <div class="scene-item" data-scene="3">
+          <div class="scene-number">03</div>
+          <div class="scene-copy">
+            <div class="scene-title">EXT. LOWER CITY</div>
+            <div class="scene-meta">DAY · 4/8</div>
+          </div>
+        </div>
+
+        <div class="section-label">ACT II</div>
+
+        <div class="scene-item" data-scene="4">
+          <div class="scene-number">04</div>
+          <div class="scene-copy">
+            <div class="scene-title">INT. ARCHIVE</div>
+            <div class="scene-meta">NIGHT · 5/8</div>
+          </div>
+        </div>
+
+        <div class="scene-item" data-scene="5">
+          <div class="scene-number">05</div>
+          <div class="scene-copy">
+            <div class="scene-title">EXT. MOUNTAIN RANGE</div>
+            <div class="scene-meta">DAY · 6/8</div>
+          </div>
+        </div>
+
+        <div class="section-label">ACT III</div>
+
+        <div class="scene-item" data-scene="6">
+          <div class="scene-number">06</div>
+          <div class="scene-copy">
+            <div class="scene-title">INT. CENTRAL TOWER</div>
+            <div class="scene-meta">NIGHT · 7/8</div>
+          </div>
+        </div>
+
+        <div class="scene-item" data-scene="7">
+          <div class="scene-number">07</div>
+          <div class="scene-copy">
+            <div class="scene-title">EXT. HORIZON</div>
+            <div class="scene-meta">DAWN · 8/8</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="commentsPanel" class="hidden">
+
+        <div class="section-label">COMMENTS</div>
+
+        <div class="comment-item">
+          <div class="comment-title">Scene 02</div>
+          <div class="comment-body">
+            Clarify why Ludwig is watching the structure.
+          </div>
+        </div>
+
+        <div class="comment-item">
+          <div class="comment-title">Scene 05</div>
+          <div class="comment-body">
+            Consider holding this visual longer.
+          </div>
+        </div>
+
+      </div>
+
+      <div id="notesPanel" class="hidden">
+
+        <div class="section-label">PROJECT NOTES</div>
+
+        <div class="note-item">
+          <div class="note-title">The World</div>
+          <div class="note-body">
+            Architecture should feel impossibly large without losing the human scale.
+          </div>
+        </div>
+
+        <div class="note-item">
+          <div class="note-title">Ludwig</div>
+          <div class="note-body">
+            His obsession with structures gradually becomes a way of avoiding people.
+          </div>
+        </div>
+
+        <div class="note-item">
+          <div class="note-title">Visual Language</div>
+          <div class="note-body">
+            Long lenses. Vast negative space. Controlled movement.
+          </div>
+        </div>
+
+      </div>
 
     </div>
 
-</aside>
+    <div class="sidebar-footer">
+      <span>8 pages</span>
+      <span>Draft 04</span>
+    </div>
+
+  </aside>
 
 
-<!-- =======================================================
-     SCRIPT VIEW
-======================================================= -->
+  <!-- =====================================================
+       MAIN APPLICATION
+  ====================================================== -->
 
-<section
-    class="view active"
-    id="scriptView"
->
+  <main class="main">
 
-    <div class="editor">
+    <header class="topbar">
 
-        <div class="draftbar">
+      <div class="top-left">
 
-            <div class="draftbar-left">
+        <button class="icon-btn" title="Menu">
+          <i data-lucide="menu"></i>
+        </button>
 
-                <button class="draft-selector">
-                    <span>✦</span>
-                    Main Draft
-                    <span style="color:#999">⌄</span>
-                </button>
+        <div class="script-title">Sentient Mass</div>
 
-                <button
-                    class="editor-button"
-                    onclick="newDraft()"
-                    title="New draft"
-                >
-                    +
-                </button>
+        <div class="save-state">
+          <span class="save-dot"></span>
+          Saved
+        </div>
 
+      </div>
+
+      <div class="top-right">
+
+        <button class="icon-btn" id="searchButton" title="Search">
+          <i data-lucide="search"></i>
+        </button>
+
+        <button class="icon-btn" id="commentsButton" title="Comments">
+          <i data-lucide="message-square"></i>
+        </button>
+
+        <button class="icon-btn" id="notesButton" title="Notes">
+          <i data-lucide="sticky-note"></i>
+        </button>
+
+        <button class="icon-btn" id="focusButton" title="Focus mode">
+          <i data-lucide="maximize-2"></i>
+        </button>
+
+        <button class="icon-btn" id="moreButton" title="More">
+          <i data-lucide="ellipsis"></i>
+        </button>
+
+        <div class="avatar">B</div>
+
+      </div>
+
+    </header>
+
+
+    <section class="workspace">
+
+      <div class="editor-scroll" id="editorScroll">
+
+        <article class="page">
+
+          <div
+            id="scriptEditor"
+            class="script"
+            contenteditable="true"
+            spellcheck="false"
+          >
+
+            <div class="scene-heading">EXT. MEGA PLANET - DAY</div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              The horizon does not end.
             </div>
 
-
-            <div class="draftbar-right">
-
-                <button
-                    class="editor-button"
-                    onclick="undoEdit()"
-                    title="Undo"
-                >
-                    ↶
-                </button>
-
-                <button
-                    class="editor-button"
-                    onclick="redoEdit()"
-                    title="Redo"
-                >
-                    ↷
-                </button>
-
-                <button
-                    class="editor-button"
-                    onclick="openSearch()"
-                    title="Search"
-                >
-                    ⌕
-                </button>
-
+            <div class="action">
+              It simply disappears beneath a wall of architecture so enormous
+              that the human mind struggles to understand where it begins.
             </div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              Towers rise through the clouds. Bridges cross entire valleys.
+              Cities fold into one another beneath enormous mechanical structures.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              LUDWIG JAMES, 34, stands alone at the edge of the world.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="character">LUDWIG</div>
+
+            <div class="dialogue">
+              How long did it take to build this?
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="character">GUIDE</div>
+
+            <div class="parenthetical">(quietly)</div>
+
+            <div class="dialogue">
+              Nobody knows.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              Ludwig looks upward.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              Higher.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              Higher.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              The structure disappears into the atmosphere.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="character">LUDWIG</div>
+
+            <div class="dialogue">
+              I want to see the top.
+            </div>
+
+            <div class="blank"></div>
+
+            <div class="transition">CUT TO:</div>
+
+            <div class="scene-heading">INT. OBSERVATION ROOM - NIGHT</div>
+
+            <div class="blank"></div>
+
+            <div class="action">
+              Black glass surrounds Ludwig.
+            </div>
+
+            <div class="action">
+              Beyond it, the planet glows beneath him.
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+
+      <!-- =================================================
+           CONTEXTUAL WRITING CONTROLS
+      ================================================== -->
+
+      <div class="context-bar" id="formatBar">
+
+        <button class="format-btn" data-format="scene">SCENE</button>
+        <button class="format-btn" data-format="action">ACTION</button>
+        <button class="format-btn" data-format="character">CHARACTER</button>
+        <button class="format-btn" data-format="parenthetical">( )</button>
+        <button class="format-btn" data-format="dialogue">DIALOGUE</button>
+        <button class="format-btn" data-format="transition">TRANSITION</button>
+
+        <div class="format-divider"></div>
+
+        <button class="format-btn" id="boldButton">B</button>
+        <button class="format-btn" id="italicButton"><i>I</i></button>
+
+      </div>
+
+
+      <!-- =================================================
+           COMPACT CONTEXT PANEL
+      ================================================== -->
+
+      <aside class="context-panel" id="contextPanel">
+
+        <div class="panel-header">
+
+          <div class="panel-title" id="panelTitle">
+            Scene
+          </div>
+
+          <button class="panel-close" id="panelClose">
+            <i data-lucide="x"></i>
+          </button>
 
         </div>
 
+        <div class="panel-body">
 
-        <div
-            class="paper-scroll"
-            id="paperScroll"
-        >
+          <div class="panel-section">
 
-            <article class="paper" id="paper">
+            <div class="panel-label">Scene</div>
 
-                <div
-                    class="script"
-                    id="script"
-                    contenteditable="true"
-                    spellcheck="true"
-                >SENTIENT MASS
+            <div class="panel-value" id="panelScene">
+              EXT. MEGA PLANET - DAY
+            </div>
 
-FADE IN:
+          </div>
 
-EXT. MEGA PLANET - DAY
+          <div class="panel-section">
 
-A world too enormous to comprehend.
+            <div class="panel-label">Characters</div>
 
-Mountains disappear into clouds. Vast cities climb across the horizon, their architecture stretching beyond sight.
+            <div class="chip-row">
 
-LUDWIG JAMES, 34, stands alone at the edge of a cliff.
+              <div class="chip">Ludwig James</div>
+              <div class="chip">Guide</div>
 
-He looks down.
+            </div>
 
-The planet continues.
+          </div>
 
-LUDWIG
+          <div class="panel-section">
 
-They built all of this...
+            <div class="panel-label">Location</div>
 
-Ludwig watches the distant city.
+            <div class="panel-value">
+              Mega Planet
+            </div>
 
-LUDWIG
+          </div>
 
-And somehow it still isn't enough.
+          <div class="panel-section">
 
-A WIND tears across the cliffside.
+            <div class="panel-label">Notes</div>
 
-He closes his eyes.
+            <div class="panel-value">
+              Introduce the scale of the world before revealing Ludwig's motivation.
+            </div>
 
-For a moment, the world is silent.
-
-Then:
-
-A distant bell.
-
-Ludwig opens his eyes.
-
-CUT TO:</div>
-
-            </article>
+          </div>
 
         </div>
 
-    </div>
+      </aside>
 
-</section>
 
+      <!-- =================================================
+           SEARCH
+      ================================================== -->
 
-<!-- =======================================================
-     BEATS VIEW
-======================================================= -->
+      <div class="search-overlay" id="searchOverlay">
 
-<section
-    class="view"
-    id="beatsView"
->
+        <div class="search-box">
 
-    <div class="beats-wrap">
-
-        <div class="view-title">
-            Beats
-        </div>
-
-        <div class="view-subtitle">
-            Shape the story without touching the screenplay.
-        </div>
-
-
-        <div class="beat-board">
-
-            <div class="beat-column">
-
-                <div class="beat-column-title">
-                    ACT I
-                </div>
-
-                <div class="beat-card">
-                    <strong>Opening Image</strong>
-                    <span>
-                        Ludwig stands beneath a world built beyond human scale.
-                    </span>
-                </div>
-
-                <div class="beat-card">
-                    <strong>The Question</strong>
-                    <span>
-                        Why does humanity keep building when nothing is ever enough?
-                    </span>
-                </div>
-
-            </div>
-
-
-            <div class="beat-column">
-
-                <div class="beat-column-title">
-                    ACT II
-                </div>
-
-                <div class="beat-card">
-                    <strong>Expansion</strong>
-                    <span>
-                        Ludwig enters the greatest city ever constructed.
-                    </span>
-                </div>
-
-                <div class="beat-card">
-                    <strong>Obsession</strong>
-                    <span>
-                        Beauty begins turning into psychological pressure.
-                    </span>
-                </div>
-
-            </div>
-
-
-            <div class="beat-column">
-
-                <div class="beat-column-title">
-                    ACT III
-                </div>
-
-                <div class="beat-card">
-                    <strong>Understanding</strong>
-                    <span>
-                        Ludwig realizes the architecture was never the point.
-                    </span>
-                </div>
-
-                <div class="beat-card">
-                    <strong>Final Image</strong>
-                    <span>
-                        Humanity returns to humanity.
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     OUTLINE VIEW
-======================================================= -->
-
-<section
-    class="view"
-    id="outlineView"
->
-
-    <div class="outline-wrap">
-
-        <div class="view-title">
-            Outline
-        </div>
-
-        <div class="view-subtitle">
-            A clean structural view of the screenplay.
-        </div>
-
-
-        <div>
-
-            <div class="outline-row">
-
-                <div class="outline-num">01</div>
-
-                <div class="outline-heading">
-                    EXT. MEGA PLANET - DAY
-                </div>
-
-                <div class="outline-type">
-                    Opening Image
-                </div>
-
-            </div>
-
-
-            <div class="outline-row">
-
-                <div class="outline-num">02</div>
-
-                <div class="outline-heading">
-                    INT. OBSERVATORY - NIGHT
-                </div>
-
-                <div class="outline-type">
-                    Setup
-                </div>
-
-            </div>
-
-
-            <div class="outline-row">
-
-                <div class="outline-num">03</div>
-
-                <div class="outline-heading">
-                    EXT. CITY OF GLASS - SUNSET
-                </div>
-
-                <div class="outline-type">
-                    Development
-                </div>
-
-            </div>
-
-
-            <div class="outline-row">
-
-                <div class="outline-num">04</div>
-
-                <div class="outline-heading">
-                    INT. APARTMENT - NIGHT
-                </div>
-
-                <div class="outline-type">
-                    Conflict
-                </div>
-
-            </div>
-
-
-            <div class="outline-row">
-
-                <div class="outline-num">05</div>
-
-                <div class="outline-heading">
-                    EXT. MOUNTAIN RANGE - DAY
-                </div>
-
-                <div class="outline-type">
-                    Midpoint
-                </div>
-
-            </div>
-
-
-            <div class="outline-row">
-
-                <div class="outline-num">06</div>
-
-                <div class="outline-heading">
-                    EXT. THE GREAT CITY - NIGHT
-                </div>
-
-                <div class="outline-type">
-                    Climax
-                </div>
-
-            </div>
-
-
-            <div class="outline-row">
-
-                <div class="outline-num">07</div>
-
-                <div class="outline-heading">
-                    EXT. CLIFFSIDE - DAWN
-                </div>
-
-                <div class="outline-type">
-                    Final Image
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-</main>
-
-
-<!-- =======================================================
-     CONTEXTUAL WRITING PALETTE
-======================================================= -->
-
-<div
-    class="writing-palette"
-    id="writingPalette"
->
-
-    <div class="palette-group">
-
-        <button
-            class="palette-button scene-element"
-            onclick="applyElement('INT.')"
-        >
-            INT.
-        </button>
-
-        <button
-            class="palette-button scene-element"
-            onclick="applyElement('EXT.')"
-        >
-            EXT.
-        </button>
-
-        <button
-            class="palette-button scene-element"
-            onclick="applyElement('INT./EXT.')"
-        >
-            INT./EXT.
-        </button>
-
-        <button
-            class="palette-button scene-element"
-            onclick="applyElement('I/E.')"
-        >
-            I/E.
-        </button>
-
-    </div>
-
-
-    <div class="palette-group">
-
-        <button
-            class="palette-button"
-            onclick="applyElement('ACTION')"
-        >
-            Action
-        </button>
-
-        <button
-            class="palette-button"
-            onclick="applyElement('CHARACTER')"
-        >
-            Character
-        </button>
-
-        <button
-            class="palette-button"
-            onclick="applyElement('DIALOGUE')"
-        >
-            Dialogue
-        </button>
-
-        <button
-            class="palette-button"
-            onclick="applyElement('PARENTHETICAL')"
-        >
-            ( )
-        </button>
-
-        <button
-            class="palette-button"
-            onclick="applyElement('TRANSITION')"
-        >
-            Transition
-        </button>
-
-    </div>
-
-
-    <div class="palette-group">
-
-        <button
-            class="palette-button"
-            onclick="formatText('bold')"
-        >
-            B
-        </button>
-
-        <button
-            class="palette-button"
-            onclick="formatText('italic')"
-        >
-            <i>I</i>
-        </button>
-
-        <button
-            class="palette-button"
-            onclick="formatText('underline')"
-        >
-            <u>U</u>
-        </button>
-
-        <button
-            class="palette-button"
-            onclick="addComment()"
-        >
-            ◯
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =======================================================
-     ELEMENT POPUP
-======================================================= -->
-
-<div
-    class="element-popup"
-    id="elementPopup"
->
-
-    <button
-        class="element-option"
-        onclick="applyElement('INT.')"
-    >
-        <span class="element-name">INT. Scene Heading</span>
-        <span class="element-shortcut">I</span>
-    </button>
-
-    <button
-        class="element-option"
-        onclick="applyElement('EXT.')"
-    >
-        <span class="element-name">EXT. Scene Heading</span>
-        <span class="element-shortcut">E</span>
-    </button>
-
-    <button
-        class="element-option"
-        onclick="applyElement('INT./EXT.')"
-    >
-        <span class="element-name">INT./EXT.</span>
-        <span class="element-shortcut">Shift I</span>
-    </button>
-
-    <button
-        class="element-option"
-        onclick="applyElement('CHARACTER')"
-    >
-        <span class="element-name">Character</span>
-        <span class="element-shortcut">C</span>
-    </button>
-
-    <button
-        class="element-option"
-        onclick="applyElement('DIALOGUE')"
-    >
-        <span class="element-name">Dialogue</span>
-        <span class="element-shortcut">D</span>
-    </button>
-
-    <button
-        class="element-option"
-        onclick="applyElement('PARENTHETICAL')"
-    >
-        <span class="element-name">Parenthetical</span>
-        <span class="element-shortcut">P</span>
-    </button>
-
-    <button
-        class="element-option"
-        onclick="applyElement('ACTION')"
-    >
-        <span class="element-name">Action</span>
-        <span class="element-shortcut">A</span>
-    </button>
-
-    <button
-        class="element-option"
-        onclick="applyElement('TRANSITION')"
-    >
-        <span class="element-name">Transition</span>
-        <span class="element-shortcut">T</span>
-    </button>
-
-</div>
-
-
-<!-- =======================================================
-     STATUS
-======================================================= -->
-
-<footer class="statusbar">
-
-    <div class="status-left">
-
-        <span id="pageStatus">
-            Page 1
-        </span>
-
-        <span id="wordStatus">
-            0 words
-        </span>
-
-        <span>
-            Draft 1
-        </span>
-
-    </div>
-
-
-    <div class="status-right">
-
-        <span>
-            Courier Prime
-        </span>
-
-        <span id="zoomStatus">
-            100%
-        </span>
-
-    </div>
-
-</footer>
-
-
-<!-- =======================================================
-     SEARCH
-======================================================= -->
-
-<div
-    class="search-overlay"
-    id="searchOverlay"
-    onclick="closeSearch(event)"
->
-
-    <div
-        class="search-box"
-        onclick="event.stopPropagation()"
-    >
-
-        <input
-            class="search-input"
+          <input
             id="searchInput"
+            class="search-input"
             placeholder="Search screenplay..."
-            oninput="searchScript(this.value)"
-        >
+            autocomplete="off"
+          >
 
-        <div id="searchResults"></div>
+          <div class="search-results" id="searchResults"></div>
 
-    </div>
+        </div>
+
+      </div>
+
+
+      <div class="toast" id="toast">Saved</div>
+
+    </section>
+
+
+    <footer class="statusbar">
+
+      <div class="status-left">
+        <span id="pageStatus">Page 1 of 8</span>
+        <span id="wordStatus">124 words</span>
+      </div>
+
+      <div class="status-right">
+        <span>100%</span>
+        <span>Courier Prime</span>
+        <span>US Letter</span>
+      </div>
+
+    </footer>
+
+  </main>
 
 </div>
 
 
 <script>
-/* =========================================================
-   STATE
-========================================================= */
+  lucide.createIcons();
 
-const script = document.getElementById("script");
-const palette = document.getElementById("writingPalette");
-const elementPopup = document.getElementById("elementPopup");
+  const editor = document.getElementById("scriptEditor");
+  const formatBar = document.getElementById("formatBar");
+  const contextPanel = document.getElementById("contextPanel");
+  const toast = document.getElementById("toast");
 
-let currentScene = 1;
-let zoom = 1;
-let saveTimer = null;
-let savedRange = null;
+  const tabs = document.querySelectorAll(".side-tab");
+  const contentsPanel = document.getElementById("contentsPanel");
+  const commentsPanel = document.getElementById("commentsPanel");
+  const notesPanel = document.getElementById("notesPanel");
 
+  const panels = {
+    contents: contentsPanel,
+    comments: commentsPanel,
+    notes: notesPanel
+  };
 
-/* =========================================================
-   STORAGE
-========================================================= */
+  /* -------------------------------------------------------
+     STORAGE
+  ------------------------------------------------------- */
 
-const SCRIPT_KEY = "auteur-sentient-mass-script";
-const NOTES_KEY = "auteur-sentient-mass-notes";
+  const STORAGE_KEY = "auteur-sentient-mass-v5";
 
-const storedScript = localStorage.getItem(SCRIPT_KEY);
+  function saveDocument() {
+    localStorage.setItem(STORAGE_KEY, editor.innerHTML);
 
-if(storedScript){
-    script.innerText = storedScript;
-}
+    const saveState = document.querySelector(".save-state");
+    saveState.innerHTML = `
+      <span class="save-dot"></span>
+      Saved
+    `;
 
-const storedNotes = localStorage.getItem(NOTES_KEY);
-
-if(storedNotes){
-    document.getElementById("projectNotes").value = storedNotes;
-}
-
-
-/* =========================================================
-   SAVE
-========================================================= */
-
-function saveDocument(){
-
-    localStorage.setItem(
-        SCRIPT_KEY,
-        script.innerText
-    );
-
-    document.getElementById("saveDot").style.background =
-        "#38a169";
-
+    showToast("Saved");
     updateStats();
-}
+  }
 
-function scheduleSave(){
+  function loadDocument() {
+    const saved = localStorage.getItem(STORAGE_KEY);
 
-    document.getElementById("saveDot").style.background =
-        "#e3a92f";
+    if (saved) {
+      editor.innerHTML = saved;
+    }
+  }
+
+  loadDocument();
+
+  let saveTimer;
+
+  editor.addEventListener("input", () => {
+    const saveState = document.querySelector(".save-state");
+
+    saveState.innerHTML = `
+      <span class="save-dot"></span>
+      Saving...
+    `;
 
     clearTimeout(saveTimer);
 
-    saveTimer = setTimeout(
-        saveDocument,
-        450
-    );
-}
+    saveTimer = setTimeout(saveDocument, 650);
 
-script.addEventListener(
-    "input",
-    scheduleSave
-);
+    updateStats();
+  });
 
 
-/* =========================================================
-   NOTES
-========================================================= */
+  /* -------------------------------------------------------
+     STATS
+  ------------------------------------------------------- */
 
-function saveNotes(){
+  function updateStats() {
+    const text = editor.innerText.trim();
 
-    localStorage.setItem(
-        NOTES_KEY,
-        document.getElementById("projectNotes").value
-    );
+    const words = text
+      ? text.split(/\s+/).filter(Boolean).length
+      : 0;
 
-    const button =
-        document.querySelector(
-            '#notesPanel .panel-button'
-        );
+    document.getElementById("wordStatus").textContent =
+      `${words} words`;
+  }
 
-    button.textContent = "✓";
+  updateStats();
 
-    setTimeout(
-        () => button.textContent = "✓",
-        700
-    );
-}
 
-document
-    .getElementById("projectNotes")
-    .addEventListener(
-        "input",
-        saveNotes
-    );
+  /* -------------------------------------------------------
+     SIDEBAR TABS
+  ------------------------------------------------------- */
 
+  tabs.forEach(tab => {
 
-/* =========================================================
-   STATS
-========================================================= */
+    tab.addEventListener("click", () => {
 
-function updateStats(){
+      const target = tab.dataset.tab;
 
-    const text =
-        script.innerText.trim();
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
 
-    const words =
-        text
-            ? text.split(/\s+/).length
-            : 0;
+      Object.values(panels).forEach(panel => {
+        panel.classList.add("hidden");
+      });
 
-    document.getElementById("wordStatus")
-        .textContent =
-        `${words} words`;
+      panels[target].classList.remove("hidden");
+    });
 
-    const pages =
-        Math.max(
-            1,
-            Math.ceil(words / 250)
-        );
+  });
 
-    document.getElementById("pageStatus")
-        .textContent =
-        `Page ${pages}`;
-}
 
+  /* -------------------------------------------------------
+     SCENE NAVIGATION
+  ------------------------------------------------------- */
 
-/* =========================================================
-   SIDEBAR
-========================================================= */
+  document.querySelectorAll(".scene-item").forEach(item => {
 
-function showSidebarPanel(name, button){
+    item.addEventListener("click", () => {
 
-    document
-        .querySelectorAll(".side-tab")
-        .forEach(
-            tab => tab.classList.remove("active")
-        );
+      document
+        .querySelectorAll(".scene-item")
+        .forEach(scene => scene.classList.remove("active"));
 
-    button.classList.add("active");
+      item.classList.add("active");
 
-    document
-        .querySelectorAll(".panel")
-        .forEach(
-            panel => panel.classList.remove("active")
-        );
+      const number = item.dataset.scene;
 
-    document
-        .getElementById(name + "Panel")
-        .classList.add("active");
-}
+      const headings = editor.querySelectorAll(".scene-heading");
+      const target = headings[number - 1];
 
-
-function toggleSidebar(){
-
-    const sidebar =
-        document.getElementById("sidebar");
-
-    const visible =
-        getComputedStyle(sidebar).display !== "none";
-
-    sidebar.style.display =
-        visible ? "none" : "flex";
-}
-
-
-/* =========================================================
-   MAIN VIEWS
-========================================================= */
-
-function switchMainView(name, button){
-
-    document
-        .querySelectorAll(".nav-tab")
-        .forEach(
-            tab => tab.classList.remove("active")
-        );
-
-    button.classList.add("active");
-
-    document
-        .querySelectorAll(".view")
-        .forEach(
-            view => view.classList.remove("active")
-        );
-
-    document
-        .getElementById(name + "View")
-        .classList.add("active");
-}
-
-
-/* =========================================================
-   SCENE NAVIGATION
-========================================================= */
-
-function jumpToScene(number, element){
-
-    currentScene = number;
-
-    document
-        .querySelectorAll(".scene")
-        .forEach(
-            scene => scene.classList.remove("active")
-        );
-
-    if(element){
-        element.classList.add("active");
-    }
-
-    switchMainView(
-        "script",
-        document.querySelector(".nav-tab")
-    );
-
-    const target =
-        sceneText[number];
-
-    if(!target)
-        return;
-
-    const index =
-        script.innerText.indexOf(target);
-
-    if(index === -1)
-        return;
-
-    const walker =
-        document.createTreeWalker(
-            script,
-            NodeFilter.SHOW_TEXT
-        );
-
-    let position = 0;
-    let node;
-
-    while(node = walker.nextNode()){
-
-        const next =
-            position + node.textContent.length;
-
-        if(index >= position && index <= next){
-
-            const range =
-                document.createRange();
-
-            range.setStart(
-                node,
-                Math.max(
-                    0,
-                    index - position
-                )
-            );
-
-            range.collapse(true);
-
-            const selection =
-                window.getSelection();
-
-            selection.removeAllRanges();
-            selection.addRange(range);
-
-            node.parentElement.scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
-
-            script.focus();
-
-            break;
-        }
-
-        position = next;
-    }
-}
-
-const sceneText = {
-    1:"EXT. MEGA PLANET - DAY",
-    2:"INT. OBSERVATORY - NIGHT",
-    3:"EXT. CITY OF GLASS - SUNSET",
-    4:"INT. APARTMENT - NIGHT",
-    5:"EXT. MOUNTAIN RANGE - DAY",
-    6:"EXT. THE GREAT CITY - NIGHT",
-    7:"EXT. CLIFFSIDE - DAWN"
-};
-
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-function filterScenes(value){
-
-    const query =
-        value.toLowerCase();
-
-    document
-        .querySelectorAll(".scene")
-        .forEach(scene => {
-
-            scene.style.display =
-                scene.innerText
-                    .toLowerCase()
-                    .includes(query)
-                    ? "flex"
-                    : "none";
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
         });
-}
+      }
+
+      const title = item.querySelector(".scene-title").textContent;
+
+      document.getElementById("panelScene").textContent = title;
+
+      openContextPanel("Scene");
+    });
+
+  });
 
 
-/* =========================================================
-   DRAFTS
-========================================================= */
+  /* -------------------------------------------------------
+     CONTEXT PANEL
+  ------------------------------------------------------- */
 
-function selectDraft(card){
+  function openContextPanel(title = "Scene") {
+    document.getElementById("panelTitle").textContent = title;
+    contextPanel.classList.add("open");
+  }
 
-    document
-        .querySelectorAll(".draft-card")
-        .forEach(
-            item => item.classList.remove("active")
-        );
+  function closeContextPanel() {
+    contextPanel.classList.remove("open");
+  }
 
-    card.classList.add("active");
-}
-
-function newDraft(){
-
-    const name =
-        prompt("Draft name:", "New Draft");
-
-    if(!name)
-        return;
-
-    alert(
-        `${name} created.\n\nAuteur will keep this draft separate from the current screenplay in a future project database.`
-    );
-}
+  document.getElementById("panelClose")
+    .addEventListener("click", closeContextPanel);
 
 
-/* =========================================================
-   CONTEXTUAL PALETTE
-========================================================= */
+  /* -------------------------------------------------------
+     WRITING FORMAT BAR
+  ------------------------------------------------------- */
 
-script.addEventListener(
-    "focus",
-    () => {
-        palette.classList.add("visible");
-    }
-);
+  let hideFormatTimer;
 
-script.addEventListener(
-    "blur",
-    event => {
+  function showFormatBar() {
 
-        if(
-            !palette.contains(event.relatedTarget) &&
-            !elementPopup.contains(event.relatedTarget)
-        ){
-            setTimeout(
-                () => palette.classList.remove("visible"),
-                100
-            );
-        }
-    }
-);
+    clearTimeout(hideFormatTimer);
 
-script.addEventListener(
-    "keyup",
-    saveSelection
-);
+    formatBar.classList.add("visible");
 
-script.addEventListener(
-    "mouseup",
-    saveSelection
-);
+  }
 
-function saveSelection(){
+  function hideFormatBarSoon() {
 
-    const selection =
-        window.getSelection();
+    clearTimeout(hideFormatTimer);
 
-    if(
-        selection &&
-        selection.rangeCount &&
-        script.contains(selection.anchorNode)
-    ){
-        savedRange =
-            selection.getRangeAt(0).cloneRange();
-    }
-}
+    hideFormatTimer = setTimeout(() => {
+      if (!editor.matches(":focus")) {
+        formatBar.classList.remove("visible");
+      }
+    }, 1400);
+
+  }
+
+  editor.addEventListener("focus", showFormatBar);
+
+  editor.addEventListener("keyup", showFormatBar);
+
+  editor.addEventListener("click", showFormatBar);
 
 
-/* =========================================================
-   ELEMENT FORMATTING
-========================================================= */
+  /* -------------------------------------------------------
+     FORMAT COMMANDS
+  ------------------------------------------------------- */
 
-function applyElement(type){
+  function getCurrentBlock() {
 
-    script.focus();
+    const selection = window.getSelection();
 
-    if(savedRange){
+    if (!selection.rangeCount) return null;
 
-        const selection =
-            window.getSelection();
+    let node = selection.anchorNode;
 
-        selection.removeAllRanges();
-        selection.addRange(savedRange);
+    if (!node) return null;
+
+    if (node.nodeType === Node.TEXT_NODE) {
+      node = node.parentElement;
     }
 
-    const selection =
-        window.getSelection();
+    return node.closest(".script > div, .script > p");
+  }
 
-    let text =
-        selection.toString();
 
-    if(!text){
+  function applyFormat(format) {
 
-        insertElementText(type);
+    const block = getCurrentBlock();
 
-        return;
+    if (!block) return;
+
+    const text = block.innerText;
+
+    const classes = [
+      "scene-heading",
+      "action",
+      "character",
+      "parenthetical",
+      "dialogue",
+      "transition"
+    ];
+
+    block.classList.remove(...classes);
+
+    if (format === "scene") {
+      block.classList.add("scene-heading");
     }
 
-    let replacement = text;
-
-    switch(type){
-
-        case "INT.":
-        case "EXT.":
-        case "INT./EXT.":
-        case "I/E.":
-
-            replacement =
-                `${type} ${text.toUpperCase()}`;
-
-            break;
-
-        case "CHARACTER":
-
-            replacement =
-                text.toUpperCase();
-
-            break;
-
-        case "DIALOGUE":
-
-            replacement =
-                text;
-
-            break;
-
-        case "PARENTHETICAL":
-
-            replacement =
-                `(${text})`;
-
-            break;
-
-        case "TRANSITION":
-
-            replacement =
-                `${text.toUpperCase()}:`;
-
-            break;
-
-        case "ACTION":
-
-            replacement =
-                text;
-
-            break;
+    if (format === "action") {
+      block.classList.add("action");
     }
 
-    document.execCommand(
-        "insertText",
-        false,
-        replacement
-    );
+    if (format === "character") {
+      block.classList.add("character");
+    }
+
+    if (format === "parenthetical") {
+      block.classList.add("parenthetical");
+    }
+
+    if (format === "dialogue") {
+      block.classList.add("dialogue");
+    }
+
+    if (format === "transition") {
+      block.classList.add("transition");
+    }
+
+    block.focus();
 
     saveDocument();
 
-    palette.classList.add("visible");
-}
+  }
+
+  document.querySelectorAll(".format-btn[data-format]")
+    .forEach(button => {
+
+      button.addEventListener("mousedown", event => {
+        event.preventDefault();
+      });
+
+      button.addEventListener("click", () => {
+        applyFormat(button.dataset.format);
+      });
+
+    });
 
 
-function insertElementText(type){
+  document.getElementById("boldButton")
+    .addEventListener("mousedown", event => event.preventDefault());
 
-    let text = "";
+  document.getElementById("boldButton")
+    .addEventListener("click", () => {
+      document.execCommand("bold");
+      editor.focus();
+      saveDocument();
+    });
 
-    switch(type){
 
-        case "INT.":
-            text = "\n\nINT. ";
-            break;
+  document.getElementById("italicButton")
+    .addEventListener("mousedown", event => event.preventDefault());
 
-        case "EXT.":
-            text = "\n\nEXT. ";
-            break;
+  document.getElementById("italicButton")
+    .addEventListener("click", () => {
+      document.execCommand("italic");
+      editor.focus();
+      saveDocument();
+    });
 
-        case "INT./EXT.":
-            text = "\n\nINT./EXT. ";
-            break;
 
-        case "I/E.":
-            text = "\n\nI/E. ";
-            break;
+  /* -------------------------------------------------------
+     KEYBOARD WRITING BEHAVIOR
+  ------------------------------------------------------- */
 
-        case "ACTION":
-            text = "\n\n";
-            break;
+  editor.addEventListener("keydown", event => {
 
-        case "CHARACTER":
-            text = "\n\n\nCHARACTER NAME\n\n";
-            break;
+    if (event.key !== "Enter") return;
 
-        case "DIALOGUE":
-            text = "\n\n";
-            break;
+    const block = getCurrentBlock();
 
-        case "PARENTHETICAL":
-            text = "\n\n( )\n";
-            break;
+    if (!block) return;
 
-        case "TRANSITION":
-            text = "\n\nCUT TO:\n";
-            break;
+    const classes = [
+      "scene-heading",
+      "action",
+      "character",
+      "parenthetical",
+      "dialogue",
+      "transition"
+    ];
+
+    let nextClass = "action";
+
+    if (block.classList.contains("scene-heading")) {
+      nextClass = "action";
     }
 
-    document.execCommand(
-        "insertText",
-        false,
-        text
-    );
-
-    saveDocument();
-}
-
-
-/* =========================================================
-   TEXT FORMATTING
-========================================================= */
-
-function formatText(command){
-
-    script.focus();
-
-    document.execCommand(
-        command,
-        false,
-        null
-    );
-
-    saveDocument();
-}
-
-
-/* =========================================================
-   KEYBOARD ELEMENT MODE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(
-            document.activeElement !== script
-        ){
-            return;
-        }
-
-        if(event.key === "Escape"){
-
-            elementPopup.classList.remove("open");
-
-            return;
-        }
-
-        if(
-            event.key === "Enter" &&
-            !event.shiftKey
-        ){
-
-            setTimeout(
-                () => {
-
-                    const text =
-                        getCurrentLine();
-
-                    if(!text.trim()){
-                        showElementPopup();
-                    }
-
-                },
-                10
-            );
-        }
-
-        if(
-            (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase() === "s"
-        ){
-
-            event.preventDefault();
-
-            saveDocument();
-        }
-
-        if(
-            (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase() === "f"
-        ){
-
-            event.preventDefault();
-
-            openSearch();
-        }
-
-        if(
-            (event.metaKey || event.ctrlKey) &&
-            event.key.toLowerCase() === "m"
-        ){
-
-            event.preventDefault();
-
-            addComment();
-        }
-    }
-);
-
-
-/* =========================================================
-   CURRENT LINE
-========================================================= */
-
-function getCurrentLine(){
-
-    const selection =
-        window.getSelection();
-
-    if(
-        !selection.rangeCount
-    ){
-        return "";
+    else if (block.classList.contains("character")) {
+      nextClass = "dialogue";
     }
 
-    let node =
-        selection.anchorNode;
-
-    if(
-        node &&
-        node.nodeType === Node.TEXT_NODE
-    ){
-        node = node.parentElement;
+    else if (block.classList.contains("parenthetical")) {
+      nextClass = "dialogue";
     }
 
-    if(!node)
-        return "";
-
-    const text =
-        node.innerText ||
-        node.textContent ||
-        "";
-
-    return text.split("\n").pop();
-}
-
-
-/* =========================================================
-   ELEMENT POPUP
-========================================================= */
-
-function showElementPopup(){
-
-    elementPopup.classList.add("open");
-
-    const selection =
-        window.getSelection();
-
-    if(!selection.rangeCount)
-        return;
-
-    const rect =
-        selection.getRangeAt(0).getBoundingClientRect();
-
-    elementPopup.style.left =
-        `${Math.max(
-            15,
-            Math.min(
-                window.innerWidth - 250,
-                rect.left
-            )
-        )}px`;
-
-    elementPopup.style.top =
-        `${Math.min(
-            window.innerHeight - 350,
-            rect.bottom + 8
-        )}px`;
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function openSearch(){
-
-    document
-        .getElementById("searchOverlay")
-        .classList.add("open");
-
-    const input =
-        document.getElementById("searchInput");
-
-    input.value = "";
-
-    setTimeout(
-        () => input.focus(),
-        50
-    );
-}
-
-function closeSearch(event){
-
-    if(
-        !event ||
-        event.target ===
-        document.getElementById("searchOverlay")
-    ){
-
-        document
-            .getElementById("searchOverlay")
-            .classList.remove("open");
-    }
-}
-
-function searchScript(query){
-
-    const results =
-        document.getElementById("searchResults");
-
-    if(!query.trim()){
-
-        results.innerHTML = "";
-
-        return;
+    else if (block.classList.contains("dialogue")) {
+      nextClass = "action";
     }
 
-    const text =
-        script.innerText;
-
-    const lower =
-        text.toLowerCase();
-
-    const q =
-        query.toLowerCase();
-
-    const index =
-        lower.indexOf(q);
-
-    if(index === -1){
-
-        results.innerHTML = `
-            <div class="search-result">
-                <div class="search-result-preview">
-                    No results found.
-                </div>
-            </div>
-        `;
-
-        return;
+    else if (block.classList.contains("transition")) {
+      nextClass = "scene-heading";
     }
 
-    const start =
-        Math.max(0,index - 70);
+    setTimeout(() => {
 
-    const end =
-        Math.min(text.length,index + query.length + 110);
+      const current = getCurrentBlock();
 
-    const preview =
-        text.slice(start,end)
-            .replace(/\n/g," ");
+      if (!current) return;
 
-    results.innerHTML = `
-        <div
-            class="search-result"
-            onclick="jumpToSearchResult(${index})"
-        >
-            <div class="search-result-heading">
-                Result
-            </div>
+      current.classList.remove(...classes);
+      current.classList.add(nextClass);
 
-            <div class="search-result-preview">
-                ${escapeHtml(preview)}
-            </div>
+    }, 0);
+
+  });
+
+
+  /* -------------------------------------------------------
+     SEARCH
+  ------------------------------------------------------- */
+
+  const searchOverlay = document.getElementById("searchOverlay");
+  const searchInput = document.getElementById("searchInput");
+  const searchResults = document.getElementById("searchResults");
+
+  function openSearch() {
+
+    searchOverlay.classList.add("open");
+
+    setTimeout(() => {
+      searchInput.focus();
+    }, 50);
+
+  }
+
+  function closeSearch() {
+
+    searchOverlay.classList.remove("open");
+    searchInput.value = "";
+    searchResults.innerHTML = "";
+
+  }
+
+  document.getElementById("searchButton")
+    .addEventListener("click", openSearch);
+
+  searchOverlay.addEventListener("click", event => {
+
+    if (event.target === searchOverlay) {
+      closeSearch();
+    }
+
+  });
+
+
+  searchInput.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+      closeSearch();
+    }
+
+  });
+
+
+  searchInput.addEventListener("input", () => {
+
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (!query) {
+      searchResults.innerHTML = "";
+      return;
+    }
+
+    const blocks = [...editor.querySelectorAll("div")];
+
+    const matches = blocks
+      .filter(block =>
+        block.innerText.toLowerCase().includes(query)
+      )
+      .slice(0, 12);
+
+    searchResults.innerHTML = "";
+
+    matches.forEach((match, index) => {
+
+      const result = document.createElement("div");
+      result.className = "search-result";
+
+      result.innerHTML = `
+        <div class="search-result-title">
+          ${escapeHTML(match.innerText.slice(0, 100))}
         </div>
-    `;
-}
+        <div class="search-result-meta">
+          Match ${index + 1}
+        </div>
+      `;
 
-function jumpToSearchResult(index){
+      result.addEventListener("click", () => {
 
-    const walker =
-        document.createTreeWalker(
-            script,
-            NodeFilter.SHOW_TEXT
+        match.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+        closeSearch();
+
+        editor.focus();
+
+      });
+
+      searchResults.appendChild(result);
+
+    });
+
+  });
+
+
+  function escapeHTML(value) {
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+
+  /* -------------------------------------------------------
+     QUICK ACCESS BUTTONS
+  ------------------------------------------------------- */
+
+  document.getElementById("commentsButton")
+    .addEventListener("click", () => {
+
+      tabs.forEach(tab => {
+        tab.classList.toggle(
+          "active",
+          tab.dataset.tab === "comments"
         );
+      });
 
-    let position = 0;
-    let node;
+      Object.values(panels).forEach(panel => {
+        panel.classList.add("hidden");
+      });
 
-    while(node = walker.nextNode()){
+      commentsPanel.classList.remove("hidden");
 
-        const next =
-            position + node.textContent.length;
+    });
 
-        if(index >= position && index <= next){
 
-            const range =
-                document.createRange();
+  document.getElementById("notesButton")
+    .addEventListener("click", () => {
 
-            range.setStart(
-                node,
-                index - position
-            );
+      tabs.forEach(tab => {
+        tab.classList.toggle(
+          "active",
+          tab.dataset.tab === "notes"
+        );
+      });
 
-            range.collapse(true);
+      Object.values(panels).forEach(panel => {
+        panel.classList.add("hidden");
+      });
 
-            const selection =
-                window.getSelection();
+      notesPanel.classList.remove("hidden");
 
-            selection.removeAllRanges();
-            selection.addRange(range);
+    });
 
-            node.parentElement.scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
 
-            script.focus();
+  document.getElementById("focusButton")
+    .addEventListener("click", () => {
 
-            break;
-        }
+      document.querySelector(".sidebar")
+        .classList.toggle("hidden");
 
-        position = next;
+      document.querySelector(".topbar")
+        .classList.toggle("hidden");
+
+      document.querySelector(".statusbar")
+        .classList.toggle("hidden");
+
+      showToast("Focus mode");
+
+    });
+
+
+  document.getElementById("moreButton")
+    .addEventListener("click", () => {
+      openContextPanel("Document");
+    });
+
+
+  /* -------------------------------------------------------
+     TOAST
+  ------------------------------------------------------- */
+
+  let toastTimer;
+
+  function showToast(message) {
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 1200);
+
+  }
+
+
+  /* -------------------------------------------------------
+     KEYBOARD SHORTCUTS
+  ------------------------------------------------------- */
+
+  document.addEventListener("keydown", event => {
+
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") {
+
+      event.preventDefault();
+      saveDocument();
+
     }
 
-    closeSearch();
-}
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
 
-function escapeHtml(text){
+      event.preventDefault();
+      openSearch();
 
-    return text
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;");
-}
-
-
-/* =========================================================
-   COMMENTS
-========================================================= */
-
-function addComment(){
-
-    const text =
-        prompt(
-            "Comment:",
-            "Add a note about this section..."
-        );
-
-    if(!text)
-        return;
-
-    const list =
-        document.getElementById("commentsList");
-
-    const comment =
-        document.createElement("div");
-
-    comment.className = "comment";
-
-    comment.innerHTML = `
-        <div class="comment-top">
-
-            <div class="comment-avatar">
-                N
-            </div>
-
-            <div>
-
-                <div class="comment-author">
-                    Noah
-                </div>
-
-                <div class="comment-time">
-                    Just now
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="comment-text">
-            ${escapeHtml(text)}
-        </div>
-
-        <div class="comment-line">
-            Current selection
-        </div>
-    `;
-
-    list.prepend(comment);
-
-    const commentsButton =
-        document.querySelectorAll(".side-tab")[2];
-
-    showSidebarPanel(
-        "comments",
-        commentsButton
-    );
-}
-
-
-/* =========================================================
-   UNDO / REDO
-========================================================= */
-
-function undoEdit(){
-
-    document.execCommand(
-        "undo"
-    );
-
-    saveDocument();
-}
-
-function redoEdit(){
-
-    document.execCommand(
-        "redo"
-    );
-
-    saveDocument();
-}
-
-
-/* =========================================================
-   ZOOM
-========================================================= */
-
-function changeZoom(amount){
-
-    zoom =
-        Math.max(
-            .7,
-            Math.min(
-                1.35,
-                zoom + amount
-            )
-        );
-
-    document
-        .getElementById("paper")
-        .style.transform =
-        `scale(${zoom})`;
-
-    document
-        .getElementById("zoomStatus")
-        .textContent =
-        `${Math.round(zoom * 100)}%`;
-}
-
-
-/* =========================================================
-   CLICK OUTSIDE ELEMENT MENU
-========================================================= */
-
-document.addEventListener(
-    "mousedown",
-    event => {
-
-        if(
-            !elementPopup.contains(event.target) &&
-            !script.contains(event.target)
-        ){
-            elementPopup.classList.remove("open");
-        }
     }
-);
+
+    if (event.key === "Escape") {
+
+      closeContextPanel();
+
+      if (searchOverlay.classList.contains("open")) {
+        closeSearch();
+      }
+
+    }
+
+  });
 
 
-/* =========================================================
-   INITIALIZATION
-========================================================= */
+  /* -------------------------------------------------------
+     INITIAL STATE
+  ------------------------------------------------------- */
 
-updateStats();
+  updateStats();
 
-document
-    .querySelector(".side-tab:nth-child(3)")
-    ?.classList.add("active");
+  setTimeout(() => {
+    editor.focus();
+  }, 150);
 
 </script>
 
