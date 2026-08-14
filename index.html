@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f5f1e9">
-<title>Auteur — Screenwriting Studio</title>
+<title>Auteur</title>
 
 <style>
 :root{
-  --paper:#f7f4ed;
-  --paper2:#eee8dd;
-  --ink:#272521;
-  --muted:#817a70;
-  --charcoal:#292724;
-  --charcoal2:#36322e;
-  --line:#ddd5c8;
-  --accent:#a95748;
-  --accent2:#c98154;
-  --sage:#788a74;
-  --blue:#657b8e;
-  --white:#fffdf9;
-  --shadow:0 18px 55px rgba(49,43,35,.12);
+  --bg:#f4f1eb;
+  --panel:#faf8f4;
+  --paper:#fffefa;
+  --ink:#282622;
+  --muted:#8a8479;
+  --line:#ded8ce;
+  --soft:#ebe6dd;
+  --dark:#292724;
+  --dark2:#35312d;
+  --accent:#9d5548;
+  --accentSoft:#ead8d2;
+  --green:#71816d;
+  --blue:#6c7f8c;
+  --shadow:0 12px 35px rgba(40,36,30,.10);
 }
 
 *{
@@ -29,22 +29,21 @@
 
 html,
 body{
-  margin:0;
   width:100%;
   height:100%;
+  margin:0;
   overflow:hidden;
 }
 
 body{
+  background:var(--bg);
+  color:var(--ink);
   font-family:
     Inter,
-    ui-sans-serif,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background:var(--paper);
-  color:var(--ink);
 }
 
 button,
@@ -61,6 +60,24 @@ button{
   display:none!important;
 }
 
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+button{
+  transition:
+    background .15s ease,
+    color .15s ease,
+    border .15s ease,
+    transform .15s ease;
+}
+
+button:active{
+  transform:translateY(1px);
+}
+
+
 /* =========================================================
    HOME
 ========================================================= */
@@ -68,47 +85,43 @@ button{
 .home{
   width:100%;
   height:100vh;
-  background:var(--paper);
   display:flex;
   flex-direction:column;
 }
 
-.homebar{
-  height:72px;
+.homeHeader{
+  height:68px;
   flex-shrink:0;
   border-bottom:1px solid var(--line);
+  background:rgba(250,248,244,.95);
   display:flex;
   align-items:center;
-  padding:0 42px;
-  gap:26px;
-  background:rgba(247,244,237,.94);
-  backdrop-filter:blur(16px);
+  padding:0 38px;
 }
 
 .logo{
   display:flex;
   align-items:center;
-  gap:11px;
-  font-family:Georgia,serif;
-  font-size:22px;
+  gap:10px;
+  font:500 22px Georgia,serif;
   letter-spacing:-.04em;
 }
 
 .logoMark{
-  width:31px;
-  height:31px;
-  border-radius:9px;
-  background:var(--charcoal);
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  background:var(--dark);
   color:white;
   display:grid;
   place-items:center;
-  font-family:Georgia,serif;
-  font-weight:bold;
+  font:bold 17px Georgia,serif;
 }
 
 .homeNav{
   display:flex;
-  gap:5px;
+  margin-left:35px;
+  gap:3px;
 }
 
 .homeNav button{
@@ -116,315 +129,303 @@ button{
   background:transparent;
   color:var(--muted);
   padding:8px 12px;
-  border-radius:8px;
-  font-size:13px;
+  border-radius:7px;
+  font-size:12px;
 }
 
 .homeNav button:hover,
 .homeNav button.active{
-  background:#e9e3d8;
+  background:var(--soft);
   color:var(--ink);
 }
 
 .homeActions{
   margin-left:auto;
   display:flex;
-  gap:9px;
   align-items:center;
+  gap:8px;
 }
 
-.primary{
-  border:0;
-  background:var(--charcoal);
-  color:white;
-  padding:10px 15px;
-  border-radius:9px;
-  font-size:12px;
-  font-weight:650;
-}
-
-.primary:hover{
-  background:#3b3732;
-}
-
-.secondary{
+.btn{
   border:1px solid var(--line);
-  background:#fffaf3;
+  background:var(--panel);
   color:var(--ink);
+  border-radius:8px;
   padding:9px 13px;
-  border-radius:9px;
-  font-size:12px;
+  font-size:11px;
+}
+
+.btn:hover{
+  background:var(--soft);
+}
+
+.btnPrimary{
+  background:var(--dark);
+  color:white;
+  border-color:var(--dark);
+}
+
+.btnPrimary:hover{
+  background:var(--dark2);
 }
 
 .avatar{
-  width:34px;
-  height:34px;
+  width:32px;
+  height:32px;
   border-radius:50%;
-  background:#b98e75;
+  background:#a87561;
   color:white;
   display:grid;
   place-items:center;
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
+  margin-left:5px;
 }
 
-.homeMain{
-  width:min(1160px,calc(100% - 80px));
-  margin:0 auto;
-  padding:54px 0;
+.homeContent{
+  width:min(1120px,calc(100% - 70px));
+  margin:auto;
+  padding:45px 0;
   overflow:auto;
 }
 
-.welcome{
+.hero{
   display:flex;
-  justify-content:space-between;
   align-items:end;
-  margin-bottom:35px;
+  justify-content:space-between;
+  margin-bottom:34px;
 }
 
-.eyebrow{
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  font-size:10px;
-  font-weight:750;
+.heroText .eyebrow{
   color:var(--accent);
+  font-size:9px;
+  font-weight:750;
+  text-transform:uppercase;
+  letter-spacing:.15em;
   margin-bottom:9px;
 }
 
-.welcome h1{
-  font:500 43px/1.05 Georgia,serif;
+.heroText h1{
   margin:0;
-  letter-spacing:-.04em;
+  font:500 39px Georgia,serif;
+  letter-spacing:-.045em;
 }
 
-.welcome p{
-  margin:10px 0 0;
+.heroText p{
   color:var(--muted);
-  font-size:13px;
+  font-size:12px;
+  margin:10px 0 0;
 }
 
-.search{
-  width:255px;
-  height:38px;
+.searchBox{
+  width:230px;
+  height:36px;
   border:1px solid var(--line);
-  border-radius:9px;
-  background:#fffaf3;
-  padding:0 12px;
+  background:var(--panel);
+  border-radius:8px;
+  padding:0 11px;
   outline:none;
   color:var(--ink);
+  font-size:11px;
 }
 
-.sectionHead{
+.sectionHeader{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:14px;
+  align-items:center;
+  margin-bottom:13px;
 }
 
-.sectionHead h2{
-  font:500 20px Georgia,serif;
+.sectionHeader h2{
+  font:500 19px Georgia,serif;
   margin:0;
 }
 
-.sectionHead span{
-  font-size:11px;
+.sectionHeader span{
+  font-size:10px;
   color:var(--muted);
 }
 
 .projects{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
+  grid-template-columns:
+    repeat(4,1fr);
+  gap:14px;
 }
 
-.projectCard{
-  min-height:205px;
-  background:var(--white);
+.project{
+  background:var(--panel);
   border:1px solid var(--line);
-  border-radius:13px;
-  padding:16px;
-  position:relative;
-  overflow:hidden;
-  transition:.2s;
+  border-radius:11px;
+  padding:10px;
+  transition:.18s;
 }
 
-.projectCard:hover{
+.project:hover{
   transform:translateY(-2px);
   box-shadow:var(--shadow);
 }
 
 .cover{
-  height:112px;
-  border-radius:8px;
-  margin-bottom:14px;
-  padding:13px;
+  height:135px;
+  border-radius:7px;
   display:flex;
   align-items:end;
+  padding:14px;
   position:relative;
   overflow:hidden;
 }
 
-.cover.one{
-  background:#b7a692;
-}
-
-.cover.two{
-  background:#667b77;
-}
-
-.cover.three{
-  background:#9b7666;
-}
-
-.cover.new{
-  background:#eee8dc;
-  border:1px dashed #c9c0b1;
-  display:grid;
-  place-items:center;
-}
-
-.cover:after{
+.cover::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    0deg,
-    rgba(0,0,0,.32),
-    transparent 65%
-  );
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.34),
+      transparent 70%
+    );
 }
 
-.cover.new:after{
-  display:none;
+.cover1{
+  background:#a9947e;
 }
 
-.coverTitle{
-  font:500 17px Georgia,serif;
+.cover2{
+  background:#73817b;
+}
+
+.cover3{
+  background:#997666;
+}
+
+.projectTitle{
+  position:relative;
+  z-index:1;
   color:white;
-  position:relative;
-  z-index:1;
+  font:500 17px Georgia,serif;
 }
 
-.coverSub{
-  font-size:9px;
-  color:#fff9;
-  margin-top:3px;
-  position:relative;
-  z-index:1;
-}
-
-.newPlus{
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  background:#fffaf3;
-  color:var(--muted);
-  display:grid;
-  place-items:center;
-  font-size:20px;
-}
-
-.projectMeta{
+.projectInfo{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:11px 3px 3px;
 }
 
-.projectMeta strong{
-  font:500 14px Georgia,serif;
+.projectInfo strong{
+  font:500 13px Georgia,serif;
 }
 
-.projectMeta span{
-  font-size:10px;
+.projectInfo span{
   color:var(--muted);
+  font-size:9px;
 }
 
-.bottomGrid{
+.newProject{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:#eee9df;
+  border:1px dashed #cfc7ba;
+  color:var(--muted);
+  gap:8px;
+}
+
+.newProject .plus{
+  width:34px;
+  height:34px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:50%;
   display:grid;
-  grid-template-columns:1.35fr 1fr;
-  gap:18px;
-  margin-top:34px;
+  place-items:center;
+  font-size:18px;
+}
+
+.homeBottom{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:30px;
 }
 
 .homePanel{
-  background:#fffaf3;
+  background:var(--panel);
   border:1px solid var(--line);
-  border-radius:13px;
-  padding:18px;
+  border-radius:11px;
+  padding:17px;
 }
 
 .homePanel h3{
-  font:500 17px Georgia,serif;
-  margin:0 0 14px;
+  margin:0 0 13px;
+  font:500 16px Georgia,serif;
 }
 
-.activity{
+.recent{
   display:grid;
-  grid-template-columns:32px 1fr auto;
-  gap:10px;
+  grid-template-columns:30px 1fr auto;
   align-items:center;
-  padding:10px 0;
-  border-top:1px solid #e7e0d4;
+  gap:9px;
+  padding:9px 0;
+  border-top:1px solid var(--soft);
 }
 
-.activity:first-of-type{
+.recent:first-of-type{
   border-top:0;
 }
 
-.activityIcon{
-  width:29px;
-  height:29px;
-  border-radius:8px;
-  background:#e9e3d8;
+.recentIcon{
+  width:28px;
+  height:28px;
+  background:var(--soft);
+  border-radius:7px;
   display:grid;
   place-items:center;
+  font:500 11px Georgia,serif;
   color:var(--accent);
-  font-size:11px;
 }
 
-.activityText{
-  font-size:11px;
+.recent b{
+  font-size:10px;
 }
 
-.activityText b{
-  font-weight:650;
-}
-
-.activityText small{
+.recent small{
   display:block;
   color:var(--muted);
+  font-size:9px;
   margin-top:2px;
 }
 
-.activity time{
-  font-size:9px;
+.recent time{
   color:var(--muted);
+  font-size:8px;
 }
 
-.quick{
+.quickGrid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
 }
 
-.quick button{
-  padding:12px;
-  text-align:left;
+.quick{
   border:1px solid var(--line);
-  background:#f8f4ec;
-  border-radius:9px;
-  color:var(--ink);
-  font-size:11px;
+  background:#f5f1e9;
+  border-radius:8px;
+  padding:11px;
+  text-align:left;
 }
 
-.quick button:hover{
-  background:#eee8dd;
+.quick:hover{
+  background:var(--soft);
 }
 
-.quick b{
+.quick strong{
   display:block;
-  font:500 14px Georgia,serif;
-  margin-bottom:4px;
+  font:500 13px Georgia,serif;
+  margin-bottom:3px;
 }
 
 .quick span{
@@ -434,182 +435,213 @@ button{
 
 
 /* =========================================================
-   WORKSPACE
+   APP
 ========================================================= */
 
-.workspace{
+.app{
+  width:100%;
   height:100vh;
   display:grid;
-  grid-template-columns:238px minmax(450px,1fr) 292px;
-  grid-template-rows:58px 1fr;
-  background:#e9e4da;
+  grid-template-columns:220px minmax(0,1fr) 250px;
+  grid-template-rows:54px 1fr;
+  background:#e6e1d8;
 }
 
-.workspaceTop{
-  grid-column:1/-1;
-  background:var(--charcoal);
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+  grid-column:1 / -1;
+  background:var(--dark);
   color:white;
-  display:flex;
+  display:grid;
+  grid-template-columns:220px 1fr 250px;
   align-items:center;
-  padding:0 12px;
-  gap:12px;
+  border-bottom:1px solid #181715;
 }
 
-.workspaceLogo{
-  width:215px;
+.topBrand{
+  height:100%;
   display:flex;
   align-items:center;
   gap:9px;
-  font-family:Georgia,serif;
-  font-size:18px;
+  padding-left:13px;
+  border-right:1px solid rgba(255,255,255,.07);
 }
 
-.workspaceLogo .logoMark{
-  background:#f2eee6;
-  color:var(--charcoal);
+.topBrand .logoMark{
+  background:#f1ede5;
+  color:var(--dark);
 }
 
-.projectName{
-  height:34px;
-  border-left:1px solid #ffffff22;
-  padding-left:16px;
+.topBrand span{
+  font:500 18px Georgia,serif;
+}
+
+.documentName{
+  padding-left:18px;
+  font-size:11px;
+  color:#ddd8d0;
+}
+
+.documentName small{
+  color:#918c84;
+  margin-left:6px;
+}
+
+.topCenter{
+  justify-self:center;
   display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-  color:#f0ece4;
-}
-
-.projectName small{
-  color:#a9a49b;
-}
-
-.workspaceMode{
-  margin:auto;
-  display:flex;
-  gap:2px;
-  background:#1e1c1a;
-  border:1px solid #ffffff12;
-  padding:3px;
+  background:#201e1b;
+  border:1px solid rgba(255,255,255,.07);
   border-radius:8px;
+  padding:3px;
 }
 
-.workspaceMode button{
+.viewButton{
   border:0;
   background:transparent;
-  color:#a9a59e;
-  font-size:10px;
-  padding:6px 12px;
+  color:#aaa59d;
+  font-size:9px;
+  padding:6px 13px;
   border-radius:6px;
 }
 
-.workspaceMode button.active{
-  background:#f2eee6;
-  color:#292825;
+.viewButton.active{
+  background:#f1ede5;
+  color:var(--dark);
 }
 
-.topRight{
+.topActions{
   display:flex;
-  gap:6px;
+  justify-content:flex-end;
+  gap:5px;
+  padding-right:12px;
 }
 
-.topIcon{
-  width:32px;
-  height:32px;
-  border:1px solid #ffffff18;
+.topAction{
+  width:31px;
+  height:31px;
+  border:1px solid rgba(255,255,255,.09);
   background:transparent;
-  color:#c8c3ba;
+  color:#c3beb7;
   border-radius:7px;
 }
 
-.topIcon:hover{
-  background:#ffffff10;
+.topAction:hover{
+  background:rgba(255,255,255,.07);
 }
 
 
-/* SIDEBAR */
+/* =========================================================
+   LEFT PANEL
+========================================================= */
 
-.sidebar{
-  background:#f3efe7;
-  border-right:1px solid #d8d1c5;
+.leftPanel{
+  background:#f2eee7;
+  border-right:1px solid var(--line);
+  min-width:0;
   overflow:hidden;
-  padding:13px 9px;
 }
 
-.sideSection{
-  font-size:9px;
+.panelLabel{
+  padding:14px 13px 8px;
+  color:#948d82;
+  font-size:8px;
   font-weight:750;
-  letter-spacing:.13em;
   text-transform:uppercase;
-  color:#938c80;
-  padding:8px 9px;
+  letter-spacing:.13em;
 }
 
-.sideNav{
-  display:grid;
-  gap:2px;
-  margin-bottom:15px;
+.mainNav{
+  padding:0 8px;
 }
 
-.sideNav button,
-.scene{
+.mainNav button{
+  width:100%;
   border:0;
   background:transparent;
-  color:#666157;
+  color:#6d675d;
   text-align:left;
-  width:100%;
-  border-radius:7px;
   padding:8px 9px;
-  font-size:11px;
+  border-radius:7px;
+  font-size:10px;
   display:flex;
   align-items:center;
   gap:9px;
 }
 
-.sideNav button:hover,
-.scene:hover{
-  background:#e7e1d7;
+.mainNav button:hover{
+  background:#e8e2d8;
   color:var(--ink);
 }
 
-.sideNav button.active{
-  background:#e2dbcf;
+.mainNav button.active{
+  background:#e2dcd2;
   color:var(--ink);
   font-weight:650;
 }
 
-.sideNav i{
-  font-style:normal;
-  width:16px;
+.navIcon{
+  width:15px;
+  color:#8b8478;
   text-align:center;
-  color:#857e72;
 }
 
-.shortcut{
-  margin-left:auto;
+.sceneHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px 13px 8px;
+  color:#948d82;
   font-size:8px;
-  color:#a49c90;
+  font-weight:750;
+  text-transform:uppercase;
+  letter-spacing:.13em;
 }
 
-.sceneList{
+.addScene{
+  border:0;
+  background:transparent;
+  color:#81796e;
+  font-size:15px;
+}
+
+.scenes{
+  padding:0 8px;
   overflow:auto;
-  height:calc(100% - 225px);
+  height:calc(100% - 218px);
 }
 
 .scene{
-  font-size:10px;
-  padding:7px 9px;
+  width:100%;
+  border:0;
+  background:transparent;
+  display:grid;
+  grid-template-columns:25px 1fr 7px;
+  gap:5px;
+  align-items:center;
+  text-align:left;
+  padding:7px 8px;
+  border-radius:7px;
+  color:#6f695f;
+  font-size:9px;
+}
+
+.scene:hover{
+  background:#e8e2d8;
 }
 
 .scene.active{
-  background:#e1dbd0;
+  background:#e0d9ce;
   color:var(--ink);
 }
 
 .sceneNumber{
+  color:#aaa296;
   font-family:Georgia,serif;
-  color:#a1988b;
-  width:16px;
 }
 
 .sceneTitle{
@@ -619,108 +651,111 @@ button{
 }
 
 .sceneDot{
-  margin-left:auto;
   width:5px;
   height:5px;
   border-radius:50%;
-  background:var(--sage);
+  background:var(--green);
 }
 
 
-/* EDITOR */
+/* =========================================================
+   CENTER
+========================================================= */
 
-.editor{
-  background:#dcd6cc;
-  position:relative;
+.center{
+  min-width:0;
+  min-height:0;
   display:flex;
   flex-direction:column;
-  min-width:0;
+  background:#ddd8ce;
 }
 
-.editorToolbar{
-  height:45px;
-  background:#f0ece4;
-  border-bottom:1px solid #d1cabd;
+.editorTools{
+  height:43px;
+  flex-shrink:0;
+  background:#f3efe8;
+  border-bottom:1px solid var(--line);
   display:flex;
   align-items:center;
-  padding:0 13px;
+  justify-content:center;
   gap:2px;
 }
 
-.tool{
+.formatButton{
   border:0;
   background:transparent;
-  color:#746d62;
-  font-size:10px;
+  color:#756e64;
   padding:7px 9px;
   border-radius:6px;
+  font-size:9px;
+  font-weight:600;
 }
 
-.tool:hover,
-.tool.active{
-  background:#e6ded4;
+.formatButton:hover,
+.formatButton.active{
+  background:#e7e0d6;
   color:var(--accent);
 }
 
-.toolSep{
-  height:19px;
+.toolDivider{
   width:1px;
-  background:#d3ccc0;
-  margin:0 6px;
+  height:19px;
+  background:var(--line);
+  margin:0 7px;
 }
 
-.editorStatus{
-  margin-left:auto;
-  font-size:9px;
-  color:#8b8479;
+.toolRight{
+  position:absolute;
+  right:13px;
   display:flex;
-  gap:10px;
+  align-items:center;
+  gap:8px;
+}
+
+.wordCount{
+  font-size:8px;
+  color:#91897e;
 }
 
 .saved{
-  color:#70866f;
+  color:#71816d;
+  font-size:8px;
 }
 
-.pageViewport{
+.paperArea{
   flex:1;
+  min-height:0;
   overflow:auto;
-  padding:40px 40px 80px;
+  padding:32px 30px 60px;
   display:flex;
   justify-content:center;
 }
 
-.pageViewport::-webkit-scrollbar{
-  width:8px;
+.paper{
+  width:min(700px,100%);
+  min-height:850px;
+  background:var(--paper);
+  box-shadow:0 14px 40px rgba(48,43,36,.15);
+  padding:72px 82px 90px;
 }
 
-.pageViewport::-webkit-scrollbar-thumb{
-  background:#bbb3a6;
-  border-radius:8px;
-}
-
-.page{
-  width:min(720px,100%);
-  min-height:920px;
-  background:#fffdf9;
-  box-shadow:0 16px 45px rgba(52,46,38,.17);
-  padding:75px 82px 100px;
-  color:#1e1d1a;
-}
-
-.titlePage{
-  font-family:"Courier New",monospace;
+.title{
   text-align:center;
-  font-size:12px;
-  margin-bottom:55px;
-  letter-spacing:.03em;
+  font-family:"Courier New",monospace;
+  font-size:11px;
+  letter-spacing:.04em;
+  margin-bottom:50px;
 }
 
 .script{
-  font-family:"Courier New",Courier,monospace;
-  font-size:12px;
-  line-height:1.58;
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+  font-size:11px;
+  line-height:1.65;
   outline:0;
-  min-height:700px;
+  min-height:650px;
 }
 
 .script div{
@@ -728,234 +763,354 @@ button{
 }
 
 .sceneHeading{
-  font-weight:bold;
   text-transform:uppercase;
+  font-weight:bold;
   margin-top:20px;
 }
 
 .action{
-  margin:0 0 10px;
+  margin-bottom:9px;
 }
 
 .character{
   text-align:center;
-  margin-top:16px;
+  margin-top:15px;
 }
 
 .dialogue{
-  width:59%;
-  margin:0 auto 11px;
+  width:58%;
+  margin:0 auto 9px;
 }
 
 .parenthetical{
-  width:46%;
+  width:44%;
   margin:0 auto;
-  font-size:11px;
+  font-size:10px;
 }
 
 .transition{
   text-align:right;
   text-transform:uppercase;
-  margin-top:20px;
-}
-
-.bottomStatus{
-  position:absolute;
-  bottom:12px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#f1ece4cc;
-  border:1px solid #d4ccbf;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:8px;
-  color:#817a70;
-  backdrop-filter:blur(8px);
+  margin-top:18px;
 }
 
 
-/* RIGHT */
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
 
-.rightbar{
-  background:#f4f0e8;
-  border-left:1px solid #d8d1c5;
+.rightPanel{
+  background:#f3efe8;
+  border-left:1px solid var(--line);
+  min-width:0;
   overflow:hidden;
 }
 
-.rightTabs{
-  height:45px;
-  display:flex;
-  border-bottom:1px solid #d8d1c5;
+.rightHeader{
+  height:43px;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
 }
 
-.rightTabs button{
-  flex:1;
+.rightTab{
   border:0;
   background:transparent;
-  color:#918a7f;
-  font-size:10px;
+  color:#938c81;
+  font-size:9px;
 }
 
-.rightTabs button.active{
+.rightTab.active{
   color:var(--ink);
   border-bottom:2px solid var(--accent);
 }
 
-.rightContent{
-  padding:13px;
+.inspector{
+  padding:12px;
   overflow:auto;
-  height:calc(100% - 45px);
+  height:calc(100% - 43px);
 }
 
-.infoCard{
+.card{
+  background:#faf7f1;
   border:1px solid #ded7cb;
-  background:#fbf8f1;
-  border-radius:10px;
-  padding:12px;
+  border-radius:9px;
+  padding:11px;
   margin-bottom:9px;
 }
 
-.infoCard h3{
+.cardTitle{
   font:500 14px Georgia,serif;
-  margin:0 0 10px;
+  margin-bottom:11px;
 }
 
 .label{
-  font-size:9px;
+  color:#999186;
+  font-size:8px;
   text-transform:uppercase;
   letter-spacing:.08em;
-  color:#9a9387;
 }
 
 .value{
-  font-size:11px;
-  margin-top:3px;
+  font-size:10px;
+  margin-top:4px;
 }
 
-.meter{
+.progress{
   height:4px;
-  background:#e2dcd1;
-  border-radius:4px;
+  background:#e1dbd0;
+  border-radius:5px;
   margin-top:9px;
 }
 
-.meter i{
+.progress span{
   display:block;
   width:72%;
   height:100%;
   background:var(--accent);
-  border-radius:4px;
+  border-radius:5px;
 }
 
 .stats{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:7px;
+  gap:6px;
 }
 
 .stat{
-  background:#f1ece4;
+  background:#f0ebe3;
   border-radius:7px;
-  padding:9px;
+  padding:8px;
 }
 
-.stat b{
-  font:500 17px Georgia,serif;
-}
-
-.stat span{
+.stat strong{
   display:block;
-  color:#948d81;
+  font:500 16px Georgia,serif;
+}
+
+.stat small{
+  color:#968e83;
   font-size:8px;
-  margin-top:2px;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
 }
 
 .tag{
-  display:inline-block;
   padding:5px 7px;
-  border-radius:6px;
-  background:#e8e1d6;
-  font-size:9px;
-  margin:3px 3px 0 0;
+  border-radius:5px;
+  background:#e9e2d8;
+  color:#756e64;
+  font-size:8px;
 }
 
 .tag.red{
-  background:#ead9d3;
-  color:#865044;
+  background:var(--accentSoft);
+  color:#815047;
 }
 
 .tag.green{
-  background:#dce5db;
-  color:#586d57;
+  background:#dde4da;
+  color:#5d6c5a;
 }
 
 .tag.blue{
-  background:#dce3e7;
-  color:#596c7c;
+  background:#dde3e7;
+  color:#5e707d;
 }
 
 
-/* MODAL */
+/* =========================================================
+   OTHER VIEWS
+========================================================= */
+
+.utilityView{
+  width:min(900px,100%);
+  margin:auto;
+  padding:30px;
+}
+
+.utilityTitle{
+  font:500 30px Georgia,serif;
+  margin:0 0 25px;
+}
+
+.storyBoard{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.storyColumn{
+  background:#f2eee7;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+  min-height:430px;
+}
+
+.storyColumn h3{
+  font:500 14px Georgia,serif;
+  margin:0 0 12px;
+}
+
+.storyCard{
+  background:#fffaf3;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:12px;
+  margin-bottom:8px;
+}
+
+.storyCard small{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  margin-bottom:6px;
+}
+
+.storyCard strong{
+  font:500 13px Georgia,serif;
+}
+
+.outlineItem{
+  background:#faf7f1;
+  border:1px solid var(--line);
+  padding:13px;
+  border-radius:8px;
+  margin-bottom:7px;
+  font-size:11px;
+}
+
+.characterGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.characterCard{
+  background:#faf7f1;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:15px;
+}
+
+.characterAvatar{
+  width:40px;
+  height:40px;
+  background:#ded6ca;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font:500 15px Georgia,serif;
+  margin-bottom:10px;
+}
+
+.characterCard h3{
+  font:500 15px Georgia,serif;
+  margin:0 0 3px;
+}
+
+.characterCard p{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.5;
+}
+
+.notes{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.note{
+  background:#f6eeda;
+  border:1px solid #ded3b8;
+  border-radius:9px;
+  padding:15px;
+  min-height:120px;
+}
+
+.note h3{
+  font:500 14px Georgia,serif;
+  margin:0 0 7px;
+}
+
+.note p{
+  font-size:10px;
+  color:#716b61;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal{
   position:fixed;
   inset:0;
-  background:#29282566;
-  backdrop-filter:blur(5px);
+  background:rgba(39,36,32,.45);
+  backdrop-filter:blur(4px);
   display:grid;
   place-items:center;
-  z-index:30;
+  z-index:50;
 }
 
 .modalBox{
-  width:430px;
-  background:#fbf8f1;
-  border:1px solid #d7cfc2;
-  border-radius:14px;
-  padding:22px;
-  box-shadow:0 25px 70px #29282533;
+  width:400px;
+  background:#faf7f1;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:21px;
+  box-shadow:0 25px 70px rgba(0,0,0,.2);
 }
 
 .modalBox h2{
-  font:500 24px Georgia,serif;
-  margin:0 0 17px;
+  margin:0 0 15px;
+  font:500 23px Georgia,serif;
 }
 
 .modalBox input{
   width:100%;
-  height:40px;
-  border:1px solid #d6cec1;
-  background:#fffdf9;
-  border-radius:8px;
-  padding:0 11px;
+  height:39px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:white;
+  padding:0 10px;
   outline:none;
+  font-size:11px;
 }
 
-.modalActions{
+.modalButtons{
   display:flex;
   justify-content:flex-end;
-  gap:8px;
-  margin-top:16px;
+  gap:7px;
+  margin-top:15px;
 }
 
 
-/* TOAST */
+/* =========================================================
+   TOAST
+========================================================= */
 
 .toast{
   position:fixed;
-  right:20px;
-  bottom:20px;
-  background:#292825;
+  right:18px;
+  bottom:18px;
+  background:var(--dark);
   color:white;
-  padding:10px 14px;
-  border-radius:8px;
-  font-size:10px;
-  box-shadow:0 12px 35px #0003;
+  padding:9px 13px;
+  border-radius:7px;
+  font-size:9px;
   opacity:0;
-  transform:translateY(8px);
+  transform:translateY(6px);
   pointer-events:none;
   transition:.2s;
-  z-index:40;
+  z-index:100;
 }
 
 .toast.show{
@@ -964,26 +1119,37 @@ button{
 }
 
 
-/* RESPONSIVE */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-@media(max-width:1100px){
+@media(max-width:1050px){
 
-  .workspace{
-    grid-template-columns:205px 1fr;
+  .app{
+    grid-template-columns:190px 1fr;
   }
 
-  .rightbar{
+  .topbar{
+    grid-template-columns:190px 1fr 190px;
+  }
+
+  .rightPanel{
     display:none;
+  }
+
+  .topCenter{
+    transform:scale(.9);
   }
 
   .projects{
     grid-template-columns:repeat(3,1fr);
   }
+
 }
 
 @media(max-width:780px){
 
-  .homebar{
+  .homeHeader{
     padding:0 18px;
   }
 
@@ -991,1045 +1157,1171 @@ button{
     display:none;
   }
 
-  .homeMain{
-    width:calc(100% - 35px);
+  .homeContent{
+    width:calc(100% - 30px);
+  }
+
+  .hero{
+    align-items:start;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .searchBox{
+    width:100%;
   }
 
   .projects{
     grid-template-columns:1fr 1fr;
   }
 
-  .bottomGrid{
+  .homeBottom{
     grid-template-columns:1fr;
   }
 
-  .sidebar{
+  .leftPanel{
     display:none;
   }
 
-  .workspace{
+  .app{
     grid-template-columns:1fr;
   }
 
-  .workspaceLogo{
-    width:auto;
+  .topbar{
+    grid-template-columns:1fr auto;
   }
 
-  .projectName{
+  .topBrand{
+    border:0;
+  }
+
+  .documentName,
+  .topCenter{
     display:none;
   }
 
-  .pageViewport{
-    padding:20px;
+  .paperArea{
+    padding:15px;
   }
 
-  .page{
-    padding:50px 40px;
+  .paper{
+    padding:50px 35px;
   }
+
+  .editorTools{
+    overflow:auto;
+    justify-content:flex-start;
+  }
+
+  .toolRight{
+    display:none;
+  }
+
+  .storyBoard{
+    grid-template-columns:1fr;
+  }
+
+  .characterGrid{
+    grid-template-columns:1fr;
+  }
+
 }
 </style>
 </head>
 
+
 <body>
 
+
 <!-- ========================================================
-     AUTEUR HOME
+     HOME
 ========================================================= -->
 
 <section class="home" id="home">
 
-<header class="homebar">
+  <header class="homeHeader">
 
-  <div class="logo">
-    <div class="logoMark">A</div>
-    Auteur
-  </div>
-
-  <nav class="homeNav">
-    <button class="active">Projects</button>
-    <button>Templates</button>
-    <button>Trash</button>
-  </nav>
-
-  <div class="homeActions">
-
-    <button class="secondary" id="importBtn">
-      Import
-    </button>
-
-    <button class="primary" id="newProjectBtn">
-      + New Project
-    </button>
-
-    <div class="avatar">
-      B
+    <div class="logo">
+      <div class="logoMark">A</div>
+      Auteur
     </div>
 
-  </div>
+    <nav class="homeNav">
 
-</header>
+      <button class="active">
+        Projects
+      </button>
 
+      <button>
+        Templates
+      </button>
 
-<main class="homeMain">
+      <button>
+        Archive
+      </button>
 
-  <div class="welcome">
+    </nav>
 
-    <div>
+    <div class="homeActions">
 
-      <div class="eyebrow">
-        Screenwriting studio
+      <button class="btn" id="importButton">
+        Import
+      </button>
+
+      <button
+        class="btn btnPrimary"
+        id="newProjectButton"
+      >
+        + New Project
+      </button>
+
+      <div class="avatar">
+        B
       </div>
 
-      <h1>
-        Make the story impossible to ignore.
-      </h1>
+    </div>
 
-      <p>
-        Your scripts, story maps, characters, and ideas in one quiet workspace.
-      </p>
+  </header>
+
+
+  <main class="homeContent">
+
+    <div class="hero">
+
+      <div class="heroText">
+
+        <div class="eyebrow">
+          Screenwriting studio
+        </div>
+
+        <h1>
+          Welcome back.
+        </h1>
+
+        <p>
+          Write the story. Shape the story. See the story.
+        </p>
+
+      </div>
+
+      <input
+        class="searchBox"
+        id="searchProjects"
+        placeholder="Search projects..."
+      >
 
     </div>
 
-    <input
-      class="search"
-      id="projectSearch"
-      placeholder="Search projects..."
-    >
 
-  </div>
+    <div class="sectionHeader">
 
+      <h2>
+        Your projects
+      </h2>
 
-  <div class="sectionHead">
+      <span id="projectNumber">
+        3 projects
+      </span>
 
-    <h2>
-      Recent projects
-    </h2>
-
-    <span id="projectCount">
-      3 projects
-    </span>
-
-  </div>
+    </div>
 
 
-  <div class="projects" id="projects">
+    <div class="projects" id="projects">
 
-    <article
-      class="projectCard"
-      data-name="The Last Signal"
-      data-open
-    >
+      <article
+        class="project"
+        data-project="The Last Signal"
+      >
 
-      <div class="cover one">
+        <div class="cover cover1">
 
-        <div>
-
-          <div class="coverTitle">
+          <div class="projectTitle">
             The Last Signal
           </div>
 
-          <div class="coverSub">
-            Feature Screenplay · 12%
-          </div>
+        </div>
+
+        <div class="projectInfo">
+
+          <strong>
+            The Last Signal
+          </strong>
+
+          <span>
+            Today
+          </span>
 
         </div>
 
-      </div>
-
-      <div class="projectMeta">
-
-        <strong>
-          The Last Signal
-        </strong>
-
-        <span>
-          Edited today
-        </span>
-
-      </div>
-
-    </article>
+      </article>
 
 
-    <article
-      class="projectCard"
-      data-name="Figures of Doom"
-      data-open
-    >
+      <article
+        class="project"
+        data-project="Figures of Doom"
+      >
 
-      <div class="cover two">
+        <div class="cover cover2">
 
-        <div>
-
-          <div class="coverTitle">
+          <div class="projectTitle">
             Figures of Doom
           </div>
 
-          <div class="coverSub">
-            Feature Screenplay · 48%
-          </div>
+        </div>
+
+        <div class="projectInfo">
+
+          <strong>
+            Figures of Doom
+          </strong>
+
+          <span>
+            Yesterday
+          </span>
 
         </div>
 
-      </div>
-
-      <div class="projectMeta">
-
-        <strong>
-          Figures of Doom
-        </strong>
-
-        <span>
-          Yesterday
-        </span>
-
-      </div>
-
-    </article>
+      </article>
 
 
-    <article
-      class="projectCard"
-      data-name="Sentient Mass"
-      data-open
-    >
+      <article
+        class="project"
+        data-project="Sentient Mass"
+      >
 
-      <div class="cover three">
+        <div class="cover cover3">
 
-        <div>
-
-          <div class="coverTitle">
+          <div class="projectTitle">
             Sentient Mass
           </div>
 
-          <div class="coverSub">
-            Feature Screenplay · 31%
-          </div>
+        </div>
+
+        <div class="projectInfo">
+
+          <strong>
+            Sentient Mass
+          </strong>
+
+          <span>
+            Aug 12
+          </span>
 
         </div>
 
-      </div>
-
-      <div class="projectMeta">
-
-        <strong>
-          Sentient Mass
-        </strong>
-
-        <span>
-          Aug 12
-        </span>
-
-      </div>
-
-    </article>
+      </article>
 
 
-    <article
-      class="projectCard"
-      id="newCard"
-    >
+      <article
+        class="project newProject"
+        id="newProjectCard"
+      >
 
-      <div class="cover new">
-
-        <div class="newPlus">
+        <div class="plus">
           +
         </div>
-
-      </div>
-
-      <div class="projectMeta">
 
         <strong>
           New project
         </strong>
 
         <span>
-          Start writing
+          Start something new
+        </span>
+
+      </article>
+
+    </div>
+
+
+    <div class="homeBottom">
+
+      <section class="homePanel">
+
+        <h3>
+          Continue writing
+        </h3>
+
+        <div class="recent">
+
+          <div class="recentIcon">
+            L
+          </div>
+
+          <div>
+
+            <b>
+              The Last Signal
+            </b>
+
+            <small>
+              Scene 1 · EXT. EMPTY ROAD - NIGHT
+            </small>
+
+          </div>
+
+          <time>
+            Today
+          </time>
+
+        </div>
+
+
+        <div class="recent">
+
+          <div class="recentIcon">
+            F
+          </div>
+
+          <div>
+
+            <b>
+              Figures of Doom
+            </b>
+
+            <small>
+              Scene 42 · EXT. WONDERLAND
+            </small>
+
+          </div>
+
+          <time>
+            Yesterday
+          </time>
+
+        </div>
+
+
+        <div class="recent">
+
+          <div class="recentIcon">
+            S
+          </div>
+
+          <div>
+
+            <b>
+              Sentient Mass
+            </b>
+
+            <small>
+              Scene 18 · INT. OMEGA CHAMBER
+            </small>
+
+          </div>
+
+          <time>
+            Aug 12
+          </time>
+
+        </div>
+
+      </section>
+
+
+      <section class="homePanel">
+
+        <h3>
+          Jump in
+        </h3>
+
+        <div class="quickGrid">
+
+          <button
+            class="quick"
+            id="quickWrite"
+          >
+            <strong>
+              Write
+            </strong>
+
+            <span>
+              Start a screenplay
+            </span>
+
+          </button>
+
+
+          <button
+            class="quick"
+            id="quickMap"
+          >
+            <strong>
+              Story Map
+            </strong>
+
+            <span>
+              Build the structure
+            </span>
+
+          </button>
+
+
+          <button
+            class="quick"
+            id="quickCharacters"
+          >
+            <strong>
+              Characters
+            </strong>
+
+            <span>
+              Develop your cast
+            </span>
+
+          </button>
+
+
+          <button
+            class="quick"
+            id="quickNotes"
+          >
+            <strong>
+              Notes
+            </strong>
+
+            <span>
+              Capture ideas
+            </span>
+
+          </button>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</section>
+
+
+
+<!-- ========================================================
+     APP
+========================================================= -->
+
+<section
+  class="app hidden"
+  id="app"
+>
+
+
+  <!-- TOP BAR -->
+
+  <header class="topbar">
+
+    <div class="topBrand">
+
+      <div class="logoMark">
+        A
+      </div>
+
+      <span>
+        Auteur
+      </span>
+
+    </div>
+
+
+    <div class="documentName">
+
+      <span id="documentName">
+        The Last Signal
+      </span>
+
+      <small>
+        Screenplay
+      </small>
+
+    </div>
+
+
+    <div class="topCenter">
+
+      <button
+        class="viewButton active"
+        data-view="write"
+      >
+        Write
+      </button>
+
+      <button
+        class="viewButton"
+        data-view="map"
+      >
+        Story Map
+      </button>
+
+      <button
+        class="viewButton"
+        data-view="outline"
+      >
+        Outline
+      </button>
+
+      <button
+        class="viewButton"
+        data-view="timeline"
+      >
+        Timeline
+      </button>
+
+    </div>
+
+
+    <div class="topActions">
+
+      <button
+        class="topAction"
+        id="focusMode"
+        title="Focus Mode"
+      >
+        ⛶
+      </button>
+
+      <button
+        class="topAction"
+        id="saveButton"
+        title="Save"
+      >
+        ✓
+      </button>
+
+      <button
+        class="topAction"
+        id="closeApp"
+        title="Back"
+      >
+        ←
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- LEFT -->
+
+  <aside class="leftPanel">
+
+    <div class="panelLabel">
+      Project
+    </div>
+
+
+    <nav class="mainNav">
+
+      <button
+        class="active"
+        data-panel="write"
+      >
+
+        <span class="navIcon">
+          ▤
+        </span>
+
+        Screenplay
+
+      </button>
+
+
+      <button data-panel="map">
+
+        <span class="navIcon">
+          ▦
+        </span>
+
+        Story Map
+
+      </button>
+
+
+      <button data-panel="characters">
+
+        <span class="navIcon">
+          ♙
+        </span>
+
+        Characters
+
+      </button>
+
+
+      <button data-panel="locations">
+
+        <span class="navIcon">
+          ⌂
+        </span>
+
+        Locations
+
+      </button>
+
+
+      <button data-panel="notes">
+
+        <span class="navIcon">
+          ✎
+        </span>
+
+        Notes
+
+      </button>
+
+
+      <button data-panel="research">
+
+        <span class="navIcon">
+          ◇
+        </span>
+
+        Research
+
+      </button>
+
+    </nav>
+
+
+    <div class="sceneHeader">
+
+      <span>
+        Scenes
+      </span>
+
+      <button
+        class="addScene"
+        id="addScene"
+      >
+        +
+      </button>
+
+    </div>
+
+
+    <div
+      class="scenes"
+      id="scenes"
+    >
+
+      <button class="scene active">
+
+        <span class="sceneNumber">
+          01
+        </span>
+
+        <span class="sceneTitle">
+          EXT. EMPTY ROAD - NIGHT
+        </span>
+
+        <span class="sceneDot"></span>
+
+      </button>
+
+
+      <button class="scene">
+
+        <span class="sceneNumber">
+          02
+        </span>
+
+        <span class="sceneTitle">
+          INT. APARTMENT - NIGHT
+        </span>
+
+        <span class="sceneDot"></span>
+
+      </button>
+
+
+      <button class="scene">
+
+        <span class="sceneNumber">
+          03
+        </span>
+
+        <span class="sceneTitle">
+          INT. SUBWAY - NIGHT
+        </span>
+
+        <span class="sceneDot"></span>
+
+      </button>
+
+
+      <button class="scene">
+
+        <span class="sceneNumber">
+          04
+        </span>
+
+        <span class="sceneTitle">
+          EXT. ROOFTOP - DAWN
+        </span>
+
+        <span class="sceneDot"></span>
+
+      </button>
+
+
+      <button class="scene">
+
+        <span class="sceneNumber">
+          05
+        </span>
+
+        <span class="sceneTitle">
+          INT. SIGNAL ROOM - MORNING
+        </span>
+
+      </button>
+
+
+      <button class="scene">
+
+        <span class="sceneNumber">
+          06
+        </span>
+
+        <span class="sceneTitle">
+          EXT. CITY - DAY
+        </span>
+
+      </button>
+
+
+      <button class="scene">
+
+        <span class="sceneNumber">
+          07
+        </span>
+
+        <span class="sceneTitle">
+          INT. HOSPITAL - DAY
+        </span>
+
+      </button>
+
+
+      <button class="scene">
+
+        <span class="sceneNumber">
+          08
+        </span>
+
+        <span class="sceneTitle">
+          EXT. BRIDGE - SUNSET
+        </span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- CENTER -->
+
+  <main class="center">
+
+    <div class="editorTools">
+
+      <button
+        class="formatButton active"
+        data-format="scene"
+      >
+        Scene
+      </button>
+
+      <button
+        class="formatButton"
+        data-format="action"
+      >
+        Action
+      </button>
+
+      <button
+        class="formatButton"
+        data-format="character"
+      >
+        Character
+      </button>
+
+      <button
+        class="formatButton"
+        data-format="dialogue"
+      >
+        Dialogue
+      </button>
+
+      <button
+        class="formatButton"
+        data-format="parenthetical"
+      >
+        Parenthetical
+      </button>
+
+      <button
+        class="formatButton"
+        data-format="transition"
+      >
+        Transition
+      </button>
+
+
+      <span class="toolDivider"></span>
+
+
+      <button
+        class="formatButton"
+        id="bold"
+      >
+        <b>B</b>
+      </button>
+
+      <button
+        class="formatButton"
+        id="italic"
+      >
+        <i>I</i>
+      </button>
+
+
+      <div class="toolRight">
+
+        <span
+          class="wordCount"
+          id="wordCount"
+        >
+          0 words
+        </span>
+
+        <span class="saved">
+          ● Saved
         </span>
 
       </div>
 
-    </article>
-
-  </div>
-
-
-  <div class="bottomGrid">
-
-    <section class="homePanel">
-
-      <h3>
-        Continue writing
-      </h3>
-
-
-      <div class="activity">
-
-        <div class="activityIcon">
-          A
-        </div>
-
-        <div class="activityText">
-
-          <b>
-            The Last Signal
-          </b>
-
-          · Scene 1
-
-          <small>
-            EXT. EMPTY ROAD - NIGHT
-          </small>
-
-        </div>
-
-        <time>
-          Today
-        </time>
-
-      </div>
-
-
-      <div class="activity">
-
-        <div class="activityIcon">
-          S
-        </div>
-
-        <div class="activityText">
-
-          <b>
-            Sentient Mass
-          </b>
-
-          · Scene 18
-
-          <small>
-            INT. OMEGA CHAMBER
-          </small>
-
-        </div>
-
-        <time>
-          Aug 12
-        </time>
-
-      </div>
-
-
-      <div class="activity">
-
-        <div class="activityIcon">
-          F
-        </div>
-
-        <div class="activityText">
-
-          <b>
-            Figures of Doom
-          </b>
-
-          · Scene 42
-
-          <small>
-            EXT. WONDERLAND - NIGHT
-          </small>
-
-        </div>
-
-        <time>
-          Aug 11
-        </time>
-
-      </div>
-
-    </section>
-
-
-    <section class="homePanel">
-
-      <h3>
-        Start with a tool
-      </h3>
-
-      <div class="quick">
-
-        <button id="quickScript">
-          <b>Screenplay</b>
-          <span>Write in industry format</span>
-        </button>
-
-        <button id="quickBoard">
-          <b>Story Map</b>
-          <span>See the whole story</span>
-        </button>
-
-        <button id="quickCharacter">
-          <b>Characters</b>
-          <span>Build your cast</span>
-        </button>
-
-        <button id="quickNote">
-          <b>Idea Board</b>
-          <span>Capture the sparks</span>
-        </button>
-
-      </div>
-
-    </section>
-
-  </div>
-
-</main>
-
-</section>
-
-
-<!-- ========================================================
-     WRITING WORKSPACE
-========================================================= -->
-
-<section
-  class="workspace hidden"
-  id="workspace"
->
-
-<header class="workspaceTop">
-
-  <div class="workspaceLogo">
-
-    <div class="logoMark">
-      A
     </div>
 
-    Auteur
 
-  </div>
-
-
-  <div class="projectName">
-
-    <span id="workspaceProject">
-      The Last Signal
-    </span>
-
-    <small>
-      / Screenplay
-    </small>
-
-  </div>
-
-
-  <div class="workspaceMode">
-
-    <button
-      class="active"
-      data-view="script"
-    >
-      Script
-    </button>
-
-    <button data-view="story">
-      Story Map
-    </button>
-
-    <button data-view="outline">
-      Outline
-    </button>
-
-    <button data-view="timeline">
-      Timeline
-    </button>
-
-  </div>
-
-
-  <div class="topRight">
-
-    <button
-      class="topIcon"
-      id="focusBtn"
-      title="Fullscreen"
-    >
-      ⛶
-    </button>
-
-    <button
-      class="topIcon"
-      id="searchBtn"
-      title="Search"
-    >
-      ⌕
-    </button>
-
-    <button
-      class="topIcon"
-      id="backBtn"
-      title="Back"
-    >
-      ←
-    </button>
-
-  </div>
-
-</header>
-
-
-<!-- SIDEBAR -->
-
-<aside class="sidebar">
-
-  <div class="sideSection">
-    Project
-  </div>
-
-
-  <nav class="sideNav">
-
-    <button
-      class="active"
-      data-panel="script"
-    >
-      <i>▤</i>
-      Screenplay
-      <span class="shortcut">⌘1</span>
-    </button>
-
-    <button data-panel="story">
-      <i>▦</i>
-      Story Map
-      <span class="shortcut">⌘2</span>
-    </button>
-
-    <button data-panel="characters">
-      <i>♙</i>
-      Characters
-      <span class="shortcut">8</span>
-    </button>
-
-    <button data-panel="locations">
-      <i>⌂</i>
-      Locations
-      <span class="shortcut">12</span>
-    </button>
-
-    <button data-panel="notes">
-      <i>✎</i>
-      Notes
-      <span class="shortcut">24</span>
-    </button>
-
-    <button data-panel="research">
-      <i>◇</i>
-      Research
-    </button>
-
-  </nav>
-
-
-  <div class="sideSection">
-
-    Scenes
-
-    <button
-      id="addScene"
-      style="
-        float:right;
-        border:0;
-        background:none;
-        color:#8d8579;
-      "
-    >
-      +
-    </button>
-
-  </div>
-
-
-  <div
-    class="sceneList"
-    id="sceneList"
-  >
-
-    <button class="scene active">
-
-      <span class="sceneNumber">
-        01
-      </span>
-
-      <span class="sceneTitle">
-        EXT. EMPTY ROAD - NIGHT
-      </span>
-
-      <span class="sceneDot"></span>
-
-    </button>
-
-
-    <button class="scene">
-
-      <span class="sceneNumber">
-        02
-      </span>
-
-      <span class="sceneTitle">
-        INT. APARTMENT - NIGHT
-      </span>
-
-      <span class="sceneDot"></span>
-
-    </button>
-
-
-    <button class="scene">
-
-      <span class="sceneNumber">
-        03
-      </span>
-
-      <span class="sceneTitle">
-        INT. SUBWAY - NIGHT
-      </span>
-
-      <span class="sceneDot"></span>
-
-    </button>
-
-
-    <button class="scene">
-
-      <span class="sceneNumber">
-        04
-      </span>
-
-      <span class="sceneTitle">
-        EXT. ROOFTOP - DAWN
-      </span>
-
-      <span class="sceneDot"></span>
-
-    </button>
-
-
-    <button class="scene">
-
-      <span class="sceneNumber">
-        05
-      </span>
-
-      <span class="sceneTitle">
-        INT. SIGNAL ROOM - MORNING
-      </span>
-
-    </button>
-
-
-    <button class="scene">
-
-      <span class="sceneNumber">
-        06
-      </span>
-
-      <span class="sceneTitle">
-        EXT. CITY - DAY
-      </span>
-
-    </button>
-
-
-    <button class="scene">
-
-      <span class="sceneNumber">
-        07
-      </span>
-
-      <span class="sceneTitle">
-        INT. HOSPITAL - DAY
-      </span>
-
-    </button>
-
-
-    <button class="scene">
-
-      <span class="sceneNumber">
-        08
-      </span>
-
-      <span class="sceneTitle">
-        EXT. BRIDGE - SUNSET
-      </span>
-
-    </button>
-
-  </div>
-
-</aside>
-
-
-<!-- EDITOR -->
-
-<main class="editor">
-
-  <div class="editorToolbar">
-
-    <button
-      class="tool active"
-      data-format="scene"
-    >
-      SCENE
-    </button>
-
-    <button
-      class="tool"
-      data-format="action"
-    >
-      ACTION
-    </button>
-
-    <button
-      class="tool"
-      data-format="character"
-    >
-      CHARACTER
-    </button>
-
-    <button
-      class="tool"
-      data-format="dialogue"
-    >
-      DIALOGUE
-    </button>
-
-    <button
-      class="tool"
-      data-format="parenthetical"
-    >
-      PARENTHETICAL
-    </button>
-
-    <button
-      class="tool"
-      data-format="transition"
-    >
-      TRANSITION
-    </button>
-
-    <span class="toolSep"></span>
-
-    <button
-      class="tool"
-      id="boldBtn"
-    >
-      <b>B</b>
-    </button>
-
-    <button
-      class="tool"
-      id="italicBtn"
-    >
-      <i>I</i>
-    </button>
-
-
-    <div class="editorStatus">
-
-      <span id="wordCount">
-        0 words
-      </span>
-
-      <span class="saved">
-        ● Saved locally
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="pageViewport"
-    id="pageViewport"
-  >
-
-    <article
-      class="page"
-      id="scriptPage"
+    <div
+      class="paperArea"
+      id="paperArea"
     >
 
-      <div class="titlePage">
-        THE LAST SIGNAL
-      </div>
-
-
-      <div
-        class="script"
-        id="script"
-        contenteditable="true"
-        spellcheck="false"
+      <article
+        class="paper"
+        id="paper"
       >
 
-        <div class="sceneHeading">
+        <div class="title">
+          THE LAST SIGNAL
+        </div>
+
+
+        <div
+          class="script"
+          id="script"
+          contenteditable="true"
+          spellcheck="false"
+        >
+
+          <div class="sceneHeading">
+            EXT. EMPTY ROAD - NIGHT
+          </div>
+
+          <div class="action">
+            Rain needles the asphalt. A dead city glows beyond the hills, every window dark.
+          </div>
+
+          <div class="action">
+            A lone radio tower blinks red against the clouds.
+          </div>
+
+          <div class="character">
+            MARA
+          </div>
+
+          <div class="dialogue">
+            Do you hear that?
+          </div>
+
+          <div class="character">
+            ELI
+          </div>
+
+          <div class="dialogue">
+            Hear what?
+          </div>
+
+          <div class="parenthetical">
+            (beat)
+          </div>
+
+          <div class="dialogue">
+            The silence.
+          </div>
+
+          <div class="action">
+            Mara looks toward the tower.
+          </div>
+
+          <div class="action">
+            For one impossible second, every streetlight turns on.
+          </div>
+
+          <div class="action">
+            Then the radio in Eli's hand crackles.
+          </div>
+
+          <div class="character">
+            RADIO
+          </div>
+
+          <div class="dialogue">
+            Mara Voss. If you can hear this, do not come home.
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- RIGHT -->
+
+  <aside class="rightPanel">
+
+    <div class="rightHeader">
+
+      <button
+        class="rightTab active"
+      >
+        Inspector
+      </button>
+
+      <button class="rightTab">
+        Notes
+      </button>
+
+      <button class="rightTab">
+        Details
+      </button>
+
+    </div>
+
+
+    <div class="inspector">
+
+
+      <div class="card">
+
+        <div class="cardTitle">
+          Scene
+        </div>
+
+        <div class="label">
+          Heading
+        </div>
+
+        <div class="value">
           EXT. EMPTY ROAD - NIGHT
         </div>
 
-        <div class="action">
-          Rain needles the asphalt. A dead city glows beyond the hills, every window dark.
+        <div class="progress">
+          <span></span>
         </div>
 
-        <div class="action">
-          A lone radio tower blinks red against the clouds.
-        </div>
-
-        <div class="character">
-          MARA
-        </div>
-
-        <div class="dialogue">
-          Do you hear that?
-        </div>
-
-        <div class="character">
-          ELI
-        </div>
-
-        <div class="dialogue">
-          Hear what?
-        </div>
-
-        <div class="parenthetical">
-          (beat)
-        </div>
-
-        <div class="dialogue">
-          The silence.
-        </div>
-
-        <div class="action">
-          Mara looks toward the tower.
-        </div>
-
-        <div class="action">
-          For one impossible second, every streetlight turns on.
-        </div>
-
-        <div class="action">
-          Then the radio in Eli's hand crackles.
-        </div>
-
-        <div class="character">
-          RADIO
-        </div>
-
-        <div class="dialogue">
-          Mara Voss. If you can hear this, do not come home.
+        <div
+          class="label"
+          style="margin-top:7px"
+        >
+          Scene progress · 72%
         </div>
 
       </div>
 
-    </article>
 
-  </div>
+      <div class="card">
 
+        <div class="cardTitle">
+          Details
+        </div>
 
-  <div class="bottomStatus">
-    PAGE 1 · SCENE 1 · 12% COMPLETE
-  </div>
+        <div class="stats">
 
-</main>
+          <div class="stat">
 
+            <strong>
+              2
+            </strong>
 
-<!-- INSPECTOR -->
+            <small>
+              Characters
+            </small>
 
-<aside class="rightbar">
-
-  <div class="rightTabs">
-
-    <button
-      class="active"
-      data-right="scene"
-    >
-      Inspector
-    </button>
-
-    <button data-right="characters">
-      Characters
-    </button>
-
-    <button data-right="notes">
-      Notes
-    </button>
-
-  </div>
+          </div>
 
 
-  <div
-    class="rightContent"
-    id="rightContent"
-  >
+          <div class="stat">
 
-    <div class="infoCard">
+            <strong>
+              4
+            </strong>
 
-      <h3>
-        Scene
-      </h3>
+            <small>
+              Beats
+            </small>
 
-      <div class="label">
-        Heading
+          </div>
+
+
+          <div class="stat">
+
+            <strong>
+              Night
+            </strong>
+
+            <small>
+              Time
+            </small>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>
+              Road
+            </strong>
+
+            <small>
+              Location
+            </small>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="value">
-        EXT. EMPTY ROAD - NIGHT
+
+      <div class="card">
+
+        <div class="cardTitle">
+          Story threads
+        </div>
+
+        <div class="tags">
+
+          <span class="tag red">
+            The Signal
+          </span>
+
+          <span class="tag green">
+            Mara
+          </span>
+
+          <span class="tag blue">
+            Blackout
+          </span>
+
+        </div>
+
       </div>
 
-      <div class="meter">
-        <i></i>
+
+      <div class="card">
+
+        <div class="cardTitle">
+          Scene note
+        </div>
+
+        <div class="value">
+          Introduce the central mystery without explaining it. Let the silence become a character.
+        </div>
+
       </div>
 
-      <div
-        class="label"
-        style="margin-top:7px"
-      >
-        Scene progress · 72%
+
+      <div class="card">
+
+        <div class="cardTitle">
+          Characters
+        </div>
+
+        <div class="value">
+          Mara Voss
+        </div>
+
+        <div class="label">
+          Protagonist
+        </div>
+
+        <div
+          class="value"
+          style="margin-top:9px"
+        >
+          Eli Hart
+        </div>
+
+        <div class="label">
+          Supporting
+        </div>
+
       </div>
+
 
     </div>
 
-
-    <div class="infoCard">
-
-      <h3>
-        Scene details
-      </h3>
-
-      <div class="stats">
-
-        <div class="stat">
-          <b>2</b>
-          <span>Characters</span>
-        </div>
-
-        <div class="stat">
-          <b>4</b>
-          <span>Beats</span>
-        </div>
-
-        <div class="stat">
-          <b>Night</b>
-          <span>Time</span>
-        </div>
-
-        <div class="stat">
-          <b>Road</b>
-          <span>Location</span>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="infoCard">
-
-      <h3>
-        Story threads
-      </h3>
-
-      <span class="tag red">
-        The Signal
-      </span>
-
-      <span class="tag green">
-        Mara
-      </span>
-
-      <span class="tag blue">
-        Blackout
-      </span>
-
-    </div>
-
-
-    <div class="infoCard">
-
-      <h3>
-        Scene note
-      </h3>
-
-      <div class="value">
-        Introduce the central mystery without explaining it. Let the silence become a character.
-      </div>
-
-    </div>
-
-
-    <div class="infoCard">
-
-      <h3>
-        Characters
-      </h3>
-
-      <div class="value">
-        Mara Voss
-      </div>
-
-      <div class="label">
-        Protagonist
-      </div>
-
-      <div
-        class="value"
-        style="margin-top:9px"
-      >
-        Eli Hart
-      </div>
-
-      <div class="label">
-        Supporting
-      </div>
-
-    </div>
-
-  </div>
-
-</aside>
+  </aside>
 
 </section>
 
 
-<!-- NEW PROJECT MODAL -->
+
+<!-- ========================================================
+     MODAL
+========================================================= -->
 
 <div
   class="modal hidden"
-  id="newModal"
+  id="modal"
 >
 
   <div class="modalBox">
 
     <h2>
-      Create a new project
+      New screenplay
     </h2>
 
     <input
-      id="projectTitle"
-      placeholder="Project title"
+      id="newTitle"
+      placeholder="Enter your project title"
     >
 
-    <div class="modalActions">
+    <div class="modalButtons">
 
       <button
-        class="secondary"
-        id="cancelModal"
+        class="btn"
+        id="cancel"
       >
         Cancel
       </button>
 
       <button
-        class="primary"
-        id="createProject"
+        class="btn btnPrimary"
+        id="create"
       >
-        Create project
+        Create
       </button>
 
     </div>
@@ -2045,118 +2337,145 @@ button{
 ></div>
 
 
+
 <script>
 
 /* =========================================================
-   CORE
+   ELEMENTS
 ========================================================= */
 
-const $ = selector =>
-  document.querySelector(selector);
-
-const $$ = selector =>
-  [...document.querySelectorAll(selector)];
-
 const home =
-  $("#home");
+  document.getElementById("home");
 
-const workspace =
-  $("#workspace");
+const app =
+  document.getElementById("app");
 
 const modal =
-  $("#newModal");
-
-const toast =
-  $("#toast");
+  document.getElementById("modal");
 
 const script =
-  $("#script");
+  document.getElementById("script");
+
+const toast =
+  document.getElementById("toast");
 
 
 /* =========================================================
-   NOTIFICATIONS
+   TOAST
 ========================================================= */
 
 function notify(message){
 
-  toast.textContent = message;
+  toast.textContent =
+    message;
 
   toast.classList.add("show");
 
-  clearTimeout(window.toastTimer);
+  clearTimeout(
+    window.toastTimer
+  );
 
   window.toastTimer =
     setTimeout(
-      () => toast.classList.remove("show"),
-      1700
+      () =>
+        toast.classList.remove("show"),
+      1600
     );
+
 }
 
 
 /* =========================================================
-   PROJECT OPENING
+   OPEN PROJECT
 ========================================================= */
 
-function openWorkspace(
+function openProject(
   name = "The Last Signal"
 ){
 
-  $("#workspaceProject").textContent =
-    name;
+  document.getElementById(
+    "documentName"
+  ).textContent = name;
 
-  home.classList.add("hidden");
+  home.classList.add(
+    "hidden"
+  );
 
-  workspace.classList.remove("hidden");
+  app.classList.remove(
+    "hidden"
+  );
 
   notify(
-    "Opening " + name
+    "Opened " + name
   );
+
 }
 
 
 /* =========================================================
-   PROJECT MODAL
+   NEW PROJECT
 ========================================================= */
 
 function openModal(){
 
-  modal.classList.remove("hidden");
+  modal.classList.remove(
+    "hidden"
+  );
 
   setTimeout(
-    () => $("#projectTitle").focus(),
+    () =>
+      document
+        .getElementById("newTitle")
+        .focus(),
     50
   );
+
 }
 
 
 function closeModal(){
 
-  modal.classList.add("hidden");
+  modal.classList.add(
+    "hidden"
+  );
 
-  $("#projectTitle").value = "";
+  document.getElementById(
+    "newTitle"
+  ).value = "";
+
 }
 
 
-$("#newProjectBtn").onclick =
+document.getElementById(
+  "newProjectButton"
+).onclick =
   openModal;
 
-$("#newCard").onclick =
+
+document.getElementById(
+  "newProjectCard"
+).onclick =
   openModal;
 
-$("#cancelModal").onclick =
+
+document.getElementById(
+  "cancel"
+).onclick =
   closeModal;
 
 
-$("#createProject").onclick = () => {
+document.getElementById(
+  "create"
+).onclick = () => {
 
-  const title =
-    $("#projectTitle")
-      .value
-      .trim()
-      ||
+  const name =
+    document.getElementById(
+      "newTitle"
+    ).value.trim()
+    ||
     "Untitled Screenplay";
 
-  openWorkspace(title);
+  openProject(name);
 
   closeModal();
 
@@ -2164,44 +2483,51 @@ $("#createProject").onclick = () => {
 
 
 /* =========================================================
-   OPEN EXISTING PROJECTS
+   PROJECT CARDS
 ========================================================= */
 
-$$("[data-open]").forEach(card => {
+document
+  .querySelectorAll(
+    "[data-project]"
+  )
+  .forEach(card => {
 
-  card.addEventListener(
-    "click",
-    () =>
-      openWorkspace(
-        card.dataset.name
-      )
-  );
+    card.onclick = () =>
+      openProject(
+        card.dataset.project
+      );
 
-});
+  });
 
 
 /* =========================================================
-   HOME SEARCH
+   SEARCH
 ========================================================= */
 
-$("#projectSearch").oninput = event => {
+document.getElementById(
+  "searchProjects"
+).oninput = event => {
 
   const query =
     event.target.value
       .toLowerCase();
 
-  $$(
-    ".projectCard[data-name]"
-  ).forEach(card => {
+  document
+    .querySelectorAll(
+      "[data-project]"
+    )
+    .forEach(card => {
 
-    card.style.display =
-      card.dataset.name
-        .toLowerCase()
-        .includes(query)
-        ? "block"
-        : "none";
+      const name =
+        card.dataset.project
+          .toLowerCase();
 
-  });
+      card.style.display =
+        name.includes(query)
+          ? ""
+          : "none";
+
+    });
 
 };
 
@@ -2210,84 +2536,104 @@ $("#projectSearch").oninput = event => {
    QUICK ACTIONS
 ========================================================= */
 
-$("#quickScript").onclick =
+document.getElementById(
+  "quickWrite"
+).onclick =
   openModal;
 
 
-$("#quickBoard").onclick = () => {
+document.getElementById(
+  "quickMap"
+).onclick = () => {
 
-  openWorkspace(
-    "Untitled Story"
-  );
+  openProject();
 
   setTimeout(
-    () => activateView("story"),
+    () => switchView("map"),
     20
   );
 
 };
 
 
-$("#quickCharacter").onclick = () => {
+document.getElementById(
+  "quickCharacters"
+).onclick = () => {
 
-  openWorkspace(
-    "Untitled Story"
-  );
+  openProject();
 
   setTimeout(
     () =>
-      $('[data-panel="characters"]')
-        .click(),
+      showPanel("characters"),
     20
   );
 
 };
 
 
-$("#quickNote").onclick =
-  () =>
-    notify(
-      "Idea board ready"
-    );
+document.getElementById(
+  "quickNotes"
+).onclick = () => {
+
+  openProject();
+
+  setTimeout(
+    () =>
+      showPanel("notes"),
+    20
+  );
+
+};
 
 
-$("#importBtn").onclick =
-  () =>
-    notify(
-      "Import supports screenplay and Fountain files"
-    );
+document.getElementById(
+  "importButton"
+).onclick = () =>
+  notify(
+    "Import ready for Fountain or screenplay files"
+  );
 
 
 /* =========================================================
-   BACK
+   CLOSE
 ========================================================= */
 
-$("#backBtn").onclick = () => {
+document.getElementById(
+  "closeApp"
+).onclick = () => {
 
-  workspace.classList.add("hidden");
+  app.classList.add(
+    "hidden"
+  );
 
-  home.classList.remove("hidden");
+  home.classList.remove(
+    "hidden"
+  );
 
 };
 
 
 /* =========================================================
-   LOCAL AUTOSAVE
+   AUTOSAVE
 ========================================================= */
 
 function save(){
 
   localStorage.setItem(
-    "auteur-last-signal",
+    "auteur-script",
     script.innerHTML
   );
 
-  updateWords();
+  updateWordCount();
+
+  notify(
+    "Saved locally"
+  );
 
 }
 
 
-function updateWords(){
+function updateWordCount(){
 
   const words =
     script.innerText
@@ -2296,66 +2642,162 @@ function updateWords(){
       .filter(Boolean)
       .length;
 
-  $("#wordCount")
-    .textContent =
-      words + " words";
+  document.getElementById(
+    "wordCount"
+  ).textContent =
+    words + " words";
 
 }
 
 
-const stored =
+const savedScript =
   localStorage.getItem(
-    "auteur-last-signal"
+    "auteur-script"
   );
 
 
-if(stored){
+if(savedScript){
 
   script.innerHTML =
-    stored;
+    savedScript;
 
 }
 
 
 script.addEventListener(
   "input",
-  save
+  () => {
+
+    localStorage.setItem(
+      "auteur-script",
+      script.innerHTML
+    );
+
+    updateWordCount();
+
+  }
 );
 
 
-updateWords();
+updateWordCount();
+
+
+document.getElementById(
+  "saveButton"
+).onclick =
+  save;
 
 
 /* =========================================================
-   SCENE NAVIGATION
+   FORMAT BUTTONS
 ========================================================= */
 
-function bindScenes(){
+document
+  .querySelectorAll(
+    ".formatButton[data-format]"
+  )
+  .forEach(button => {
 
-  $$(".scene").forEach(scene => {
+    button.onclick = () => {
 
-    scene.onclick = () => {
+      document
+        .querySelectorAll(
+          ".formatButton[data-format]"
+        )
+        .forEach(
+          item =>
+            item.classList.remove(
+              "active"
+            )
+        );
 
-      $$(".scene").forEach(
-        item =>
-          item.classList.remove(
-            "active"
-          )
-      );
-
-      scene.classList.add(
+      button.classList.add(
         "active"
       );
 
+      const type =
+        button.dataset.format;
+
       notify(
-        scene.querySelector(
-          ".sceneTitle"
-        ).textContent
+        type.charAt(0)
+          .toUpperCase()
+        +
+        type.slice(1)
+        +
+        " formatting"
       );
+
+      script.focus();
 
     };
 
   });
+
+
+document.getElementById(
+  "bold"
+).onclick = () => {
+
+  document.execCommand(
+    "bold"
+  );
+
+  script.focus();
+
+};
+
+
+document.getElementById(
+  "italic"
+).onclick = () => {
+
+  document.execCommand(
+    "italic"
+  );
+
+  script.focus();
+
+};
+
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+function bindScenes(){
+
+  document
+    .querySelectorAll(
+      ".scene"
+    )
+    .forEach(scene => {
+
+      scene.onclick = () => {
+
+        document
+          .querySelectorAll(
+            ".scene"
+          )
+          .forEach(
+            item =>
+              item.classList.remove(
+                "active"
+              )
+          );
+
+        scene.classList.add(
+          "active"
+        );
+
+        notify(
+          scene.querySelector(
+            ".sceneTitle"
+          ).textContent
+        );
+
+      };
+
+    });
 
 }
 
@@ -2363,14 +2805,22 @@ function bindScenes(){
 bindScenes();
 
 
-/* =========================================================
-   ADD SCENE
-========================================================= */
+document.getElementById(
+  "addScene"
+).onclick = () => {
 
-$("#addScene").onclick = () => {
+  const scenes =
+    document.querySelectorAll(
+      ".scene"
+    );
 
   const number =
-    $$(".scene").length + 1;
+    String(
+      scenes.length + 1
+    ).padStart(
+      2,
+      "0"
+    );
 
   const scene =
     document.createElement(
@@ -2383,7 +2833,7 @@ $("#addScene").onclick = () => {
   scene.innerHTML = `
 
     <span class="sceneNumber">
-      ${String(number).padStart(2,"0")}
+      ${number}
     </span>
 
     <span class="sceneTitle">
@@ -2394,8 +2844,9 @@ $("#addScene").onclick = () => {
 
   `;
 
-  $("#sceneList")
-    .appendChild(scene);
+  document.getElementById(
+    "scenes"
+  ).appendChild(scene);
 
   bindScenes();
 
@@ -2407,89 +2858,26 @@ $("#addScene").onclick = () => {
 
 
 /* =========================================================
-   SCREENPLAY FORMATTING
+   VIEW SWITCHING
 ========================================================= */
 
-$$(
-  ".tool[data-format]"
-).forEach(button => {
+function switchView(view){
 
-  button.onclick = () => {
-
-    $$(
-      ".tool[data-format]"
-    ).forEach(
-      item =>
-        item.classList.remove(
-          "active"
-        )
-    );
-
-    button.classList.add(
-      "active"
-    );
-
-    notify(
-      button.dataset.format
-        .charAt(0)
-        .toUpperCase()
-      +
-      button.dataset.format
-        .slice(1)
-      +
-      " format selected"
-    );
-
-  };
-
-});
-
-
-$("#boldBtn").onclick = () => {
-
-  document.execCommand(
-    "bold"
-  );
-
-  script.focus();
-
-  save();
-
-};
-
-
-$("#italicBtn").onclick = () => {
-
-  document.execCommand(
-    "italic"
-  );
-
-  script.focus();
-
-  save();
-
-};
-
-
-/* =========================================================
-   VIEW SYSTEM
-========================================================= */
-
-function activateView(view){
-
-  $$("[data-view]").forEach(
-    button => {
+  document
+    .querySelectorAll(
+      ".viewButton"
+    )
+    .forEach(button => {
 
       button.classList.toggle(
         "active",
         button.dataset.view === view
       );
 
-    }
-  );
+    });
 
 
-  if(view === "script"){
+  if(view === "write"){
 
     location.reload();
 
@@ -2498,192 +2886,152 @@ function activateView(view){
   }
 
 
-  if(view === "story"){
+  const area =
+    document.getElementById(
+      "paperArea"
+    );
 
-    $("#pageViewport").innerHTML = `
 
-      <div
-        style="
-          width:min(930px,100%);
-          display:grid;
-          grid-template-columns:repeat(3,1fr);
-          gap:12px;
-          padding-top:15px;
-        "
-      >
+  if(view === "map"){
 
-        ${boardColumn(
-          "ACT I",
-          [
-            "The city goes dark",
-            "Mara hears the signal",
-            "Eli refuses to leave"
-          ]
-        )}
+    area.innerHTML = `
 
-        ${boardColumn(
-          "ACT II",
-          [
-            "The tower activates",
-            "The signal knows Mara",
-            "Eli disappears"
-          ]
-        )}
+      <div class="utilityView">
 
-        ${boardColumn(
-          "ACT III",
-          [
-            "The final transmission",
-            "Mara reaches the tower",
-            "The silence answers"
-          ]
-        )}
+        <h1 class="utilityTitle">
+          Story Map
+        </h1>
+
+        <div class="storyBoard">
+
+          ${storyColumn(
+            "ACT I",
+            [
+              "The city goes dark",
+              "Mara hears the signal",
+              "Eli refuses to leave"
+            ]
+          )}
+
+          ${storyColumn(
+            "ACT II",
+            [
+              "The tower activates",
+              "The signal knows Mara",
+              "Eli disappears"
+            ]
+          )}
+
+          ${storyColumn(
+            "ACT III",
+            [
+              "The final transmission",
+              "Mara reaches the tower",
+              "The silence answers"
+            ]
+          )}
+
+        </div>
 
       </div>
 
     `;
-
-    return;
 
   }
 
 
   if(view === "outline"){
 
-    $("#pageViewport").innerHTML = `
+    area.innerHTML = `
 
-      <div
-        class="page"
-        style="
-          min-height:620px;
-          padding:55px 65px;
-        "
-      >
+      <div class="utilityView">
 
-        <h1
-          style="
-            font:500 30px Georgia,serif;
-            margin:0 0 30px;
-          "
-        >
-          Story Outline
+        <h1 class="utilityTitle">
+          Outline
         </h1>
 
-        <p
-          style="
-            color:#9a9387;
-            font-size:10px;
-            text-transform:uppercase;
-            letter-spacing:.1em;
-          "
-        >
-          ACT I · THE SIGNAL
-        </p>
+        <div class="outlineItem">
+          <b>01.</b>
+          The city loses power.
+        </div>
 
-        <p>
-          01 &nbsp; The city loses power.
-        </p>
+        <div class="outlineItem">
+          <b>02.</b>
+          Mara discovers the transmission.
+        </div>
 
-        <p>
-          02 &nbsp; Mara discovers the transmission.
-        </p>
+        <div class="outlineItem">
+          <b>03.</b>
+          Eli insists they investigate.
+        </div>
 
-        <p>
-          03 &nbsp; Eli insists they investigate.
-        </p>
+        <div class="outlineItem">
+          <b>04.</b>
+          They cross the abandoned city.
+        </div>
 
-        <hr
-          style="
-            border:0;
-            border-top:1px solid #ddd6ca;
-            margin:25px 0;
-          "
-        >
+        <div class="outlineItem">
+          <b>05.</b>
+          The signal changes.
+        </div>
 
-        <p
-          style="
-            color:#9a9387;
-            font-size:10px;
-            text-transform:uppercase;
-            letter-spacing:.1em;
-          "
-        >
-          ACT II · THE TOWER
-        </p>
-
-        <p>
-          04 &nbsp; They cross the abandoned city.
-        </p>
-
-        <p>
-          05 &nbsp; The signal changes.
-        </p>
-
-        <p>
-          06 &nbsp; Eli vanishes.
-        </p>
+        <div class="outlineItem">
+          <b>06.</b>
+          Eli vanishes.
+        </div>
 
       </div>
 
     `;
-
-    return;
 
   }
 
 
   if(view === "timeline"){
 
-    $("#pageViewport").innerHTML = `
+    area.innerHTML = `
 
-      <div
-        style="
-          width:min(900px,100%);
-          padding-top:35px;
-        "
-      >
+      <div class="utilityView">
 
-        <h2
-          style="
-            font:500 28px Georgia,serif;
-          "
-        >
+        <h1 class="utilityTitle">
           Timeline
-        </h2>
+        </h1>
 
         <div
           style="
-            margin-top:35px;
-            border-top:1px solid #bdb5a8;
-            padding-top:20px;
+            border-top:1px solid #bbb3a7;
+            padding-top:25px;
             display:grid;
-            grid-template-columns:repeat(8,1fr);
-            gap:10px;
+            grid-template-columns:
+              repeat(8,1fr);
+            gap:8px;
           "
         >
 
           ${[
-            "1","2","3","4",
-            "5","6","7","8"
+            1,2,3,4,
+            5,6,7,8
           ].map(
-            (number,index) => `
+            (n,i) => `
 
               <div>
 
                 <div
                   style="
-                    height:${45 + index * 17}px;
-                    border-left:2px solid #a95748;
+                    height:${55 + i*16}px;
+                    border-left:
+                      2px solid
+                      var(--accent);
                   "
                 ></div>
 
                 <small
                   style="
-                    font-size:9px;
-                    color:#817b71;
+                    color:var(--muted);
+                    font-size:8px;
                   "
                 >
-                  SCENE ${number}
+                  SCENE ${n}
                 </small>
 
               </div>
@@ -2702,78 +3050,246 @@ function activateView(view){
 }
 
 
-function boardColumn(
+document
+  .querySelectorAll(
+    ".viewButton"
+  )
+  .forEach(button => {
+
+    button.onclick = () =>
+      switchView(
+        button.dataset.view
+      );
+
+  });
+
+
+/* =========================================================
+   STORY MAP
+========================================================= */
+
+function storyColumn(
   title,
-  notes
+  cards
 ){
 
   return `
 
-    <div
-      style="
-        background:#f4f0e8;
-        border:1px solid #d5cec2;
-        border-radius:11px;
-        padding:12px;
-        min-height:400px;
-      "
-    >
+    <section class="storyColumn">
 
-      <h4
-        style="
-          font:500 13px Georgia,serif;
-          margin:0 0 12px;
-        "
-      >
+      <h3>
         ${title}
-      </h4>
+      </h3>
 
-      ${notes.map(
-        (note,index) => `
+      ${cards.map(
+        (card,index) => `
 
-          <div
-            style="
-              background:#fffaf3;
-              border:1px solid #ddd5c9;
-              border-radius:8px;
-              padding:12px;
-              margin-bottom:8px;
-              box-shadow:0 4px 12px #00000008;
-            "
-          >
+          <div class="storyCard">
 
-            <div
-              style="
-                font-size:8px;
-                color:#9a9388;
-                margin-bottom:6px;
-              "
-            >
+            <small>
               SCENE ${index + 1}
-            </div>
+            </small>
 
-            <div
-              style="
-                font:500 13px Georgia,serif;
-              "
-            >
-              ${note}
-            </div>
-
-            <div
-              style="
-                font-size:9px;
-                color:#928b80;
-                margin-top:8px;
-              "
-            >
-              Drag to reorder
-            </div>
+            <strong>
+              ${card}
+            </strong>
 
           </div>
 
         `
       ).join("")}
+
+    </section>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SIDE PANELS
+========================================================= */
+
+function showPanel(panel){
+
+  document
+    .querySelectorAll(
+      ".mainNav button"
+    )
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.panel === panel
+      );
+
+    });
+
+
+  if(panel === "write"){
+
+    switchView("write");
+
+    return;
+
+  }
+
+
+  const area =
+    document.getElementById(
+      "paperArea"
+    );
+
+
+  if(panel === "characters"){
+
+    area.innerHTML = `
+
+      <div class="utilityView">
+
+        <h1 class="utilityTitle">
+          Characters
+        </h1>
+
+        <div class="characterGrid">
+
+          ${characterCard(
+            "Mara Voss",
+            "Protagonist",
+            "M"
+          )}
+
+          ${characterCard(
+            "Eli Hart",
+            "Supporting",
+            "E"
+          )}
+
+          ${characterCard(
+            "The Radio",
+            "Antagonistic force",
+            "R"
+          )}
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(panel === "notes"){
+
+    area.innerHTML = `
+
+      <div class="utilityView">
+
+        <h1 class="utilityTitle">
+          Notes
+        </h1>
+
+        <div class="notes">
+
+          <div class="note">
+
+            <h3>
+              The silence
+            </h3>
+
+            <p>
+              The absence of sound should feel unnatural throughout the story.
+            </p>
+
+          </div>
+
+          <div class="note">
+
+            <h3>
+              Mara's motivation
+            </h3>
+
+            <p>
+              She is not looking for the truth. She is looking for her brother.
+            </p>
+
+          </div>
+
+          <div class="note">
+
+            <h3>
+              Visual language
+            </h3>
+
+            <p>
+              Empty spaces. Long lenses. Distant lights. Almost no crowds.
+            </p>
+
+          </div>
+
+          <div class="note">
+
+            <h3>
+              Ending
+            </h3>
+
+            <p>
+              The signal was never coming from the tower.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  notify(
+    panel.charAt(0).toUpperCase()
+    + panel.slice(1)
+  );
+
+}
+
+
+function characterCard(
+  name,
+  role,
+  letter
+){
+
+  return `
+
+    <div class="characterCard">
+
+      <div class="characterAvatar">
+        ${letter}
+      </div>
+
+      <h3>
+        ${name}
+      </h3>
+
+      <div
+        class="label"
+        style="margin-bottom:7px"
+      >
+        ${role}
+      </div>
+
+      <p>
+        Character profile, motivations,
+        relationships and development.
+      </p>
 
     </div>
 
@@ -2782,82 +3298,27 @@ function boardColumn(
 }
 
 
-$$("[data-view]").forEach(
-  button =>
-    button.onclick =
-      () =>
-        activateView(
-          button.dataset.view
-        )
-);
+document
+  .querySelectorAll(
+    ".mainNav button"
+  )
+  .forEach(button => {
+
+    button.onclick = () =>
+      showPanel(
+        button.dataset.panel
+      );
+
+  });
 
 
 /* =========================================================
-   PROJECT SIDEBAR
+   FOCUS MODE
 ========================================================= */
 
-$$("[data-panel]").forEach(
-  button => {
-
-    button.onclick = () => {
-
-      $$("[data-panel]").forEach(
-        item =>
-          item.classList.remove(
-            "active"
-          )
-      );
-
-      button.classList.add(
-        "active"
-      );
-
-      notify(
-        button.textContent.trim()
-      );
-
-    };
-
-  }
-);
-
-
-/* =========================================================
-   RIGHT PANEL
-========================================================= */
-
-$$("[data-right]").forEach(
-  button => {
-
-    button.onclick = () => {
-
-      $$("[data-right]").forEach(
-        item =>
-          item.classList.remove(
-            "active"
-          )
-      );
-
-      button.classList.add(
-        "active"
-      );
-
-      notify(
-        button.textContent +
-        " panel"
-      );
-
-    };
-
-  }
-);
-
-
-/* =========================================================
-   FULLSCREEN
-========================================================= */
-
-$("#focusBtn").onclick = () => {
+document.getElementById(
+  "focusMode"
+).onclick = () => {
 
   if(!document.fullscreenElement){
 
@@ -2869,19 +3330,6 @@ $("#focusBtn").onclick = () => {
     document.exitFullscreen?.();
 
   }
-
-};
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-$("#searchBtn").onclick = () => {
-
-  notify(
-    "Project search · ⌘K"
-  );
 
 };
 
@@ -2906,31 +3354,15 @@ document.addEventListener(
 
       save();
 
-      notify(
-        "Saved locally"
-      );
-
-    }
-
-
-    if(
-      (event.metaKey ||
-       event.ctrlKey)
-      &&
-      event.key.toLowerCase()
-      === "k"
-    ){
-
-      event.preventDefault();
-
-      $("#projectSearch")
-        .focus();
-
     }
 
 
     if(
       event.key === "Escape"
+      &&
+      !modal.classList.contains(
+        "hidden"
+      )
     ){
 
       closeModal();
