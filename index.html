@@ -3,623 +3,634 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#09090b" />
-  <title>Auteur — Screenwriting Studio</title>
+  <title>Auteur</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            inter: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
-          },
-          colors: {
-            ink: {
-              950: "#09090b",
-              900: "#0f1013",
-              850: "#141519",
-              800: "#191a1f"
-            }
-          }
-        }
-      }
-    };
-  </script>
-
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      color-scheme: dark;
-    }
-
     * {
       box-sizing: border-box;
     }
 
     html,
     body {
-      min-height: 100%;
       margin: 0;
-    }
-
-    body {
-      background:
-        radial-gradient(circle at 75% 15%, rgba(99, 102, 241, 0.08), transparent 28%),
-        radial-gradient(circle at 30% 90%, rgba(59, 130, 246, 0.045), transparent 30%),
-        #09090b;
-      color: #f4f4f5;
-      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      width: 100%;
+      min-height: 100%;
+      font-family: Inter, sans-serif;
+      background: #f7f7f5;
+      color: #242424;
       -webkit-font-smoothing: antialiased;
     }
 
-    ::selection {
-      background: rgba(129, 140, 248, 0.3);
-      color: white;
-    }
-
-    .glass {
-      background: rgba(24, 25, 30, 0.64);
-      border: 1px solid rgba(255, 255, 255, 0.075);
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.24),
-        inset 0 1px 0 rgba(255, 255, 255, 0.025);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+    button {
+      font: inherit;
     }
 
     .sidebar {
-      background: rgba(12, 13, 16, 0.72);
-      border-right: 1px solid rgba(255, 255, 255, 0.065);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
+      width: 238px;
+      background: #f1f1ef;
+      border-right: 1px solid #dededb;
+    }
+
+    .brand {
+      letter-spacing: -0.04em;
     }
 
     .nav-item {
-      transition:
-        background 180ms ease,
-        color 180ms ease,
-        transform 180ms ease;
+      color: #777773;
+      transition: all 0.15s ease;
     }
 
     .nav-item:hover {
-      background: rgba(255, 255, 255, 0.055);
-      color: #fff;
-      transform: translateX(2px);
+      color: #222;
+      background: #e8e8e5;
     }
 
     .nav-item.active {
-      background: rgba(255, 255, 255, 0.075);
-      color: #fff;
-      box-shadow: inset 2px 0 0 rgba(129, 140, 248, 0.9);
+      color: #222;
+      background: #e3e3df;
+      font-weight: 500;
     }
 
     .new-script {
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      box-shadow:
-        0 12px 30px rgba(79, 70, 229, 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
-      transition:
-        transform 180ms ease,
-        box-shadow 180ms ease,
-        filter 180ms ease;
+      background: #2d2d2b;
+      color: white;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
 
     .new-script:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-      box-shadow:
-        0 18px 38px rgba(79, 70, 229, 0.32),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      background: #1f1f1e;
+      transform: translateY(-1px);
     }
 
-    .project-card {
-      position: relative;
-      overflow: hidden;
+    .content {
+      margin-left: 238px;
+    }
+
+    .topbar {
+      height: 64px;
+      border-bottom: 1px solid #e2e2df;
+      background: rgba(247, 247, 245, 0.94);
+      backdrop-filter: blur(12px);
+    }
+
+    .project {
+      background: #fff;
+      border: 1px solid #dededb;
       transition:
-        transform 220ms ease,
-        border-color 220ms ease,
-        box-shadow 220ms ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
     }
 
-    .project-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(
-        120deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.035) 50%,
-        transparent 70%
-      );
-      transform: translateX(-120%);
-      transition: transform 600ms ease;
+    .project:hover {
+      transform: translateY(-3px);
+      border-color: #cecec9;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
     }
 
-    .project-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 255, 255, 0.14);
-      box-shadow:
-        0 25px 55px rgba(0, 0, 0, 0.32),
-        inset 0 1px 0 rgba(255, 255, 255, 0.035);
-    }
-
-    .project-card:hover::after {
-      transform: translateX(120%);
-    }
-
-    .cover {
-      min-height: 275px;
+    .project-cover {
+      height: 245px;
       position: relative;
       overflow: hidden;
     }
 
-    .cover::before {
-      content: "";
+    .cover-1 {
+      background:
+        linear-gradient(145deg, #ddd8cf, #a9aaa5);
+    }
+
+    .cover-2 {
+      background:
+        linear-gradient(145deg, #d4c7bf, #a89891);
+    }
+
+    .cover-3 {
+      background:
+        linear-gradient(145deg, #c5d0cd, #889c9b);
+    }
+
+    .cover-4 {
+      background:
+        linear-gradient(145deg, #d1c8d7, #9c91a8);
+    }
+
+    .cover-5 {
+      background:
+        linear-gradient(145deg, #d8d2c3, #aaa38e);
+    }
+
+    .cover-overlay {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to bottom, transparent 25%, rgba(0, 0, 0, 0.82) 100%),
-        radial-gradient(circle at 65% 25%, rgba(255, 255, 255, 0.09), transparent 25%);
-    }
-
-    .cover-one {
-      background:
-        linear-gradient(135deg, #16181f, #30343d 50%, #0d0e11);
-    }
-
-    .cover-two {
-      background:
-        linear-gradient(135deg, #181516, #3b2c2b 48%, #0c0b0c);
-    }
-
-    .cover-three {
-      background:
-        linear-gradient(135deg, #10171a, #1d3a40 48%, #090b0c);
-    }
-
-    .cover-four {
-      background:
-        linear-gradient(135deg, #17131e, #342747 48%, #0b0910);
-    }
-
-    .cover-grid {
-      position: absolute;
-      inset: 0;
-      opacity: 0.08;
-      background-image:
-        linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
-
-    .cover-number {
-      position: absolute;
-      top: 22px;
-      right: 22px;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      color: rgba(255,255,255,0.5);
-      text-transform: uppercase;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.02),
+        rgba(0, 0, 0, 0.34)
+      );
     }
 
     .cover-title {
       position: absolute;
       left: 24px;
+      bottom: 23px;
       right: 24px;
-      bottom: 24px;
-      z-index: 2;
+      color: white;
+      text-shadow: 0 1px 8px rgba(0,0,0,.25);
     }
 
-    .progress-track {
-      background: rgba(255, 255, 255, 0.07);
+    .script-title {
+      letter-spacing: -0.035em;
     }
 
-    .progress-bar {
-      background: linear-gradient(90deg, #818cf8, #6366f1);
+    .progress {
+      height: 3px;
+      background: #e7e7e4;
     }
 
-    .fade-in {
-      animation: fadeIn 500ms ease both;
+    .progress-fill {
+      height: 100%;
+      background: #555550;
     }
 
-    .delay-1 {
-      animation-delay: 70ms;
+    .avatar {
+      background: #d7d7d2;
+      color: #565651;
     }
 
-    .delay-2 {
-      animation-delay: 140ms;
+    .menu-button {
+      color: #8a8a84;
+      transition: color .15s ease;
     }
 
-    .delay-3 {
-      animation-delay: 210ms;
+    .menu-button:hover {
+      color: #222;
     }
 
-    .delay-4 {
-      animation-delay: 280ms;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
+    @media (max-width: 800px) {
+      .sidebar {
+        width: 68px;
       }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      .sidebar .hide-mobile {
+        display: none;
+      }
+
+      .content {
+        margin-left: 68px;
+      }
+
+      .brand-mobile {
+        justify-content: center;
       }
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 600px) {
       .sidebar {
         display: none;
       }
 
-      .main-content {
-        margin-left: 0 !important;
+      .content {
+        margin-left: 0;
+      }
+
+      .projects {
+        grid-template-columns: 1fr !important;
       }
     }
   </style>
 </head>
 
-<body class="min-h-screen font-inter">
+<body>
 
   <!-- Sidebar -->
-  <aside class="sidebar fixed inset-y-0 left-0 z-40 flex w-[250px] flex-col px-5 py-6">
+  <aside class="sidebar fixed left-0 top-0 bottom-0 flex flex-col">
 
-    <!-- Brand -->
-    <div class="mb-10 flex items-center gap-3 px-2">
-      <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-black shadow-lg shadow-white/5">
-        <i data-lucide="pen-line" class="h-[17px] w-[17px]"></i>
+    <div class="brand-mobile flex items-center gap-3 px-5 py-6">
+      <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[#2d2d2b] text-white">
+        <span class="text-sm font-semibold">A</span>
       </div>
 
-      <div>
-        <div class="text-[15px] font-semibold tracking-tight text-white">Auteur</div>
-        <div class="text-[10px] uppercase tracking-[0.2em] text-zinc-600">Screenwriting Studio</div>
+      <div class="hide-mobile">
+        <div class="brand text-[18px] font-semibold">Auteur</div>
       </div>
     </div>
 
-    <!-- Profile -->
-    <div class="glass mb-7 rounded-2xl p-3.5">
-      <div class="flex items-center gap-3">
-        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-zinc-300 to-zinc-600 text-xs font-semibold text-zinc-950">
-          JD
-        </div>
-
-        <div class="min-w-0">
-          <div class="truncate text-[12px] font-medium text-zinc-200">Jordan Davis</div>
-          <div class="truncate text-[11px] text-zinc-500">Writer & Director</div>
-        </div>
-
-        <button
-          class="ml-auto text-zinc-600 transition hover:text-zinc-300"
-          aria-label="Profile options"
-        >
-          <i data-lucide="more-horizontal" class="h-4 w-4"></i>
-        </button>
-      </div>
+    <div class="px-4">
+      <button
+        id="newScript"
+        class="new-script flex h-10 w-full items-center justify-center gap-2 rounded-md text-[13px] font-medium"
+      >
+        <i data-lucide="plus" class="h-4 w-4"></i>
+        <span class="hide-mobile">New Script</span>
+      </button>
     </div>
 
-    <!-- New Script -->
-    <button
-      id="newScriptButton"
-      class="new-script mb-8 flex h-11 w-full items-center justify-center gap-2 rounded-xl text-[12px] font-semibold text-white"
-    >
-      <i data-lucide="plus" class="h-4 w-4"></i>
-      New Script
-    </button>
+    <nav class="mt-7 px-3">
 
-    <!-- Navigation -->
-    <nav class="space-y-1">
-      <div class="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-600">
+      <div class="hide-mobile mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#aaa9a4]">
         Workspace
       </div>
 
-      <button class="nav-item active flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[12px] text-zinc-400">
-        <i data-lucide="clock-3" class="h-[16px] w-[16px]"></i>
-        Recent
-        <span class="ml-auto text-[10px] text-zinc-600">04</span>
+      <button class="nav-item active flex h-9 w-full items-center gap-3 rounded-md px-3 text-left text-[12px]">
+        <i data-lucide="file-text" class="h-4 w-4"></i>
+        <span class="hide-mobile">Scripts</span>
       </button>
 
-      <button class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[12px] text-zinc-400">
-        <i data-lucide="layout-template" class="h-[16px] w-[16px]"></i>
-        Templates
+      <button class="nav-item flex h-9 w-full items-center gap-3 rounded-md px-3 text-left text-[12px]">
+        <i data-lucide="layout-template" class="h-4 w-4"></i>
+        <span class="hide-mobile">Templates</span>
       </button>
 
-      <button class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[12px] text-zinc-400">
-        <i data-lucide="archive" class="h-[16px] w-[16px]"></i>
-        Archive
+      <button class="nav-item flex h-9 w-full items-center gap-3 rounded-md px-3 text-left text-[12px]">
+        <i data-lucide="archive" class="h-4 w-4"></i>
+        <span class="hide-mobile">Archive</span>
       </button>
 
-      <button class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[12px] text-zinc-400">
-        <i data-lucide="settings-2" class="h-[16px] w-[16px]"></i>
-        Settings
-      </button>
     </nav>
 
-    <!-- Bottom -->
-    <div class="mt-auto px-2">
-      <div class="mb-4 h-px bg-white/[0.055]"></div>
+    <div class="mt-auto px-3 pb-4">
 
-      <div class="flex items-center justify-between text-[10px] text-zinc-600">
-        <span>Local workspace</span>
-        <span class="flex items-center gap-1.5">
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-          Synced
-        </span>
+      <button class="nav-item flex h-9 w-full items-center gap-3 rounded-md px-3 text-left text-[12px]">
+        <i data-lucide="settings" class="h-4 w-4"></i>
+        <span class="hide-mobile">Settings</span>
+      </button>
+
+      <div class="mt-3 border-t border-[#dededb] pt-4">
+        <div class="flex items-center gap-3 px-2">
+          <div class="avatar flex h-8 w-8 items-center justify-center rounded-full text-[10px] font-semibold">
+            JD
+          </div>
+
+          <div class="hide-mobile min-w-0">
+            <div class="truncate text-[11px] font-medium text-[#333331]">
+              Jordan Davis
+            </div>
+            <div class="truncate text-[10px] text-[#999892]">
+              Personal workspace
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </aside>
 
-  <!-- Main -->
-  <main class="main-content ml-[250px] min-h-screen px-8 py-9 lg:px-12">
 
-    <div class="mx-auto max-w-[1320px]">
+  <!-- Main Content -->
+  <main class="content min-h-screen">
 
-      <!-- Header -->
-      <header class="fade-in mb-10 flex items-end justify-between">
-        <div>
-          <div class="mb-2 flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-600">
-            <span>Workspace</span>
-            <i data-lucide="chevron-right" class="h-3 w-3"></i>
-            <span class="text-zinc-500">Recent</span>
-          </div>
+    <!-- Top Bar -->
+    <header class="topbar sticky top-0 z-20 flex items-center justify-between px-8">
 
-          <h1 class="text-3xl font-semibold tracking-[-0.035em] text-white">
-            Welcome back, Jordan.
-          </h1>
-
-          <p class="mt-2 text-[13px] text-zinc-500">
-            Your stories are waiting.
-          </p>
-        </div>
-
-        <div class="hidden items-center gap-3 sm:flex">
-          <button
-            class="glass flex h-9 items-center gap-2 rounded-lg px-3 text-[11px] text-zinc-400 transition hover:border-white/15 hover:text-white"
-          >
-            <i data-lucide="search" class="h-3.5 w-3.5"></i>
-            Search
-            <span class="ml-2 rounded border border-white/10 px-1.5 py-0.5 text-[9px] text-zinc-600">⌘ K</span>
-          </button>
-
-          <button
-            class="glass flex h-9 w-9 items-center justify-center rounded-lg text-zinc-400 transition hover:border-white/15 hover:text-white"
-            aria-label="Notifications"
-          >
-            <i data-lucide="bell" class="h-3.5 w-3.5"></i>
-          </button>
-        </div>
-      </header>
-
-      <!-- Section heading -->
-      <div class="fade-in delay-1 mb-5 flex items-center justify-between">
-        <div>
-          <h2 class="text-[15px] font-semibold tracking-tight text-zinc-100">
-            Recent Projects
-          </h2>
-          <p class="mt-1 text-[11px] text-zinc-600">
-            Continue where you left off.
-          </p>
-        </div>
-
-        <button class="flex items-center gap-1.5 text-[11px] text-zinc-500 transition hover:text-white">
-          View all
-          <i data-lucide="arrow-up-right" class="h-3 w-3"></i>
-        </button>
+      <div class="flex items-center gap-2 text-[12px] text-[#777772]">
+        <span class="font-medium text-[#383835]">My Scripts</span>
+        <i data-lucide="chevron-right" class="h-3.5 w-3.5"></i>
+        <span>All Scripts</span>
       </div>
 
-      <!-- Project Grid -->
-      <section class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="flex items-center gap-1">
 
-        <!-- Project 01 -->
-        <article class="project-card glass fade-in delay-1 rounded-2xl">
-          <div class="cover cover-one">
-            <div class="cover-grid"></div>
-            <span class="cover-number">Screenplay / 01</span>
+        <button
+          class="menu-button flex h-8 w-8 items-center justify-center rounded-md hover:bg-[#ecece9]"
+          aria-label="Search"
+        >
+          <i data-lucide="search" class="h-4 w-4"></i>
+        </button>
 
-            <div class="cover-title">
-              <div class="mb-3 text-[9px] font-semibold uppercase tracking-[0.25em] text-zinc-400">
-                Psychological Thriller
-              </div>
-              <h3 class="text-2xl font-semibold leading-tight tracking-[-0.04em] text-white">
-                The Contact<br />Variable
-              </h3>
-            </div>
-          </div>
+        <button
+          class="menu-button flex h-8 w-8 items-center justify-center rounded-md hover:bg-[#ecece9]"
+          aria-label="Help"
+        >
+          <i data-lucide="circle-help" class="h-4 w-4"></i>
+        </button>
 
-          <div class="p-4">
-            <p class="line-clamp-2 min-h-[34px] text-[11px] leading-5 text-zinc-500">
-              A grieving scientist becomes obsessed with a signal that may not be coming from Earth.
-            </p>
+        <button
+          class="menu-button ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#deded9]"
+          aria-label="Account"
+        >
+          <span class="text-[9px] font-semibold">JD</span>
+        </button>
 
-            <div class="mt-4 flex items-center justify-between">
-              <span class="text-[10px] text-zinc-600">Edited 12 min ago</span>
-              <span class="rounded-md bg-indigo-400/10 px-2 py-1 text-[9px] font-medium text-indigo-300">
-                68%
-              </span>
-            </div>
+      </div>
 
-            <div class="progress-track mt-3 h-1 overflow-hidden rounded-full">
-              <div class="progress-bar h-full w-[68%] rounded-full"></div>
-            </div>
-          </div>
-        </article>
+    </header>
 
-        <!-- Project 02 -->
-        <article class="project-card glass fade-in delay-2 rounded-2xl">
-          <div class="cover cover-two">
-            <div class="cover-grid"></div>
-            <span class="cover-number">Screenplay / 02</span>
 
-            <div class="cover-title">
-              <div class="mb-3 text-[9px] font-semibold uppercase tracking-[0.25em] text-zinc-400">
-                Mystery / Horror
-              </div>
-              <h3 class="text-2xl font-semibold leading-tight tracking-[-0.04em] text-white">
-                The Humboldt<br />Case
-              </h3>
-            </div>
-          </div>
+    <!-- Dashboard -->
+    <section class="px-8 py-10">
 
-          <div class="p-4">
-            <p class="line-clamp-2 min-h-[34px] text-[11px] leading-5 text-zinc-500">
-              A detective follows a trail into the wilderness where an old legend refuses to stay buried.
-            </p>
+      <div class="mx-auto max-w-[1180px]">
 
-            <div class="mt-4 flex items-center justify-between">
-              <span class="text-[10px] text-zinc-600">Edited yesterday</span>
-              <span class="rounded-md bg-amber-400/10 px-2 py-1 text-[9px] font-medium text-amber-300">
-                42%
-              </span>
-            </div>
+        <div class="mb-8">
+          <h1 class="text-[25px] font-semibold tracking-[-0.035em] text-[#292927]">
+            Your Scripts
+          </h1>
 
-            <div class="progress-track mt-3 h-1 overflow-hidden rounded-full">
-              <div class="h-full w-[42%] rounded-full bg-amber-400"></div>
-            </div>
-          </div>
-        </article>
+          <p class="mt-1.5 text-[12px] text-[#999892]">
+            Pick up where you left off.
+          </p>
+        </div>
 
-        <!-- Project 03 -->
-        <article class="project-card glass fade-in delay-3 rounded-2xl">
-          <div class="cover cover-three">
-            <div class="cover-grid"></div>
-            <span class="cover-number">Screenplay / 03</span>
 
-            <div class="cover-title">
-              <div class="mb-3 text-[9px] font-semibold uppercase tracking-[0.25em] text-zinc-400">
-                Science Fiction
-              </div>
-              <h3 class="text-2xl font-semibold leading-tight tracking-[-0.04em] text-white">
-                Sentient<br />Mass
-              </h3>
-            </div>
-          </div>
+        <!-- Recent -->
+        <div class="mb-4 flex items-center justify-between">
 
-          <div class="p-4">
-            <p class="line-clamp-2 min-h-[34px] text-[11px] leading-5 text-zinc-500">
-              On a planet built around a living megastructure, one traveler searches for a reason to remain.
-            </p>
+          <h2 class="text-[13px] font-semibold text-[#454541]">
+            Recent
+          </h2>
 
-            <div class="mt-4 flex items-center justify-between">
-              <span class="text-[10px] text-zinc-600">Edited Aug 11</span>
-              <span class="rounded-md bg-emerald-400/10 px-2 py-1 text-[9px] font-medium text-emerald-300">
-                81%
-              </span>
-            </div>
-
-            <div class="progress-track mt-3 h-1 overflow-hidden rounded-full">
-              <div class="h-full w-[81%] rounded-full bg-emerald-400"></div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 04 -->
-        <article class="project-card glass fade-in delay-4 rounded-2xl">
-          <div class="cover cover-four">
-            <div class="cover-grid"></div>
-            <span class="cover-number">Screenplay / 04</span>
-
-            <div class="cover-title">
-              <div class="mb-3 text-[9px] font-semibold uppercase tracking-[0.25em] text-zinc-400">
-                Fantasy / Drama
-              </div>
-              <h3 class="text-2xl font-semibold leading-tight tracking-[-0.04em] text-white">
-                Figures<br />of Doom
-              </h3>
-            </div>
-          </div>
-
-          <div class="p-4">
-            <p class="line-clamp-2 min-h-[34px] text-[11px] leading-5 text-zinc-500">
-              A broken police officer enters a strange world populated by impossible versions of herself.
-            </p>
-
-            <div class="mt-4 flex items-center justify-between">
-              <span class="text-[10px] text-zinc-600">Edited Aug 09</span>
-              <span class="rounded-md bg-violet-400/10 px-2 py-1 text-[9px] font-medium text-violet-300">
-                27%
-              </span>
-            </div>
-
-            <div class="progress-track mt-3 h-1 overflow-hidden rounded-full">
-              <div class="h-full w-[27%] rounded-full bg-violet-400"></div>
-            </div>
-          </div>
-        </article>
-
-      </section>
-
-      <!-- Bottom workspace panel -->
-      <section class="glass fade-in delay-4 mt-7 rounded-2xl p-5">
-        <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-
-          <div class="flex items-center gap-4">
-            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.045] text-zinc-400">
-              <i data-lucide="file-plus-2" class="h-4 w-4"></i>
-            </div>
-
-            <div>
-              <h3 class="text-[12px] font-medium text-zinc-200">
-                Start something new
-              </h3>
-              <p class="mt-1 text-[11px] text-zinc-600">
-                Begin with a blank screenplay or choose a professional template.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex gap-2">
-            <button class="flex h-9 items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.025] px-3 text-[10px] font-medium text-zinc-400 transition hover:border-white/15 hover:bg-white/[0.05] hover:text-white">
-              <i data-lucide="file-text" class="h-3.5 w-3.5"></i>
-              Blank Script
-            </button>
-
-            <button class="flex h-9 items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.025] px-3 text-[10px] font-medium text-zinc-400 transition hover:border-white/15 hover:bg-white/[0.05] hover:text-white">
-              <i data-lucide="layout-template" class="h-3.5 w-3.5"></i>
-              Browse Templates
-            </button>
-          </div>
+          <button class="text-[11px] text-[#999892] transition hover:text-[#333331]">
+            Show all
+          </button>
 
         </div>
-      </section>
 
-      <footer class="mt-7 flex items-center justify-between px-1 text-[9px] uppercase tracking-[0.16em] text-zinc-700">
-        <span>Auteur Workspace</span>
-        <span>Autosave enabled</span>
-      </footer>
 
-    </div>
+        <!-- Projects -->
+        <div class="projects grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">
+
+
+          <!-- Project -->
+          <article class="project overflow-hidden rounded-lg">
+
+            <div class="project-cover cover-1">
+
+              <div class="cover-overlay"></div>
+
+              <div class="cover-title">
+                <div class="mb-2 text-[8px] uppercase tracking-[0.18em] opacity-70">
+                  Feature
+                </div>
+
+                <h3 class="script-title text-[22px] font-semibold leading-[1.05]">
+                  The Contact<br>
+                  Variable
+                </h3>
+              </div>
+
+            </div>
+
+            <div class="p-4">
+
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-medium text-[#444440]">
+                  The Contact Variable
+                </span>
+
+                <button class="text-[#aaa9a4] hover:text-[#444440]">
+                  <i data-lucide="more-horizontal" class="h-4 w-4"></i>
+                </button>
+              </div>
+
+              <p class="mt-1 text-[10px] text-[#a09f99]">
+                Edited 12 minutes ago
+              </p>
+
+              <div class="progress mt-3 overflow-hidden rounded-full">
+                <div class="progress-fill w-[68%]"></div>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Project -->
+          <article class="project overflow-hidden rounded-lg">
+
+            <div class="project-cover cover-2">
+
+              <div class="cover-overlay"></div>
+
+              <div class="cover-title">
+                <div class="mb-2 text-[8px] uppercase tracking-[0.18em] opacity-70">
+                  Feature
+                </div>
+
+                <h3 class="script-title text-[22px] font-semibold leading-[1.05]">
+                  The Humboldt<br>
+                  Case
+                </h3>
+              </div>
+
+            </div>
+
+            <div class="p-4">
+
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-medium text-[#444440]">
+                  The Humboldt Case
+                </span>
+
+                <button class="text-[#aaa9a4] hover:text-[#444440]">
+                  <i data-lucide="more-horizontal" class="h-4 w-4"></i>
+                </button>
+              </div>
+
+              <p class="mt-1 text-[10px] text-[#a09f99]">
+                Edited yesterday
+              </p>
+
+              <div class="progress mt-3 overflow-hidden rounded-full">
+                <div class="progress-fill w-[42%]"></div>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Project -->
+          <article class="project overflow-hidden rounded-lg">
+
+            <div class="project-cover cover-3">
+
+              <div class="cover-overlay"></div>
+
+              <div class="cover-title">
+                <div class="mb-2 text-[8px] uppercase tracking-[0.18em] opacity-70">
+                  Science Fiction
+                </div>
+
+                <h3 class="script-title text-[22px] font-semibold leading-[1.05]">
+                  Sentient<br>
+                  Mass
+                </h3>
+              </div>
+
+            </div>
+
+            <div class="p-4">
+
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-medium text-[#444440]">
+                  Sentient Mass
+                </span>
+
+                <button class="text-[#aaa9a4] hover:text-[#444440]">
+                  <i data-lucide="more-horizontal" class="h-4 w-4"></i>
+                </button>
+              </div>
+
+              <p class="mt-1 text-[10px] text-[#a09f99]">
+                Edited August 11
+              </p>
+
+              <div class="progress mt-3 overflow-hidden rounded-full">
+                <div class="progress-fill w-[81%]"></div>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Project -->
+          <article class="project overflow-hidden rounded-lg">
+
+            <div class="project-cover cover-4">
+
+              <div class="cover-overlay"></div>
+
+              <div class="cover-title">
+                <div class="mb-2 text-[8px] uppercase tracking-[0.18em] opacity-70">
+                  Feature
+                </div>
+
+                <h3 class="script-title text-[22px] font-semibold leading-[1.05]">
+                  Figures<br>
+                  of Doom
+                </h3>
+              </div>
+
+            </div>
+
+            <div class="p-4">
+
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-medium text-[#444440]">
+                  Figures of Doom
+                </span>
+
+                <button class="text-[#aaa9a4] hover:text-[#444440]">
+                  <i data-lucide="more-horizontal" class="h-4 w-4"></i>
+                </button>
+              </div>
+
+              <p class="mt-1 text-[10px] text-[#a09f99]">
+                Edited August 9
+              </p>
+
+              <div class="progress mt-3 overflow-hidden rounded-full">
+                <div class="progress-fill w-[27%]"></div>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Project -->
+          <article class="project overflow-hidden rounded-lg">
+
+            <div class="project-cover cover-5">
+
+              <div class="cover-overlay"></div>
+
+              <div class="cover-title">
+                <div class="mb-2 text-[8px] uppercase tracking-[0.18em] opacity-70">
+                  Feature
+                </div>
+
+                <h3 class="script-title text-[22px] font-semibold leading-[1.05]">
+                  Untitled<br>
+                  Project
+                </h3>
+              </div>
+
+            </div>
+
+            <div class="p-4">
+
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-medium text-[#444440]">
+                  Untitled Project
+                </span>
+
+                <button class="text-[#aaa9a4] hover:text-[#444440]">
+                  <i data-lucide="more-horizontal" class="h-4 w-4"></i>
+                </button>
+              </div>
+
+              <p class="mt-1 text-[10px] text-[#a09f99]">
+                Edited August 7
+              </p>
+
+              <div class="progress mt-3 overflow-hidden rounded-full">
+                <div class="progress-fill w-[12%]"></div>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- New Script Card -->
+          <button
+            id="newScriptCard"
+            class="group flex min-h-[340px] flex-col items-center justify-center rounded-lg border border-dashed border-[#d5d5d1] bg-transparent transition hover:border-[#bdbdb8] hover:bg-[#f1f1ee]"
+          >
+
+            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-[#d4d4cf] text-[#999892] transition group-hover:border-[#aaa9a4] group-hover:text-[#555550]">
+              <i data-lucide="plus" class="h-4 w-4"></i>
+            </div>
+
+            <span class="text-[12px] font-medium text-[#777772]">
+              New Script
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
+
 
   <script>
     lucide.createIcons();
 
-    const newScriptButton = document.getElementById("newScriptButton");
-
-    newScriptButton.addEventListener("click", () => {
-      const title = window.prompt("Name your new screenplay:");
+    function createScript() {
+      const title = prompt("What is the title of your new script?");
 
       if (!title || !title.trim()) return;
 
-      alert(`New screenplay created: ${title.trim()}`);
-    });
+      alert(`"${title.trim()}" is ready to write.`);
+    }
+
+    document
+      .getElementById("newScript")
+      .addEventListener("click", createScript);
+
+    document
+      .getElementById("newScriptCard")
+      .addEventListener("click", createScript);
 
     document.querySelectorAll(".nav-item").forEach((item) => {
       item.addEventListener("click", () => {
-        document.querySelectorAll(".nav-item").forEach((nav) => {
-          nav.classList.remove("active");
-        });
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((nav) => nav.classList.remove("active"));
 
         item.classList.add("active");
       });
