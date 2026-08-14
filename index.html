@@ -7,23 +7,63 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@380;400;500;600;650;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
     :root {
-      --bg: #0c0c0e;
-      --bg-elevated: #141416;
-      --bg-panel: #18181b;
-      --bg-hover: #1f1f23;
-      --border: #27272a;
-      --border-subtle: #1f1f23;
-      --text: #fafafa;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --accent: #e4e4e7;
-      --accent-dim: #d4d4d8;
-      --focus: #3b82f6;
-      --danger: #ef4444;
-      --success: #22c55e;
+      /* Surfaces */
+      --bg: #f7f5f2;
+      --bg-elevated: #ffffff;
+      --bg-panel: #f0eeeb;
+      --bg-hover: #ebe8e4;
+      --bg-active: #e4e0db;
+      --bg-sidebar: #f0eeeb;
+      --bg-sidebar-collapsed: #ebe8e4;
+
+      /* Borders */
+      --border: #e2ded8;
+      --border-subtle: #ebe8e4;
+      --border-strong: #d4cfc7;
+
+      /* Text */
+      --text: #1c1917;
+      --text-secondary: #57534e;
+      --text-muted: #a8a29e;
+      --text-inverse: #fafaf9;
+
+      /* Accent — soft indigo */
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-soft: #eef2ff;
+      --accent-muted: #c7d2fe;
+
+      /* Semantic */
+      --success: #15803d;
+      --success-soft: #dcfce7;
+      --warning: #b45309;
+      --warning-soft: #fef3c7;
+      --danger: #b91c1c;
+      --danger-soft: #fee2e2;
+
+      /* Stage accents */
+      --stage-1: #78716c;
+      --stage-2: #0d9488;
+      --stage-3: #2563eb;
+      --stage-4: #7c3aed;
+      --stage-5: #c2410c;
+      --stage-6: #15803d;
+
+      /* Motion */
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+      --duration: 160ms;
+      --duration-slow: 220ms;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --sidebar-collapsed-width: 64px;
+      --header-height: 56px;
+      --radius: 8px;
+      --radius-sm: 6px;
+      --radius-lg: 12px;
     }
 
     * {
@@ -34,32 +74,37 @@
 
     html, body {
       height: 100%;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
 
     /* Scrollbars */
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
     }
     ::-webkit-scrollbar-track {
       background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: #3f3f46;
-      border-radius: 4px;
+      background: #d6d3d1;
+      border-radius: 5px;
+      border: 2px solid transparent;
+      background-clip: content-box;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #52525b;
+      background: #a8a29e;
+      border: 2px solid transparent;
+      background-clip: content-box;
     }
 
     /* Focus */
     :focus-visible {
-      outline: 2px solid var(--focus);
+      outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
 
@@ -67,69 +112,113 @@
       font-family: inherit;
     }
 
-    /* Transitions */
-    .transition-fast {
-      transition: all 0.15s ease;
-    }
-
-    /* Library cards */
-    .project-card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      cursor: pointer;
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-    .project-card:hover {
-      border-color: #3f3f46;
-      background: var(--bg-hover);
-    }
-    .project-card:active {
-      background: #252528;
-    }
-
-    /* Sidebar */
-    .sidebar-link {
-      display: flex;
+    /* ===================== BUTTONS ===================== */
+    .btn {
+      display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.5rem 0.75rem;
-      border-radius: 6px;
-      color: var(--text-secondary);
-      font-size: 0.875rem;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
       font-weight: 500;
+      line-height: 1.25;
       cursor: pointer;
-      transition: background 0.12s ease, color 0.12s ease;
+      transition: background var(--duration) var(--ease),
+                  border-color var(--duration) var(--ease),
+                  color var(--duration) var(--ease),
+                  box-shadow var(--duration) var(--ease),
+                  transform 80ms var(--ease);
+      border: 1px solid transparent;
+      white-space: nowrap;
+      user-select: none;
     }
-    .sidebar-link:hover {
-      background: var(--bg-hover);
-      color: var(--text);
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
     }
-    .sidebar-link.active {
-      background: var(--bg-hover);
-      color: var(--text);
-    }
-    .sidebar-link svg {
-      width: 16px;
-      height: 16px;
-      opacity: 0.8;
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
-    /* Form elements */
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 1px 2px rgba(79, 70, 229, 0.2);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-elevated);
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--bg-hover);
+      border-color: var(--border-strong);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+    }
+    .btn-danger:hover:not(:disabled) {
+      background: var(--danger-soft);
+    }
+
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background var(--duration) var(--ease), color var(--duration) var(--ease);
+    }
+    .btn-icon:hover {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+    .btn-icon:active {
+      background: var(--bg-active);
+    }
+
+    /* ===================== FORM CONTROLS ===================== */
     .input-field {
       width: 100%;
-      background: var(--bg);
+      background: var(--bg-elevated);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       padding: 0.5rem 0.75rem;
       color: var(--text);
       font-size: 0.875rem;
-      transition: border-color 0.15s ease;
+      line-height: 1.4;
+      transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+    }
+    .input-field:hover {
+      border-color: var(--border-strong);
     }
     .input-field:focus {
       outline: none;
-      border-color: #52525b;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
     }
     .input-field::placeholder {
       color: var(--text-muted);
@@ -137,95 +226,207 @@
 
     .textarea-field {
       width: 100%;
-      background: var(--bg);
+      background: var(--bg-elevated);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.75rem;
+      border-radius: var(--radius-sm);
+      padding: 0.625rem 0.75rem;
       color: var(--text);
       font-size: 0.875rem;
       line-height: 1.6;
       resize: vertical;
-      min-height: 80px;
-      transition: border-color 0.15s ease;
+      min-height: 72px;
+      transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+    }
+    .textarea-field:hover {
+      border-color: var(--border-strong);
     }
     .textarea-field:focus {
       outline: none;
-      border-color: #52525b;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    .textarea-field::placeholder {
+      color: var(--text-muted);
     }
 
     .label {
       display: block;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.6875rem;
+      font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       margin-bottom: 0.375rem;
     }
 
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-size: 0.875rem;
-      font-weight: 500;
+    select.input-field {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a8a29e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2rem;
       cursor: pointer;
-      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
-      border: 1px solid transparent;
-    }
-    .btn-primary {
-      background: var(--text);
-      color: var(--bg);
-    }
-    .btn-primary:hover {
-      background: var(--accent-dim);
-    }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-secondary);
-      border-color: var(--border);
-    }
-    .btn-ghost:hover {
-      background: var(--bg-hover);
-      color: var(--text);
-    }
-    .btn-danger {
-      background: transparent;
-      color: var(--danger);
-      border-color: transparent;
-    }
-    .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.1);
-    }
-    .btn-icon {
-      padding: 0.375rem;
-      border-radius: 6px;
-      color: var(--text-muted);
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-icon:hover {
-      background: var(--bg-hover);
-      color: var(--text);
     }
 
-    /* Modal */
+    /* ===================== SIDEBAR ===================== */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: width var(--duration-slow) var(--ease);
+      overflow: hidden;
+      position: relative;
+      z-index: 20;
+    }
+    .sidebar.collapsed {
+      width: var(--sidebar-collapsed-width);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      margin: 0 0.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background var(--duration) var(--ease), color var(--duration) var(--ease);
+      position: relative;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .sidebar-link:hover {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+    .sidebar-link.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .sidebar-link.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 0 2px 2px 0;
+    }
+    .sidebar-link.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .sidebar-link svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      stroke-width: 1.75;
+    }
+    .sidebar.collapsed .sidebar-link {
+      justify-content: center;
+      padding: 0.625rem;
+      margin: 0 0.5rem 0.125rem;
+    }
+    .sidebar.collapsed .sidebar-link span,
+    .sidebar.collapsed .sidebar-link .nav-label {
+      display: none;
+    }
+    .sidebar.collapsed .sidebar-link.active::before {
+      display: none;
+    }
+
+    /* Tooltip for collapsed sidebar */
+    .sidebar-tooltip {
+      position: absolute;
+      left: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--text);
+      color: var(--text-inverse);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.35rem 0.6rem;
+      border-radius: 5px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 100ms var(--ease);
+      z-index: 50;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .sidebar-tooltip::before {
+      content: '';
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-right-color: var(--text);
+    }
+    .sidebar.collapsed .sidebar-link:hover .sidebar-tooltip {
+      opacity: 1;
+    }
+
+    /* ===================== PROJECT CARDS ===================== */
+    .project-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      transition: border-color var(--duration) var(--ease),
+                  box-shadow var(--duration) var(--ease),
+                  transform 80ms var(--ease);
+      position: relative;
+    }
+    .project-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 4px 16px rgba(28, 25, 23, 0.06);
+    }
+    .project-card:active {
+      transform: scale(0.995);
+    }
+
+    /* ===================== STAGE BADGE ===================== */
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.01em;
+    }
+    .stage-1 { background: #f5f5f4; color: var(--stage-1); }
+    .stage-2 { background: #ccfbf1; color: var(--stage-2); }
+    .stage-3 { background: #dbeafe; color: var(--stage-3); }
+    .stage-4 { background: #ede9fe; color: var(--stage-4); }
+    .stage-5 { background: #ffedd5; color: var(--stage-5); }
+    .stage-6 { background: #dcfce7; color: var(--stage-6); }
+
+    /* ===================== MODAL ===================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(28, 25, 23, 0.4);
+      backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 100;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.15s ease;
+      transition: opacity var(--duration) var(--ease);
     }
     .modal-backdrop.open {
       opacity: 1;
@@ -234,32 +435,53 @@
     .modal {
       background: var(--bg-elevated);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
       padding: 1.5rem;
-      transform: scale(0.97);
-      transition: transform 0.15s ease;
+      box-shadow: 0 20px 40px rgba(28, 25, 23, 0.12);
+      transform: scale(0.96) translateY(8px);
+      transition: transform var(--duration) var(--ease);
     }
     .modal-backdrop.open .modal {
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
 
-    /* Stage badge */
-    .stage-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      background: var(--bg);
+    /* ===================== COMMAND PALETTE ===================== */
+    .command-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 25, 23, 0.35);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+      z-index: 110;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration) var(--ease);
+    }
+    .command-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .command-panel {
+      background: var(--bg-elevated);
       border: 1px solid var(--border);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 24px 48px rgba(28, 25, 23, 0.14);
+      overflow: hidden;
+      transform: scale(0.97) translateY(-12px);
+      transition: transform var(--duration) var(--ease);
+    }
+    .command-backdrop.open .command-panel {
+      transform: scale(1) translateY(0);
     }
 
-    /* Empty state */
+    /* ===================== EMPTY STATE ===================== */
     .empty-state {
       display: flex;
       flex-direction: column;
@@ -267,33 +489,9 @@
       justify-content: center;
       padding: 4rem 2rem;
       text-align: center;
-      color: var(--text-muted);
     }
 
-    /* Overview grid */
-    .overview-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-    @media (max-width: 900px) {
-      .overview-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Editable field hover */
-    .editable-block {
-      border-radius: 8px;
-      padding: 0.25rem;
-      margin: -0.25rem;
-      transition: background 0.12s ease;
-    }
-    .editable-block:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    /* Progress bar */
+    /* ===================== PROGRESS ===================== */
     .progress-track {
       height: 3px;
       background: var(--border);
@@ -302,19 +500,116 @@
     }
     .progress-fill {
       height: 100%;
-      background: var(--text-secondary);
+      background: var(--accent);
       border-radius: 2px;
-      transition: width 0.3s ease;
+      transition: width 0.35s var(--ease);
+      opacity: 0.7;
     }
 
-    /* Utility */
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
+    /* ===================== EDITABLE ===================== */
+    .editable-block {
+      border-radius: var(--radius);
+      transition: background var(--duration) var(--ease);
     }
+
+    /* ===================== HEADER ===================== */
+    .workspace-header {
+      height: var(--header-height);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ===================== BREADCRUMB ===================== */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb-sep {
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+    .breadcrumb-current {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ===================== SAVE INDICATOR ===================== */
+    .save-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      transition: color var(--duration) var(--ease);
+    }
+    .save-indicator.saving {
+      color: var(--accent);
+    }
+    .save-indicator.saved {
+      color: var(--success);
+    }
+
+    /* ===================== UTILITIES ===================== */
     .truncate {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Section title */
+    .section-title {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Sidebar section label */
+    .nav-section-label {
+      font-size: 0.625rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.75rem 1.25rem 0.375rem;
+      white-space: nowrap;
+    }
+    .sidebar.collapsed .nav-section-label {
+      display: none;
+    }
+
+    /* Smooth content fade */
+    .view-enter {
+      animation: fadeIn 180ms var(--ease);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar:not(.collapsed) {
+        position: absolute;
+        height: 100%;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      }
     }
   </style>
 </head>
@@ -324,7 +619,7 @@
   <script>
     // ============================================================
     // AETHER — Film Development Application
-    // Stage 1: Library + Workspace + Overview + Persistence
+    // Stage 1 + Professional UX/UI Pass
     // ============================================================
 
     const STAGES = [
@@ -353,16 +648,21 @@
     let state = {
       projects: [],
       currentProjectId: null,
-      currentView: 'library', // 'library' | 'workspace'
+      currentView: 'library',
       workspaceSection: 'overview',
       searchQuery: '',
-      modal: null // { type, data }
+      sidebarCollapsed: false,
+      modal: null,
+      commandOpen: false,
+      commandQuery: '',
+      saveStatus: 'idle' // idle | saving | saved
     };
 
     // ------------------------------------------------------------
     // Persistence
     // ------------------------------------------------------------
     const STORAGE_KEY = 'aether_projects_v1';
+    const UI_STORAGE_KEY = 'aether_ui_v1';
 
     function loadState() {
       try {
@@ -370,6 +670,11 @@
         if (raw) {
           const parsed = JSON.parse(raw);
           state.projects = parsed.projects || [];
+        }
+        const ui = localStorage.getItem(UI_STORAGE_KEY);
+        if (ui) {
+          const parsed = JSON.parse(ui);
+          state.sidebarCollapsed = !!parsed.sidebarCollapsed;
         }
       } catch (e) {
         console.error('Failed to load state', e);
@@ -386,6 +691,14 @@
       } catch (e) {
         console.error('Failed to save state', e);
       }
+    }
+
+    function saveUIState() {
+      try {
+        localStorage.setItem(UI_STORAGE_KEY, JSON.stringify({
+          sidebarCollapsed: state.sidebarCollapsed
+        }));
+      } catch (e) {}
     }
 
     // ------------------------------------------------------------
@@ -412,7 +725,11 @@
       if (d.toDateString() === yesterday.toDateString()) {
         return 'Yesterday';
       }
-      return d.toLocaleDateString([], { month: 'short', day: 'numeric', year: d.getFullYear() !== today.getFullYear() ? 'numeric' : undefined });
+      return d.toLocaleDateString([], {
+        month: 'short',
+        day: 'numeric',
+        year: d.getFullYear() !== today.getFullYear() ? 'numeric' : undefined
+      });
     }
 
     function getStage(stageId) {
@@ -438,7 +755,6 @@
         priorities: '',
         createdAt: now(),
         updatedAt: now(),
-        // Future expansion points
         characters: [],
         relationships: [],
         storylines: [],
@@ -452,6 +768,16 @@
         notes: [],
         ...overrides
       };
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     // ------------------------------------------------------------
@@ -473,6 +799,7 @@
         updatedAt: now()
       };
       saveState();
+      flashSave();
       return state.projects[idx];
     }
 
@@ -500,8 +827,36 @@
       return copy;
     }
 
+    function flashSave() {
+      state.saveStatus = 'saving';
+      // Soft update indicator without full re-render if possible
+      const el = document.querySelector('.save-indicator');
+      if (el) {
+        el.className = 'save-indicator saving';
+        el.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Saving…</span>`;
+        lucide.createIcons();
+      }
+      setTimeout(() => {
+        state.saveStatus = 'saved';
+        const el2 = document.querySelector('.save-indicator');
+        if (el2) {
+          el2.className = 'save-indicator saved';
+          el2.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i><span>Saved</span>`;
+          lucide.createIcons();
+        }
+        setTimeout(() => {
+          state.saveStatus = 'idle';
+          const el3 = document.querySelector('.save-indicator');
+          if (el3) {
+            el3.className = 'save-indicator';
+            el3.innerHTML = `<span>Last saved ${formatDate(getCurrentProject()?.updatedAt)}</span>`;
+          }
+        }, 1800);
+      }, 320);
+    }
+
     // ------------------------------------------------------------
-    // Modal
+    // Modal / Command
     // ------------------------------------------------------------
     function openModal(type, data = {}) {
       state.modal = { type, data };
@@ -510,6 +865,18 @@
 
     function closeModal() {
       state.modal = null;
+      render();
+    }
+
+    function openCommand() {
+      state.commandOpen = true;
+      state.commandQuery = '';
+      render();
+    }
+
+    function closeCommand() {
+      state.commandOpen = false;
+      state.commandQuery = '';
       render();
     }
 
@@ -537,6 +904,12 @@
       render();
     }
 
+    function toggleSidebar() {
+      state.sidebarCollapsed = !state.sidebarCollapsed;
+      saveUIState();
+      render();
+    }
+
     // ------------------------------------------------------------
     // Rendering
     // ------------------------------------------------------------
@@ -549,6 +922,9 @@
       }
       if (state.modal) {
         app.insertAdjacentHTML('beforeend', renderModal());
+      }
+      if (state.commandOpen) {
+        app.insertAdjacentHTML('beforeend', renderCommandPalette());
       }
       lucide.createIcons();
       bindEvents();
@@ -567,48 +943,49 @@
       });
 
       return `
-        <div class="h-full flex flex-col">
+        <div class="h-full flex flex-col view-enter">
           <!-- Header -->
-          <header class="flex-shrink-0 border-b border-[var(--border)] px-8 py-5">
+          <header class="flex-shrink-0 bg-[var(--bg-elevated)] border-b border-[var(--border)] px-6 md:px-10 py-4">
             <div class="max-w-5xl mx-auto flex items-center justify-between gap-6">
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-[var(--text)] flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0c0c0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <div class="w-9 h-9 rounded-xl bg-[var(--accent)] flex items-center justify-center shadow-sm">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                     <path d="M2 17l10 5 10-5"/>
                     <path d="M2 12l10 5 10-5"/>
                   </svg>
                 </div>
                 <div>
-                  <h1 class="text-lg font-semibold tracking-tight">Aether</h1>
-                  <p class="text-xs text-[var(--text-muted)]">Film Development</p>
+                  <h1 class="text-[15px] font-semibold tracking-tight text-[var(--text)] leading-tight">Aether</h1>
+                  <p class="text-[11px] text-[var(--text-muted)] font-medium tracking-wide">Film Development</p>
                 </div>
               </div>
-              <div class="flex items-center gap-3 flex-1 max-w-md">
-                <div class="relative flex-1">
-                  <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]"></i>
+              <div class="flex items-center gap-2.5 flex-1 max-w-lg justify-end">
+                <div class="relative flex-1 max-w-xs hidden sm:block">
+                  <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)] pointer-events-none"></i>
                   <input
                     type="text"
                     id="library-search"
-                    class="input-field pl-9"
+                    class="input-field pl-9 pr-10 !py-2"
                     placeholder="Search projects…"
                     value="${escapeHtml(state.searchQuery)}"
                   />
+                  <kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-medium text-[var(--text-muted)] bg-[var(--bg-panel)] border border-[var(--border)] rounded px-1.5 py-0.5 hidden md:inline">⌘K</kbd>
                 </div>
                 <button class="btn btn-primary" id="btn-new-project">
                   <i data-lucide="plus" class="w-4 h-4"></i>
-                  New Project
+                  <span class="hidden sm:inline">New Project</span>
                 </button>
               </div>
             </div>
           </header>
 
           <!-- Content -->
-          <main class="flex-1 overflow-y-auto px-8 py-8">
+          <main class="flex-1 overflow-y-auto px-6 md:px-10 py-8">
             <div class="max-w-5xl mx-auto">
               ${filtered.length === 0 ? renderEmptyLibrary(query) : `
-                <div class="mb-6 flex items-center justify-between">
-                  <p class="text-sm text-[var(--text-muted)]">
+                <div class="mb-5 flex items-center justify-between">
+                  <p class="text-sm text-[var(--text-muted)] font-medium">
                     ${filtered.length} project${filtered.length !== 1 ? 's' : ''}
                   </p>
                 </div>
@@ -626,17 +1003,23 @@
       if (query) {
         return `
           <div class="empty-state">
-            <i data-lucide="search-x" class="w-10 h-10 mb-4 opacity-40"></i>
-            <p class="text-base font-medium text-[var(--text-secondary)] mb-1">No projects found</p>
-            <p class="text-sm">Try a different search term</p>
+            <div class="w-12 h-12 rounded-full bg-[var(--bg-panel)] flex items-center justify-center mb-4">
+              <i data-lucide="search-x" class="w-5 h-5 text-[var(--text-muted)]"></i>
+            </div>
+            <p class="text-[15px] font-medium text-[var(--text-secondary)] mb-1">No projects match “${escapeHtml(query)}”</p>
+            <p class="text-sm text-[var(--text-muted)]">Try a different search term</p>
           </div>
         `;
       }
       return `
         <div class="empty-state">
-          <i data-lucide="film" class="w-12 h-12 mb-5 opacity-30"></i>
-          <p class="text-lg font-medium text-[var(--text-secondary)] mb-2">No projects yet</p>
-          <p class="text-sm mb-6 max-w-sm">Create your first project to begin developing characters, structure, and screenplay.</p>
+          <div class="w-14 h-14 rounded-2xl bg-[var(--accent-soft)] flex items-center justify-center mb-5">
+            <i data-lucide="film" class="w-6 h-6 text-[var(--accent)]"></i>
+          </div>
+          <p class="text-lg font-semibold text-[var(--text)] mb-1.5">Start your first project</p>
+          <p class="text-sm text-[var(--text-muted)] mb-7 max-w-sm leading-relaxed">
+            Create a project to develop characters, structure the story, and write the screenplay — all in one place.
+          </p>
           <button class="btn btn-primary" id="btn-new-project-empty">
             <i data-lucide="plus" class="w-4 h-4"></i>
             Create Project
@@ -653,36 +1036,36 @@
         <div class="project-card group" data-project-id="${project.id}">
           <div class="flex items-start justify-between gap-4">
             <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-3 mb-1.5">
-                <h2 class="text-base font-semibold truncate">${escapeHtml(project.title)}</h2>
-                <span class="stage-badge flex-shrink-0">
-                  Stage ${project.stage}/6 · ${stage.name}
+              <div class="flex items-center gap-2.5 mb-1.5 flex-wrap">
+                <h2 class="text-[15px] font-semibold text-[var(--text)] truncate tracking-tight">${escapeHtml(project.title)}</h2>
+                <span class="stage-badge stage-${project.stage} flex-shrink-0">
+                  Stage ${project.stage} · ${stage.name}
                 </span>
               </div>
               <p class="text-sm text-[var(--text-secondary)] mb-2">
-                ${project.genre ? escapeHtml(project.genre) : '<span class="text-[var(--text-muted)]">No genre</span>'}
+                ${project.genre ? escapeHtml(project.genre) : '<span class="text-[var(--text-muted)]">No genre set</span>'}
               </p>
               ${project.description ? `
-                <p class="text-sm text-[var(--text-muted)] line-clamp-2 mb-3">${escapeHtml(project.description)}</p>
+                <p class="text-sm text-[var(--text-muted)] line-clamp-2 mb-3 leading-relaxed">${escapeHtml(project.description)}</p>
               ` : ''}
               <div class="flex items-center gap-4 text-xs text-[var(--text-muted)]">
                 <span>Updated ${formatDate(project.updatedAt)}</span>
-                <div class="flex items-center gap-2 flex-1 max-w-[120px]">
+                <div class="flex items-center gap-2 flex-1 max-w-[100px]">
                   <div class="progress-track flex-1">
                     <div class="progress-fill" style="width: ${progress}%"></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-fast" onclick="event.stopPropagation()">
+            <div class="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150" onclick="event.stopPropagation()">
               <button class="btn-icon" data-action="rename" data-id="${project.id}" title="Rename">
-                <i data-lucide="pencil" class="w-4 h-4"></i>
+                <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
               </button>
               <button class="btn-icon" data-action="duplicate" data-id="${project.id}" title="Duplicate">
-                <i data-lucide="copy" class="w-4 h-4"></i>
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
               </button>
               <button class="btn-icon" data-action="delete" data-id="${project.id}" title="Delete">
-                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
               </button>
             </div>
           </div>
@@ -698,45 +1081,71 @@
         return '';
       }
 
+      const sectionLabel = NAV_ITEMS.find(n => n.id === state.workspaceSection)?.label || 'Overview';
+
       return `
-        <div class="h-full flex">
+        <div class="h-full flex view-enter">
           <!-- Sidebar -->
-          <aside class="w-56 flex-shrink-0 border-r border-[var(--border)] bg-[var(--bg-elevated)] flex flex-col">
-            <div class="p-4 border-b border-[var(--border)]">
-              <button id="btn-back-library" class="flex items-center gap-2 text-xs text-[var(--text-muted)] hover:text-[var(--text)] transition-fast mb-3">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                Library
+          <aside class="sidebar ${state.sidebarCollapsed ? 'collapsed' : ''}" id="sidebar">
+            <!-- Project header -->
+            <div class="p-3 border-b border-[var(--border)] flex-shrink-0">
+              <button id="btn-back-library" class="flex items-center gap-2 text-xs font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors mb-2.5 w-full ${state.sidebarCollapsed ? 'justify-center' : ''}" title="Back to Library">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5 flex-shrink-0"></i>
+                ${state.sidebarCollapsed ? '' : '<span>Library</span>'}
               </button>
-              <h2 class="text-sm font-semibold truncate" title="${escapeHtml(project.title)}">${escapeHtml(project.title)}</h2>
-              <p class="text-xs text-[var(--text-muted)] mt-0.5">${getStage(project.stage).name}</p>
+              ${state.sidebarCollapsed ? '' : `
+                <h2 class="text-sm font-semibold truncate text-[var(--text)] leading-snug" title="${escapeHtml(project.title)}">${escapeHtml(project.title)}</h2>
+                <p class="text-[11px] text-[var(--text-muted)] mt-0.5 font-medium">${getStage(project.stage).name}</p>
+              `}
             </div>
-            <nav class="flex-1 p-3 space-y-0.5 overflow-y-auto">
+
+            <!-- Navigation -->
+            <nav class="flex-1 py-2 overflow-y-auto overflow-x-hidden">
+              <div class="nav-section-label">Project</div>
               ${NAV_ITEMS.map(item => `
                 <div
-                  class="sidebar-link ${state.workspaceSection === item.id ? 'active' : ''} ${item.disabled ? 'opacity-40 cursor-not-allowed' : ''}"
+                  class="sidebar-link ${state.workspaceSection === item.id ? 'active' : ''} ${item.disabled ? 'disabled' : ''}"
                   data-section="${item.id}"
                   ${item.disabled ? 'title="Coming in a later stage"' : ''}
                 >
                   <i data-lucide="${item.icon}"></i>
-                  <span>${item.label}</span>
+                  <span class="nav-label">${item.label}</span>
+                  ${state.sidebarCollapsed ? `<div class="sidebar-tooltip">${item.label}${item.disabled ? ' (soon)' : ''}</div>` : ''}
                 </div>
               `).join('')}
             </nav>
-            <div class="p-3 border-t border-[var(--border)]">
-              <div class="text-xs text-[var(--text-muted)] px-2">
-                Aether · Stage 1
-              </div>
+
+            <!-- Collapse toggle -->
+            <div class="p-2 border-t border-[var(--border)] flex-shrink-0">
+              <button id="btn-toggle-sidebar" class="sidebar-link w-full ${state.sidebarCollapsed ? 'justify-center' : ''}" title="${state.sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}">
+                <i data-lucide="${state.sidebarCollapsed ? 'panel-left-open' : 'panel-left-close'}"></i>
+                ${state.sidebarCollapsed ? '<div class="sidebar-tooltip">Expand</div>' : '<span class="nav-label">Collapse</span>'}
+              </button>
             </div>
           </aside>
 
-          <!-- Main content -->
-          <div class="flex-1 flex flex-col min-w-0">
-            <header class="flex-shrink-0 h-14 border-b border-[var(--border)] flex items-center px-8 justify-between">
-              <h1 class="text-sm font-medium text-[var(--text-secondary)] capitalize">${state.workspaceSection}</h1>
-              <div class="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                <span>Last saved ${formatDate(project.updatedAt)}</span>
+          <!-- Main -->
+          <div class="flex-1 flex flex-col min-w-0 bg-[var(--bg)]">
+            <!-- Header -->
+            <header class="workspace-header">
+              <div class="flex items-center gap-3 min-w-0 flex-1">
+                <div class="breadcrumb min-w-0">
+                  <span class="truncate max-w-[180px] hidden sm:inline">${escapeHtml(project.title)}</span>
+                  <span class="breadcrumb-sep hidden sm:inline">/</span>
+                  <span class="breadcrumb-current">${sectionLabel}</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <div class="save-indicator">
+                  <span>Last saved ${formatDate(project.updatedAt)}</span>
+                </div>
+                <button class="btn-icon" id="btn-header-search" title="Search (⌘K)">
+                  <i data-lucide="search" class="w-4 h-4"></i>
+                </button>
               </div>
             </header>
+
+            <!-- Content -->
             <main class="flex-1 overflow-y-auto">
               ${renderWorkspaceContent(project)}
             </main>
@@ -749,12 +1158,13 @@
       if (state.workspaceSection === 'overview') {
         return renderOverview(project);
       }
-      // Placeholders for future stages
       return `
         <div class="empty-state h-full">
-          <i data-lucide="construction" class="w-10 h-10 mb-4 opacity-30"></i>
-          <p class="text-base font-medium text-[var(--text-secondary)]">Coming soon</p>
-          <p class="text-sm mt-1">This section will be built in a later stage.</p>
+          <div class="w-12 h-12 rounded-xl bg-[var(--bg-panel)] flex items-center justify-center mb-4">
+            <i data-lucide="construction" class="w-5 h-5 text-[var(--text-muted)]"></i>
+          </div>
+          <p class="text-[15px] font-medium text-[var(--text-secondary)]">Coming in a later stage</p>
+          <p class="text-sm text-[var(--text-muted)] mt-1 max-w-xs">This section is planned and will be fully functional soon.</p>
         </div>
       `;
     }
@@ -764,23 +1174,23 @@
       const stage = getStage(project.stage);
 
       return `
-        <div class="max-w-4xl mx-auto px-8 py-8">
-          <!-- Title & Stage -->
+        <div class="max-w-3xl mx-auto px-6 md:px-10 py-8 view-enter">
+          <!-- Title block -->
           <div class="mb-10">
-            <div class="editable-block mb-4">
+            <div class="editable-block mb-5">
               <label class="label">Title</label>
               <input
                 type="text"
-                class="input-field text-2xl font-semibold tracking-tight !py-2 !px-3"
+                class="input-field !text-2xl !font-semibold !tracking-tight !py-2.5 !px-3.5"
                 id="field-title"
                 value="${escapeHtml(project.title)}"
                 placeholder="Project title"
               />
             </div>
-            <div class="flex flex-wrap items-center gap-4">
+            <div class="flex flex-wrap items-end gap-4">
               <div class="editable-block">
                 <label class="label">Development Stage</label>
-                <select id="field-stage" class="input-field !w-auto min-w-[180px]">
+                <select id="field-stage" class="input-field !w-auto min-w-[200px]">
                   ${STAGES.map(s => `
                     <option value="${s.id}" ${project.stage === s.id ? 'selected' : ''}>
                       Stage ${s.id} — ${s.name}
@@ -788,7 +1198,7 @@
                   `).join('')}
                 </select>
               </div>
-              <div class="editable-block flex-1 min-w-[160px]">
+              <div class="editable-block flex-1 min-w-[180px]">
                 <label class="label">Genre</label>
                 <input
                   type="text"
@@ -803,7 +1213,7 @@
 
           <!-- Core -->
           <section class="mb-10">
-            <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Core</h3>
+            <h3 class="section-title">Core</h3>
             <div class="space-y-5">
               <div class="editable-block">
                 <label class="label">Logline</label>
@@ -814,7 +1224,7 @@
                   placeholder="One or two sentences that capture the essence of the story…"
                 >${escapeHtml(project.logline || '')}</textarea>
               </div>
-              <div class="overview-grid">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div class="editable-block">
                   <label class="label">Tone</label>
                   <input
@@ -822,7 +1232,7 @@
                     class="input-field"
                     id="field-tone"
                     value="${escapeHtml(project.tone || '')}"
-                    placeholder="e.g. Tense, contemplative, darkly humorous"
+                    placeholder="e.g. Tense, contemplative"
                   />
                 </div>
                 <div class="editable-block">
@@ -851,7 +1261,7 @@
 
           <!-- Synopsis -->
           <section class="mb-10">
-            <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Synopsis</h3>
+            <h3 class="section-title">Synopsis</h3>
             <div class="editable-block">
               <textarea
                 id="field-synopsis"
@@ -864,9 +1274,9 @@
 
           <!-- Description & Priorities -->
           <section class="mb-10">
-            <div class="overview-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Short Description</h3>
+                <h3 class="section-title">Short Description</h3>
                 <div class="editable-block">
                   <textarea
                     id="field-description"
@@ -877,7 +1287,7 @@
                 </div>
               </div>
               <div>
-                <h3 class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Current Priorities</h3>
+                <h3 class="section-title">Current Priorities</h3>
                 <div class="editable-block">
                   <textarea
                     id="field-priorities"
@@ -892,17 +1302,17 @@
 
           <!-- Meta -->
           <section class="pt-6 border-t border-[var(--border)]">
-            <div class="flex flex-wrap gap-6 text-xs text-[var(--text-muted)]">
+            <div class="flex flex-wrap gap-8 text-xs text-[var(--text-muted)]">
               <div>
-                <span class="block mb-0.5">Created</span>
+                <span class="block mb-1 font-medium uppercase tracking-wider text-[10px]">Created</span>
                 <span class="text-[var(--text-secondary)]">${formatDate(project.createdAt)}</span>
               </div>
               <div>
-                <span class="block mb-0.5">Last modified</span>
+                <span class="block mb-1 font-medium uppercase tracking-wider text-[10px]">Last modified</span>
                 <span class="text-[var(--text-secondary)]">${formatDate(project.updatedAt)}</span>
               </div>
               <div>
-                <span class="block mb-0.5">Stage progress</span>
+                <span class="block mb-1 font-medium uppercase tracking-wider text-[10px]">Stage</span>
                 <span class="text-[var(--text-secondary)]">${project.stage} of 6 — ${stage.name}</span>
               </div>
             </div>
@@ -924,8 +1334,9 @@
         return `
           <div class="modal-backdrop open" id="modal-backdrop">
             <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-              <h2 id="modal-title" class="text-base font-semibold mb-4">${title}</h2>
-              <div class="mb-5">
+              <h2 id="modal-title" class="text-base font-semibold text-[var(--text)] mb-1">${title}</h2>
+              <p class="text-sm text-[var(--text-muted)] mb-5">${isRename ? 'Enter a new name for this project.' : 'Give your project a working title. You can change it later.'}</p>
+              <div class="mb-6">
                 <label class="label" for="modal-input">Title</label>
                 <input
                   type="text"
@@ -937,8 +1348,8 @@
                 />
               </div>
               <div class="flex justify-end gap-2">
-                <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
-                <button class="btn btn-primary" id="modal-confirm">${isRename ? 'Rename' : 'Create'}</button>
+                <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-confirm">${isRename ? 'Rename' : 'Create Project'}</button>
               </div>
             </div>
           </div>
@@ -949,13 +1360,16 @@
         return `
           <div class="modal-backdrop open" id="modal-backdrop">
             <div class="modal" role="dialog" aria-modal="true">
-              <h2 class="text-base font-semibold mb-2">Delete Project</h2>
-              <p class="text-sm text-[var(--text-secondary)] mb-5">
-                Are you sure you want to delete <strong class="text-[var(--text)]">${escapeHtml(data.title)}</strong>? This cannot be undone.
+              <div class="w-10 h-10 rounded-full bg-[var(--danger-soft)] flex items-center justify-center mb-4">
+                <i data-lucide="trash-2" class="w-5 h-5 text-[var(--danger)]"></i>
+              </div>
+              <h2 class="text-base font-semibold text-[var(--text)] mb-1.5">Delete Project</h2>
+              <p class="text-sm text-[var(--text-secondary)] mb-6 leading-relaxed">
+                Are you sure you want to delete <strong class="text-[var(--text)] font-medium">${escapeHtml(data.title)}</strong>? This action cannot be undone.
               </p>
               <div class="flex justify-end gap-2">
-                <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
-                <button class="btn btn-primary" id="modal-confirm" style="background: var(--danger); color: white;">Delete</button>
+                <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-confirm" style="background: var(--danger); box-shadow: none;">Delete Project</button>
               </div>
             </div>
           </div>
@@ -965,16 +1379,121 @@
       return '';
     }
 
+    // -------------------- Command Palette --------------------
+    function renderCommandPalette() {
+      const q = state.commandQuery.toLowerCase().trim();
+      const results = [];
+
+      // Projects
+      state.projects.forEach(p => {
+        if (!q || p.title.toLowerCase().includes(q) || (p.genre || '').toLowerCase().includes(q)) {
+          results.push({
+            type: 'project',
+            id: p.id,
+            title: p.title,
+            subtitle: p.genre || getStage(p.stage).name,
+            icon: 'film'
+          });
+        }
+      });
+
+      // Navigation (when in workspace)
+      if (state.currentView === 'workspace') {
+        NAV_ITEMS.filter(n => !n.disabled).forEach(n => {
+          if (!q || n.label.toLowerCase().includes(q)) {
+            results.push({
+              type: 'nav',
+              id: n.id,
+              title: n.label,
+              subtitle: 'Go to section',
+              icon: n.icon
+            });
+          }
+        });
+      }
+
+      // Actions
+      if (!q || 'new project'.includes(q) || 'create'.includes(q)) {
+        results.push({
+          type: 'action',
+          id: 'new-project',
+          title: 'New Project',
+          subtitle: 'Create a new film project',
+          icon: 'plus'
+        });
+      }
+
+      return `
+        <div class="command-backdrop open" id="command-backdrop">
+          <div class="command-panel" role="dialog" aria-modal="true">
+            <div class="flex items-center gap-3 px-4 border-b border-[var(--border)]">
+              <i data-lucide="search" class="w-4 h-4 text-[var(--text-muted)] flex-shrink-0"></i>
+              <input
+                type="text"
+                id="command-input"
+                class="flex-1 py-3.5 text-sm bg-transparent border-none outline-none text-[var(--text)] placeholder:text-[var(--text-muted)]"
+                placeholder="Search projects, navigate…"
+                value="${escapeHtml(state.commandQuery)}"
+                autofocus
+              />
+              <kbd class="text-[10px] font-medium text-[var(--text-muted)] bg-[var(--bg-panel)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
+            </div>
+            <div class="max-h-72 overflow-y-auto py-2">
+              ${results.length === 0 ? `
+                <div class="px-4 py-8 text-center text-sm text-[var(--text-muted)]">No results found</div>
+              ` : results.map((r, i) => `
+                <button
+                  class="command-item w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[var(--bg-hover)] transition-colors"
+                  data-cmd-type="${r.type}"
+                  data-cmd-id="${r.id}"
+                  data-index="${i}"
+                >
+                  <div class="w-8 h-8 rounded-lg bg-[var(--bg-panel)] flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="${r.icon}" class="w-4 h-4 text-[var(--text-secondary)]"></i>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-sm font-medium text-[var(--text)] truncate">${escapeHtml(r.title)}</div>
+                    <div class="text-xs text-[var(--text-muted)] truncate">${escapeHtml(r.subtitle)}</div>
+                  </div>
+                  <span class="text-[10px] font-medium text-[var(--text-muted)] uppercase tracking-wider">${r.type}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     // ------------------------------------------------------------
     // Events
     // ------------------------------------------------------------
     function bindEvents() {
+      // Global keyboard
+      document.onkeydown = (e) => {
+        // Cmd/Ctrl + K
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          if (state.commandOpen) closeCommand();
+          else openCommand();
+          return;
+        }
+        if (e.key === 'Escape') {
+          if (state.commandOpen) {
+            closeCommand();
+            return;
+          }
+          if (state.modal) {
+            closeModal();
+            return;
+          }
+        }
+      };
+
       // Library search
       const searchInput = document.getElementById('library-search');
       if (searchInput) {
         searchInput.addEventListener('input', (e) => {
           state.searchQuery = e.target.value;
-          // Re-render only the list portion would be nicer, but full re-render is fine for Stage 1
           const cursor = e.target.selectionStart;
           render();
           const newInput = document.getElementById('library-search');
@@ -985,19 +1504,13 @@
         });
       }
 
-      // New project buttons
-      document.getElementById('btn-new-project')?.addEventListener('click', () => {
-        openModal('new-project');
-      });
-      document.getElementById('btn-new-project-empty')?.addEventListener('click', () => {
-        openModal('new-project');
-      });
+      // New project
+      document.getElementById('btn-new-project')?.addEventListener('click', () => openModal('new-project'));
+      document.getElementById('btn-new-project-empty')?.addEventListener('click', () => openModal('new-project'));
 
       // Project cards
       document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', () => {
-          openProject(card.dataset.projectId);
-        });
+        card.addEventListener('click', () => openProject(card.dataset.projectId));
       });
 
       // Card actions
@@ -1009,28 +1522,29 @@
           const project = state.projects.find(p => p.id === id);
           if (!project) return;
 
-          if (action === 'rename') {
-            openModal('rename', { id, title: project.title });
-          } else if (action === 'duplicate') {
+          if (action === 'rename') openModal('rename', { id, title: project.title });
+          else if (action === 'duplicate') {
             duplicateProject(id);
             render();
-          } else if (action === 'delete') {
-            openModal('delete', { id, title: project.title });
-          }
+          } else if (action === 'delete') openModal('delete', { id, title: project.title });
         });
       });
 
       // Sidebar
       document.getElementById('btn-back-library')?.addEventListener('click', goToLibrary);
+      document.getElementById('btn-toggle-sidebar')?.addEventListener('click', toggleSidebar);
 
-      document.querySelectorAll('.sidebar-link').forEach(link => {
+      document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
         link.addEventListener('click', () => {
           const section = link.dataset.section;
           setWorkspaceSection(section);
         });
       });
 
-      // Overview fields — live save
+      // Header search
+      document.getElementById('btn-header-search')?.addEventListener('click', openCommand);
+
+      // Overview fields
       const project = getCurrentProject();
       if (project && state.workspaceSection === 'overview') {
         const fields = [
@@ -1040,25 +1554,23 @@
         fields.forEach(field => {
           const el = document.getElementById(`field-${field}`);
           if (!el) return;
-          el.addEventListener('change', () => {
+          const save = () => {
             updateProject(project.id, { [field]: el.value });
-            // Soft update of sidebar title if needed
             if (field === 'title') {
               const sidebarTitle = document.querySelector('aside h2');
               if (sidebarTitle) sidebarTitle.textContent = el.value || 'Untitled Project';
+              const crumb = document.querySelector('.breadcrumb span:first-child');
+              if (crumb) crumb.textContent = el.value || 'Untitled Project';
             }
-          });
-          // Also save on blur for better UX
-          el.addEventListener('blur', () => {
-            updateProject(project.id, { [field]: el.value });
-          });
+          };
+          el.addEventListener('change', save);
+          el.addEventListener('blur', save);
         });
 
         const stageSelect = document.getElementById('field-stage');
         if (stageSelect) {
           stageSelect.addEventListener('change', () => {
             updateProject(project.id, { stage: parseInt(stageSelect.value, 10) });
-            // Refresh sidebar stage label
             render();
           });
         }
@@ -1073,7 +1585,7 @@
 
         cancel?.addEventListener('click', closeModal);
         backdrop?.addEventListener('click', (e) => {
-          if (e.target === backdrop) closeModal();
+          if (e.target === backdrop && state.modal.type !== 'delete') closeModal();
         });
 
         if (state.modal.type === 'new-project' || state.modal.type === 'rename') {
@@ -1095,7 +1607,6 @@
           confirm?.addEventListener('click', submit);
           input?.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') submit();
-            if (e.key === 'Escape') closeModal();
           });
         }
 
@@ -1104,27 +1615,42 @@
             deleteProject(state.modal.data.id);
             closeModal();
           });
-          document.addEventListener('keydown', function escHandler(e) {
-            if (e.key === 'Escape') {
-              closeModal();
-              document.removeEventListener('keydown', escHandler);
-            }
-          });
         }
       }
-    }
 
-    // ------------------------------------------------------------
-    // Utils
-    // ------------------------------------------------------------
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+      // Command palette
+      if (state.commandOpen) {
+        const backdrop = document.getElementById('command-backdrop');
+        const input = document.getElementById('command-input');
+
+        backdrop?.addEventListener('click', (e) => {
+          if (e.target === backdrop) closeCommand();
+        });
+
+        input?.focus();
+        input?.addEventListener('input', (e) => {
+          state.commandQuery = e.target.value;
+          const cursor = e.target.selectionStart;
+          render();
+          const newInput = document.getElementById('command-input');
+          if (newInput) {
+            newInput.focus();
+            newInput.setSelectionRange(cursor, cursor);
+          }
+        });
+
+        document.querySelectorAll('.command-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const type = item.dataset.cmdType;
+            const id = item.dataset.cmdId;
+            closeCommand();
+
+            if (type === 'project') openProject(id);
+            else if (type === 'nav') setWorkspaceSection(id);
+            else if (type === 'action' && id === 'new-project') openModal('new-project');
+          });
+        });
+      }
     }
 
     // ------------------------------------------------------------
