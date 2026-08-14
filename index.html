@@ -2,118 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Auteur</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root{
   --purple:#5b21d1;
-  --purple-light:#f0ebff;
-  --text:#303136;
-  --muted:#8b8f99;
-  --line:#e8e9ed;
+  --purple-dark:#4916b0;
+  --purple-soft:#eeeafd;
+  --text:#292a2f;
+  --muted:#888c95;
+  --line:#e7e8eb;
   --sidebar:#f7f8fa;
-  --soft:#f4f4f7;
+  --hover:#f0f1f4;
+  --paper:#ffffff;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html,body{
+html,
+body{
   margin:0;
   width:100%;
   height:100%;
   overflow:hidden;
-  color:var(--text);
-  background:#fff;
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-button,input,textarea{font:inherit}
-button{border:0;background:none}
-.hidden{display:none!important}
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:#fff;
+  font-size:14px;
+}
 
-/* APP */
+button,
+input,
+textarea{
+  font:inherit;
+}
 
-#app{
+button{
+  border:0;
+  background:none;
+  color:inherit;
+}
+
+.app{
   width:100vw;
   height:100vh;
   display:flex;
   flex-direction:column;
 }
 
-/* TOPBAR */
+/* =========================================================
+   TOP BAR
+========================================================= */
 
 .topbar{
   height:54px;
-  flex:none;
+  min-height:54px;
   border-bottom:1px solid var(--line);
-  background:#fff;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 10px;
-  z-index:20;
+  background:#fff;
 }
 
-.top-left,.top-right{
+.top-left,
+.top-right{
   display:flex;
   align-items:center;
+  gap:4px;
 }
 
-.top-left{gap:2px}
-.top-right{gap:8px}
+.top-right{
+  gap:10px;
+}
 
-.icon-btn{
+.icon-button{
   width:34px;
   height:34px;
   border-radius:6px;
   display:grid;
   place-items:center;
-  color:#36373b;
   cursor:pointer;
+  color:#45474d;
+  font-size:17px;
 }
 
-.icon-btn:hover{background:#f1f1f4}
-
-.icon-btn svg{
-  width:19px;
-  height:19px;
-  stroke-width:2;
+.icon-button:hover{
+  background:var(--hover);
 }
 
 .updated{
-  color:#858894;
-  font-size:13px;
+  color:#858991;
+  font-size:12px;
   font-weight:600;
 }
 
-.create-btn{
+.create-button{
   height:36px;
-  padding:0 14px;
+  padding:0 15px;
   border-radius:5px;
-  background:#5720ca;
+  background:var(--purple);
   color:#fff;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  font-size:14px;
-  font-weight:650;
+  font-size:13px;
+  font-weight:700;
   cursor:pointer;
 }
 
-.create-btn:hover{background:#4b1bb7}
-
-.create-btn svg{
-  width:18px;
-  height:18px;
+.create-button:hover{
+  background:var(--purple-dark);
 }
 
-/* WORKSPACE */
+/* =========================================================
+   APPLICATION
+========================================================= */
 
 .workspace{
   flex:1;
@@ -121,11 +130,13 @@ button{border:0;background:none}
   display:flex;
 }
 
-/* SIDEBAR */
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 .sidebar{
-  width:314px;
-  min-width:314px;
+  width:300px;
+  min-width:300px;
   background:var(--sidebar);
   border-right:1px solid var(--line);
   display:flex;
@@ -134,49 +145,35 @@ button{border:0;background:none}
 
 .profile{
   height:68px;
-  padding:0 19px;
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:9px;
+  padding:0 18px;
 }
 
 .avatar{
-  width:26px;
-  height:26px;
+  width:27px;
+  height:27px;
   border-radius:50%;
   background:#1688f5;
-  color:white;
+  color:#fff;
   display:grid;
   place-items:center;
-  font-size:10px;
+  font-size:9px;
   font-weight:800;
-  position:relative;
-}
-
-.avatar:after{
-  content:"";
-  position:absolute;
-  width:6px;
-  height:6px;
-  right:-1px;
-  bottom:-1px;
-  background:#31c66b;
-  border:1px solid var(--sidebar);
-  border-radius:50%;
 }
 
 .profile-name{
-  font-size:15px;
-  font-weight:600;
+  font-size:14px;
+  font-weight:650;
 }
 
-.profile svg{
-  width:14px;
-  height:14px;
-  color:#858991;
+.profile-chevron{
+  color:#858990;
+  font-size:11px;
 }
 
-.nav{
+.navigation{
   padding:0 10px;
 }
 
@@ -188,81 +185,80 @@ button{border:0;background:none}
   align-items:center;
   gap:12px;
   padding:0 10px;
-  color:#414247;
-  font-size:15px;
+  color:#414349;
+  font-size:14px;
   font-weight:600;
-  cursor:pointer;
   text-align:left;
+  cursor:pointer;
 }
 
-.nav-item:hover{background:#eef0f3}
+.nav-item:hover{
+  background:#eef0f3;
+}
 
 .nav-item.active{
+  background:#ececf0;
   color:var(--purple);
-  background:#eceef1;
 }
 
-.nav-item svg{
+.nav-icon{
   width:17px;
-  height:17px;
+  text-align:center;
+  font-size:15px;
 }
 
-.nav-item .right{
+.nav-right{
   margin-left:auto;
-  color:#858991;
+  color:#8c9098;
 }
 
-.secondary{
+.nav-secondary{
   margin-top:22px;
 }
 
 .upgrade{
   margin:auto 10px 13px;
-  height:142px;
-  background:#e8ebef;
+  height:140px;
   border-radius:5px;
+  background:#e8ebef;
   padding:18px;
   display:flex;
   flex-direction:column;
 }
 
 .upgrade-title{
-  font-size:15px;
-  line-height:1.25;
+  font-size:14px;
+  line-height:1.3;
   font-weight:700;
 }
 
-.upgrade-btn{
+.upgrade-button{
   margin-top:auto;
   align-self:flex-start;
-  height:34px;
+  height:33px;
   padding:0 11px;
   border-radius:5px;
   background:#dce0e4;
-  color:#37383d;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  font-size:13px;
-  font-weight:600;
+  font-size:12px;
+  font-weight:650;
   cursor:pointer;
 }
 
-/* MAIN */
+/* =========================================================
+   MAIN
+========================================================= */
 
 .main{
   flex:1;
   min-width:0;
+  min-height:0;
   display:flex;
   flex-direction:column;
-  background:white;
 }
-
-/* HEADER */
 
 .page-header{
   height:50px;
-  flex:none;
+  min-height:50px;
   border-bottom:1px solid var(--line);
   display:flex;
   align-items:center;
@@ -274,19 +270,25 @@ button{border:0;background:none}
   font-weight:700;
 }
 
-/* CONTENT */
-
 .page{
   flex:1;
   min-height:0;
   overflow:auto;
-  padding:29px 38px 70px;
 }
 
-/* DASHBOARD */
+.hidden{
+  display:none!important;
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard{
+  padding:29px 38px 80px;
+}
 
 .search{
-  width:100%;
   height:57px;
   border-radius:30px;
   background:#f4f4f8;
@@ -294,28 +296,28 @@ button{border:0;background:none}
   align-items:center;
   padding:0 20px;
   margin-bottom:28px;
+  font-size:22px;
 }
 
-.search svg{
-  width:23px;
-  height:23px;
-  color:#15161a;
+.search-icon{
+  color:#34363a;
 }
 
 .search input{
   flex:1;
-  min-width:0;
   border:0;
   outline:0;
   background:transparent;
   margin-left:13px;
-  font-size:17px;
+  font-size:16px;
 }
 
-.search input::placeholder{color:#c9cbd2}
+.search input::placeholder{
+  color:#c6c8ce;
+}
 
 .section-title{
-  font-size:17px;
+  font-size:16px;
   font-weight:700;
   margin-bottom:11px;
 }
@@ -334,25 +336,26 @@ button{border:0;background:none}
   cursor:pointer;
 }
 
-.file-row:hover{background:#fafafd}
+.file-row:hover{
+  background:#fafafd;
+}
 
-.file-row svg{
-  width:27px;
-  height:27px;
-  color:#b8c0c9;
+.file-cloud{
+  font-size:21px;
+  color:#b8bec7;
 }
 
 .file-name{
-  font-size:16px;
+  font-size:15px;
   font-weight:650;
 }
 
 .recent{
-  margin-bottom:49px;
+  margin-bottom:48px;
 }
 
-.file-heading{
-  height:47px;
+.file-toolbar{
+  height:48px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -362,26 +365,26 @@ button{border:0;background:none}
   height:100%;
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:19px;
 }
 
 .tab{
   height:100%;
+  position:relative;
   display:flex;
   align-items:center;
-  position:relative;
-  color:#9297a0;
-  font-size:16px;
+  color:#9498a1;
+  font-size:14px;
   font-weight:600;
   cursor:pointer;
 }
 
 .tab.active{
-  color:#36373a;
+  color:#34353a;
   font-weight:700;
 }
 
-.tab.active:after{
+.tab.active::after{
   content:"";
   position:absolute;
   left:0;
@@ -391,292 +394,50 @@ button{border:0;background:none}
   background:var(--purple);
 }
 
-.controls{
-  display:flex;
-  align-items:center;
-  gap:5px;
-}
-
 .sort{
   display:flex;
   align-items:center;
-  gap:3px;
-  color:#858a94;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
+  gap:7px;
+  color:#858a93;
+  font-size:12px;
 }
 
-.sort svg{
-  width:13px;
-  height:13px;
-}
-
-.views{
+.view-buttons{
   display:flex;
-  gap:1px;
 }
 
-.view{
-  width:36px;
-  height:36px;
+.view-button{
+  width:34px;
+  height:34px;
   border-radius:4px;
   display:grid;
   place-items:center;
-  color:#858991;
   cursor:pointer;
 }
 
-.view.active{
+.view-button.active{
+  background:#f0f0f4;
   color:var(--purple);
-  background:#f1f1f5;
 }
 
-/* FEATURE */
-
-.feature{
-  position:fixed;
-  left:329px;
-  right:15px;
-  bottom:5px;
-  height:45px;
-  border:2px solid var(--purple);
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 13px;
-  z-index:10;
-}
-
-.feature-left{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  font-size:17px;
-  font-weight:700;
-}
-
-.feature-left svg{
-  width:17px;
-}
-
-.feature button{
-  color:#858994;
-  font-size:14px;
-  font-weight:600;
-}
-
-/* EDITOR */
-
-.editor-page{
-  padding:0!important;
-  overflow:hidden!important;
-  display:flex;
-  flex-direction:column;
-  background:#f7f7f8;
-}
-
-.editor-toolbar{
-  height:48px;
-  flex:none;
-  background:white;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 14px;
-}
-
-.editor-left,
-.editor-right{
-  display:flex;
-  align-items:center;
-  gap:5px;
-}
-
-.back-btn{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  color:#555860;
-  font-size:13px;
-  font-weight:600;
-  padding:7px;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-.back-btn:hover{background:#f2f2f4}
-
-.script-name{
-  margin-left:8px;
-  font-size:14px;
-  font-weight:650;
-}
-
-.save-state{
-  color:#8b8f98;
-  font-size:12px;
-  margin-right:10px;
-}
-
-.editor-btn{
-  width:32px;
-  height:32px;
-  display:grid;
-  place-items:center;
-  border-radius:5px;
-  color:#62656d;
-  cursor:pointer;
-}
-
-.editor-btn:hover{background:#f1f1f3}
-
-.editor-btn svg{
-  width:17px;
-  height:17px;
-}
-
-.editor-area{
-  flex:1;
-  min-height:0;
-  display:flex;
-  overflow:hidden;
-}
-
-.scene-sidebar{
-  width:235px;
-  min-width:235px;
-  background:#f7f8fa;
-  border-right:1px solid #e2e3e6;
-  overflow:auto;
-}
-
-.scene-header{
-  height:45px;
-  border-bottom:1px solid #e2e3e6;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 13px;
-  font-size:12px;
-  font-weight:700;
-  color:#71747c;
-}
-
-.scene{
-  min-height:52px;
-  padding:9px 12px;
-  border-bottom:1px solid #e5e6e9;
-  cursor:pointer;
-}
-
-.scene:hover{background:#eef0f3}
-
-.scene.active{
-  background:#ece9f8;
-  border-left:3px solid var(--purple);
-  padding-left:9px;
-}
-
-.scene-num{
-  font-size:10px;
-  color:#969aa2;
-  margin-bottom:3px;
-}
-
-.scene-title{
-  font-size:12px;
-  font-weight:650;
-  line-height:1.3;
-}
-
-.paper-wrap{
-  flex:1;
-  min-width:0;
-  overflow:auto;
-  padding:42px 70px 100px;
-  display:flex;
-  justify-content:center;
-}
-
-.paper{
-  width:816px;
-  min-height:1056px;
-  background:#fff;
-  box-shadow:0 2px 18px rgba(0,0,0,.08);
-  padding:92px 105px;
-  flex:none;
-}
-
-.screenplay{
-  width:100%;
-  min-height:850px;
-  outline:none;
-  font-family:"Courier New",Courier,monospace;
-  font-size:12px;
-  line-height:1.45;
-  color:#111;
-  white-space:pre-wrap;
-}
-
-.screenplay:focus{outline:none}
-
-.editor-sidebar{
-  width:220px;
-  min-width:220px;
-  background:#f7f8fa;
-  border-left:1px solid #e2e3e6;
-  overflow:auto;
-  padding:12px;
-}
-
-.inspector-title{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  font-weight:700;
-  color:#8b8f98;
-  margin:8px 5px 12px;
-}
-
-.inspector-card{
-  background:#fff;
-  border:1px solid #e4e5e8;
-  border-radius:6px;
-  padding:11px;
-  margin-bottom:8px;
-}
-
-.inspector-label{
-  color:#9498a1;
-  font-size:10px;
-  font-weight:700;
-  margin-bottom:4px;
-}
-
-.inspector-value{
-  font-size:12px;
-  font-weight:600;
-}
-
-/* WORKSPACE PAGES */
+/* =========================================================
+   GENERAL WORKSPACE PAGES
+========================================================= */
 
 .workspace-page{
-  padding:34px 42px 90px;
+  padding:35px 42px 80px;
   overflow:auto;
 }
 
-.workspace-title{
+.workspace-heading{
   font-size:25px;
   font-weight:700;
   margin-bottom:7px;
 }
 
-.workspace-subtitle{
-  color:#8b8f98;
-  font-size:14px;
+.workspace-description{
+  color:var(--muted);
+  font-size:13px;
   margin-bottom:27px;
 }
 
@@ -688,32 +449,29 @@ button{border:0;background:none}
 }
 
 .card{
-  border:1px solid #e3e4e8;
+  border:1px solid #e2e3e7;
   border-radius:8px;
   padding:18px;
+  min-height:135px;
   background:#fff;
   cursor:pointer;
-  transition:.15s;
+  transition:.15s ease;
 }
 
 .card:hover{
-  border-color:#cfc9ed;
-  box-shadow:0 4px 16px rgba(0,0,0,.05);
+  border-color:#cfc7ec;
+  box-shadow:0 5px 18px #0000000b;
 }
 
 .card-icon{
   width:35px;
   height:35px;
   border-radius:7px;
-  background:var(--purple-light);
+  background:var(--purple-soft);
   color:var(--purple);
   display:grid;
   place-items:center;
   margin-bottom:14px;
-}
-
-.card-icon svg{
-  width:18px;
 }
 
 .card-title{
@@ -722,13 +480,15 @@ button{border:0;background:none}
   margin-bottom:5px;
 }
 
-.card-desc{
+.card-description{
+  color:var(--muted);
   font-size:12px;
-  line-height:1.5;
-  color:#8b8f98;
+  line-height:1.45;
 }
 
-/* CHARACTER PAGE */
+/* =========================================================
+   CHARACTERS
+========================================================= */
 
 .character-grid{
   display:grid;
@@ -736,18 +496,18 @@ button{border:0;background:none}
   gap:14px;
 }
 
-.character{
+.character-card{
   border:1px solid #e3e4e8;
   border-radius:8px;
   padding:18px;
-  background:white;
+  background:#fff;
 }
 
 .character-avatar{
-  width:42px;
-  height:42px;
+  width:43px;
+  height:43px;
   border-radius:50%;
-  background:#eeeafc;
+  background:#eeeafd;
   color:var(--purple);
   display:grid;
   place-items:center;
@@ -756,40 +516,42 @@ button{border:0;background:none}
 }
 
 .character-name{
-  font-size:15px;
+  font-size:14px;
   font-weight:700;
 }
 
 .character-role{
-  color:#9296a0;
-  font-size:12px;
   margin-top:4px;
+  color:#92969f;
+  font-size:11px;
 }
 
-/* STORY */
+/* =========================================================
+   STORY
+========================================================= */
 
 .timeline{
-  max-width:1000px;
-  border-left:2px solid #dddde2;
+  max-width:900px;
+  border-left:2px solid #dedfe3;
   margin-left:10px;
 }
 
 .beat{
   position:relative;
-  padding:0 0 25px 28px;
+  padding:0 0 28px 28px;
 }
 
-.beat:before{
+.beat::before{
   content:"";
   position:absolute;
   left:-7px;
   top:2px;
-  width:12px;
-  height:12px;
+  width:11px;
+  height:11px;
   border-radius:50%;
   background:var(--purple);
   border:3px solid #fff;
-  box-shadow:0 0 0 1px #ddd;
+  box-shadow:0 0 0 1px #d9dae0;
 }
 
 .beat-title{
@@ -797,15 +559,18 @@ button{border:0;background:none}
   font-weight:700;
 }
 
-.beat-desc{
+.beat-description{
   margin-top:5px;
-  color:#8b8f98;
+  color:var(--muted);
   font-size:12px;
+  line-height:1.5;
 }
 
-/* NOTES */
+/* =========================================================
+   NOTES
+========================================================= */
 
-.notes{
+.notes-grid{
   max-width:900px;
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -813,8 +578,8 @@ button{border:0;background:none}
 }
 
 .note{
-  min-height:150px;
-  border:1px solid #e3e4e8;
+  min-height:165px;
+  border:1px solid #e2e3e7;
   border-radius:8px;
   padding:17px;
   background:#fff;
@@ -826,50 +591,300 @@ button{border:0;background:none}
   margin-bottom:9px;
 }
 
-.note-body{
+.note textarea{
   width:100%;
-  min-height:90px;
-  resize:none;
+  min-height:100px;
   border:0;
   outline:0;
-  color:#6f737c;
-  font-size:13px;
+  resize:none;
+  color:#70747d;
   line-height:1.5;
+  font-size:12px;
 }
 
-/* MODAL */
+/* =========================================================
+   EDITOR
+========================================================= */
 
-.modal-bg{
+.editor-page{
+  padding:0!important;
+  overflow:hidden!important;
+  display:flex;
+  flex-direction:column;
+  background:#f6f6f8;
+}
+
+.editor-toolbar{
+  height:48px;
+  min-height:48px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+}
+
+.editor-left,
+.editor-right{
+  display:flex;
+  align-items:center;
+}
+
+.back-button{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px;
+  border-radius:5px;
+  color:#55585f;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.back-button:hover{
+  background:#f1f1f3;
+}
+
+.script-title{
+  margin-left:9px;
+  font-size:13px;
+  font-weight:650;
+}
+
+.editor-status{
+  color:#8b8f97;
+  font-size:11px;
+  margin-right:9px;
+}
+
+.editor-button{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.editor-button:hover{
+  background:#f0f0f3;
+}
+
+.editor-body{
+  flex:1;
+  min-height:0;
+  display:flex;
+  overflow:hidden;
+}
+
+/* =========================================================
+   SCENE PANEL
+========================================================= */
+
+.scene-panel{
+  width:230px;
+  min-width:230px;
+  background:#f7f8fa;
+  border-right:1px solid #e0e1e5;
+  overflow:auto;
+}
+
+.scene-header{
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 13px;
+  border-bottom:1px solid #e1e2e5;
+  color:#777b84;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+}
+
+.scene-add{
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.scene-add:hover{
+  background:#e9eaed;
+}
+
+.scene{
+  min-height:54px;
+  padding:9px 12px;
+  border-bottom:1px solid #e4e5e8;
+  cursor:pointer;
+}
+
+.scene:hover{
+  background:#eef0f3;
+}
+
+.scene.active{
+  background:#ece9f8;
+  border-left:3px solid var(--purple);
+  padding-left:9px;
+}
+
+.scene-number{
+  color:#999da5;
+  font-size:9px;
+  margin-bottom:3px;
+}
+
+.scene-title{
+  font-size:11px;
+  line-height:1.35;
+  font-weight:650;
+}
+
+/* =========================================================
+   SCREENPLAY
+========================================================= */
+
+.paper-area{
+  flex:1;
+  min-width:0;
+  overflow:auto;
+  padding:42px 65px 100px;
+  display:flex;
+  justify-content:center;
+}
+
+.paper{
+  width:816px;
+  min-height:1056px;
+  flex:none;
+  background:var(--paper);
+  box-shadow:0 2px 18px #00000012;
+  padding:92px 105px;
+}
+
+.screenplay{
+  width:100%;
+  min-height:850px;
+  outline:0;
+  white-space:pre-wrap;
+  font-family:"Courier New",Courier,monospace;
+  font-size:12px;
+  line-height:1.45;
+  color:#111;
+}
+
+/* =========================================================
+   INSPECTOR
+========================================================= */
+
+.inspector{
+  width:215px;
+  min-width:215px;
+  background:#f7f8fa;
+  border-left:1px solid #e0e1e5;
+  padding:12px;
+  overflow:auto;
+}
+
+.inspector-title{
+  margin:8px 5px 12px;
+  color:#8b8f97;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+}
+
+.inspector-card{
+  background:#fff;
+  border:1px solid #e3e4e8;
+  border-radius:6px;
+  padding:11px;
+  margin-bottom:8px;
+}
+
+.inspector-label{
+  color:#969aa2;
+  font-size:9px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.inspector-value{
+  font-size:11px;
+  font-weight:600;
+}
+
+/* =========================================================
+   FEATURE BAR
+========================================================= */
+
+.feature-bar{
+  position:fixed;
+  left:315px;
+  right:15px;
+  bottom:5px;
+  height:44px;
+  border:2px solid var(--purple);
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 13px;
+  z-index:20;
+  font-size:16px;
+  font-weight:700;
+}
+
+.feature-show{
+  color:#858991;
+  font-size:12px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-backdrop{
   position:fixed;
   inset:0;
-  background:rgba(20,20,25,.25);
+  z-index:100;
+  background:#17171c40;
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:100;
 }
 
-.modal-bg.open{display:flex}
+.modal-backdrop.open{
+  display:flex;
+}
 
 .modal{
   width:420px;
-  background:white;
+  background:#fff;
   border-radius:10px;
   padding:24px;
-  box-shadow:0 25px 70px rgba(0,0,0,.2);
+  box-shadow:0 25px 70px #00000030;
 }
 
 .modal-title{
   font-size:20px;
   font-weight:700;
-  margin-bottom:19px;
+  margin-bottom:20px;
 }
 
 .modal-label{
   display:block;
-  font-size:12px;
+  color:#6f737b;
+  font-size:11px;
   font-weight:700;
-  color:#6e727a;
   margin-bottom:7px;
 }
 
@@ -884,79 +899,125 @@ button{border:0;background:none}
 
 .modal-input:focus{
   border-color:var(--purple);
-  box-shadow:0 0 0 3px rgba(91,33,209,.1);
+  box-shadow:0 0 0 2px var(--purple-soft);
 }
 
 .modal-actions{
-  margin-top:19px;
   display:flex;
   justify-content:flex-end;
   gap:7px;
+  margin-top:19px;
 }
 
 .modal-actions button{
   height:36px;
   padding:0 14px;
   border-radius:5px;
-  font-size:13px;
+  font-size:12px;
   font-weight:650;
   cursor:pointer;
 }
 
-.cancel{background:#f0f1f3}
-.confirm{background:var(--purple);color:white}
+.cancel-button{
+  background:#f0f1f3;
+}
 
-/* RESPONSIVE */
+.confirm-button{
+  background:var(--purple);
+  color:#fff;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media(max-width:1100px){
-  .sidebar{width:245px;min-width:245px}
-  .feature{left:260px}
-  .editor-sidebar{display:none}
-  .scene-sidebar{width:190px;min-width:190px}
+
+  .sidebar{
+    width:245px;
+    min-width:245px;
+  }
+
+  .feature-bar{
+    left:260px;
+  }
+
+  .inspector{
+    display:none;
+  }
+
+}
+
+@media(max-width:800px){
+
+  .sidebar{
+    width:205px;
+    min-width:205px;
+  }
+
+  .feature-bar{
+    left:220px;
+  }
+
+  .scene-panel{
+    width:175px;
+    min-width:175px;
+  }
+
+  .paper-area{
+    padding:30px;
+  }
+
+  .paper{
+    padding:70px;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<div class="app">
 
-<!-- TOPBAR -->
+<!-- =======================================================
+     TOP BAR
+======================================================= -->
+
 <header class="topbar">
 
   <div class="top-left">
 
-    <button class="icon-btn" title="Home" onclick="showPage('dashboard')">
-      <i data-lucide="home"></i>
+    <button class="icon-button" onclick="navigate('dashboard')" title="Dashboard">
+      ⌂
     </button>
 
-    <button class="icon-btn" title="Library" onclick="showPage('dashboard')">
-      <i data-lucide="panel-top"></i>
+    <button class="icon-button" onclick="navigate('scripts')" title="Scripts">
+      ▣
     </button>
 
-    <button class="icon-btn" title="Search" onclick="focusSearch()">
-      <i data-lucide="search"></i>
+    <button class="icon-button" onclick="focusSearch()" title="Search">
+      ⌕
     </button>
 
-    <button class="icon-btn" title="Notifications">
-      <i data-lucide="bell"></i>
+    <button class="icon-button" title="Workspace">
+      ♧
     </button>
 
   </div>
 
   <div class="top-right">
 
-    <span class="updated" id="saveStatus">
+    <span class="updated" id="globalStatus">
       Updated just now
     </span>
 
-    <button class="icon-btn" onclick="saveNow()" title="Save">
-      <i data-lucide="rotate-cw"></i>
+    <button class="icon-button" onclick="saveScript()">
+      ↻
     </button>
 
-    <button class="create-btn" onclick="openCreate()">
-      <i data-lucide="plus"></i>
-      Create
+    <button class="create-button" onclick="openCreateModal()">
+      ＋ Create
     </button>
 
   </div>
@@ -966,58 +1027,77 @@ button{border:0;background:none}
 
 <div class="workspace">
 
-<!-- SIDEBAR -->
+<!-- =======================================================
+     SIDEBAR
+======================================================= -->
 
 <aside class="sidebar">
 
   <div class="profile">
 
-    <div class="avatar">NL</div>
+    <div class="avatar">
+      NL
+    </div>
 
-    <span class="profile-name">Noah LaLindez</span>
+    <span class="profile-name">
+      Noah LaLindez
+    </span>
 
-    <i data-lucide="chevron-down"></i>
+    <span class="profile-chevron">
+      ⌄
+    </span>
 
   </div>
 
 
-  <nav class="nav">
+  <nav class="navigation">
 
-    <button class="nav-item active" data-page="dashboard"
-            onclick="showPage('dashboard')">
-      <i data-lucide="gauge"></i>
-      Dashboard
-    </button>
-
-    <button class="nav-item" data-page="scripts"
-            onclick="showPage('scripts')">
-      <i data-lucide="file-text"></i>
-      Scripts
-      <i class="right" data-lucide="plus"></i>
-    </button>
-
-    <button class="nav-item" data-page="projects"
-            onclick="showPage('projects')">
-      <i data-lucide="layout-grid"></i>
-      Projects
+    <button
+      class="nav-item active"
+      data-page="dashboard"
+      onclick="navigate('dashboard')"
+    >
+      <span class="nav-icon">◉</span>
+      <span>Dashboard</span>
     </button>
 
 
-    <div class="secondary">
+    <button
+      class="nav-item"
+      data-page="scripts"
+      onclick="navigate('scripts')"
+    >
+      <span class="nav-icon">▤</span>
+      <span>Scripts</span>
+      <span class="nav-right">＋</span>
+    </button>
 
-      <button class="nav-item" data-page="support">
-        <i data-lucide="circle-help"></i>
-        Support
+
+    <button
+      class="nav-item"
+      data-page="projects"
+      onclick="navigate('projects')"
+    >
+      <span class="nav-icon">▦</span>
+      <span>Projects</span>
+    </button>
+
+
+    <div class="nav-secondary">
+
+      <button class="nav-item">
+        <span class="nav-icon">?</span>
+        <span>Support</span>
       </button>
 
-      <button class="nav-item" data-page="whatsnew">
-        <i data-lucide="party-popper"></i>
-        What's new?
+      <button class="nav-item">
+        <span class="nav-icon">✦</span>
+        <span>What's new?</span>
       </button>
 
-      <button class="nav-item" data-page="refer">
-        <i data-lucide="gift"></i>
-        Refer a friend
+      <button class="nav-item">
+        <span class="nav-icon">◇</span>
+        <span>Refer a friend</span>
       </button>
 
     </div>
@@ -1032,9 +1112,8 @@ button{border:0;background:none}
       access to all features
     </div>
 
-    <button class="upgrade-btn">
-      <i data-lucide="sparkles"></i>
-      Upgrade now!
+    <button class="upgrade-button">
+      ✦ Upgrade now!
     </button>
 
   </div>
@@ -1042,27 +1121,36 @@ button{border:0;background:none}
 </aside>
 
 
-<!-- MAIN -->
+<!-- =======================================================
+     MAIN CONTENT
+======================================================= -->
 
 <main class="main">
 
   <div class="page-header">
-    <div class="page-title" id="pageTitle">Dashboard</div>
+    <div class="page-title" id="pageTitle">
+      Dashboard
+    </div>
   </div>
 
 
-  <!-- DASHBOARD -->
+  <!-- =====================================================
+       DASHBOARD
+  ====================================================== -->
 
-  <div class="page" id="dashboardPage">
+  <section
+    class="page dashboard"
+    id="dashboardPage"
+  >
 
     <div class="search">
 
-      <i data-lucide="search"></i>
+      <span class="search-icon">⌕</span>
 
       <input
         id="searchInput"
+        type="text"
         placeholder="Search scripts..."
-        autocomplete="off"
       >
 
     </div>
@@ -1076,28 +1164,23 @@ button{border:0;background:none}
 
       <div class="file-list" id="recentFiles">
 
-        <div class="file-row"
-             data-name="Sentient Mass"
-             onclick="openScript('Sentient Mass')">
-
-          <i data-lucide="cloud"></i>
-
-          <span class="file-name">
-            Sentient Mass
-          </span>
-
+        <div
+          class="file-row"
+          data-name="Sentient Mass"
+          onclick="openScript('Sentient Mass')"
+        >
+          <span class="file-cloud">☁</span>
+          <span class="file-name">Sentient Mass</span>
         </div>
 
-        <div class="file-row"
-             data-name="Xenophon's Anabasis"
-             onclick="openScript('Xenophon\\'s Anabasis')">
 
-          <i data-lucide="cloud"></i>
-
-          <span class="file-name">
-            Xenophon's Anabasis
-          </span>
-
+        <div
+          class="file-row"
+          data-name="Xenophon's Anabasis"
+          onclick="openScript('Xenophons Anabasis')"
+        >
+          <span class="file-cloud">☁</span>
+          <span class="file-name">Xenophon's Anabasis</span>
         </div>
 
       </div>
@@ -1107,33 +1190,43 @@ button{border:0;background:none}
 
     <section>
 
-      <div class="file-heading">
+      <div class="file-toolbar">
 
         <div class="tabs">
 
-          <button class="tab active">All Files</button>
-          <button class="tab">My Files</button>
-          <button class="tab">Shared With Me</button>
-          <button class="tab">Archived</button>
+          <button class="tab active">
+            All Files
+          </button>
+
+          <button class="tab">
+            My Files
+          </button>
+
+          <button class="tab">
+            Shared With Me
+          </button>
+
+          <button class="tab">
+            Archived
+          </button>
 
         </div>
 
 
-        <div class="controls">
+        <div class="sort">
 
-          <button class="sort">
-            by last edited
-            <i data-lucide="chevron-down"></i>
-          </button>
+          <span>
+            by last edited⌄
+          </span>
 
-          <div class="views">
+          <div class="view-buttons">
 
-            <button class="view active">
-              <i data-lucide="list"></i>
+            <button class="view-button active">
+              ☷
             </button>
 
-            <button class="view">
-              <i data-lucide="grid-2x2"></i>
+            <button class="view-button">
+              ▦
             </button>
 
           </div>
@@ -1145,51 +1238,56 @@ button{border:0;background:none}
 
       <div class="file-list" id="allFiles">
 
-        <div class="file-row"
-             data-name="Sentient Mass"
-             onclick="openScript('Sentient Mass')">
-
-          <i data-lucide="cloud"></i>
-
-          <span class="file-name">
-            Sentient Mass
-          </span>
-
+        <div
+          class="file-row"
+          data-name="Sentient Mass"
+          onclick="openScript('Sentient Mass')"
+        >
+          <span class="file-cloud">☁</span>
+          <span class="file-name">Sentient Mass</span>
         </div>
 
-        <div class="file-row"
-             data-name="Xenophon's Anabasis"
-             onclick="openScript('Xenophon\\'s Anabasis')">
 
-          <i data-lucide="cloud"></i>
-
-          <span class="file-name">
-            Xenophon's Anabasis
-          </span>
-
+        <div
+          class="file-row"
+          data-name="Xenophon's Anabasis"
+          onclick="openScript('Xenophons Anabasis')"
+        >
+          <span class="file-cloud">☁</span>
+          <span class="file-name">Xenophon's Anabasis</span>
         </div>
 
       </div>
 
     </section>
 
-  </div>
+  </section>
 
 
-  <!-- EDITOR -->
+  <!-- =====================================================
+       EDITOR
+  ====================================================== -->
 
-  <div class="page editor-page hidden" id="editorPage">
+  <section
+    class="page editor-page hidden"
+    id="editorPage"
+  >
 
     <div class="editor-toolbar">
 
       <div class="editor-left">
 
-        <button class="back-btn" onclick="showPage('dashboard')">
-          <i data-lucide="chevron-left"></i>
-          Dashboard
+        <button
+          class="back-button"
+          onclick="navigate('dashboard')"
+        >
+          ‹ Dashboard
         </button>
 
-        <span class="script-name" id="editorScriptName">
+        <span
+          class="script-title"
+          id="editorScriptTitle"
+        >
           Sentient Mass
         </span>
 
@@ -1198,27 +1296,42 @@ button{border:0;background:none}
 
       <div class="editor-right">
 
-        <span class="save-state" id="editorSave">
+        <span
+          class="editor-status"
+          id="editorStatus"
+        >
           Saved
         </span>
 
-        <button class="editor-btn" title="Characters"
-                onclick="showPage('characters')">
-          <i data-lucide="users"></i>
+        <button
+          class="editor-button"
+          onclick="navigate('characters')"
+          title="Characters"
+        >
+          ♙
         </button>
 
-        <button class="editor-btn" title="Story"
-                onclick="showPage('story')">
-          <i data-lucide="milestone"></i>
+        <button
+          class="editor-button"
+          onclick="navigate('story')"
+          title="Story Structure"
+        >
+          ⌁
         </button>
 
-        <button class="editor-btn" title="Notes"
-                onclick="showPage('notes')">
-          <i data-lucide="sticky-note"></i>
+        <button
+          class="editor-button"
+          onclick="navigate('notes')"
+          title="Notes"
+        >
+          ▢
         </button>
 
-        <button class="editor-btn" title="Settings">
-          <i data-lucide="settings"></i>
+        <button
+          class="editor-button"
+          title="Settings"
+        >
+          ⚙
         </button>
 
       </div>
@@ -1226,32 +1339,67 @@ button{border:0;background:none}
     </div>
 
 
-    <div class="editor-area">
+    <div class="editor-body">
 
-      <aside class="scene-sidebar">
+
+      <!-- SCENE PANEL -->
+
+      <aside class="scene-panel">
 
         <div class="scene-header">
-          SCENES
-          <button class="editor-btn" onclick="addScene()">
-            <i data-lucide="plus"></i>
+
+          <span>
+            SCENES
+          </span>
+
+          <button
+            class="scene-add"
+            onclick="addScene()"
+          >
+            ＋
           </button>
+
         </div>
+
 
         <div id="sceneList">
 
           <div class="scene active">
-            <div class="scene-num">01</div>
-            <div class="scene-title">EXT. MEGA PLANET - DAY</div>
+
+            <div class="scene-number">
+              01
+            </div>
+
+            <div class="scene-title">
+              EXT. MEGA PLANET - DAY
+            </div>
+
           </div>
 
-          <div class="scene">
-            <div class="scene-num">02</div>
-            <div class="scene-title">INT. OBSERVATORY - NIGHT</div>
-          </div>
 
           <div class="scene">
-            <div class="scene-num">03</div>
-            <div class="scene-title">EXT. CITY - SUNSET</div>
+
+            <div class="scene-number">
+              02
+            </div>
+
+            <div class="scene-title">
+              INT. OBSERVATORY - NIGHT
+            </div>
+
+          </div>
+
+
+          <div class="scene">
+
+            <div class="scene-number">
+              03
+            </div>
+
+            <div class="scene-title">
+              EXT. CITY - SUNSET
+            </div>
+
           </div>
 
         </div>
@@ -1259,13 +1407,15 @@ button{border:0;background:none}
       </aside>
 
 
-      <div class="paper-wrap">
+      <!-- SCREENPLAY -->
+
+      <div class="paper-area">
 
         <div class="paper">
 
           <div
-            id="screenplay"
             class="screenplay"
+            id="screenplay"
             contenteditable="true"
             spellcheck="false"
           >FADE IN:
@@ -1283,11 +1433,13 @@ He looks down.
 The planet continues.
 
                        LUDWIG
+
           They built all of this...
 
 He takes a breath.
 
                        LUDWIG
+
           And somehow it still isn't enough.
 
 FADE OUT.</div>
@@ -1297,72 +1449,114 @@ FADE OUT.</div>
       </div>
 
 
-      <aside class="editor-sidebar">
+      <!-- INSPECTOR -->
+
+      <aside class="inspector">
 
         <div class="inspector-title">
-          Scene
+          SCENE
         </div>
 
+
         <div class="inspector-card">
-          <div class="inspector-label">HEADING</div>
+
+          <div class="inspector-label">
+            HEADING
+          </div>
+
           <div class="inspector-value">
             EXT. MEGA PLANET - DAY
           </div>
+
         </div>
 
-        <div class="inspector-card">
-          <div class="inspector-label">CHARACTERS</div>
-          <div class="inspector-value">Ludwig James</div>
-        </div>
 
         <div class="inspector-card">
-          <div class="inspector-label">PAGE</div>
-          <div class="inspector-value">1</div>
+
+          <div class="inspector-label">
+            CHARACTERS
+          </div>
+
+          <div class="inspector-value">
+            Ludwig James
+          </div>
+
+        </div>
+
+
+        <div class="inspector-card">
+
+          <div class="inspector-label">
+            PAGE
+          </div>
+
+          <div class="inspector-value">
+            1
+          </div>
+
         </div>
 
       </aside>
 
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- SCRIPTS -->
+  <!-- =====================================================
+       SCRIPTS
+  ====================================================== -->
 
-  <div class="page workspace-page hidden" id="scriptsPage">
+  <section
+    class="page workspace-page hidden"
+    id="scriptsPage"
+  >
 
-    <div class="workspace-title">Scripts</div>
+    <div class="workspace-heading">
+      Scripts
+    </div>
 
-    <div class="workspace-subtitle">
+    <div class="workspace-description">
       Your screenplays, drafts, and writing projects.
     </div>
 
+
     <div class="card-grid">
 
-      <div class="card" onclick="openScript('Sentient Mass')">
+      <div
+        class="card"
+        onclick="openScript('Sentient Mass')"
+      >
 
         <div class="card-icon">
-          <i data-lucide="file-text"></i>
+          ▤
         </div>
 
-        <div class="card-title">Sentient Mass</div>
+        <div class="card-title">
+          Sentient Mass
+        </div>
 
-        <div class="card-desc">
+        <div class="card-description">
           Screenplay · Draft 1
         </div>
 
       </div>
 
 
-      <div class="card">
+      <div
+        class="card"
+        onclick="openCreateModal()"
+      >
 
         <div class="card-icon">
-          <i data-lucide="file-plus-2"></i>
+          ＋
         </div>
 
-        <div class="card-title">New screenplay</div>
+        <div class="card-title">
+          New screenplay
+        </div>
 
-        <div class="card-desc">
+        <div class="card-description">
           Start a new story.
         </div>
 
@@ -1370,30 +1564,40 @@ FADE OUT.</div>
 
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- PROJECTS -->
+  <!-- =====================================================
+       PROJECTS
+  ====================================================== -->
 
-  <div class="page workspace-page hidden" id="projectsPage">
+  <section
+    class="page workspace-page hidden"
+    id="projectsPage"
+  >
 
-    <div class="workspace-title">Projects</div>
+    <div class="workspace-heading">
+      Projects
+    </div>
 
-    <div class="workspace-subtitle">
+    <div class="workspace-description">
       Organize your films from first idea to final draft.
     </div>
+
 
     <div class="card-grid">
 
       <div class="card">
 
         <div class="card-icon">
-          <i data-lucide="film"></i>
+          ▣
         </div>
 
-        <div class="card-title">Sentient Mass</div>
+        <div class="card-title">
+          Sentient Mass
+        </div>
 
-        <div class="card-desc">
+        <div class="card-description">
           Feature film · In development
         </div>
 
@@ -1403,12 +1607,14 @@ FADE OUT.</div>
       <div class="card">
 
         <div class="card-icon">
-          <i data-lucide="folder-plus"></i>
+          ＋
         </div>
 
-        <div class="card-title">New project</div>
+        <div class="card-title">
+          New project
+        </div>
 
-        <div class="card-desc">
+        <div class="card-description">
           Create a new film project.
         </div>
 
@@ -1416,26 +1622,38 @@ FADE OUT.</div>
 
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- CHARACTERS -->
+  <!-- =====================================================
+       CHARACTERS
+  ====================================================== -->
 
-  <div class="page workspace-page hidden" id="charactersPage">
+  <section
+    class="page workspace-page hidden"
+    id="charactersPage"
+  >
 
-    <div class="workspace-title">Characters</div>
+    <div class="workspace-heading">
+      Characters
+    </div>
 
-    <div class="workspace-subtitle">
+    <div class="workspace-description">
       Build characters, relationships, motivations, and arcs.
     </div>
 
+
     <div class="character-grid">
 
-      <div class="character">
+      <div class="character-card">
 
-        <div class="character-avatar">LJ</div>
+        <div class="character-avatar">
+          LJ
+        </div>
 
-        <div class="character-name">Ludwig James</div>
+        <div class="character-name">
+          Ludwig James
+        </div>
 
         <div class="character-role">
           Protagonist
@@ -1444,11 +1662,15 @@ FADE OUT.</div>
       </div>
 
 
-      <div class="character">
+      <div class="character-card">
 
-        <div class="character-avatar">+</div>
+        <div class="character-avatar">
+          ＋
+        </div>
 
-        <div class="character-name">Add character</div>
+        <div class="character-name">
+          Add character
+        </div>
 
         <div class="character-role">
           Create a new character
@@ -1458,18 +1680,26 @@ FADE OUT.</div>
 
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- STORY -->
+  <!-- =====================================================
+       STORY STRUCTURE
+  ====================================================== -->
 
-  <div class="page workspace-page hidden" id="storyPage">
+  <section
+    class="page workspace-page hidden"
+    id="storyPage"
+  >
 
-    <div class="workspace-title">Story Structure</div>
+    <div class="workspace-heading">
+      Story Structure
+    </div>
 
-    <div class="workspace-subtitle">
+    <div class="workspace-description">
       Shape the story before the screenplay becomes concrete.
     </div>
+
 
     <div class="timeline">
 
@@ -1479,7 +1709,7 @@ FADE OUT.</div>
           Opening Image
         </div>
 
-        <div class="beat-desc">
+        <div class="beat-description">
           Establish the scale and visual language of the world.
         </div>
 
@@ -1492,7 +1722,7 @@ FADE OUT.</div>
           Inciting Incident
         </div>
 
-        <div class="beat-desc">
+        <div class="beat-description">
           Ludwig discovers something impossible within the architecture.
         </div>
 
@@ -1505,7 +1735,7 @@ FADE OUT.</div>
           First Turning Point
         </div>
 
-        <div class="beat-desc">
+        <div class="beat-description">
           His obsession begins changing the way he sees other people.
         </div>
 
@@ -1518,7 +1748,7 @@ FADE OUT.</div>
           Midpoint
         </div>
 
-        <div class="beat-desc">
+        <div class="beat-description">
           The scale of the planet stops feeling beautiful.
         </div>
 
@@ -1526,20 +1756,28 @@ FADE OUT.</div>
 
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- NOTES -->
+  <!-- =====================================================
+       NOTES
+  ====================================================== -->
 
-  <div class="page workspace-page hidden" id="notesPage">
+  <section
+    class="page workspace-page hidden"
+    id="notesPage"
+  >
 
-    <div class="workspace-title">Notes</div>
+    <div class="workspace-heading">
+      Notes
+    </div>
 
-    <div class="workspace-subtitle">
+    <div class="workspace-description">
       Keep the ideas behind the film close to the work.
     </div>
 
-    <div class="notes">
+
+    <div class="notes-grid">
 
       <div class="note">
 
@@ -1547,8 +1785,10 @@ FADE OUT.</div>
           Visual language
         </div>
 
-        <textarea class="note-body"
-          placeholder="Write a note...">Massive distant landscapes. Architecture should feel beautiful before it feels overwhelming.</textarea>
+        <textarea
+          class="note-text"
+          data-note="visual"
+        >Massive distant landscapes. Architecture should feel beautiful before it feels overwhelming.</textarea>
 
       </div>
 
@@ -1559,37 +1799,50 @@ FADE OUT.</div>
           Theme
         </div>
 
-        <textarea class="note-body"
-          placeholder="Write a note...">Humans will always return to loving other humans.</textarea>
+        <textarea
+          class="note-text"
+          data-note="theme"
+        >Humans will always return to loving other humans.</textarea>
 
       </div>
 
     </div>
 
-  </div>
+  </section>
 
 </main>
 
 </div>
 
 
-<!-- FEATURE -->
+<!-- =======================================================
+     FEATURE BAR
+======================================================= -->
 
-<div class="feature" id="feature">
+<div
+  class="feature-bar"
+  id="featureBar"
+>
 
-  <div class="feature-left">
-    <i data-lucide="chevron-right"></i>
-    Featured Guides &amp; Events
-  </div>
+  <span>
+    › &nbsp; Featured Guides &amp; Events
+  </span>
 
-  <button>Show</button>
+  <button class="feature-show">
+    Show
+  </button>
 
 </div>
 
 
-<!-- CREATE MODAL -->
+<!-- =======================================================
+     CREATE MODAL
+======================================================= -->
 
-<div class="modal-bg" id="modal">
+<div
+  class="modal-backdrop"
+  id="createModal"
+>
 
   <div class="modal">
 
@@ -1602,19 +1855,25 @@ FADE OUT.</div>
     </label>
 
     <input
-      id="newScriptName"
       class="modal-input"
+      id="newScriptTitle"
+      type="text"
       placeholder="Untitled screenplay"
-      autocomplete="off"
     >
 
     <div class="modal-actions">
 
-      <button class="cancel" onclick="closeCreate()">
+      <button
+        class="cancel-button"
+        onclick="closeCreateModal()"
+      >
         Cancel
       </button>
 
-      <button class="confirm" onclick="createScript()">
+      <button
+        class="confirm-button"
+        onclick="createScript()"
+      >
         Create screenplay
       </button>
 
@@ -1627,376 +1886,522 @@ FADE OUT.</div>
 
 <script>
 
-/* ICONS */
+/* =========================================================
+   STATE
+========================================================= */
 
-lucide.createIcons();
-
-
-/* STATE */
-
-let currentPage="dashboard";
-let currentScript="Sentient Mass";
+let currentScript = "Sentient Mass";
+let saveTimer = null;
 
 
-/* PAGE SYSTEM */
+/* =========================================================
+   PAGE MAP
+========================================================= */
 
-const pages={
-  dashboard:"dashboardPage",
-  editor:"editorPage",
-  scripts:"scriptsPage",
-  projects:"projectsPage",
-  characters:"charactersPage",
-  story:"storyPage",
-  notes:"notesPage"
-};
-
-const titles={
-  dashboard:"Dashboard",
-  editor:"",
-  scripts:"Scripts",
-  projects:"Projects",
-  characters:"Characters",
-  story:"Story Structure",
-  notes:"Notes"
+const pages = {
+  dashboard: "dashboardPage",
+  editor: "editorPage",
+  scripts: "scriptsPage",
+  projects: "projectsPage",
+  characters: "charactersPage",
+  story: "storyPage",
+  notes: "notesPage"
 };
 
 
-function showPage(page){
+const titles = {
+  dashboard: "Dashboard",
+  editor: "",
+  scripts: "Scripts",
+  projects: "Projects",
+  characters: "Characters",
+  story: "Story Structure",
+  notes: "Notes"
+};
 
-  currentPage=page;
 
-  Object.entries(pages).forEach(([key,id])=>{
-    document.getElementById(id)
-      .classList.toggle("hidden",key!==page);
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(page){
+
+  Object.entries(pages).forEach(([name,id]) => {
+
+    document
+      .getElementById(id)
+      .classList.toggle("hidden",name !== page);
+
   });
 
-  document.getElementById("pageTitle").textContent=titles[page];
 
-  document.querySelectorAll(".nav-item").forEach(item=>{
-    item.classList.toggle(
-      "active",
-      item.dataset.page===page
-    );
-  });
+  document.getElementById("pageTitle").textContent =
+    titles[page] || "";
 
-  document.getElementById("feature").style.display=
-    page==="dashboard" ? "flex":"none";
 
-  if(page==="editor"){
-    document.getElementById("pageTitle").textContent="";
-  }
+  document
+    .querySelectorAll(".nav-item[data-page]")
+    .forEach(item => {
+
+      item.classList.toggle(
+        "active",
+        item.dataset.page === page
+      );
+
+    });
+
+
+  document.getElementById("featureBar").style.display =
+    page === "dashboard" ? "flex" : "none";
 
 }
 
 
-/* SCRIPT OPEN */
+/* =========================================================
+   SCRIPT OPENING
+========================================================= */
 
 function openScript(name){
 
-  currentScript=name;
+  currentScript = name;
 
-  document.getElementById("editorScriptName").textContent=name;
+  document.getElementById(
+    "editorScriptTitle"
+  ).textContent = name;
 
-  showPage("editor");
 
-  setTimeout(()=>{
-    document.getElementById("screenplay").focus();
-  },100);
+  const saved =
+    localStorage.getItem(
+      "auteur.script." + name
+    );
+
+
+  if(saved !== null){
+
+    document.getElementById(
+      "screenplay"
+    ).innerText = saved;
+
+  }
+
+
+  navigate("editor");
 
 }
 
 
-/* SEARCH */
+/* =========================================================
+   SEARCH
+========================================================= */
 
 function focusSearch(){
 
-  showPage("dashboard");
+  navigate("dashboard");
 
-  setTimeout(()=>{
-    document.getElementById("searchInput").focus();
+  setTimeout(() => {
+
+    document
+      .getElementById("searchInput")
+      .focus();
+
   },50);
 
 }
 
 
-document.getElementById("searchInput").addEventListener("input",e=>{
+document
+  .getElementById("searchInput")
+  .addEventListener("input",event => {
 
-  const query=e.target.value.toLowerCase().trim();
+    const query =
+      event.target.value
+        .toLowerCase()
+        .trim();
 
-  document.querySelectorAll(".file-row").forEach(row=>{
 
-    row.style.display=
-      row.dataset.name.toLowerCase().includes(query)
-      ?"flex"
-      :"none";
+    document
+      .querySelectorAll(".file-row")
+      .forEach(row => {
+
+        const name =
+          row.dataset.name
+            .toLowerCase();
+
+
+        row.style.display =
+          name.includes(query)
+            ? "flex"
+            : "none";
+
+      });
 
   });
 
-});
+
+/* =========================================================
+   CREATE SCRIPT
+========================================================= */
+
+function openCreateModal(){
+
+  document
+    .getElementById("createModal")
+    .classList.add("open");
 
 
-/* CREATE */
+  setTimeout(() => {
 
-function openCreate(){
+    document
+      .getElementById("newScriptTitle")
+      .focus();
 
-  document.getElementById("modal").classList.add("open");
-
-  setTimeout(()=>{
-    document.getElementById("newScriptName").focus();
-  },60);
+  },50);
 
 }
 
 
-function closeCreate(){
+function closeCreateModal(){
 
-  document.getElementById("modal").classList.remove("open");
+  document
+    .getElementById("createModal")
+    .classList.remove("open");
 
-  document.getElementById("newScriptName").value="";
+
+  document
+    .getElementById("newScriptTitle")
+    .value = "";
 
 }
 
 
 function createScript(){
 
-  const name=
-    document.getElementById("newScriptName")
-      .value.trim() ||
-    "Untitled screenplay";
+  const input =
+    document
+      .getElementById("newScriptTitle")
+      .value
+      .trim();
 
-  currentScript=name;
 
-  localStorage.setItem(
-    "auteur-script-"+name,
-    ""
+  const name =
+    input || "Untitled screenplay";
+
+
+  addFileRow(
+    document.getElementById("recentFiles"),
+    name
   );
 
-  closeCreate();
+
+  addFileRow(
+    document.getElementById("allFiles"),
+    name
+  );
+
+
+  closeCreateModal();
 
   openScript(name);
 
 }
 
 
-document.getElementById("modal").addEventListener("click",e=>{
+function addFileRow(container,name){
 
-  if(e.target.id==="modal"){
-    closeCreate();
-  }
-
-});
+  const row =
+    document.createElement("div");
 
 
-document.getElementById("newScriptName")
-  .addEventListener("keydown",e=>{
+  row.className = "file-row";
 
-    if(e.key==="Enter")createScript();
+  row.dataset.name = name;
 
-    if(e.key==="Escape")closeCreate();
+  row.innerHTML = `
+    <span class="file-cloud">☁</span>
+    <span class="file-name"></span>
+  `;
+
+
+  row.querySelector(".file-name")
+    .textContent = name;
+
+
+  row.onclick = () =>
+    openScript(name);
+
+
+  container.prepend(row);
+
+}
+
+
+/* =========================================================
+   MODAL EVENTS
+========================================================= */
+
+document
+  .getElementById("newScriptTitle")
+  .addEventListener("keydown",event => {
+
+    if(event.key === "Enter"){
+      createScript();
+    }
+
+    if(event.key === "Escape"){
+      closeCreateModal();
+    }
 
   });
 
 
-/* SAVE */
+document
+  .getElementById("createModal")
+  .addEventListener("click",event => {
 
-const screenplay=
+    if(event.target.id === "createModal"){
+      closeCreateModal();
+    }
+
+  });
+
+
+/* =========================================================
+   EDITOR AUTOSAVE
+========================================================= */
+
+const screenplay =
   document.getElementById("screenplay");
 
-let saveTimer;
+
+screenplay.addEventListener("input",() => {
+
+  document
+    .getElementById("editorStatus")
+    .textContent = "Saving...";
 
 
-screenplay.addEventListener("input",()=>{
+  document
+    .getElementById("globalStatus")
+    .textContent = "Saving...";
 
-  document.getElementById("editorSave")
-    .textContent="Saving...";
-
-  document.getElementById("saveStatus")
-    .textContent="Saving...";
 
   clearTimeout(saveTimer);
 
-  saveTimer=setTimeout(saveNow,600);
+
+  saveTimer = setTimeout(
+    saveScript,
+    500
+  );
 
 });
 
 
-function saveNow(){
+function saveScript(){
 
   localStorage.setItem(
-    "auteur-"+currentScript,
+    "auteur.script." + currentScript,
     screenplay.innerText
   );
 
-  document.getElementById("editorSave")
-    .textContent="Saved";
 
-  document.getElementById("saveStatus")
-    .textContent="Updated just now";
-
-}
+  document
+    .getElementById("editorStatus")
+    .textContent = "Saved";
 
 
-/* LOAD */
-
-function loadScript(){
-
-  const saved=
-    localStorage.getItem(
-      "auteur-"+currentScript
-    );
-
-  if(saved!==null && saved.trim()){
-    screenplay.innerText=saved;
-  }
+  document
+    .getElementById("globalStatus")
+    .textContent =
+      "Updated just now";
 
 }
 
 
-/* SCENES */
+/* =========================================================
+   SCENES
+========================================================= */
 
-document.querySelectorAll(".scene").forEach(scene=>{
+document
+  .querySelectorAll(".scene")
+  .forEach(scene => {
 
-  scene.addEventListener("click",()=>{
+    scene.addEventListener("click",() => {
 
-    document.querySelectorAll(".scene")
-      .forEach(x=>x.classList.remove("active"));
+      document
+        .querySelectorAll(".scene")
+        .forEach(item =>
+          item.classList.remove("active")
+        );
 
-    scene.classList.add("active");
+
+      scene.classList.add("active");
+
+    });
 
   });
-
-});
 
 
 function addScene(){
 
-  const list=document.getElementById("sceneList");
+  const list =
+    document.getElementById("sceneList");
 
-  const number=
-    String(list.children.length+1).padStart(2,"0");
 
-  const scene=document.createElement("div");
+  const number =
+    String(list.children.length + 1)
+      .padStart(2,"0");
 
-  scene.className="scene";
 
-  scene.innerHTML=`
-    <div class="scene-num">${number}</div>
+  const scene =
+    document.createElement("div");
+
+
+  scene.className = "scene";
+
+
+  scene.innerHTML = `
+    <div class="scene-number">${number}</div>
     <div class="scene-title">NEW SCENE</div>
   `;
 
-  scene.onclick=()=>{
-    document.querySelectorAll(".scene")
-      .forEach(x=>x.classList.remove("active"));
+
+  scene.addEventListener("click",() => {
+
+    document
+      .querySelectorAll(".scene")
+      .forEach(item =>
+        item.classList.remove("active")
+      );
+
 
     scene.classList.add("active");
-  };
+
+  });
+
 
   list.appendChild(scene);
 
 }
 
 
-/* SCREENPLAY KEYBOARD ENGINE */
+/* =========================================================
+   TABS
+========================================================= */
 
-screenplay.addEventListener("keydown",e=>{
+document
+  .querySelectorAll(".tab")
+  .forEach(tab => {
 
-  if(e.key!=="Tab")return;
+    tab.addEventListener("click",() => {
 
-  e.preventDefault();
-
-  document.execCommand(
-    "insertText",
-    false,
-    "    "
-  );
-
-});
+      document
+        .querySelectorAll(".tab")
+        .forEach(item =>
+          item.classList.remove("active")
+        );
 
 
-/* TABS */
+      tab.classList.add("active");
 
-document.querySelectorAll(".tab").forEach(tab=>{
-
-  tab.addEventListener("click",()=>{
-
-    document.querySelectorAll(".tab")
-      .forEach(x=>x.classList.remove("active"));
-
-    tab.classList.add("active");
+    });
 
   });
 
-});
+
+/* =========================================================
+   VIEW BUTTONS
+========================================================= */
+
+document
+  .querySelectorAll(".view-button")
+  .forEach(button => {
+
+    button.addEventListener("click",() => {
+
+      document
+        .querySelectorAll(".view-button")
+        .forEach(item =>
+          item.classList.remove("active")
+        );
 
 
-/* VIEW BUTTONS */
+      button.classList.add("active");
 
-document.querySelectorAll(".view").forEach(view=>{
-
-  view.addEventListener("click",()=>{
-
-    document.querySelectorAll(".view")
-      .forEach(x=>x.classList.remove("active"));
-
-    view.classList.add("active");
-
-  });
-
-});
-
-
-/* NOTES */
-
-document.querySelectorAll(".note-body").forEach(note=>{
-
-  note.addEventListener("input",()=>{
-
-    localStorage.setItem(
-      "auteur-note-"+note.previousElementSibling.textContent,
-      note.value
-    );
+    });
 
   });
 
-});
+
+/* =========================================================
+   NOTES PERSISTENCE
+========================================================= */
+
+document
+  .querySelectorAll(".note-text")
+  .forEach(note => {
+
+    const key =
+      "auteur.note." + note.dataset.note;
 
 
-/* INITIALIZE */
-
-loadScript();
-showPage("dashboard");
+    const saved =
+      localStorage.getItem(key);
 
 
-/* GLOBAL ESCAPE */
-
-document.addEventListener("keydown",e=>{
-
-  if(e.key==="Escape"){
-
-    if(!document.getElementById("modal")
-      .classList.contains("open")){
-
-      showPage("dashboard");
-
+    if(saved !== null){
+      note.value = saved;
     }
 
+
+    note.addEventListener("input",() => {
+
+      localStorage.setItem(
+        key,
+        note.value
+      );
+
+    });
+
+  });
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener("keydown",event => {
+
+  if(
+    (event.metaKey || event.ctrlKey) &&
+    event.key.toLowerCase() === "s"
+  ){
+
+    event.preventDefault();
+
+    saveScript();
+
+  }
+
+
+  if(
+    event.key === "Escape" &&
+    document
+      .getElementById("createModal")
+      .classList.contains("open")
+  ){
+
+    closeCreateModal();
+
   }
 
 });
 
 
-/* CTRL/CMD + S */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
-document.addEventListener("keydown",e=>{
-
-  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="s"){
-
-    e.preventDefault();
-    saveNow();
-
-  }
-
-});
+navigate("dashboard");
 
 </script>
 
