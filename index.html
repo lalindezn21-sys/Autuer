@@ -9,145 +9,145 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  color:#363638;
-  background:#fff;
-  font-size:14px;
-}
-button,input{font:inherit}
-button{border:0;background:none}
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-.app{
+:root{
+  --purple:#5b21d1;
+  --purple-light:#f0ebff;
+  --text:#303136;
+  --muted:#8b8f99;
+  --line:#e8e9ed;
+  --sidebar:#f7f8fa;
+  --soft:#f4f4f7;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  color:var(--text);
+  background:#fff;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,input,textarea{font:inherit}
+button{border:0;background:none}
+.hidden{display:none!important}
+
+/* APP */
+
+#app{
   width:100vw;
   height:100vh;
   display:flex;
   flex-direction:column;
 }
 
-/* TOP BAR */
+/* TOPBAR */
+
 .topbar{
   height:54px;
-  min-height:54px;
-  border-bottom:1px solid #e7e8eb;
+  flex:none;
+  border-bottom:1px solid var(--line);
+  background:#fff;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 9px 0 12px;
-  background:#fff;
+  padding:0 10px;
+  z-index:20;
 }
 
-.top-left,
-.top-right{
+.top-left,.top-right{
   display:flex;
   align-items:center;
 }
 
-.top-left{gap:3px}
+.top-left{gap:2px}
 .top-right{gap:8px}
 
-.top-icon{
+.icon-btn{
   width:34px;
   height:34px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   border-radius:6px;
-  color:#303136;
+  display:grid;
+  place-items:center;
+  color:#36373b;
   cursor:pointer;
 }
 
-.top-icon:hover{background:#f3f3f5}
+.icon-btn:hover{background:#f1f1f4}
 
-.top-icon svg{
-  width:20px;
-  height:20px;
-  stroke-width:2.1;
+.icon-btn svg{
+  width:19px;
+  height:19px;
+  stroke-width:2;
 }
 
 .updated{
-  color:#858895;
+  color:#858894;
   font-size:13px;
   font-weight:600;
-  margin-right:1px;
 }
 
-.refresh{
-  width:27px;
-  height:27px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#969aa4;
-  cursor:pointer;
-  border-radius:50%;
-}
-
-.refresh:hover{background:#f3f3f5}
-
-.refresh svg{
-  width:16px;
-  height:16px;
-}
-
-.create{
+.create-btn{
   height:36px;
-  padding:0 13px;
+  padding:0 14px;
+  border-radius:5px;
+  background:#5720ca;
+  color:#fff;
   display:flex;
   align-items:center;
   gap:7px;
-  background:#5620c9;
-  color:#fff;
-  border-radius:5px;
   font-size:14px;
   font-weight:650;
   cursor:pointer;
 }
 
-.create:hover{background:#4c1bb5}
+.create-btn:hover{background:#4b1bb7}
 
-.create svg{
+.create-btn svg{
   width:18px;
   height:18px;
-  stroke-width:2;
 }
 
-/* BODY */
-.body{
+/* WORKSPACE */
+
+.workspace{
   flex:1;
   min-height:0;
   display:flex;
 }
 
 /* SIDEBAR */
+
 .sidebar{
   width:314px;
   min-width:314px;
-  background:#f7f8fa;
-  border-right:1px solid #e9eaed;
+  background:var(--sidebar);
+  border-right:1px solid var(--line);
   display:flex;
   flex-direction:column;
 }
 
 .profile{
   height:68px;
+  padding:0 19px;
   display:flex;
   align-items:center;
-  padding:0 19px;
   gap:8px;
 }
 
 .avatar{
-  width:25px;
-  height:25px;
+  width:26px;
+  height:26px;
   border-radius:50%;
   background:#1688f5;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  color:white;
+  display:grid;
+  place-items:center;
   font-size:10px;
   font-weight:800;
   position:relative;
@@ -158,23 +158,22 @@ button{border:0;background:none}
   position:absolute;
   width:6px;
   height:6px;
-  border-radius:50%;
-  background:#32c96c;
   right:-1px;
   bottom:-1px;
-  border:1px solid #f7f8fa;
+  background:#31c66b;
+  border:1px solid var(--sidebar);
+  border-radius:50%;
 }
 
 .profile-name{
-  font-size:16px;
-  font-weight:500;
-  white-space:nowrap;
+  font-size:15px;
+  font-weight:600;
 }
 
 .profile svg{
   width:14px;
   height:14px;
-  color:#858992;
+  color:#858991;
 }
 
 .nav{
@@ -184,34 +183,31 @@ button{border:0;background:none}
 .nav-item{
   width:100%;
   height:39px;
+  border-radius:5px;
   display:flex;
   align-items:center;
   gap:12px;
   padding:0 10px;
-  border-radius:5px;
-  color:#3d3e42;
-  font-size:16px;
+  color:#414247;
+  font-size:15px;
   font-weight:600;
   cursor:pointer;
   text-align:left;
 }
 
-.nav-item:hover{
-  background:#eef0f3;
-}
+.nav-item:hover{background:#eef0f3}
 
 .nav-item.active{
-  color:#5120ce;
-  background:#eef0f3;
+  color:var(--purple);
+  background:#eceef1;
 }
 
 .nav-item svg{
   width:17px;
   height:17px;
-  stroke-width:2;
 }
 
-.nav-plus{
+.nav-item .right{
   margin-left:auto;
   color:#858991;
 }
@@ -231,10 +227,9 @@ button{border:0;background:none}
 }
 
 .upgrade-title{
-  font-size:16px;
-  line-height:1.22;
+  font-size:15px;
+  line-height:1.25;
   font-weight:700;
-  color:#303136;
 }
 
 .upgrade-btn{
@@ -242,36 +237,33 @@ button{border:0;background:none}
   align-self:flex-start;
   height:34px;
   padding:0 11px;
+  border-radius:5px;
+  background:#dce0e4;
+  color:#37383d;
   display:flex;
   align-items:center;
   gap:7px;
-  border-radius:5px;
-  background:#dce0e4;
-  color:#38393d;
   font-size:13px;
   font-weight:600;
   cursor:pointer;
 }
 
-.upgrade-btn svg{
-  width:14px;
-  height:14px;
-}
+/* MAIN */
 
-/* CONTENT */
-.content{
+.main{
   flex:1;
   min-width:0;
-  position:relative;
   display:flex;
   flex-direction:column;
-  background:#fff;
+  background:white;
 }
 
-.content-header{
+/* HEADER */
+
+.page-header{
   height:50px;
-  min-height:50px;
-  border-bottom:1px solid #ececef;
+  flex:none;
+  border-bottom:1px solid var(--line);
   display:flex;
   align-items:center;
   padding:0 38px;
@@ -280,18 +272,21 @@ button{border:0;background:none}
 .page-title{
   font-size:20px;
   font-weight:700;
-  color:#353538;
 }
 
-.scroll{
+/* CONTENT */
+
+.page{
   flex:1;
   min-height:0;
   overflow:auto;
-  padding:29px 38px 68px;
+  padding:29px 38px 70px;
 }
 
-/* SEARCH */
+/* DASHBOARD */
+
 .search{
+  width:100%;
   height:57px;
   border-radius:30px;
   background:#f4f4f8;
@@ -305,54 +300,46 @@ button{border:0;background:none}
   width:23px;
   height:23px;
   color:#15161a;
-  stroke-width:2.4;
 }
 
 .search input{
   flex:1;
+  min-width:0;
   border:0;
   outline:0;
   background:transparent;
   margin-left:13px;
   font-size:17px;
-  color:#33343a;
 }
 
-.search input::placeholder{
-  color:#c8cad1;
-}
+.search input::placeholder{color:#c9cbd2}
 
-/* SECTIONS */
 .section-title{
   font-size:17px;
   font-weight:700;
   margin-bottom:11px;
-  color:#303136;
 }
 
 .file-list{
-  border-top:1px solid #ececef;
+  border-top:1px solid var(--line);
 }
 
-.file{
+.file-row{
   height:56px;
-  border-bottom:1px solid #ececef;
+  border-bottom:1px solid var(--line);
   display:flex;
   align-items:center;
-  padding:0 14px;
   gap:15px;
+  padding:0 14px;
   cursor:pointer;
 }
 
-.file:hover{
-  background:#fafafd;
-}
+.file-row:hover{background:#fafafd}
 
-.file svg{
+.file-row svg{
   width:27px;
   height:27px;
   color:#b8c0c9;
-  stroke-width:2;
 }
 
 .file-name{
@@ -364,8 +351,7 @@ button{border:0;background:none}
   margin-bottom:49px;
 }
 
-/* FILE HEADER */
-.file-header{
+.file-heading{
   height:47px;
   display:flex;
   align-items:center;
@@ -385,13 +371,13 @@ button{border:0;background:none}
   align-items:center;
   position:relative;
   color:#9297a0;
-  font-size:17px;
+  font-size:16px;
   font-weight:600;
   cursor:pointer;
 }
 
 .tab.active{
-  color:#37373b;
+  color:#36373a;
   font-weight:700;
 }
 
@@ -402,13 +388,13 @@ button{border:0;background:none}
   right:0;
   bottom:-1px;
   height:2px;
-  background:#5b21d1;
+  background:var(--purple);
 }
 
 .controls{
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:5px;
 }
 
 .sort{
@@ -428,46 +414,39 @@ button{border:0;background:none}
 
 .views{
   display:flex;
-  align-items:center;
   gap:1px;
-  margin-left:3px;
 }
 
 .view{
   width:36px;
   height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   border-radius:4px;
+  display:grid;
+  place-items:center;
   color:#858991;
   cursor:pointer;
 }
 
 .view.active{
-  background:#f2f2f5;
-  color:#5b21d1;
+  color:var(--purple);
+  background:#f1f1f5;
 }
 
-.view svg{
-  width:17px;
-  height:17px;
-}
+/* FEATURE */
 
-/* BOTTOM BAR */
 .feature{
-  position:absolute;
-  left:15px;
+  position:fixed;
+  left:329px;
   right:15px;
   bottom:5px;
   height:45px;
-  border:2px solid #5820d8;
-  background:#fff;
+  border:2px solid var(--purple);
+  background:white;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 13px;
-  z-index:5;
+  z-index:10;
 }
 
 .feature-left{
@@ -480,21 +459,390 @@ button{border:0;background:none}
 
 .feature-left svg{
   width:17px;
-  height:17px;
 }
 
-.show{
+.feature button{
   color:#858994;
   font-size:14px;
-  font-weight:650;
+  font-weight:600;
+}
+
+/* EDITOR */
+
+.editor-page{
+  padding:0!important;
+  overflow:hidden!important;
+  display:flex;
+  flex-direction:column;
+  background:#f7f7f8;
+}
+
+.editor-toolbar{
+  height:48px;
+  flex:none;
+  background:white;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+}
+
+.editor-left,
+.editor-right{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.back-btn{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#555860;
+  font-size:13px;
+  font-weight:600;
+  padding:7px;
+  border-radius:5px;
   cursor:pointer;
 }
 
+.back-btn:hover{background:#f2f2f4}
+
+.script-name{
+  margin-left:8px;
+  font-size:14px;
+  font-weight:650;
+}
+
+.save-state{
+  color:#8b8f98;
+  font-size:12px;
+  margin-right:10px;
+}
+
+.editor-btn{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border-radius:5px;
+  color:#62656d;
+  cursor:pointer;
+}
+
+.editor-btn:hover{background:#f1f1f3}
+
+.editor-btn svg{
+  width:17px;
+  height:17px;
+}
+
+.editor-area{
+  flex:1;
+  min-height:0;
+  display:flex;
+  overflow:hidden;
+}
+
+.scene-sidebar{
+  width:235px;
+  min-width:235px;
+  background:#f7f8fa;
+  border-right:1px solid #e2e3e6;
+  overflow:auto;
+}
+
+.scene-header{
+  height:45px;
+  border-bottom:1px solid #e2e3e6;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 13px;
+  font-size:12px;
+  font-weight:700;
+  color:#71747c;
+}
+
+.scene{
+  min-height:52px;
+  padding:9px 12px;
+  border-bottom:1px solid #e5e6e9;
+  cursor:pointer;
+}
+
+.scene:hover{background:#eef0f3}
+
+.scene.active{
+  background:#ece9f8;
+  border-left:3px solid var(--purple);
+  padding-left:9px;
+}
+
+.scene-num{
+  font-size:10px;
+  color:#969aa2;
+  margin-bottom:3px;
+}
+
+.scene-title{
+  font-size:12px;
+  font-weight:650;
+  line-height:1.3;
+}
+
+.paper-wrap{
+  flex:1;
+  min-width:0;
+  overflow:auto;
+  padding:42px 70px 100px;
+  display:flex;
+  justify-content:center;
+}
+
+.paper{
+  width:816px;
+  min-height:1056px;
+  background:#fff;
+  box-shadow:0 2px 18px rgba(0,0,0,.08);
+  padding:92px 105px;
+  flex:none;
+}
+
+.screenplay{
+  width:100%;
+  min-height:850px;
+  outline:none;
+  font-family:"Courier New",Courier,monospace;
+  font-size:12px;
+  line-height:1.45;
+  color:#111;
+  white-space:pre-wrap;
+}
+
+.screenplay:focus{outline:none}
+
+.editor-sidebar{
+  width:220px;
+  min-width:220px;
+  background:#f7f8fa;
+  border-left:1px solid #e2e3e6;
+  overflow:auto;
+  padding:12px;
+}
+
+.inspector-title{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:700;
+  color:#8b8f98;
+  margin:8px 5px 12px;
+}
+
+.inspector-card{
+  background:#fff;
+  border:1px solid #e4e5e8;
+  border-radius:6px;
+  padding:11px;
+  margin-bottom:8px;
+}
+
+.inspector-label{
+  color:#9498a1;
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.inspector-value{
+  font-size:12px;
+  font-weight:600;
+}
+
+/* WORKSPACE PAGES */
+
+.workspace-page{
+  padding:34px 42px 90px;
+  overflow:auto;
+}
+
+.workspace-title{
+  font-size:25px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.workspace-subtitle{
+  color:#8b8f98;
+  font-size:14px;
+  margin-bottom:27px;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(180px,1fr));
+  gap:14px;
+  max-width:1050px;
+}
+
+.card{
+  border:1px solid #e3e4e8;
+  border-radius:8px;
+  padding:18px;
+  background:#fff;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.card:hover{
+  border-color:#cfc9ed;
+  box-shadow:0 4px 16px rgba(0,0,0,.05);
+}
+
+.card-icon{
+  width:35px;
+  height:35px;
+  border-radius:7px;
+  background:var(--purple-light);
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+  margin-bottom:14px;
+}
+
+.card-icon svg{
+  width:18px;
+}
+
+.card-title{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.card-desc{
+  font-size:12px;
+  line-height:1.5;
+  color:#8b8f98;
+}
+
+/* CHARACTER PAGE */
+
+.character-grid{
+  display:grid;
+  grid-template-columns:repeat(3,240px);
+  gap:14px;
+}
+
+.character{
+  border:1px solid #e3e4e8;
+  border-radius:8px;
+  padding:18px;
+  background:white;
+}
+
+.character-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#eeeafc;
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+  font-weight:700;
+  margin-bottom:13px;
+}
+
+.character-name{
+  font-size:15px;
+  font-weight:700;
+}
+
+.character-role{
+  color:#9296a0;
+  font-size:12px;
+  margin-top:4px;
+}
+
+/* STORY */
+
+.timeline{
+  max-width:1000px;
+  border-left:2px solid #dddde2;
+  margin-left:10px;
+}
+
+.beat{
+  position:relative;
+  padding:0 0 25px 28px;
+}
+
+.beat:before{
+  content:"";
+  position:absolute;
+  left:-7px;
+  top:2px;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:var(--purple);
+  border:3px solid #fff;
+  box-shadow:0 0 0 1px #ddd;
+}
+
+.beat-title{
+  font-size:14px;
+  font-weight:700;
+}
+
+.beat-desc{
+  margin-top:5px;
+  color:#8b8f98;
+  font-size:12px;
+}
+
+/* NOTES */
+
+.notes{
+  max-width:900px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.note{
+  min-height:150px;
+  border:1px solid #e3e4e8;
+  border-radius:8px;
+  padding:17px;
+  background:#fff;
+}
+
+.note-title{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:9px;
+}
+
+.note-body{
+  width:100%;
+  min-height:90px;
+  resize:none;
+  border:0;
+  outline:0;
+  color:#6f737c;
+  font-size:13px;
+  line-height:1.5;
+}
+
 /* MODAL */
+
 .modal-bg{
   position:fixed;
   inset:0;
-  background:rgba(20,20,25,.2);
+  background:rgba(20,20,25,.25);
   display:none;
   align-items:center;
   justify-content:center;
@@ -504,140 +852,188 @@ button{border:0;background:none}
 .modal-bg.open{display:flex}
 
 .modal{
-  width:410px;
-  background:#fff;
+  width:420px;
+  background:white;
   border-radius:10px;
-  box-shadow:0 20px 60px rgba(0,0,0,.2);
   padding:24px;
+  box-shadow:0 25px 70px rgba(0,0,0,.2);
 }
 
 .modal-title{
   font-size:20px;
   font-weight:700;
-  margin-bottom:18px;
+  margin-bottom:19px;
 }
 
-.modal input{
+.modal-label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  color:#6e727a;
+  margin-bottom:7px;
+}
+
+.modal-input{
   width:100%;
   height:42px;
   border:1px solid #d9dae0;
   border-radius:5px;
-  outline:none;
   padding:0 11px;
+  outline:none;
+}
+
+.modal-input:focus{
+  border-color:var(--purple);
+  box-shadow:0 0 0 3px rgba(91,33,209,.1);
 }
 
 .modal-actions{
-  margin-top:18px;
+  margin-top:19px;
   display:flex;
   justify-content:flex-end;
-  gap:8px;
+  gap:7px;
 }
 
 .modal-actions button{
   height:36px;
-  padding:0 13px;
+  padding:0 14px;
   border-radius:5px;
+  font-size:13px;
+  font-weight:650;
   cursor:pointer;
-  font-weight:600;
 }
 
-.cancel{
-  background:#f0f1f3;
-}
+.cancel{background:#f0f1f3}
+.confirm{background:var(--purple);color:white}
 
-.confirm{
-  background:#5620c9;
-  color:#fff;
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+  .sidebar{width:245px;min-width:245px}
+  .feature{left:260px}
+  .editor-sidebar{display:none}
+  .scene-sidebar{width:190px;min-width:190px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div id="app">
 
+<!-- TOPBAR -->
 <header class="topbar">
 
   <div class="top-left">
-    <button class="top-icon"><i data-lucide="home"></i></button>
-    <button class="top-icon"><i data-lucide="panel-top"></i></button>
-    <button class="top-icon" id="searchTop"><i data-lucide="search"></i></button>
-    <button class="top-icon"><i data-lucide="bell"></i></button>
+
+    <button class="icon-btn" title="Home" onclick="showPage('dashboard')">
+      <i data-lucide="home"></i>
+    </button>
+
+    <button class="icon-btn" title="Library" onclick="showPage('dashboard')">
+      <i data-lucide="panel-top"></i>
+    </button>
+
+    <button class="icon-btn" title="Search" onclick="focusSearch()">
+      <i data-lucide="search"></i>
+    </button>
+
+    <button class="icon-btn" title="Notifications">
+      <i data-lucide="bell"></i>
+    </button>
+
   </div>
 
   <div class="top-right">
-    <span class="updated">Updated just now</span>
 
-    <button class="refresh">
+    <span class="updated" id="saveStatus">
+      Updated just now
+    </span>
+
+    <button class="icon-btn" onclick="saveNow()" title="Save">
       <i data-lucide="rotate-cw"></i>
     </button>
 
-    <button class="create" id="create">
+    <button class="create-btn" onclick="openCreate()">
       <i data-lucide="plus"></i>
-      <span>Create</span>
+      Create
     </button>
+
   </div>
 
 </header>
 
-<div class="body">
+
+<div class="workspace">
+
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
   <div class="profile">
+
     <div class="avatar">NL</div>
+
     <span class="profile-name">Noah LaLindez</span>
+
     <i data-lucide="chevron-down"></i>
+
   </div>
+
 
   <nav class="nav">
 
-    <button class="nav-item active">
+    <button class="nav-item active" data-page="dashboard"
+            onclick="showPage('dashboard')">
       <i data-lucide="gauge"></i>
-      <span>Dashboard</span>
+      Dashboard
     </button>
 
-    <button class="nav-item">
+    <button class="nav-item" data-page="scripts"
+            onclick="showPage('scripts')">
       <i data-lucide="file-text"></i>
-      <span>Scripts</span>
-      <i class="nav-plus" data-lucide="plus"></i>
+      Scripts
+      <i class="right" data-lucide="plus"></i>
     </button>
 
-    <button class="nav-item">
+    <button class="nav-item" data-page="projects"
+            onclick="showPage('projects')">
       <i data-lucide="layout-grid"></i>
-      <span>Projects</span>
+      Projects
     </button>
+
 
     <div class="secondary">
 
-      <button class="nav-item">
+      <button class="nav-item" data-page="support">
         <i data-lucide="circle-help"></i>
-        <span>Support</span>
+        Support
       </button>
 
-      <button class="nav-item">
+      <button class="nav-item" data-page="whatsnew">
         <i data-lucide="party-popper"></i>
-        <span>What's new?</span>
+        What's new?
       </button>
 
-      <button class="nav-item">
+      <button class="nav-item" data-page="refer">
         <i data-lucide="gift"></i>
-        <span>Refer a friend</span>
+        Refer a friend
       </button>
 
     </div>
 
   </nav>
 
+
   <div class="upgrade">
 
     <div class="upgrade-title">
-      Upgrade Arc Studio to get<br>
+      Upgrade Auteur to get<br>
       access to all features
     </div>
 
     <button class="upgrade-btn">
-      <i data-lucide="rocket"></i>
+      <i data-lucide="sparkles"></i>
       Upgrade now!
     </button>
 
@@ -645,18 +1041,32 @@ button{border:0;background:none}
 
 </aside>
 
-<main class="content">
 
-  <div class="content-header">
-    <div class="page-title">Dashboard</div>
+<!-- MAIN -->
+
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-title" id="pageTitle">Dashboard</div>
   </div>
 
-  <div class="scroll">
+
+  <!-- DASHBOARD -->
+
+  <div class="page" id="dashboardPage">
 
     <div class="search">
+
       <i data-lucide="search"></i>
-      <input id="search" placeholder="Search scripts..." autocomplete="off">
+
+      <input
+        id="searchInput"
+        placeholder="Search scripts..."
+        autocomplete="off"
+      >
+
     </div>
+
 
     <section class="recent">
 
@@ -666,23 +1076,38 @@ button{border:0;background:none}
 
       <div class="file-list" id="recentFiles">
 
-        <div class="file" data-name="Xenophon's Anabasis">
+        <div class="file-row"
+             data-name="Sentient Mass"
+             onclick="openScript('Sentient Mass')">
+
           <i data-lucide="cloud"></i>
-          <span class="file-name">Xenophon's Anabasis</span>
+
+          <span class="file-name">
+            Sentient Mass
+          </span>
+
         </div>
 
-        <div class="file" data-name="Sentient Mass">
+        <div class="file-row"
+             data-name="Xenophon's Anabasis"
+             onclick="openScript('Xenophon\\'s Anabasis')">
+
           <i data-lucide="cloud"></i>
-          <span class="file-name">Sentient Mass</span>
+
+          <span class="file-name">
+            Xenophon's Anabasis
+          </span>
+
         </div>
 
       </div>
 
     </section>
 
+
     <section>
 
-      <div class="file-header">
+      <div class="file-heading">
 
         <div class="tabs">
 
@@ -692,6 +1117,7 @@ button{border:0;background:none}
           <button class="tab">Archived</button>
 
         </div>
+
 
         <div class="controls">
 
@@ -716,16 +1142,31 @@ button{border:0;background:none}
 
       </div>
 
+
       <div class="file-list" id="allFiles">
 
-        <div class="file" data-name="Xenophon's Anabasis">
+        <div class="file-row"
+             data-name="Sentient Mass"
+             onclick="openScript('Sentient Mass')">
+
           <i data-lucide="cloud"></i>
-          <span class="file-name">Xenophon's Anabasis</span>
+
+          <span class="file-name">
+            Sentient Mass
+          </span>
+
         </div>
 
-        <div class="file" data-name="Sentient Mass">
+        <div class="file-row"
+             data-name="Xenophon's Anabasis"
+             onclick="openScript('Xenophon\\'s Anabasis')">
+
           <i data-lucide="cloud"></i>
-          <span class="file-name">Sentient Mass</span>
+
+          <span class="file-name">
+            Xenophon's Anabasis
+          </span>
+
         </div>
 
       </div>
@@ -734,171 +1175,830 @@ button{border:0;background:none}
 
   </div>
 
-  <div class="feature">
 
-    <div class="feature-left">
-      <i data-lucide="chevron-right"></i>
-      <span>Featured Guides &amp; Events</span>
+  <!-- EDITOR -->
+
+  <div class="page editor-page hidden" id="editorPage">
+
+    <div class="editor-toolbar">
+
+      <div class="editor-left">
+
+        <button class="back-btn" onclick="showPage('dashboard')">
+          <i data-lucide="chevron-left"></i>
+          Dashboard
+        </button>
+
+        <span class="script-name" id="editorScriptName">
+          Sentient Mass
+        </span>
+
+      </div>
+
+
+      <div class="editor-right">
+
+        <span class="save-state" id="editorSave">
+          Saved
+        </span>
+
+        <button class="editor-btn" title="Characters"
+                onclick="showPage('characters')">
+          <i data-lucide="users"></i>
+        </button>
+
+        <button class="editor-btn" title="Story"
+                onclick="showPage('story')">
+          <i data-lucide="milestone"></i>
+        </button>
+
+        <button class="editor-btn" title="Notes"
+                onclick="showPage('notes')">
+          <i data-lucide="sticky-note"></i>
+        </button>
+
+        <button class="editor-btn" title="Settings">
+          <i data-lucide="settings"></i>
+        </button>
+
+      </div>
+
     </div>
 
-    <button class="show">Show</button>
+
+    <div class="editor-area">
+
+      <aside class="scene-sidebar">
+
+        <div class="scene-header">
+          SCENES
+          <button class="editor-btn" onclick="addScene()">
+            <i data-lucide="plus"></i>
+          </button>
+        </div>
+
+        <div id="sceneList">
+
+          <div class="scene active">
+            <div class="scene-num">01</div>
+            <div class="scene-title">EXT. MEGA PLANET - DAY</div>
+          </div>
+
+          <div class="scene">
+            <div class="scene-num">02</div>
+            <div class="scene-title">INT. OBSERVATORY - NIGHT</div>
+          </div>
+
+          <div class="scene">
+            <div class="scene-num">03</div>
+            <div class="scene-title">EXT. CITY - SUNSET</div>
+          </div>
+
+        </div>
+
+      </aside>
+
+
+      <div class="paper-wrap">
+
+        <div class="paper">
+
+          <div
+            id="screenplay"
+            class="screenplay"
+            contenteditable="true"
+            spellcheck="false"
+          >FADE IN:
+
+EXT. MEGA PLANET - DAY
+
+A world too enormous to comprehend.
+
+Mountains disappear into clouds. Vast cities climb across the horizon, their architecture stretching beyond sight.
+
+LUDWIG JAMES, 34, stands alone at the edge of a cliff.
+
+He looks down.
+
+The planet continues.
+
+                       LUDWIG
+          They built all of this...
+
+He takes a breath.
+
+                       LUDWIG
+          And somehow it still isn't enough.
+
+FADE OUT.</div>
+
+        </div>
+
+      </div>
+
+
+      <aside class="editor-sidebar">
+
+        <div class="inspector-title">
+          Scene
+        </div>
+
+        <div class="inspector-card">
+          <div class="inspector-label">HEADING</div>
+          <div class="inspector-value">
+            EXT. MEGA PLANET - DAY
+          </div>
+        </div>
+
+        <div class="inspector-card">
+          <div class="inspector-label">CHARACTERS</div>
+          <div class="inspector-value">Ludwig James</div>
+        </div>
+
+        <div class="inspector-card">
+          <div class="inspector-label">PAGE</div>
+          <div class="inspector-value">1</div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+
+  <!-- SCRIPTS -->
+
+  <div class="page workspace-page hidden" id="scriptsPage">
+
+    <div class="workspace-title">Scripts</div>
+
+    <div class="workspace-subtitle">
+      Your screenplays, drafts, and writing projects.
+    </div>
+
+    <div class="card-grid">
+
+      <div class="card" onclick="openScript('Sentient Mass')">
+
+        <div class="card-icon">
+          <i data-lucide="file-text"></i>
+        </div>
+
+        <div class="card-title">Sentient Mass</div>
+
+        <div class="card-desc">
+          Screenplay · Draft 1
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          <i data-lucide="file-plus-2"></i>
+        </div>
+
+        <div class="card-title">New screenplay</div>
+
+        <div class="card-desc">
+          Start a new story.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- PROJECTS -->
+
+  <div class="page workspace-page hidden" id="projectsPage">
+
+    <div class="workspace-title">Projects</div>
+
+    <div class="workspace-subtitle">
+      Organize your films from first idea to final draft.
+    </div>
+
+    <div class="card-grid">
+
+      <div class="card">
+
+        <div class="card-icon">
+          <i data-lucide="film"></i>
+        </div>
+
+        <div class="card-title">Sentient Mass</div>
+
+        <div class="card-desc">
+          Feature film · In development
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          <i data-lucide="folder-plus"></i>
+        </div>
+
+        <div class="card-title">New project</div>
+
+        <div class="card-desc">
+          Create a new film project.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CHARACTERS -->
+
+  <div class="page workspace-page hidden" id="charactersPage">
+
+    <div class="workspace-title">Characters</div>
+
+    <div class="workspace-subtitle">
+      Build characters, relationships, motivations, and arcs.
+    </div>
+
+    <div class="character-grid">
+
+      <div class="character">
+
+        <div class="character-avatar">LJ</div>
+
+        <div class="character-name">Ludwig James</div>
+
+        <div class="character-role">
+          Protagonist
+        </div>
+
+      </div>
+
+
+      <div class="character">
+
+        <div class="character-avatar">+</div>
+
+        <div class="character-name">Add character</div>
+
+        <div class="character-role">
+          Create a new character
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- STORY -->
+
+  <div class="page workspace-page hidden" id="storyPage">
+
+    <div class="workspace-title">Story Structure</div>
+
+    <div class="workspace-subtitle">
+      Shape the story before the screenplay becomes concrete.
+    </div>
+
+    <div class="timeline">
+
+      <div class="beat">
+
+        <div class="beat-title">
+          Opening Image
+        </div>
+
+        <div class="beat-desc">
+          Establish the scale and visual language of the world.
+        </div>
+
+      </div>
+
+
+      <div class="beat">
+
+        <div class="beat-title">
+          Inciting Incident
+        </div>
+
+        <div class="beat-desc">
+          Ludwig discovers something impossible within the architecture.
+        </div>
+
+      </div>
+
+
+      <div class="beat">
+
+        <div class="beat-title">
+          First Turning Point
+        </div>
+
+        <div class="beat-desc">
+          His obsession begins changing the way he sees other people.
+        </div>
+
+      </div>
+
+
+      <div class="beat">
+
+        <div class="beat-title">
+          Midpoint
+        </div>
+
+        <div class="beat-desc">
+          The scale of the planet stops feeling beautiful.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- NOTES -->
+
+  <div class="page workspace-page hidden" id="notesPage">
+
+    <div class="workspace-title">Notes</div>
+
+    <div class="workspace-subtitle">
+      Keep the ideas behind the film close to the work.
+    </div>
+
+    <div class="notes">
+
+      <div class="note">
+
+        <div class="note-title">
+          Visual language
+        </div>
+
+        <textarea class="note-body"
+          placeholder="Write a note...">Massive distant landscapes. Architecture should feel beautiful before it feels overwhelming.</textarea>
+
+      </div>
+
+
+      <div class="note">
+
+        <div class="note-title">
+          Theme
+        </div>
+
+        <textarea class="note-body"
+          placeholder="Write a note...">Humans will always return to loving other humans.</textarea>
+
+      </div>
+
+    </div>
 
   </div>
 
 </main>
 
 </div>
+
+
+<!-- FEATURE -->
+
+<div class="feature" id="feature">
+
+  <div class="feature-left">
+    <i data-lucide="chevron-right"></i>
+    Featured Guides &amp; Events
+  </div>
+
+  <button>Show</button>
+
 </div>
+
+
+<!-- CREATE MODAL -->
 
 <div class="modal-bg" id="modal">
 
   <div class="modal">
 
-    <div class="modal-title">Create new script</div>
+    <div class="modal-title">
+      Create new screenplay
+    </div>
 
-    <input id="newName" placeholder="Untitled screenplay">
+    <label class="modal-label">
+      Screenplay title
+    </label>
+
+    <input
+      id="newScriptName"
+      class="modal-input"
+      placeholder="Untitled screenplay"
+      autocomplete="off"
+    >
 
     <div class="modal-actions">
-      <button class="cancel" id="cancel">Cancel</button>
-      <button class="confirm" id="confirm">Create script</button>
+
+      <button class="cancel" onclick="closeCreate()">
+        Cancel
+      </button>
+
+      <button class="confirm" onclick="createScript()">
+        Create screenplay
+      </button>
+
     </div>
 
   </div>
 
 </div>
 
+
 <script>
+
+/* ICONS */
+
 lucide.createIcons();
 
-const modal=document.getElementById("modal");
-const create=document.getElementById("create");
-const cancel=document.getElementById("cancel");
-const confirm=document.getElementById("confirm");
-const newName=document.getElementById("newName");
-const search=document.getElementById("search");
-const searchTop=document.getElementById("searchTop");
 
-create.onclick=()=>{
-  modal.classList.add("open");
-  setTimeout(()=>newName.focus(),50);
+/* STATE */
+
+let currentPage="dashboard";
+let currentScript="Sentient Mass";
+
+
+/* PAGE SYSTEM */
+
+const pages={
+  dashboard:"dashboardPage",
+  editor:"editorPage",
+  scripts:"scriptsPage",
+  projects:"projectsPage",
+  characters:"charactersPage",
+  story:"storyPage",
+  notes:"notesPage"
 };
 
-cancel.onclick=()=>{
-  modal.classList.remove("open");
-  newName.value="";
+const titles={
+  dashboard:"Dashboard",
+  editor:"",
+  scripts:"Scripts",
+  projects:"Projects",
+  characters:"Characters",
+  story:"Story Structure",
+  notes:"Notes"
 };
 
-modal.onclick=e=>{
-  if(e.target===modal){
-    modal.classList.remove("open");
-    newName.value="";
-  }
-};
 
-confirm.onclick=createFile;
+function showPage(page){
 
-newName.onkeydown=e=>{
-  if(e.key==="Enter")createFile();
-  if(e.key==="Escape")cancel.click();
-};
+  currentPage=page;
 
-function createFile(){
-
-  const name=newName.value.trim()||"Untitled screenplay";
-
-  ["recentFiles","allFiles"].forEach(id=>{
-
-    const container=document.getElementById(id);
-
-    const file=document.createElement("div");
-    file.className="file";
-    file.dataset.name=name;
-
-    file.innerHTML=`
-      <i data-lucide="cloud"></i>
-      <span class="file-name">${escapeHtml(name)}</span>
-    `;
-
-    container.prepend(file);
+  Object.entries(pages).forEach(([key,id])=>{
+    document.getElementById(id)
+      .classList.toggle("hidden",key!==page);
   });
 
-  lucide.createIcons();
+  document.getElementById("pageTitle").textContent=titles[page];
 
-  modal.classList.remove("open");
-  newName.value="";
+  document.querySelectorAll(".nav-item").forEach(item=>{
+    item.classList.toggle(
+      "active",
+      item.dataset.page===page
+    );
+  });
+
+  document.getElementById("feature").style.display=
+    page==="dashboard" ? "flex":"none";
+
+  if(page==="editor"){
+    document.getElementById("pageTitle").textContent="";
+  }
+
 }
 
-search.oninput=()=>{
 
-  const q=search.value.toLowerCase().trim();
+/* SCRIPT OPEN */
 
-  document.querySelectorAll(".file").forEach(file=>{
+function openScript(name){
 
-    file.style.display=
-      file.dataset.name.toLowerCase().includes(q)
+  currentScript=name;
+
+  document.getElementById("editorScriptName").textContent=name;
+
+  showPage("editor");
+
+  setTimeout(()=>{
+    document.getElementById("screenplay").focus();
+  },100);
+
+}
+
+
+/* SEARCH */
+
+function focusSearch(){
+
+  showPage("dashboard");
+
+  setTimeout(()=>{
+    document.getElementById("searchInput").focus();
+  },50);
+
+}
+
+
+document.getElementById("searchInput").addEventListener("input",e=>{
+
+  const query=e.target.value.toLowerCase().trim();
+
+  document.querySelectorAll(".file-row").forEach(row=>{
+
+    row.style.display=
+      row.dataset.name.toLowerCase().includes(query)
       ?"flex"
       :"none";
 
   });
-};
-
-searchTop.onclick=()=>{
-  search.focus();
-  search.scrollIntoView({
-    behavior:"smooth",
-    block:"center"
-  });
-};
-
-document.querySelectorAll(".nav-item").forEach(item=>{
-
-  item.onclick=()=>{
-
-    document.querySelectorAll(".nav-item")
-      .forEach(x=>x.classList.remove("active"));
-
-    item.classList.add("active");
-
-  };
 
 });
 
+
+/* CREATE */
+
+function openCreate(){
+
+  document.getElementById("modal").classList.add("open");
+
+  setTimeout(()=>{
+    document.getElementById("newScriptName").focus();
+  },60);
+
+}
+
+
+function closeCreate(){
+
+  document.getElementById("modal").classList.remove("open");
+
+  document.getElementById("newScriptName").value="";
+
+}
+
+
+function createScript(){
+
+  const name=
+    document.getElementById("newScriptName")
+      .value.trim() ||
+    "Untitled screenplay";
+
+  currentScript=name;
+
+  localStorage.setItem(
+    "auteur-script-"+name,
+    ""
+  );
+
+  closeCreate();
+
+  openScript(name);
+
+}
+
+
+document.getElementById("modal").addEventListener("click",e=>{
+
+  if(e.target.id==="modal"){
+    closeCreate();
+  }
+
+});
+
+
+document.getElementById("newScriptName")
+  .addEventListener("keydown",e=>{
+
+    if(e.key==="Enter")createScript();
+
+    if(e.key==="Escape")closeCreate();
+
+  });
+
+
+/* SAVE */
+
+const screenplay=
+  document.getElementById("screenplay");
+
+let saveTimer;
+
+
+screenplay.addEventListener("input",()=>{
+
+  document.getElementById("editorSave")
+    .textContent="Saving...";
+
+  document.getElementById("saveStatus")
+    .textContent="Saving...";
+
+  clearTimeout(saveTimer);
+
+  saveTimer=setTimeout(saveNow,600);
+
+});
+
+
+function saveNow(){
+
+  localStorage.setItem(
+    "auteur-"+currentScript,
+    screenplay.innerText
+  );
+
+  document.getElementById("editorSave")
+    .textContent="Saved";
+
+  document.getElementById("saveStatus")
+    .textContent="Updated just now";
+
+}
+
+
+/* LOAD */
+
+function loadScript(){
+
+  const saved=
+    localStorage.getItem(
+      "auteur-"+currentScript
+    );
+
+  if(saved!==null && saved.trim()){
+    screenplay.innerText=saved;
+  }
+
+}
+
+
+/* SCENES */
+
+document.querySelectorAll(".scene").forEach(scene=>{
+
+  scene.addEventListener("click",()=>{
+
+    document.querySelectorAll(".scene")
+      .forEach(x=>x.classList.remove("active"));
+
+    scene.classList.add("active");
+
+  });
+
+});
+
+
+function addScene(){
+
+  const list=document.getElementById("sceneList");
+
+  const number=
+    String(list.children.length+1).padStart(2,"0");
+
+  const scene=document.createElement("div");
+
+  scene.className="scene";
+
+  scene.innerHTML=`
+    <div class="scene-num">${number}</div>
+    <div class="scene-title">NEW SCENE</div>
+  `;
+
+  scene.onclick=()=>{
+    document.querySelectorAll(".scene")
+      .forEach(x=>x.classList.remove("active"));
+
+    scene.classList.add("active");
+  };
+
+  list.appendChild(scene);
+
+}
+
+
+/* SCREENPLAY KEYBOARD ENGINE */
+
+screenplay.addEventListener("keydown",e=>{
+
+  if(e.key!=="Tab")return;
+
+  e.preventDefault();
+
+  document.execCommand(
+    "insertText",
+    false,
+    "    "
+  );
+
+});
+
+
+/* TABS */
+
 document.querySelectorAll(".tab").forEach(tab=>{
 
-  tab.onclick=()=>{
+  tab.addEventListener("click",()=>{
 
     document.querySelectorAll(".tab")
       .forEach(x=>x.classList.remove("active"));
 
     tab.classList.add("active");
 
-  };
+  });
 
 });
 
+
+/* VIEW BUTTONS */
+
 document.querySelectorAll(".view").forEach(view=>{
 
-  view.onclick=()=>{
+  view.addEventListener("click",()=>{
 
     document.querySelectorAll(".view")
       .forEach(x=>x.classList.remove("active"));
 
     view.classList.add("active");
 
-  };
+  });
 
 });
 
-function escapeHtml(str){
-  return str
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
+
+/* NOTES */
+
+document.querySelectorAll(".note-body").forEach(note=>{
+
+  note.addEventListener("input",()=>{
+
+    localStorage.setItem(
+      "auteur-note-"+note.previousElementSibling.textContent,
+      note.value
+    );
+
+  });
+
+});
+
+
+/* INITIALIZE */
+
+loadScript();
+showPage("dashboard");
+
+
+/* GLOBAL ESCAPE */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key==="Escape"){
+
+    if(!document.getElementById("modal")
+      .classList.contains("open")){
+
+      showPage("dashboard");
+
+    }
+
+  }
+
+});
+
+
+/* CTRL/CMD + S */
+
+document.addEventListener("keydown",e=>{
+
+  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="s"){
+
+    e.preventDefault();
+    saveNow();
+
+  }
+
+});
+
 </script>
 
 </body>
 </html>
-```
