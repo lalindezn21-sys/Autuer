@@ -3,878 +3,2092 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auteur</title>
+<title>Auteur — Screenwriting</title>
+
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-  * {
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f1f1ee;
+  --panel: #fafaf8;
+  --paper: #ffffff;
+  --line: #e3e3df;
+  --hover: #ededeb;
+  --active: #e6e6e2;
+  --text: #161616;
+  --muted: #81817c;
+  --soft: #f4f4f1;
+  --danger: #775b5b;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+  display: grid;
+  grid-template-columns: 255px minmax(0, 1fr) 0;
+  width: 100%;
+  height: 100%;
+  transition: grid-template-columns .22s ease;
+}
+
+.app.right-open {
+  grid-template-columns: 255px minmax(0, 1fr) 255px;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+}
+
+.brand {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  letter-spacing: -0.045em;
+}
+
+.project-name {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.side-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 13px 12px 10px;
+}
+
+.side-tab {
+  height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: .12s ease;
+}
+
+.side-tab:hover {
+  background: var(--hover);
+}
+
+.side-tab.active {
+  background: var(--active);
+}
+
+.sidebar-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 10px 20px;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: #d0d0cb;
+  border-radius: 999px;
+}
+
+.empty-state {
+  padding: 45px 18px;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.empty-icon svg {
+  width: 15px;
+  height: 15px;
+  color: #888883;
+}
+
+.empty-title {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.empty-text {
+  max-width: 185px;
+  margin: 5px auto 0;
+  color: #8b8b86;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.contents-empty {
+  padding-top: 65px;
+}
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+.scene-item {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 7px;
+  align-items: center;
+  min-height: 46px;
+  padding: 6px 8px;
+  margin-bottom: 2px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.scene-item:hover {
+  background: var(--hover);
+}
+
+.scene-item.active {
+  background: var(--active);
+}
+
+.scene-number {
+  color: #8b8b86;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.scene-copy {
+  min-width: 0;
+}
+
+.scene-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.scene-meta {
+  margin-top: 2px;
+  color: #8b8b86;
+  font-size: 9px;
+}
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.sidebar-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 9px 10px;
+}
+
+.sidebar-tool {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: .12s ease;
+}
+
+.sidebar-tool:hover {
+  background: var(--hover);
+}
+
+.sidebar-tool.danger:hover {
+  background: #ece8e8;
+}
+
+.sidebar-tool svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.7;
+}
+
+.sidebar-toolbar-spacer {
+  flex: 1;
+}
+
+/* =========================================================
+   COMMENTS / NOTES
+========================================================= */
+
+.annotation-list {
+  padding-bottom: 10px;
+}
+
+.annotation {
+  position: relative;
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.annotation:hover {
+  background: var(--hover);
+}
+
+.annotation-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.annotation-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.annotation-tag {
+  flex-shrink: 0;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: #ededeb;
+  color: #777772;
+  font-size: 8px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.annotation-body {
+  margin-top: 5px;
+  color: #777772;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.annotation-meta {
+  margin-top: 7px;
+  color: #999994;
+  font-size: 8px;
+}
+
+/* =========================================================
+   LEFT FOOTER
+========================================================= */
+
+.sidebar-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
+  color: #858580;
+  font-size: 10px;
+}
+
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
+
+.right-sidebar {
+  min-width: 0;
+  width: 255px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(12px);
+  transition:
+    opacity .18s ease,
+    transform .22s ease;
+}
+
+.app.right-open .right-sidebar {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.right-header {
+  height: 64px;
+  flex: 0 0 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.right-header-title {
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.right-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  padding: 13px 12px 10px;
+}
+
+.right-tab {
+  height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  cursor: pointer;
+}
+
+.right-tab:hover {
+  background: var(--hover);
+}
+
+.right-tab.active {
+  background: var(--active);
+}
+
+.right-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 10px 20px;
+}
+
+.right-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.right-content::-webkit-scrollbar-thumb {
+  background: #d0d0cb;
+  border-radius: 999px;
+}
+
+/* =========================================================
+   ELEMENT SECTIONS
+========================================================= */
+
+.element-section {
+  margin-bottom: 20px;
+}
+
+.element-section-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px 7px;
+}
+
+.element-section-title {
+  color: #858580;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.element-add {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.element-add:hover {
+  background: var(--hover);
+}
+
+.element-add svg {
+  width: 14px;
+  height: 14px;
+}
+
+.element-item {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.element-item:hover {
+  background: var(--hover);
+}
+
+.element-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-right: 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+}
+
+.element-icon svg {
+  width: 13px;
+  height: 13px;
+  color: #74746f;
+}
+
+.element-copy {
+  min-width: 0;
+}
+
+.element-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.element-description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+  color: #8a8a85;
+  font-size: 9px;
+}
+
+.element-delete {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.element-item:hover .element-delete {
+  opacity: 1;
+}
+
+.element-delete:hover {
+  background: #e8e5e3;
+}
+
+.element-delete svg {
+  width: 13px;
+  height: 13px;
+  color: var(--danger);
+}
+
+.element-empty {
+  padding: 6px 8px 8px;
+  color: #999994;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   STASH
+========================================================= */
+
+.stash-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.stash-entry-icon {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #ededeb;
+}
+
+.stash-entry-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.stash-entry-copy {
+  min-width: 0;
+}
+
+.stash-entry-title {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.stash-entry-body {
+  margin-top: 3px;
+  color: #858580;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.stash-delete {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.stash-entry:hover .stash-delete {
+  opacity: 1;
+}
+
+.stash-delete svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.topbar {
+  height: 64px;
+  flex: 0 0 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background: rgba(250,250,248,.96);
+  border-bottom: 1px solid var(--line);
+}
+
+.top-left,
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.top-left {
+  min-width: 0;
+}
+
+.top-right {
+  margin-left: auto;
+}
+
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+  transition: .12s ease;
+}
+
+.icon-btn:hover {
+  background: var(--hover);
+}
+
+.icon-btn.active {
+  background: var(--active);
+}
+
+.icon-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.7;
+}
+
+.script-title {
+  margin-left: 7px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.save-state {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  color: #858580;
+  font-size: 10px;
+}
+
+.save-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #888883;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  margin-left: 7px;
+  border-radius: 50%;
+  background: #202020;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
+
+.workspace {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #eeeeeb;
+}
+
+.editor-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 34px 30px 110px;
+}
+
+.editor-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.editor-scroll::-webkit-scrollbar-thumb {
+  background: #cecec9;
+  border-radius: 999px;
+}
+
+.page-title-bar {
+  width: min(850px, calc(100vw - 600px));
+  height: 38px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 2px;
+}
+
+.page-title {
+  color: #777772;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+.page {
+  width: min(850px, calc(100vw - 600px));
+  min-height: 1080px;
+  margin: 0 auto;
+  padding: 95px 110px 110px;
+  background: var(--paper);
+  box-shadow:
+    0 1px 3px rgba(0,0,0,.05),
+    0 14px 45px rgba(0,0,0,.06);
+}
+
+.script {
+  min-height: 850px;
+  outline: none;
+  color: #111;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.script div {
+  min-height: 1.55em;
+  margin: 0;
+  outline: none;
+}
+
+.script .scene-heading {
+  margin-top: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.script .action {
+  margin-top: 11px;
+}
+
+.script .character {
+  width: 30%;
+  margin-top: 13px;
+  margin-left: 35%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.script .parenthetical {
+  width: 42%;
+  margin-left: 29%;
+}
+
+.script .dialogue {
+  width: 56%;
+  margin-left: 22%;
+}
+
+.script .transition {
+  width: 32%;
+  margin-top: 14px;
+  margin-left: auto;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   FORMAT BAR
+========================================================= */
+
+.context-bar {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(8px);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px;
+  background: rgba(255,255,255,.97);
+  border: 1px solid #dcdcd8;
+  border-radius: 9px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: .16s ease;
+}
+
+.context-bar.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.format-btn {
+  height: 30px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #44443f;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.format-btn:hover,
+.format-btn.active {
+  background: #dededb;
+  color: #111;
+}
+
+.format-divider {
+  width: 1px;
+  height: 18px;
+  margin: 0 3px;
+  background: #dededb;
+}
+
+/* =========================================================
+   CONTEXT PANEL
+========================================================= */
+
+.context-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 265px;
+  background: rgba(255,255,255,.98);
+  border: 1px solid #dededb;
+  border-radius: 9px;
+  box-shadow: 0 14px 45px rgba(0,0,0,.09);
+  transform: translateX(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .18s ease;
+  overflow: hidden;
+}
+
+.context-panel.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panel-header {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0 13px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-title {
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.panel-close {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.panel-close:hover {
+  background: var(--hover);
+}
+
+.panel-close svg {
+  width: 14px;
+  height: 14px;
+}
+
+.panel-body {
+  padding: 13px;
+}
+
+.panel-section {
+  margin-bottom: 16px;
+}
+
+.panel-section:last-child {
+  margin-bottom: 0;
+}
+
+.panel-label {
+  margin-bottom: 6px;
+  color: #898984;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.panel-value {
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30,30,28,.22);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .15s ease;
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  width: min(430px, calc(100% - 30px));
+  background: white;
+  border: 1px solid #dcdcd8;
+  border-radius: 10px;
+  box-shadow: 0 25px 80px rgba(0,0,0,.15);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-title {
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.modal-close {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: var(--hover);
+}
+
+.modal-body {
+  padding: 16px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #858580;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.field-input,
+.field-select,
+.field-textarea {
+  width: 100%;
+  border: 1px solid #dededb;
+  border-radius: 6px;
+  outline: none;
+  background: white;
+  color: #161616;
+  font-size: 11px;
+}
+
+.field-input,
+.field-select {
+  height: 36px;
+  padding: 0 10px;
+}
+
+.field-textarea {
+  min-height: 100px;
+  padding: 10px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+  border-color: #999994;
+}
+
+.field-group {
+  margin-bottom: 15px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  background: #fafaf8;
+}
+
+.modal-button {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #dcdcd8;
+  border-radius: 6px;
+  background: white;
+  font-size: 10px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.modal-button:hover {
+  background: var(--hover);
+}
+
+.modal-button.primary {
+  border-color: #171717;
+  background: #171717;
+  color: white;
+}
+
+.modal-button.danger {
+  border-color: #b5b0b0;
+  color: #6c5555;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.statusbar {
+  height: 30px;
+  flex: 0 0 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-top: 1px solid var(--line);
+  background: #fafaf8;
+  color: #83837e;
+  font-size: 9px;
+}
+
+.status-left,
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.status-right {
+  margin-left: auto;
+}
+
+.toast {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  z-index: 300;
+  transform: translate(-50%, -12px);
+  padding: 9px 13px;
+  border-radius: 7px;
+  background: #171717;
+  color: white;
+  font-size: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .18s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px) {
+
+  .app.right-open {
+    grid-template-columns: 220px minmax(0,1fr) 220px;
   }
 
-  :root {
-    --bg: #f7f7f5;
-    --panel: #ffffff;
-    --border: #dededb;
-    --border-light: #ececea;
-    --text: #111111;
-    --muted: #777773;
-    --hover: #f0f0ed;
-    --accent: #111111;
-  }
-
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    overflow: hidden;
-  }
-
-  button,
-  input,
-  textarea {
-    font: inherit;
-  }
-
-  button {
-    border: 0;
-    background: none;
-    color: inherit;
-    cursor: pointer;
-  }
-
-  /* APP */
-
-  .app {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-  }
-
-  /* LEFT SIDEBAR */
-
-  .left-sidebar {
-    width: 250px;
-    flex: 0 0 250px;
-    height: 100%;
-    background: #f1f1ee;
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .brand {
-    height: 68px;
-    display: flex;
-    align-items: center;
-    padding: 0 22px;
-    font-family: Georgia, serif;
-    font-size: 22px;
-    letter-spacing: -0.5px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .project {
-    padding: 18px 20px 12px;
-  }
-
-  .project-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    margin-bottom: 5px;
-  }
-
-  .project-title {
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .nav {
-    padding: 12px;
-  }
-
-  .nav-section {
-    margin: 10px 8px 7px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-    color: var(--muted);
-  }
-
-  .nav-item {
-    width: 100%;
-    height: 38px;
-    padding: 0 12px;
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: #363633;
-    text-align: left;
-  }
-
-  .nav-item:hover,
-  .nav-item.active {
-    background: #e4e4e0;
-  }
-
-  .nav-icon {
-    width: 16px;
-    height: 16px;
-    display: grid;
-    place-items: center;
-    color: #555550;
-  }
-
-  .sidebar-bottom {
-    margin-top: auto;
-    padding: 14px;
-    border-top: 1px solid var(--border);
-  }
-
-  .saved {
-    height: 36px;
-    padding: 0 9px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #777;
-    font-size: 12px;
-  }
-
-  .saved-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #65a96b;
-  }
-
-  /* MAIN */
-
-  .main {
-    min-width: 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .topbar {
-    height: 68px;
-    flex: 0 0 68px;
-    background: rgba(255,255,255,.92);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 18px 0 24px;
-  }
-
-  .topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .document-title {
-    font-family: Georgia, serif;
-    font-size: 17px;
-  }
-
-  .document-status {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .toolbar-button {
-    width: 35px;
-    height: 35px;
-    border-radius: 7px;
-    display: grid;
-    place-items: center;
-    color: #666;
-  }
-
-  .toolbar-button:hover {
-    background: var(--hover);
-    color: #111;
-  }
-
-  .right-toggle {
-    margin-left: 5px;
-    border-left: 1px solid var(--border);
-    padding-left: 10px;
-  }
-
-  /* EDITOR */
-
-  .editor-area {
-    flex: 1;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    padding: 65px 60px 180px;
+  .page,
+  .page-title-bar {
+    width: min(760px, calc(100vw - 520px));
   }
 
   .page {
-    width: min(850px, 100%);
-    min-height: 100%;
-    background: white;
-    padding: 70px 95px;
-    box-shadow: 0 1px 5px rgba(0,0,0,.045);
-    border: 1px solid #e7e7e4;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+@media(max-width:850px) {
+
+  .app {
+    grid-template-columns: 1fr;
   }
 
-  .screenplay {
-    min-height: 900px;
-    outline: none;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 14px;
-    line-height: 1.55;
-    color: #111;
-    white-space: pre-wrap;
-  }
-
-  .screenplay:empty::before {
-    content: "Start writing...";
-    color: #aaa;
-  }
-
-  /* RIGHT RAIL */
-
-  .right-rail {
-    width: 0;
-    flex: 0 0 0;
-    height: 100%;
-    overflow: hidden;
-    background: #f1f1ee;
-    border-left: 0 solid var(--border);
-    transition:
-      width .24s ease,
-      flex-basis .24s ease,
-      border-width .24s ease;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .right-rail.open {
-    width: 330px;
-    flex-basis: 330px;
-    border-left-width: 1px;
-  }
-
-  .rail-inner {
-    width: 330px;
-    min-width: 330px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .rail-header {
-    height: 68px;
-    flex: 0 0 68px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    justify-content: space-between;
-  }
-
-  .rail-title {
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  .rail-close {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    display: grid;
-    place-items: center;
-    color: #777;
-  }
-
-  .rail-close:hover {
-    background: #e5e5e1;
-    color: #111;
-  }
-
-  .tabs {
-    height: 48px;
-    display: flex;
-    border-bottom: 1px solid var(--border);
-    padding: 0 12px;
-    gap: 4px;
-  }
-
-  .tab {
-    flex: 1;
-    font-size: 11px;
-    color: #858580;
-    text-transform: uppercase;
-    letter-spacing: .8px;
-    position: relative;
-  }
-
-  .tab.active {
-    color: #111;
-    font-weight: 600;
-  }
-
-  .tab.active::after {
-    content: "";
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    bottom: -1px;
-    height: 2px;
-    background: #111;
-  }
-
-  .rail-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 15px;
-  }
-
-  .workspace {
+  .sidebar,
+  .right-sidebar {
     display: none;
   }
 
-  .workspace.active {
-    display: block;
+  .page,
+  .page-title-bar {
+    width: calc(100vw - 28px);
   }
 
-  /* ELEMENTS */
-
-  .section-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.3px;
-    color: #858580;
-    margin: 8px 4px 10px;
+  .page {
+    padding: 70px 55px;
   }
 
-  .create-button {
-    width: 100%;
-    height: 38px;
-    border: 1px solid #d3d3cf;
-    background: white;
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    font-size: 12px;
-    margin-bottom: 18px;
+  .editor-scroll {
+    padding: 20px 14px 90px;
   }
-
-  .create-button:hover {
-    background: #fafaf8;
-    border-color: #bdbdb8;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 34px 15px;
-    color: #999994;
-    font-size: 12px;
-    line-height: 1.6;
-  }
-
-  /* STORYLINE CARDS */
-
-  .storyline-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .storyline {
-    background: white;
-    border: 1px solid #dcdcd8;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .storyline-header {
-    min-height: 44px;
-    padding: 0 11px 0 13px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .storyline-header:hover {
-    background: #fafaf8;
-  }
-
-  .storyline-chevron {
-    width: 13px;
-    height: 13px;
-    color: #888;
-    transition: transform .18s ease;
-    flex: 0 0 13px;
-  }
-
-  .storyline.open .storyline-chevron {
-    transform: rotate(90deg);
-  }
-
-  .storyline-name {
-    flex: 1;
-    min-width: 0;
-    font-size: 12px;
-    font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .storyline-delete {
-    width: 26px;
-    height: 26px;
-    border-radius: 5px;
-    color: #aaa;
-    opacity: 0;
-    display: grid;
-    place-items: center;
-  }
-
-  .storyline:hover .storyline-delete {
-    opacity: 1;
-  }
-
-  .storyline-delete:hover {
-    background: #f1e5e5;
-    color: #a33;
-  }
-
-  .storyline-body {
-    display: none;
-    padding: 0 13px 14px;
-  }
-
-  .storyline.open .storyline-body {
-    display: block;
-  }
-
-  .synopsis-label {
-    font-size: 10px;
-    color: #888883;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 7px;
-  }
-
-  .synopsis {
-    width: 100%;
-    min-height: 155px;
-    resize: vertical;
-    border: 0;
-    outline: none;
-    background: #f7f7f5;
-    border-radius: 6px;
-    padding: 11px;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 12px;
-    line-height: 1.55;
-    color: #111;
-  }
-
-  .synopsis:focus {
-    background: #f3f3f0;
-  }
-
-  .synopsis::placeholder {
-    color: #aaa;
-  }
-
-  .storyline-title-input {
-    flex: 1;
-    min-width: 0;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 0;
-    color: #111;
-  }
-
-  /* OTHER ELEMENTS */
-
-  .element-group {
-    margin-top: 24px;
-  }
-
-  .element-row {
-    background: white;
-    border: 1px solid #dededb;
-    border-radius: 7px;
-    min-height: 42px;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 7px;
-  }
-
-  .element-row-icon {
-    color: #777;
-  }
-
-  .element-row-name {
-    flex: 1;
-    font-size: 12px;
-  }
-
-  .mini-add {
-    width: 25px;
-    height: 25px;
-    border-radius: 5px;
-    color: #888;
-  }
-
-  .mini-add:hover {
-    background: #ededeb;
-    color: #111;
-  }
-
-  /* STASH */
-
-  .stash-card {
-    background: white;
-    border: 1px solid #dededb;
-    border-radius: 8px;
-    padding: 14px;
-    margin-bottom: 8px;
-  }
-
-  .stash-title {
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-
-  .stash-description {
-    font-size: 11px;
-    line-height: 1.5;
-    color: #777;
-  }
-
-  .stash-input {
-    width: 100%;
-    min-height: 180px;
-    resize: vertical;
-    border: 1px solid #dededb;
-    border-radius: 7px;
-    background: white;
-    padding: 12px;
-    outline: none;
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  /* ICONS */
-
-  svg {
-    width: 15px;
-    height: 15px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.7;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  /* RESPONSIVE */
-
-  @media (max-width: 900px) {
-    .left-sidebar {
-      width: 210px;
-      flex-basis: 210px;
-    }
-
-    .page {
-      padding: 50px 55px;
-    }
-
-    .editor-area {
-      padding-left: 25px;
-      padding-right: 25px;
-    }
-
-    .right-rail.open {
-      width: 300px;
-      flex-basis: 300px;
-    }
-
-    .rail-inner {
-      width: 300px;
-      min-width: 300px;
-    }
-  }
+}
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="app" id="app">
 
-  <!-- LEFT SIDEBAR -->
-  <aside class="left-sidebar">
+  <!-- =====================================================
+       LEFT SIDEBAR
+  ====================================================== -->
 
-    <div class="brand">Auteur</div>
+  <aside class="sidebar">
 
-    <div class="project">
-      <div class="project-label">Project</div>
-      <div class="project-title">Untitled Screenplay</div>
+    <div class="brand">
+      <div class="brand-name">Auteur</div>
+      <div class="project-name">Draft</div>
     </div>
 
-    <nav class="nav">
+    <div class="side-tabs">
 
-      <div class="nav-section">Write</div>
-
-      <button class="nav-item active">
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 4h16v16H4z"/>
-            <path d="M8 8h8M8 12h8M8 16h5"/>
-          </svg>
-        </span>
-        Draft
+      <button
+        class="side-tab active"
+        data-tab="contents"
+      >
+        CONTENTS
       </button>
 
-      <button class="nav-item">
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M5 5h14v14H5z"/>
-            <path d="M8 9h8M8 13h6M8 17h4"/>
-          </svg>
-        </span>
-        Outline
+      <button
+        class="side-tab"
+        data-tab="comments"
+      >
+        COMMENTS
       </button>
 
-      <div class="nav-section">Project</div>
-
-      <button class="nav-item">
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24">
-            <circle cx="9" cy="8" r="3"/>
-            <path d="M3 19c.7-3.2 2.7-5 6-5s5.3 1.8 6 5"/>
-            <circle cx="17" cy="9" r="2"/>
-            <path d="M15 15c2.3.2 3.8 1.5 4.5 4"/>
-          </svg>
-        </span>
-        Characters
+      <button
+        class="side-tab"
+        data-tab="notes"
+      >
+        NOTES
       </button>
-
-      <button class="nav-item">
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 20V8l8-4 8 4v12"/>
-            <path d="M8 20v-7h8v7"/>
-          </svg>
-        </span>
-        Locations
-      </button>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-
-      <div class="saved">
-        <span class="saved-dot"></span>
-        <span id="saveStatus">Saved</span>
-      </div>
 
     </div>
 
-  </aside>
+    <div class="sidebar-content">
 
-  <!-- MAIN EDITOR -->
-  <main class="main">
+      <div
+        id="contentsPanel"
+      >
 
-    <header class="topbar">
+        <div id="sceneList">
 
-      <div class="topbar-left">
-        <div class="document-title">Untitled Screenplay</div>
-        <div class="document-status">Draft</div>
-      </div>
+          <div class="empty-state contents-empty">
 
-      <div class="topbar-right">
+            <div class="empty-icon">
+              <i data-lucide="file-text"></i>
+            </div>
 
-        <button class="toolbar-button" title="Undo">
-          <svg viewBox="0 0 24 24">
-            <path d="M9 7 4 12l5 5"/>
-            <path d="M4 12h9a7 7 0 0 1 7 7"/>
-          </svg>
-        </button>
+            <div class="empty-title">
+              No scenes yet
+            </div>
 
-        <button class="toolbar-button" title="Redo">
-          <svg viewBox="0 0 24 24">
-            <path d="m15 7 5 5-5 5"/>
-            <path d="M20 12h-9a7 7 0 0 0-7 7"/>
-          </svg>
-        </button>
+            <div class="empty-text">
+              Your screenplay scenes will appear here as you write.
+            </div>
 
-        <button
-          class="toolbar-button right-toggle"
-          id="railToggle"
-          title="Project Tools"
-          aria-label="Toggle project tools"
-        >
-          <svg viewBox="0 0 24 24">
-            <path d="M9 4h11v16H9"/>
-            <path d="m15 8 4 4-4 4"/>
-            <path d="M19 12H4"/>
-          </svg>
-        </button>
+          </div>
+
+        </div>
 
       </div>
 
-    </header>
 
-    <div class="editor-area">
+      <!-- COMMENTS -->
 
-      <div class="page">
+      <div
+        id="commentsPanel"
+        class="hidden"
+      >
+
+        <div class="sidebar-toolbar">
+
+          <button
+            class="sidebar-tool"
+            id="addCommentButton"
+            title="Create comment"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+          <button
+            class="sidebar-tool"
+            id="commentSettingsButton"
+            title="Comment settings"
+          >
+            <i data-lucide="settings-2"></i>
+          </button>
+
+          <div class="sidebar-toolbar-spacer"></div>
+
+          <button
+            class="sidebar-tool danger"
+            id="clearCommentsButton"
+            title="Delete all comments"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
+        </div>
 
         <div
-          class="screenplay"
-          id="screenplay"
-          contenteditable="true"
-          spellcheck="true"
+          id="commentsList"
+          class="annotation-list"
+        ></div>
+
+      </div>
+
+
+      <!-- NOTES -->
+
+      <div
+        id="notesPanel"
+        class="hidden"
+      >
+
+        <div class="sidebar-toolbar">
+
+          <button
+            class="sidebar-tool"
+            id="addNoteButton"
+            title="Create note"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+          <button
+            class="sidebar-tool"
+            id="noteSettingsButton"
+            title="Note settings"
+          >
+            <i data-lucide="settings-2"></i>
+          </button>
+
+          <div class="sidebar-toolbar-spacer"></div>
+
+          <button
+            class="sidebar-tool danger"
+            id="clearNotesButton"
+            title="Delete all notes"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
+        </div>
+
+        <div
+          id="notesList"
+          class="annotation-list"
         ></div>
 
       </div>
 
     </div>
 
-  </main>
+    <div class="sidebar-footer">
 
-  <!-- RIGHT RAIL -->
-  <aside class="right-rail" id="rightRail">
+      <span id="pageCount">
+        1 page
+      </span>
 
-    <div class="rail-inner">
+      <span>
+        Draft 01
+      </span>
 
-      <header class="rail-header">
+    </div>
 
-        <div class="rail-title">Project</div>
+  </aside>
 
-        <button class="rail-close" id="railClose" title="Close">
-          <svg viewBox="0 0 24 24">
-            <path d="m7 7 10 10M17 7 7 17"/>
-          </svg>
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="top-left">
+
+        <button
+          class="icon-btn"
+          title="Menu"
+        >
+          <i data-lucide="menu"></i>
         </button>
 
-      </header>
+        <div class="script-title">
+          Sentient Mass
+        </div>
 
-      <div class="tabs">
+        <div class="save-state">
 
-        <button class="tab active" data-tab="elements">
-          Elements
-        </button>
+          <span class="save-dot"></span>
 
-        <button class="tab" data-tab="stash">
-          Stash
+          Saved
+
+        </div>
+
+        <!-- RIGHT BAR TOGGLE -->
+
+        <button
+          class="icon-btn"
+          id="rightBarToggle"
+          title="Creative workspace"
+          aria-label="Toggle creative workspace"
+          aria-pressed="false"
+        >
+          <i data-lucide="panel-right"></i>
         </button>
 
       </div>
 
-      <div class="rail-content">
 
-        <!-- ELEMENTS WORKSPACE -->
-        <section class="workspace active" id="elementsWorkspace">
+      <div class="top-right">
 
-          <div class="section-label">Storylines</div>
+        <button
+          class="icon-btn"
+          id="documentButton"
+          title="Document"
+        >
+          <i data-lucide="ellipsis"></i>
+        </button>
 
-          <button class="create-button" id="createStoryline">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 5v14M5 12h14"/>
-            </svg>
-            Create Storyline
+        <div class="avatar">
+          B
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- ===================================================
+         WRITING WORKSPACE
+    ==================================================== -->
+
+    <section class="workspace">
+
+      <div
+        class="editor-scroll"
+        id="editorScroll"
+      >
+
+        <div class="page-title-bar">
+
+          <div class="page-title">
+            Sentient Mass
+          </div>
+
+        </div>
+
+        <article class="page">
+
+          <div
+            id="scriptEditor"
+            class="script"
+            contenteditable="true"
+            spellcheck="false"
+          >
+
+            <div class="action"><br></div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+
+      <!-- FORMAT BAR -->
+
+      <div
+        class="context-bar"
+        id="formatBar"
+      >
+
+        <button
+          class="format-btn"
+          data-format="scene"
+        >
+          SCENE
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="action"
+        >
+          ACTION
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="character"
+        >
+          CHARACTER
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="parenthetical"
+        >
+          ( )
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="dialogue"
+        >
+          DIALOGUE
+        </button>
+
+        <button
+          class="format-btn"
+          data-format="transition"
+        >
+          TRANSITION
+        </button>
+
+        <div class="format-divider"></div>
+
+        <button
+          class="format-btn"
+          id="boldButton"
+        >
+          B
+        </button>
+
+        <button
+          class="format-btn"
+          id="italicButton"
+        >
+          <i>I</i>
+        </button>
+
+      </div>
+
+
+      <!-- DOCUMENT PANEL -->
+
+      <aside
+        class="context-panel"
+        id="contextPanel"
+      >
+
+        <div class="panel-header">
+
+          <div class="panel-title">
+            Document
+          </div>
+
+          <button
+            class="panel-close"
+            id="panelClose"
+          >
+            <i data-lucide="x"></i>
           </button>
 
-          <div class="storyline-list" id="storylineList"></div>
+        </div>
 
-          <div class="element-group">
+        <div class="panel-body">
 
-            <div class="section-label">Characters</div>
+          <div class="panel-section">
 
-            <div id="charactersList">
-              <div class="empty-state">
-                No characters yet.
-              </div>
+            <div class="panel-label">
+              Title
             </div>
 
-            <button class="create-button" id="createCharacter">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 5v14M5 12h14"/>
-              </svg>
-              Create Character
+            <div class="panel-value">
+              Sentient Mass
+            </div>
+
+          </div>
+
+          <div class="panel-section">
+
+            <div class="panel-label">
+              Draft
+            </div>
+
+            <div class="panel-value">
+              Draft 01
+            </div>
+
+          </div>
+
+          <div class="panel-section">
+
+            <div class="panel-label">
+              Format
+            </div>
+
+            <div class="panel-value">
+              Screenplay · US Letter
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+
+      <!-- ANNOTATION MODAL -->
+
+      <div
+        class="modal-backdrop"
+        id="annotationModal"
+      >
+
+        <div class="modal">
+
+          <div class="modal-header">
+
+            <div
+              class="modal-title"
+              id="annotationModalTitle"
+            >
+              New Comment
+            </div>
+
+            <button
+              class="modal-close"
+              id="annotationModalClose"
+            >
+              <i data-lucide="x"></i>
             </button>
 
           </div>
 
-          <div class="element-group">
+          <div class="modal-body">
 
-            <div class="section-label">Locations</div>
+            <div class="field-group">
 
-            <div id="locationsList">
-              <div class="empty-state">
-                No locations yet.
-              </div>
+              <label
+                class="field-label"
+                for="annotationTitle"
+              >
+                Title
+              </label>
+
+              <input
+                id="annotationTitle"
+                class="field-input"
+                placeholder="What is this about?"
+              >
+
             </div>
 
-            <button class="create-button" id="createLocation">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 5v14M5 12h14"/>
-              </svg>
-              Create Location
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="annotationBody"
+              >
+                Note
+              </label>
+
+              <textarea
+                id="annotationBody"
+                class="field-textarea"
+                placeholder="Write your thought..."
+              ></textarea>
+
+            </div>
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="annotationTag"
+              >
+                Tag
+              </label>
+
+              <select
+                id="annotationTag"
+                class="field-select"
+              >
+
+                <option>Characters</option>
+                <option>Landscapes</option>
+                <option>Story</option>
+                <option>Dialogue</option>
+                <option>Visuals</option>
+                <option>Research</option>
+                <option>General</option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <button
+              class="modal-button"
+              id="annotationCancel"
+            >
+              Cancel
+            </button>
+
+            <button
+              class="modal-button primary"
+              id="annotationSave"
+            >
+              Create
             </button>
 
           </div>
 
-        </section>
+        </div>
 
-        <!-- STASH WORKSPACE -->
-        <section class="workspace" id="stashWorkspace">
+      </div>
 
-          <div class="section-label">Stash</div>
 
-          <div class="stash-card">
+      <!-- =================================================
+           ELEMENT CREATION MODAL
+      ================================================== -->
 
-            <div class="stash-title">
-              Scratchpad
+      <div
+        class="modal-backdrop"
+        id="elementModal"
+      >
+
+        <div class="modal">
+
+          <div class="modal-header">
+
+            <div
+              class="modal-title"
+              id="elementModalTitle"
+            >
+              New Character
             </div>
 
-            <div class="stash-description">
-              Keep ideas, fragments, dialogue, or anything else here while you write.
+            <button
+              class="modal-close"
+              id="elementModalClose"
+            >
+              <i data-lucide="x"></i>
+            </button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="elementName"
+              >
+                Name
+              </label>
+
+              <input
+                id="elementName"
+                class="field-input"
+                placeholder="Enter a name..."
+              >
+
+            </div>
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="elementDescription"
+              >
+                Description
+              </label>
+
+              <textarea
+                id="elementDescription"
+                class="field-textarea"
+                placeholder="Describe this element..."
+              ></textarea>
+
             </div>
 
           </div>
 
-          <textarea
-            class="stash-input"
-            id="stashInput"
-            placeholder="Write something to stash..."
-          ></textarea>
+          <div class="modal-footer">
+
+            <button
+              class="modal-button"
+              id="elementCancel"
+            >
+              Cancel
+            </button>
+
+            <button
+              class="modal-button primary"
+              id="elementSave"
+            >
+              Create
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           STASH MODAL
+      ================================================== -->
+
+      <div
+        class="modal-backdrop"
+        id="stashModal"
+      >
+
+        <div class="modal">
+
+          <div class="modal-header">
+
+            <div class="modal-title">
+              New Stash Item
+            </div>
+
+            <button
+              class="modal-close"
+              id="stashModalClose"
+            >
+              <i data-lucide="x"></i>
+            </button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="stashTitle"
+              >
+                Title
+              </label>
+
+              <input
+                id="stashTitle"
+                class="field-input"
+                placeholder="Idea, fragment, reference..."
+              >
+
+            </div>
+
+            <div class="field-group">
+
+              <label
+                class="field-label"
+                for="stashBody"
+              >
+                Content
+              </label>
+
+              <textarea
+                id="stashBody"
+                class="field-textarea"
+                placeholder="Put anything here..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <button
+              class="modal-button"
+              id="stashCancel"
+            >
+              Cancel
+            </button>
+
+            <button
+              class="modal-button primary"
+              id="stashSave"
+            >
+              Add to Stash
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="toast"
+        id="toast"
+      >
+        Saved
+      </div>
+
+    </section>
+
+
+    <footer class="statusbar">
+
+      <div class="status-left">
+
+        <span id="pageStatus">
+          Page 1
+        </span>
+
+        <span id="wordStatus">
+          0 words
+        </span>
+
+      </div>
+
+      <div class="status-right">
+
+        <span>100%</span>
+        <span>Courier Prime</span>
+        <span>US Letter</span>
+
+      </div>
+
+    </footer>
+
+  </main>
+
+
+  <!-- =====================================================
+       RIGHT SIDEBAR
+  ====================================================== -->
+
+  <aside
+    class="right-sidebar"
+    id="rightSidebar"
+  >
+
+    <div class="right-header">
+
+      <div class="right-header-title">
+        Creative Workspace
+      </div>
+
+    </div>
+
+    <div class="right-tabs">
+
+      <button
+        class="right-tab active"
+        data-right-tab="elements"
+      >
+        ELEMENTS
+      </button>
+
+      <button
+        class="right-tab"
+        data-right-tab="stash"
+      >
+        STASH
+      </button>
+
+    </div>
+
+    <div class="right-content">
+
+      <!-- ELEMENTS -->
+
+      <div
+        id="elementsPanel"
+      >
+
+        <!-- STORYLINE -->
+
+        <section class="element-section">
+
+          <div class="element-section-header">
+
+            <div class="element-section-title">
+              STORYLINE
+            </div>
+
+            <button
+              class="element-add"
+              data-element-type="storyline"
+              title="Create storyline"
+            >
+              <i data-lucide="plus"></i>
+            </button>
+
+          </div>
+
+          <div id="storylineList"></div>
 
         </section>
+
+
+        <!-- CHARACTERS -->
+
+        <section class="element-section">
+
+          <div class="element-section-header">
+
+            <div class="element-section-title">
+              CHARACTERS
+            </div>
+
+            <button
+              class="element-add"
+              data-element-type="character"
+              title="Create character"
+            >
+              <i data-lucide="plus"></i>
+            </button>
+
+          </div>
+
+          <div id="characterList"></div>
+
+        </section>
+
+
+        <!-- LOCATIONS -->
+
+        <section class="element-section">
+
+          <div class="element-section-header">
+
+            <div class="element-section-title">
+              LOCATIONS
+            </div>
+
+            <button
+              class="element-add"
+              data-element-type="location"
+              title="Create location"
+            >
+              <i data-lucide="plus"></i>
+            </button>
+
+          </div>
+
+          <div id="locationList"></div>
+
+        </section>
+
+      </div>
+
+
+      <!-- STASH -->
+
+      <div
+        id="stashPanel"
+        class="hidden"
+      >
+
+        <div class="sidebar-toolbar">
+
+          <button
+            class="sidebar-tool"
+            id="addStashButton"
+            title="Add to stash"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+          <div class="sidebar-toolbar-spacer"></div>
+
+          <button
+            class="sidebar-tool danger"
+            id="clearStashButton"
+            title="Clear stash"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
+        </div>
+
+        <div id="stashList"></div>
 
       </div>
 
@@ -884,526 +2098,2335 @@
 
 </div>
 
+
 <script>
-  const STORAGE_KEY = "auteur-project-v2";
+lucide.createIcons();
 
-  const defaultState = {
-    screenplay: "",
-    storylines: [],
-    characters: [],
-    locations: [],
-    stash: ""
-  };
+/* =========================================================
+   CORE ELEMENTS
+========================================================= */
 
-  let state = loadState();
+const app =
+  document.getElementById("app");
 
-  function loadState() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+const editor =
+  document.getElementById("scriptEditor");
 
-      if (!saved) {
-        return structuredClone(defaultState);
-      }
+const formatBar =
+  document.getElementById("formatBar");
 
-      return {
-        ...structuredClone(defaultState),
-        ...JSON.parse(saved)
-      };
-    } catch {
-      return structuredClone(defaultState);
-    }
+const contextPanel =
+  document.getElementById("contextPanel");
+
+const toast =
+  document.getElementById("toast");
+
+const annotationModal =
+  document.getElementById("annotationModal");
+
+const elementModal =
+  document.getElementById("elementModal");
+
+const stashModal =
+  document.getElementById("stashModal");
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const STORAGE_KEY =
+  "auteur-sentient-mass-v8";
+
+const COMMENTS_KEY =
+  "auteur-comments-v2";
+
+const NOTES_KEY =
+  "auteur-notes-v2";
+
+const ELEMENTS_KEY =
+  "auteur-elements-v1";
+
+const STASH_KEY =
+  "auteur-stash-v1";
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let activeBlock = null;
+
+let annotationMode = "comment";
+
+let elementMode = "character";
+
+let comments =
+  JSON.parse(
+    localStorage.getItem(
+      COMMENTS_KEY
+    ) || "[]"
+  );
+
+let notes =
+  JSON.parse(
+    localStorage.getItem(
+      NOTES_KEY
+    ) || "[]"
+  );
+
+let elements =
+  JSON.parse(
+    localStorage.getItem(
+      ELEMENTS_KEY
+    ) || JSON.stringify({
+      storyline: [],
+      character: [],
+      location: []
+    })
+  );
+
+let stash =
+  JSON.parse(
+    localStorage.getItem(
+      STASH_KEY
+    ) || "[]"
+  );
+
+
+/* =========================================================
+   RIGHT SIDEBAR TOGGLE
+========================================================= */
+
+const rightBarToggle =
+  document.getElementById(
+    "rightBarToggle"
+  );
+
+rightBarToggle.addEventListener(
+  "click",
+  () => {
+
+    const open =
+      app.classList.toggle(
+        "right-open"
+      );
+
+    rightBarToggle.classList.toggle(
+      "active",
+      open
+    );
+
+    rightBarToggle.setAttribute(
+      "aria-pressed",
+      String(open)
+    );
+
   }
+);
 
-  function saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
-    const status = document.getElementById("saveStatus");
+/* =========================================================
+   RIGHT TABS
+========================================================= */
 
-    status.textContent = "Saved";
+const rightTabs =
+  document.querySelectorAll(
+    ".right-tab"
+  );
 
-    clearTimeout(window.saveStatusTimer);
+const elementsPanel =
+  document.getElementById(
+    "elementsPanel"
+  );
 
-    window.saveStatusTimer = setTimeout(() => {
-      status.textContent = "Saved";
-    }, 500);
-  }
+const stashPanel =
+  document.getElementById(
+    "stashPanel"
+  );
 
-  /* --------------------------------------------------
-     RAIL
-  -------------------------------------------------- */
+rightTabs.forEach(tab => {
 
-  const rail = document.getElementById("rightRail");
-  const railToggle = document.getElementById("railToggle");
-  const railClose = document.getElementById("railClose");
+  tab.addEventListener(
+    "click",
+    () => {
 
-  railToggle.addEventListener("click", () => {
-    rail.classList.toggle("open");
-  });
-
-  railClose.addEventListener("click", () => {
-    rail.classList.remove("open");
-  });
-
-  /* --------------------------------------------------
-     TABS
-  -------------------------------------------------- */
-
-  const tabs = document.querySelectorAll(".tab");
-  const workspaces = document.querySelectorAll(".workspace");
-
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-
-      const target = tab.dataset.tab;
-
-      tabs.forEach(t => {
-        t.classList.toggle("active", t === tab);
-      });
-
-      workspaces.forEach(workspace => {
-        workspace.classList.toggle(
-          "active",
-          workspace.id === `${target}Workspace`
+      rightTabs.forEach(item => {
+        item.classList.remove(
+          "active"
         );
       });
 
-    });
-  });
-
-  /* --------------------------------------------------
-     SCREENPLAY
-  -------------------------------------------------- */
-
-  const screenplay = document.getElementById("screenplay");
-
-  screenplay.innerText = state.screenplay || "";
-
-  screenplay.addEventListener("input", () => {
-    state.screenplay = screenplay.innerText;
-    saveState();
-  });
-
-  /* --------------------------------------------------
-     STORYLINES
-  -------------------------------------------------- */
-
-  const storylineList = document.getElementById("storylineList");
-  const createStorylineButton = document.getElementById("createStoryline");
-
-  function createStoryline() {
-
-    const storyline = {
-      id: crypto.randomUUID(),
-      title: "Untitled Storyline",
-      synopsis: "",
-      open: true
-    };
-
-    state.storylines.unshift(storyline);
-
-    saveState();
-    renderStorylines();
-
-    requestAnimationFrame(() => {
-
-      const card = document.querySelector(
-        `[data-storyline-id="${storyline.id}"]`
+      tab.classList.add(
+        "active"
       );
 
-      if (!card) return;
+      if (
+        tab.dataset.rightTab ===
+        "elements"
+      ) {
 
-      const titleInput = card.querySelector(".storyline-title-input");
+        elementsPanel
+          .classList.remove(
+            "hidden"
+          );
 
-      titleInput.focus();
+        stashPanel
+          .classList.add(
+            "hidden"
+          );
 
-      titleInput.select();
+      } else {
+
+        elementsPanel
+          .classList.add(
+            "hidden"
+          );
+
+        stashPanel
+          .classList.remove(
+            "hidden"
+          );
+
+      }
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   SCREENPLAY SAVE
+========================================================= */
+
+function saveDocument(showToast = false) {
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    editor.innerHTML
+  );
+
+  const saveState =
+    document.querySelector(
+      ".save-state"
+    );
+
+  saveState.innerHTML = `
+    <span class="save-dot"></span>
+    Saved
+  `;
+
+  if (showToast) {
+    showMessage("Saved");
+  }
+
+  updateStats();
+  updateScenes();
+
+}
+
+function scheduleSave() {
+
+  const saveState =
+    document.querySelector(
+      ".save-state"
+    );
+
+  saveState.innerHTML = `
+    <span class="save-dot"></span>
+    Saving...
+  `;
+
+  clearTimeout(
+    window.auteurSaveTimer
+  );
+
+  window.auteurSaveTimer =
+    setTimeout(
+      () => saveDocument(false),
+      650
+    );
+
+}
+
+function loadDocument() {
+
+  const saved =
+    localStorage.getItem(
+      STORAGE_KEY
+    );
+
+  if (saved) {
+    editor.innerHTML = saved;
+  }
+
+}
+
+loadDocument();
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats() {
+
+  const text =
+    editor.innerText.trim();
+
+  const words =
+    text
+      ? text
+          .split(/\s+/)
+          .filter(Boolean)
+          .length
+      : 0;
+
+  const pages =
+    Math.max(
+      1,
+      Math.ceil(words / 250)
+    );
+
+  document.getElementById(
+    "wordStatus"
+  ).textContent =
+    `${words} words`;
+
+  document.getElementById(
+    "pageStatus"
+  ).textContent =
+    `Page ${pages}`;
+
+  document.getElementById(
+    "pageCount"
+  ).textContent =
+    `${pages} ${
+      pages === 1
+        ? "page"
+        : "pages"
+    }`;
+
+}
+
+
+/* =========================================================
+   LEFT TABS
+========================================================= */
+
+const leftTabs =
+  document.querySelectorAll(
+    ".side-tab"
+  );
+
+const leftPanels = {
+
+  contents:
+    document.getElementById(
+      "contentsPanel"
+    ),
+
+  comments:
+    document.getElementById(
+      "commentsPanel"
+    ),
+
+  notes:
+    document.getElementById(
+      "notesPanel"
+    )
+
+};
+
+leftTabs.forEach(tab => {
+
+  tab.addEventListener(
+    "click",
+    () => {
+
+      const target =
+        tab.dataset.tab;
+
+      leftTabs.forEach(item => {
+        item.classList.remove(
+          "active"
+        );
+      });
+
+      tab.classList.add(
+        "active"
+      );
+
+      Object.values(
+        leftPanels
+      ).forEach(panel => {
+        panel.classList.add(
+          "hidden"
+        );
+      });
+
+      leftPanels[target]
+        .classList.remove(
+          "hidden"
+        );
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   EDITOR BLOCK HELPERS
+========================================================= */
+
+function getBlockFromNode(node) {
+
+  if (!node) {
+    return null;
+  }
+
+  if (
+    node.nodeType ===
+    Node.TEXT_NODE
+  ) {
+    node =
+      node.parentElement;
+  }
+
+  return node.closest(
+    ".script > div"
+  );
+
+}
+
+function getCurrentBlock() {
+
+  const selection =
+    window.getSelection();
+
+  if (
+    !selection ||
+    !selection.rangeCount
+  ) {
+    return activeBlock;
+  }
+
+  return (
+    getBlockFromNode(
+      selection.anchorNode
+    ) ||
+    activeBlock
+  );
+
+}
+
+function setActiveBlock(block) {
+
+  if (!block) {
+    return;
+  }
+
+  activeBlock =
+    block;
+
+  updateFormatButtons(
+    block
+  );
+
+}
+
+
+/* =========================================================
+   FORMAT BUTTON STATE
+========================================================= */
+
+function updateFormatButtons(
+  block
+) {
+
+  document
+    .querySelectorAll(
+      ".format-btn[data-format]"
+    )
+    .forEach(button => {
+
+      button.classList.remove(
+        "active"
+      );
+
+      const format =
+        button.dataset.format;
+
+      const matches =
+        (format === "scene" &&
+          block.classList.contains(
+            "scene-heading"
+          )) ||
+
+        (format === "action" &&
+          block.classList.contains(
+            "action"
+          )) ||
+
+        (format === "character" &&
+          block.classList.contains(
+            "character"
+          )) ||
+
+        (format === "parenthetical" &&
+          block.classList.contains(
+            "parenthetical"
+          )) ||
+
+        (format === "dialogue" &&
+          block.classList.contains(
+            "dialogue"
+          )) ||
+
+        (format === "transition" &&
+          block.classList.contains(
+            "transition"
+          ));
+
+      if (matches) {
+        button.classList.add(
+          "active"
+        );
+      }
 
     });
+
+}
+
+
+/* =========================================================
+   FORMAT BAR
+========================================================= */
+
+function showFormatBar() {
+  formatBar.classList.add(
+    "visible"
+  );
+}
+
+editor.addEventListener(
+  "focus",
+  () => {
+
+    const block =
+      getCurrentBlock();
+
+    if (block) {
+      setActiveBlock(block);
+    }
+
+    showFormatBar();
+
+  }
+);
+
+editor.addEventListener(
+  "click",
+  () => {
+
+    const block =
+      getCurrentBlock();
+
+    if (block) {
+      setActiveBlock(block);
+    }
+
+    showFormatBar();
+
+  }
+);
+
+
+/* =========================================================
+   FORMAT SCREENPLAY
+========================================================= */
+
+const FORMAT_CLASSES = [
+  "scene-heading",
+  "action",
+  "character",
+  "parenthetical",
+  "dialogue",
+  "transition",
+  "blank"
+];
+
+function clearFormat(block) {
+
+  block.classList.remove(
+    ...FORMAT_CLASSES
+  );
+
+  block.style.textAlign = "";
+
+}
+
+function placeCaretAtEnd(
+  element
+) {
+
+  const range =
+    document.createRange();
+
+  range.selectNodeContents(
+    element
+  );
+
+  range.collapse(false);
+
+  const selection =
+    window.getSelection();
+
+  selection.removeAllRanges();
+
+  selection.addRange(
+    range
+  );
+
+  editor.focus();
+
+}
+
+function formatBlock(
+  block,
+  format
+) {
+
+  if (!block) {
+    return;
+  }
+
+  let text =
+    block.innerText.trim();
+
+  clearFormat(block);
+
+  if (format === "scene") {
+
+    block.classList.add(
+      "scene-heading"
+    );
+
+    block.textContent =
+      text.toUpperCase();
 
   }
 
-  createStorylineButton.addEventListener(
-    "click",
-    createStoryline
-  );
+  else if (
+    format === "action"
+  ) {
 
-  function renderStorylines() {
+    block.classList.add(
+      "action"
+    );
 
-    storylineList.innerHTML = "";
+  }
 
-    if (!state.storylines.length) {
+  else if (
+    format === "character"
+  ) {
 
-      storylineList.innerHTML = `
-        <div class="empty-state">
-          Create a storyline and start shaping the structure of your screenplay.
-        </div>
-      `;
+    block.classList.add(
+      "character"
+    );
 
-      return;
+    block.textContent =
+      text.toUpperCase();
+
+  }
+
+  else if (
+    format === "parenthetical"
+  ) {
+
+    block.classList.add(
+      "parenthetical"
+    );
+
+    if (
+      text &&
+      !text.startsWith("(")
+    ) {
+
+      block.textContent =
+        `(${text})`;
+
     }
 
-    state.storylines.forEach(storyline => {
+  }
 
-      const card = document.createElement("article");
+  else if (
+    format === "dialogue"
+  ) {
 
-      card.className =
-        `storyline ${storyline.open ? "open" : ""}`;
+    block.classList.add(
+      "dialogue"
+    );
 
-      card.dataset.storylineId = storyline.id;
+  }
 
-      card.innerHTML = `
+  else if (
+    format === "transition"
+  ) {
 
-        <div class="storyline-header">
+    block.classList.add(
+      "transition"
+    );
 
-          <svg
-            class="storyline-chevron"
-            viewBox="0 0 24 24"
-          >
-            <path d="m9 6 6 6-6 6"/>
-          </svg>
+    block.textContent =
+      text.toUpperCase();
 
-          <input
-            class="storyline-title-input"
-            value=""
-            aria-label="Storyline title"
-          >
+  }
 
-          <button
-            class="storyline-delete"
-            title="Delete storyline"
-            aria-label="Delete storyline"
-          >
-            <svg viewBox="0 0 24 24">
-              <path d="m7 7 10 10M17 7 7 17"/>
-            </svg>
-          </button>
+  setActiveBlock(block);
 
-        </div>
+  placeCaretAtEnd(
+    block
+  );
 
-        <div class="storyline-body">
+  scheduleSave();
 
-          <div class="synopsis-label">
-            Synopsis
-          </div>
+}
 
-          <textarea
-            class="synopsis"
-            placeholder="Start writing the synopsis..."
-          ></textarea>
 
-        </div>
-      `;
+/* =========================================================
+   FORMAT EVENTS
+========================================================= */
 
-      const titleInput =
-        card.querySelector(".storyline-title-input");
+document
+  .querySelectorAll(
+    ".format-btn[data-format]"
+  )
+  .forEach(button => {
 
-      const synopsis =
-        card.querySelector(".synopsis");
+    button.addEventListener(
+      "mousedown",
+      event => {
+        event.preventDefault();
+      }
+    );
 
-      const header =
-        card.querySelector(".storyline-header");
+    button.addEventListener(
+      "click",
+      () => {
 
-      const deleteButton =
-        card.querySelector(".storyline-delete");
+        const block =
+          activeBlock ||
+          getCurrentBlock();
 
-      titleInput.value = storyline.title;
-
-      synopsis.value = storyline.synopsis;
-
-      /*
-       * Clicking anywhere on the header toggles
-       * the storyline open/closed.
-       *
-       * Inputs and delete buttons stop propagation
-       * so typing does not accidentally collapse it.
-       */
-
-      header.addEventListener("click", event => {
-
-        if (
-          event.target === titleInput ||
-          event.target.closest(".storyline-delete")
-        ) {
+        if (!block) {
           return;
         }
 
-        storyline.open = !storyline.open;
-
-        saveState();
-
-        renderStorylines();
-
-      });
-
-      titleInput.addEventListener("click", event => {
-        event.stopPropagation();
-      });
-
-      titleInput.addEventListener("input", event => {
-
-        storyline.title =
-          event.target.value || "Untitled Storyline";
-
-        saveState();
-
-      });
-
-      titleInput.addEventListener("blur", () => {
-
-        if (!titleInput.value.trim()) {
-
-          storyline.title = "Untitled Storyline";
-
-          saveState();
-
-          renderStorylines();
-
-        }
-
-      });
-
-      synopsis.addEventListener("click", event => {
-        event.stopPropagation();
-      });
-
-      synopsis.addEventListener("input", event => {
-
-        storyline.synopsis =
-          event.target.value;
-
-        saveState();
-
-      });
-
-      deleteButton.addEventListener("click", event => {
-
-        event.stopPropagation();
-
-        state.storylines =
-          state.storylines.filter(
-            item => item.id !== storyline.id
-          );
-
-        saveState();
-        renderStorylines();
-
-      });
-
-      storylineList.appendChild(card);
-
-    });
-
-  }
-
-  /* --------------------------------------------------
-     CHARACTERS
-  -------------------------------------------------- */
-
-  const charactersList =
-    document.getElementById("charactersList");
-
-  document
-    .getElementById("createCharacter")
-    .addEventListener("click", () => {
-
-      const character = {
-        id: crypto.randomUUID(),
-        name: "Untitled Character"
-      };
-
-      state.characters.push(character);
-
-      saveState();
-      renderCharacters();
-
-    });
-
-  function renderCharacters() {
-
-    charactersList.innerHTML = "";
-
-    if (!state.characters.length) {
-
-      charactersList.innerHTML = `
-        <div class="empty-state">
-          No characters yet.
-        </div>
-      `;
-
-      return;
-    }
-
-    state.characters.forEach(character => {
-
-      const row = document.createElement("div");
-
-      row.className = "element-row";
-
-      row.innerHTML = `
-
-        <span class="element-row-icon">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="3"/>
-            <path d="M5 20c.8-4 3-6 7-6s6.2 2 7 6"/>
-          </svg>
-        </span>
-
-        <span class="element-row-name">
-          ${escapeHTML(character.name)}
-        </span>
-
-        <button
-          class="mini-add"
-          title="Delete"
-        >
-          ×
-        </button>
-      `;
-
-      row
-        .querySelector(".mini-add")
-        .addEventListener("click", () => {
-
-          state.characters =
-            state.characters.filter(
-              item => item.id !== character.id
-            );
-
-          saveState();
-          renderCharacters();
-
-        });
-
-      charactersList.appendChild(row);
-
-    });
-
-  }
-
-  /* --------------------------------------------------
-     LOCATIONS
-  -------------------------------------------------- */
-
-  const locationsList =
-    document.getElementById("locationsList");
-
-  document
-    .getElementById("createLocation")
-    .addEventListener("click", () => {
-
-      const location = {
-        id: crypto.randomUUID(),
-        name: "Untitled Location"
-      };
-
-      state.locations.push(location);
-
-      saveState();
-      renderLocations();
-
-    });
-
-  function renderLocations() {
-
-    locationsList.innerHTML = "";
-
-    if (!state.locations.length) {
-
-      locationsList.innerHTML = `
-        <div class="empty-state">
-          No locations yet.
-        </div>
-      `;
-
-      return;
-    }
-
-    state.locations.forEach(location => {
-
-      const row = document.createElement("div");
-
-      row.className = "element-row";
-
-      row.innerHTML = `
-
-        <span class="element-row-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 20V8l8-4 8 4v12"/>
-            <path d="M8 20v-7h8v7"/>
-          </svg>
-        </span>
-
-        <span class="element-row-name">
-          ${escapeHTML(location.name)}
-        </span>
-
-        <button
-          class="mini-add"
-          title="Delete"
-        >
-          ×
-        </button>
-      `;
-
-      row
-        .querySelector(".mini-add")
-        .addEventListener("click", () => {
-
-          state.locations =
-            state.locations.filter(
-              item => item.id !== location.id
-            );
-
-          saveState();
-          renderLocations();
-
-        });
-
-      locationsList.appendChild(row);
-
-    });
-
-  }
-
-  /* --------------------------------------------------
-     STASH
-  -------------------------------------------------- */
-
-  const stashInput =
-    document.getElementById("stashInput");
-
-  stashInput.value = state.stash || "";
-
-  stashInput.addEventListener("input", () => {
-
-    state.stash = stashInput.value;
-
-    saveState();
+        formatBlock(
+          block,
+          button.dataset.format
+        );
+
+      }
+    );
 
   });
 
-  /* --------------------------------------------------
-     UTILITIES
-  -------------------------------------------------- */
 
-  function escapeHTML(value) {
+document
+  .getElementById(
+    "boldButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
 
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+      document.execCommand(
+        "bold",
+        false,
+        null
+      );
+
+      editor.focus();
+      scheduleSave();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "italicButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document.execCommand(
+        "italic",
+        false,
+        null
+      );
+
+      editor.focus();
+      scheduleSave();
+
+    }
+  );
+
+
+/* =========================================================
+   SMART ENTER
+========================================================= */
+
+editor.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key !==
+      "Enter"
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const block =
+      getCurrentBlock();
+
+    if (!block) {
+      return;
+    }
+
+    let nextFormat =
+      "action";
+
+    if (
+      block.classList.contains(
+        "character"
+      )
+    ) {
+      nextFormat =
+        "dialogue";
+    }
+
+    else if (
+      block.classList.contains(
+        "parenthetical"
+      )
+    ) {
+      nextFormat =
+        "dialogue";
+    }
+
+    else if (
+      block.classList.contains(
+        "dialogue"
+      )
+    ) {
+      nextFormat =
+        "action";
+    }
+
+    else if (
+      block.classList.contains(
+        "transition"
+      )
+    ) {
+      nextFormat =
+        "scene-heading";
+    }
+
+    const newBlock =
+      document.createElement(
+        "div"
+      );
+
+    newBlock.classList.add(
+      nextFormat
+    );
+
+    newBlock.innerHTML =
+      "<br>";
+
+    block.insertAdjacentElement(
+      "afterend",
+      newBlock
+    );
+
+    setActiveBlock(
+      newBlock
+    );
+
+    placeCaretAtEnd(
+      newBlock
+    );
+
+    scheduleSave();
+
+  }
+);
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+editor.addEventListener(
+  "input",
+  () => {
+
+    const block =
+      getCurrentBlock();
+
+    if (block) {
+      setActiveBlock(
+        block
+      );
+    }
+
+    scheduleSave();
+
+    updateStats();
+
+    updateScenes();
+
+  }
+);
+
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+function updateScenes() {
+
+  const headings =
+    [
+      ...editor.querySelectorAll(
+        ".scene-heading"
+      )
+    ];
+
+  const sceneList =
+    document.getElementById(
+      "sceneList"
+    );
+
+  sceneList.innerHTML = "";
+
+  if (!headings.length) {
+
+    sceneList.innerHTML = `
+      <div class="empty-state contents-empty">
+
+        <div class="empty-icon">
+          <i data-lucide="file-text"></i>
+        </div>
+
+        <div class="empty-title">
+          No scenes yet
+        </div>
+
+        <div class="empty-text">
+          Format a line as SCENE to build your screenplay structure.
+        </div>
+
+      </div>
+    `;
+
+    lucide.createIcons();
+
+    return;
 
   }
 
-  /* --------------------------------------------------
-     INITIAL RENDER
-  -------------------------------------------------- */
+  headings.forEach(
+    (heading, index) => {
 
-  renderStorylines();
-  renderCharacters();
-  renderLocations();
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "scene-item";
+
+      if (
+        heading ===
+        activeBlock
+      ) {
+        item.classList.add(
+          "active"
+        );
+      }
+
+      const title =
+        heading.innerText.trim() ||
+        "UNTITLED SCENE";
+
+      item.innerHTML = `
+        <div class="scene-number">
+          ${String(
+            index + 1
+          ).padStart(2, "0")}
+        </div>
+
+        <div class="scene-copy">
+
+          <div class="scene-title">
+            ${escapeHTML(title)}
+          </div>
+
+          <div class="scene-meta">
+            SCENE ${index + 1}
+          </div>
+
+        </div>
+      `;
+
+      item.addEventListener(
+        "click",
+        () => {
+
+          heading.scrollIntoView({
+            behavior:
+              "smooth",
+            block:
+              "center"
+          });
+
+          setActiveBlock(
+            heading
+          );
+
+          placeCaretAtEnd(
+            heading
+          );
+
+        }
+      );
+
+      sceneList.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ANNOTATIONS
+========================================================= */
+
+function saveAnnotations() {
+
+  localStorage.setItem(
+    COMMENTS_KEY,
+    JSON.stringify(comments)
+  );
+
+  localStorage.setItem(
+    NOTES_KEY,
+    JSON.stringify(notes)
+  );
+
+}
+
+function renderEmpty(
+  type
+) {
+
+  const icon =
+    type === "comment"
+      ? "message-square"
+      : "sticky-note";
+
+  const title =
+    type === "comment"
+      ? "No comments"
+      : "No notes";
+
+  const description =
+    type === "comment"
+      ? "Add a comment to leave yourself a thought about the screenplay."
+      : "Add a note to keep ideas, references, characters, or visual concepts close.";
+
+  return `
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        <i data-lucide="${icon}"></i>
+      </div>
+
+      <div class="empty-title">
+        ${title}
+      </div>
+
+      <div class="empty-text">
+        ${description}
+      </div>
+
+    </div>
+  `;
+
+}
+
+function createAnnotationElement(
+  item,
+  type
+) {
+
+  const element =
+    document.createElement(
+      "div"
+    );
+
+  element.className =
+    "annotation";
+
+  element.innerHTML = `
+
+    <div class="annotation-top">
+
+      <div class="annotation-title">
+        ${escapeHTML(
+          item.title ||
+          "Untitled"
+        )}
+      </div>
+
+      <div class="annotation-tag">
+        ${escapeHTML(
+          item.tag ||
+          "General"
+        )}
+      </div>
+
+    </div>
+
+    <div class="annotation-body">
+      ${escapeHTML(
+        item.body ||
+        ""
+      )}
+    </div>
+
+    <div class="annotation-meta">
+      ${type === "comment"
+        ? "Comment"
+        : "Note"}
+      · ${
+        new Date(
+          item.created
+        ).toLocaleDateString()
+      }
+    </div>
+
+  `;
+
+  element.addEventListener(
+    "dblclick",
+    () => {
+
+      if (
+        !confirm(
+          `Delete "${item.title}"?`
+        )
+      ) {
+        return;
+      }
+
+      if (
+        type ===
+        "comment"
+      ) {
+
+        comments =
+          comments.filter(
+            x =>
+              x.id !==
+              item.id
+          );
+
+      } else {
+
+        notes =
+          notes.filter(
+            x =>
+              x.id !==
+              item.id
+          );
+
+      }
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      showMessage(
+        `${type === "comment"
+          ? "Comment"
+          : "Note"} deleted`
+      );
+
+    }
+  );
+
+  return element;
+
+}
+
+function renderAnnotations() {
+
+  const commentsList =
+    document.getElementById(
+      "commentsList"
+    );
+
+  const notesList =
+    document.getElementById(
+      "notesList"
+    );
+
+  commentsList.innerHTML =
+    comments.length
+      ? ""
+      : renderEmpty(
+          "comment"
+        );
+
+  notesList.innerHTML =
+    notes.length
+      ? ""
+      : renderEmpty(
+          "note"
+        );
+
+  comments.forEach(
+    item => {
+
+      commentsList.appendChild(
+        createAnnotationElement(
+          item,
+          "comment"
+        )
+      );
+
+    }
+  );
+
+  notes.forEach(
+    item => {
+
+      notesList.appendChild(
+        createAnnotationElement(
+          item,
+          "note"
+        )
+      );
+
+    }
+  );
+
+  lucide.createIcons();
+
+}
+
+
+/* =========================================================
+   ANNOTATION MODAL
+========================================================= */
+
+function openAnnotationModal(
+  type
+) {
+
+  annotationMode =
+    type;
+
+  document.getElementById(
+    "annotationModalTitle"
+  ).textContent =
+    type === "comment"
+      ? "New Comment"
+      : "New Note";
+
+  document.getElementById(
+    "annotationTitle"
+  ).value = "";
+
+  document.getElementById(
+    "annotationBody"
+  ).value = "";
+
+  annotationModal.classList.add(
+    "open"
+  );
+
+  setTimeout(
+    () =>
+      document
+        .getElementById(
+          "annotationTitle"
+        )
+        .focus(),
+    80
+  );
+
+}
+
+
+function closeAnnotationModal() {
+
+  annotationModal.classList.remove(
+    "open"
+  );
+
+}
+
+
+document
+  .getElementById(
+    "addCommentButton"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      openAnnotationModal(
+        "comment"
+      )
+  );
+
+
+document
+  .getElementById(
+    "addNoteButton"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      openAnnotationModal(
+        "note"
+      )
+  );
+
+
+document
+  .getElementById(
+    "commentSettingsButton"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      openAnnotationModal(
+        "comment"
+      )
+  );
+
+
+document
+  .getElementById(
+    "noteSettingsButton"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      openAnnotationModal(
+        "note"
+      )
+  );
+
+
+document
+  .getElementById(
+    "annotationSave"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      const title =
+        document.getElementById(
+          "annotationTitle"
+        ).value.trim();
+
+      const body =
+        document.getElementById(
+          "annotationBody"
+        ).value.trim();
+
+      const tag =
+        document.getElementById(
+          "annotationTag"
+        ).value;
+
+      if (!title && !body) {
+        return;
+      }
+
+      const annotation = {
+
+        id:
+          Date.now()
+            .toString(),
+
+        title:
+          title ||
+          "Untitled",
+
+        body,
+
+        tag,
+
+        created:
+          Date.now()
+
+      };
+
+      if (
+        annotationMode ===
+        "comment"
+      ) {
+
+        comments.unshift(
+          annotation
+        );
+
+      } else {
+
+        notes.unshift(
+          annotation
+        );
+
+      }
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      closeAnnotationModal();
+
+      showMessage(
+        annotationMode ===
+        "comment"
+          ? "Comment created"
+          : "Note created"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "annotationCancel"
+  )
+  .addEventListener(
+    "click",
+    closeAnnotationModal
+  );
+
+document
+  .getElementById(
+    "annotationModalClose"
+  )
+  .addEventListener(
+    "click",
+    closeAnnotationModal
+  );
+
+
+document
+  .getElementById(
+    "clearCommentsButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if (!comments.length) {
+        showMessage(
+          "No comments to delete"
+        );
+        return;
+      }
+
+      if (
+        !confirm(
+          "Delete all comments? This cannot be undone."
+        )
+      ) {
+        return;
+      }
+
+      comments = [];
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      showMessage(
+        "All comments deleted"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "clearNotesButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if (!notes.length) {
+        showMessage(
+          "No notes to delete"
+        );
+        return;
+      }
+
+      if (
+        !confirm(
+          "Delete all notes? This cannot be undone."
+        )
+      ) {
+        return;
+      }
+
+      notes = [];
+
+      saveAnnotations();
+
+      renderAnnotations();
+
+      showMessage(
+        "All notes deleted"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   ELEMENTS STORAGE
+========================================================= */
+
+function saveElements() {
+
+  localStorage.setItem(
+    ELEMENTS_KEY,
+    JSON.stringify(
+      elements
+    )
+  );
+
+}
+
+
+/* =========================================================
+   ELEMENT CONFIG
+========================================================= */
+
+const elementConfig = {
+
+  storyline: {
+    title:
+      "New Storyline",
+    icon:
+      "git-branch"
+  },
+
+  character: {
+    title:
+      "New Character",
+    icon:
+      "user"
+  },
+
+  location: {
+    title:
+      "New Location",
+    icon:
+      "map-pin"
+  }
+
+};
+
+
+/* =========================================================
+   CREATE ELEMENT
+========================================================= */
+
+function openElementModal(
+  type
+) {
+
+  elementMode =
+    type;
+
+  document.getElementById(
+    "elementModalTitle"
+  ).textContent =
+    elementConfig[type]
+      .title;
+
+  document.getElementById(
+    "elementName"
+  ).value = "";
+
+  document.getElementById(
+    "elementDescription"
+  ).value = "";
+
+  elementModal.classList.add(
+    "open"
+  );
+
+  setTimeout(
+    () =>
+      document
+        .getElementById(
+          "elementName"
+        )
+        .focus(),
+    80
+  );
+
+}
+
+
+document
+  .querySelectorAll(
+    ".element-add"
+  )
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        openElementModal(
+          button.dataset
+            .elementType
+        );
+
+      }
+    );
+
+  });
+
+
+document
+  .getElementById(
+    "elementSave"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      const name =
+        document.getElementById(
+          "elementName"
+        ).value.trim();
+
+      const description =
+        document.getElementById(
+          "elementDescription"
+        ).value.trim();
+
+      if (!name) {
+        return;
+      }
+
+      elements[
+        elementMode
+      ].push({
+
+        id:
+          Date.now()
+            .toString(),
+
+        name,
+
+        description,
+
+        created:
+          Date.now()
+
+      });
+
+      saveElements();
+
+      renderElements();
+
+      elementModal.classList.remove(
+        "open"
+      );
+
+      showMessage(
+        `${
+          elementConfig[
+            elementMode
+          ].title.replace(
+            "New ",
+            ""
+          )
+        } created`
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "elementCancel"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      elementModal.classList.remove(
+        "open"
+      )
+  );
+
+
+document
+  .getElementById(
+    "elementModalClose"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      elementModal.classList.remove(
+        "open"
+      )
+  );
+
+
+/* =========================================================
+   RENDER ELEMENTS
+========================================================= */
+
+function renderElementSection(
+  type,
+  containerId
+) {
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+  container.innerHTML = "";
+
+  if (
+    !elements[type].length
+  ) {
+
+    container.innerHTML = `
+      <div class="element-empty">
+        None created yet.
+      </div>
+    `;
+
+    return;
+  }
+
+  elements[type].forEach(
+    item => {
+
+      const element =
+        document.createElement(
+          "div"
+        );
+
+      element.className =
+        "element-item";
+
+      element.innerHTML = `
+
+        <div class="element-icon">
+          <i data-lucide="${
+            elementConfig[type]
+              .icon
+          }"></i>
+        </div>
+
+        <div class="element-copy">
+
+          <div class="element-name">
+            ${escapeHTML(
+              item.name
+            )}
+          </div>
+
+          ${
+            item.description
+              ? `
+                <div class="element-description">
+                  ${escapeHTML(
+                    item.description
+                  )}
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+
+        <button
+          class="element-delete"
+          title="Delete"
+        >
+          <i data-lucide="trash-2"></i>
+        </button>
+
+      `;
+
+      element
+        .querySelector(
+          ".element-delete"
+        )
+        .addEventListener(
+          "click",
+          event => {
+
+            event.stopPropagation();
+
+            if (
+              !confirm(
+                `Delete "${item.name}"?`
+              )
+            ) {
+              return;
+            }
+
+            elements[type] =
+              elements[type]
+                .filter(
+                  x =>
+                    x.id !==
+                    item.id
+                );
+
+            saveElements();
+
+            renderElements();
+
+            showMessage(
+              "Element deleted"
+            );
+
+          }
+        );
+
+      container.appendChild(
+        element
+      );
+
+    }
+  );
+
+}
+
+
+function renderElements() {
+
+  renderElementSection(
+    "storyline",
+    "storylineList"
+  );
+
+  renderElementSection(
+    "character",
+    "characterList"
+  );
+
+  renderElementSection(
+    "location",
+    "locationList"
+  );
+
+  lucide.createIcons();
+
+}
+
+
+/* =========================================================
+   STASH
+========================================================= */
+
+function saveStash() {
+
+  localStorage.setItem(
+    STASH_KEY,
+    JSON.stringify(
+      stash
+    )
+  );
+
+}
+
+
+function renderStash() {
+
+  const list =
+    document.getElementById(
+      "stashList"
+    );
+
+  list.innerHTML = "";
+
+  if (!stash.length) {
+
+    list.innerHTML = `
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          <i data-lucide="archive"></i>
+        </div>
+
+        <div class="empty-title">
+          Stash is empty
+        </div>
+
+        <div class="empty-text">
+          Keep ideas and fragments here until they're ready for the screenplay.
+        </div>
+
+      </div>
+    `;
+
+    lucide.createIcons();
+
+    return;
+
+  }
+
+  stash.forEach(
+    item => {
+
+      const entry =
+        document.createElement(
+          "div"
+        );
+
+      entry.className =
+        "stash-entry";
+
+      entry.innerHTML = `
+
+        <div class="stash-entry-icon">
+          <i data-lucide="archive"></i>
+        </div>
+
+        <div class="stash-entry-copy">
+
+          <div class="stash-entry-title">
+            ${escapeHTML(
+              item.title
+            )}
+          </div>
+
+          <div class="stash-entry-body">
+            ${escapeHTML(
+              item.body
+            )}
+          </div>
+
+        </div>
+
+        <button
+          class="stash-delete"
+          title="Delete"
+        >
+          <i data-lucide="trash-2"></i>
+        </button>
+
+      `;
+
+      entry
+        .querySelector(
+          ".stash-delete"
+        )
+        .addEventListener(
+          "click",
+          () => {
+
+            stash =
+              stash.filter(
+                x =>
+                  x.id !==
+                  item.id
+              );
+
+            saveStash();
+
+            renderStash();
+
+            showMessage(
+              "Stash item deleted"
+            );
+
+          }
+        );
+
+      list.appendChild(
+        entry
+      );
+
+    }
+  );
+
+  lucide.createIcons();
+
+}
+
+
+/* =========================================================
+   STASH MODAL
+========================================================= */
+
+function openStashModal() {
+
+  document.getElementById(
+    "stashTitle"
+  ).value = "";
+
+  document.getElementById(
+    "stashBody"
+  ).value = "";
+
+  stashModal.classList.add(
+    "open"
+  );
+
+  setTimeout(
+    () =>
+      document.getElementById(
+        "stashTitle"
+      ).focus(),
+    80
+  );
+
+}
+
+
+document
+  .getElementById(
+    "addStashButton"
+  )
+  .addEventListener(
+    "click",
+    openStashModal
+  );
+
+
+document
+  .getElementById(
+    "stashSave"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      const title =
+        document.getElementById(
+          "stashTitle"
+        ).value.trim();
+
+      const body =
+        document.getElementById(
+          "stashBody"
+        ).value.trim();
+
+      if (!title && !body) {
+        return;
+      }
+
+      stash.unshift({
+
+        id:
+          Date.now()
+            .toString(),
+
+        title:
+          title ||
+          "Untitled",
+
+        body,
+
+        created:
+          Date.now()
+
+      });
+
+      saveStash();
+
+      renderStash();
+
+      stashModal.classList.remove(
+        "open"
+      );
+
+      showMessage(
+        "Added to stash"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "stashCancel"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      stashModal.classList.remove(
+        "open"
+      )
+  );
+
+
+document
+  .getElementById(
+    "stashModalClose"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      stashModal.classList.remove(
+        "open"
+      )
+  );
+
+
+document
+  .getElementById(
+    "clearStashButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if (!stash.length) {
+
+        showMessage(
+          "Stash is already empty"
+        );
+
+        return;
+
+      }
+
+      if (
+        !confirm(
+          "Delete everything in the stash?"
+        )
+      ) {
+        return;
+      }
+
+      stash = [];
+
+      saveStash();
+
+      renderStash();
+
+      showMessage(
+        "Stash cleared"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   DOCUMENT PANEL
+========================================================= */
+
+document
+  .getElementById(
+    "documentButton"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      contextPanel.classList.add(
+        "open"
+      )
+  );
+
+
+document
+  .getElementById(
+    "panelClose"
+  )
+  .addEventListener(
+    "click",
+    () =>
+      contextPanel.classList.remove(
+        "open"
+      )
+  );
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      annotationModal.classList.remove(
+        "open"
+      );
+
+      elementModal.classList.remove(
+        "open"
+      );
+
+      stashModal.classList.remove(
+        "open"
+      );
+
+      contextPanel.classList.remove(
+        "open"
+      );
+
+    }
+
+    if (
+      (event.metaKey ||
+       event.ctrlKey) &&
+      event.key.toLowerCase() ===
+        "s"
+    ) {
+
+      event.preventDefault();
+
+      saveDocument(true);
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showMessage(
+  message
+) {
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
+  );
+
+  clearTimeout(
+    window.auteurToastTimer
+  );
+
+  window.auteurToastTimer =
+    setTimeout(
+      () =>
+        toast.classList.remove(
+          "show"
+        ),
+      1200
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+  value
+) {
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updateStats();
+
+updateScenes();
+
+renderAnnotations();
+
+renderElements();
+
+renderStash();
+
+setTimeout(
+  () => {
+
+    const firstBlock =
+      editor.querySelector(
+        ".script > div"
+      );
+
+    if (firstBlock) {
+      setActiveBlock(
+        firstBlock
+      );
+    }
+
+  },
+  100
+);
 
 </script>
 
