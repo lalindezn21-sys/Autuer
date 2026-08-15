@@ -1,0 +1,51 @@
+name: Refine Auteur UI
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    if: ${{ !contains(github.event.head_commit.message, 'refine Auteur UI') && !contains(github.event.head_commit.message, 'Refine Auteur UI') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply layout refinement
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          replacements = {
+            '.document-nav{height:42px;flex:0 0 42px;display:flex;align-items:flex-end;gap:28px;padding:0 30px;': '.document-nav{height:50px;flex:0 0 50px;display:flex;align-items:center;justify-content:center;gap:52px;padding:0 20px;',
+            '.film-title-peek{width:min(850px,calc(100% - 40px));min-width:500px;height:88px;flex:0 0 88px;margin:0 auto;padding:27px 20px 0;': '.film-title-peek{width:min(850px,calc(100% - 40px));min-width:500px;height:180px;flex:0 0 180px;margin:0 auto;padding:72px 20px 0;',
+            'border-radius:0 0 8px 8px;background:#fff;text-align:center;': 'border-radius:0;background:#fff;text-align:center;',
+            '.page{width:min(850px,calc(100% - 0px));min-width:500px;min-height:1050px;margin:0 auto;padding:95px 105px 120px;background:#fff;border:1px solid var(--line);box-shadow:0 4px 22px rgba(0,0,0,.035)}': '.page{width:min(850px,calc(100% - 0px));min-width:500px;min-height:1050px;margin:0 auto;padding:95px 105px 120px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 34px rgba(0,0,0,.08)}',
+            '.sidebar{display:flex;flex-direction:column;border-right:1px solid var(--line)}': '.sidebar{display:flex;flex-direction:column;border-right:1px solid var(--line);box-shadow:2px 0 14px rgba(0,0,0,.035);z-index:2}',
+            '.right-sidebar{display:flex;flex-direction:column;border-left:1px solid var(--line);overflow:hidden}': '.right-sidebar{display:flex;flex-direction:column;border-left:1px solid var(--line);overflow:hidden;box-shadow:-2px 0 14px rgba(0,0,0,.035);z-index:2}',
+            '.topbar{height:62px;flex:0 0 62px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--line);background:#fff}': '.topbar{height:62px;flex:0 0 62px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--line);background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.035);z-index:3}',
+            '.storyline-card,.character-card{margin:3px 0 8px;border:1px solid var(--line);border-radius:9px;background:#fff;overflow:hidden}': '.storyline-card,.character-card{margin:3px 0 8px;border:1px solid var(--line);border-radius:0;background:#fff;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.045)}',
+            '.side-tab,.right-tab{height:38px;border:0;border-radius:7px;': '.side-tab,.right-tab{height:38px;border:0;border-radius:0;',
+            '.sidebar-tool{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:7px;': '.sidebar-tool{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:0;',
+            '.icon-btn{width:35px;height:35px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:7px;': '.icon-btn{width:35px;height:35px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:0;',
+            '.changes-button{height:35px;display:flex;align-items:center;gap:5px;padding:0 8px;border:0;border-radius:7px;': '.changes-button{height:35px;display:flex;align-items:center;gap:5px;padding:0 8px;border:0;border-radius:0;',
+            '.element-add{width:30px;height:30px;display:grid;place-items:center;margin-left:auto;border:0;border-radius:7px;': '.element-add{width:30px;height:30px;display:grid;place-items:center;margin-left:auto;border:0;border-radius:0;',
+            '.element-item{display:flex;align-items:center;min-height:47px;padding:7px 9px;border-radius:7px}': '.element-item{display:flex;align-items:center;min-height:47px;padding:7px 9px;border-radius:0}',
+          }
+          for a,b in replacements.items():
+              if a not in s:
+                  raise SystemExit(f'Missing expected CSS anchor: {a[:80]}')
+              s=s.replace(a,b,1)
+          p.write_text(s)
+          PY
+      - name: Commit refined UI
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'refine Auteur UI'
+          git push
