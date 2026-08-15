@@ -2,8 +2,7 @@ name: Fix Autuer HTML
 
 on:
   push:
-    paths:
-      - '.github/workflows/fix-auteur.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write
