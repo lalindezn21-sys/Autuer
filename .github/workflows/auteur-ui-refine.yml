@@ -1,0 +1,79 @@
+name: Refine Auteur UI
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  refine:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Refine UI
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          css = r'''
+          /* Auteur reference-inspired visual pass */
+          html,body{background:#f6f6f4}
+          .app{grid-template-columns:300px minmax(0,1fr) 300px;background:#f6f6f4}
+          .app.right-closed{grid-template-columns:300px minmax(0,1fr) 0}
+          .sidebar,.right-sidebar,.main,.topbar,.document-nav,.workspace,.statusbar{background:#fff}
+          .sidebar,.right-sidebar{box-shadow:none}
+          .brand{height:62px;padding:0 20px}
+          .brand-name{font-size:23px}
+          .side-tabs,.right-tabs{gap:0;padding:0 14px;border-bottom:1px solid #e0e0dc}
+          .side-tab,.right-tab{height:46px;font-size:12px;font-weight:700;color:#85857f;background:#fff}
+          .side-tab.active,.right-tab.active{background:#fff;color:#171717;position:relative}
+          .side-tab.active:after,.right-tab.active:after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:#171717}
+          .sidebar-content,.right-content{padding:14px 16px 24px}
+          .scene-item,.annotation,.element-item{border-radius:0}
+          .scene-item{min-height:58px;padding:10px 8px}
+          .scene-title{font-size:15px}.scene-meta{font-size:11px}
+          .right-header{height:62px;padding:0 18px}
+          .right-header-title{font-size:14px}
+          .element-section{margin-bottom:22px}
+          .element-section-header{padding:9px 2px 8px}
+          .element-section-title{font-size:12px;color:#555550}
+          .storyline-card,.character-card{box-shadow:0 5px 18px rgba(0,0,0,.06);border-color:#e1e1dc}
+          .storyline-header,.character-header{min-height:58px;padding:10px 13px}
+          .storyline-title,.character-title{font-size:14px}
+          .element-item{min-height:54px;box-shadow:0 5px 18px rgba(0,0,0,.045);border:1px solid #e5e5e1;margin-bottom:8px}
+          .element-name{font-size:14px}
+          .topbar{height:54px;flex-basis:54px;padding:0 16px;box-shadow:0 1px 8px rgba(0,0,0,.035)}
+          .script-title{font-size:14px}
+          .document-nav{height:48px;flex-basis:48px;gap:34px;border-bottom:0}
+          .doc-tab{height:48px;font-size:13px;letter-spacing:.03em;position:relative}
+          .doc-tab.active{color:#171717;border-bottom:0}
+          .doc-tab.active:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#171717}
+          .film-title-peek{width:min(850px,calc(100% - 56px));min-width:500px;height:245px;flex-basis:245px;margin:0 auto 24px;padding:106px 24px 0;border:1px solid #deded9;background:#fff;box-shadow:0 8px 28px rgba(0,0,0,.075);font-size:20px;letter-spacing:.02em}
+          .workspace{background:#f6f6f4;overflow:hidden}
+          .editor-scroll{padding:0 28px 110px;overflow:auto}
+          .page{width:min(850px,100%);min-width:500px;min-height:1050px;margin:0 auto;padding:95px 105px 120px;background:#fff;border:1px solid #deded9;box-shadow:0 8px 28px rgba(0,0,0,.075)}
+          .context-bar{border-radius:0;box-shadow:0 8px 28px rgba(0,0,0,.13);padding:4px}
+          .format-btn{border-radius:0}
+          .context-panel,.modal{border-radius:0}
+          .modal-button,.field-input,.field-select,.field-textarea{border-radius:0}
+          .modal-backdrop{background:rgba(20,20,18,.12)}
+          .statusbar{height:28px;flex-basis:28px}
+          @media(max-width:1200px){.app{grid-template-columns:270px minmax(0,1fr) 270px}.app.right-closed{grid-template-columns:270px minmax(0,1fr) 0}.film-title-peek{min-width:0}.page{min-width:0}}
+          '''
+          marker='</style>'
+          if '/* Auteur reference-inspired visual pass */' not in s:
+              s=s.replace(marker, css+'\n'+marker, 1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit and remove patch workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/auteur-ui-refine.yml
+          git add index.html .github/workflows/auteur-ui-refine.yml
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Refine Auteur UI toward reference layout'
+          git push
