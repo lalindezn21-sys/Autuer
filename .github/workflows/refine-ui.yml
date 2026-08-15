@@ -1,4 +1,4 @@
-name: Refine Auteur UI
+name: Extend Auteur editor layout
 
 on:
   push:
@@ -9,43 +9,109 @@ permissions:
 
 jobs:
   refine:
-    if: ${{ !contains(github.event.head_commit.message, 'refine Auteur UI') && !contains(github.event.head_commit.message, 'Refine Auteur UI') }}
+    if: ${{ !contains(github.event.head_commit.message, 'extend Auteur editor layout') && !contains(github.event.head_commit.message, 'Extend Auteur editor layout') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply layout refinement
+      - name: Apply editor layout and reference UI details
         run: |
           python3 - <<'PY'
           from pathlib import Path
           p = Path('index.html')
           s = p.read_text()
-          replacements = {
-            '.document-nav{height:42px;flex:0 0 42px;display:flex;align-items:flex-end;gap:28px;padding:0 30px;': '.document-nav{height:50px;flex:0 0 50px;display:flex;align-items:center;justify-content:center;gap:52px;padding:0 20px;',
-            '.film-title-peek{width:min(850px,calc(100% - 40px));min-width:500px;height:88px;flex:0 0 88px;margin:0 auto;padding:27px 20px 0;': '.film-title-peek{width:min(850px,calc(100% - 40px));min-width:500px;height:180px;flex:0 0 180px;margin:0 auto;padding:72px 20px 0;',
-            'border-radius:0 0 8px 8px;background:#fff;text-align:center;': 'border-radius:0;background:#fff;text-align:center;',
-            '.page{width:min(850px,calc(100% - 0px));min-width:500px;min-height:1050px;margin:0 auto;padding:95px 105px 120px;background:#fff;border:1px solid var(--line);box-shadow:0 4px 22px rgba(0,0,0,.035)}': '.page{width:min(850px,calc(100% - 0px));min-width:500px;min-height:1050px;margin:0 auto;padding:95px 105px 120px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 34px rgba(0,0,0,.08)}',
-            '.sidebar{display:flex;flex-direction:column;border-right:1px solid var(--line)}': '.sidebar{display:flex;flex-direction:column;border-right:1px solid var(--line);box-shadow:2px 0 14px rgba(0,0,0,.035);z-index:2}',
-            '.right-sidebar{display:flex;flex-direction:column;border-left:1px solid var(--line);overflow:hidden}': '.right-sidebar{display:flex;flex-direction:column;border-left:1px solid var(--line);overflow:hidden;box-shadow:-2px 0 14px rgba(0,0,0,.035);z-index:2}',
-            '.topbar{height:62px;flex:0 0 62px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--line);background:#fff}': '.topbar{height:62px;flex:0 0 62px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--line);background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.035);z-index:3}',
-            '.storyline-card,.character-card{margin:3px 0 8px;border:1px solid var(--line);border-radius:9px;background:#fff;overflow:hidden}': '.storyline-card,.character-card{margin:3px 0 8px;border:1px solid var(--line);border-radius:0;background:#fff;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.045)}',
-            '.side-tab,.right-tab{height:38px;border:0;border-radius:7px;': '.side-tab,.right-tab{height:38px;border:0;border-radius:0;',
-            '.sidebar-tool{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:7px;': '.sidebar-tool{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:0;',
-            '.icon-btn{width:35px;height:35px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:7px;': '.icon-btn{width:35px;height:35px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:0;',
-            '.changes-button{height:35px;display:flex;align-items:center;gap:5px;padding:0 8px;border:0;border-radius:7px;': '.changes-button{height:35px;display:flex;align-items:center;gap:5px;padding:0 8px;border:0;border-radius:0;',
-            '.element-add{width:30px;height:30px;display:grid;place-items:center;margin-left:auto;border:0;border-radius:7px;': '.element-add{width:30px;height:30px;display:grid;place-items:center;margin-left:auto;border:0;border-radius:0;',
-            '.element-item{display:flex;align-items:center;min-height:47px;padding:7px 9px;border-radius:7px}': '.element-item{display:flex;align-items:center;min-height:47px;padding:7px 9px;border-radius:0}',
-          }
-          for a,b in replacements.items():
-              if a not in s:
-                  raise SystemExit(f'Missing expected CSS anchor: {a[:80]}')
-              s=s.replace(a,b,1)
+
+          css = r'''
+          /* Editor flow and reference-layout details */
+          .workspace{overflow:hidden}
+          .editor-scroll{display:block;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
+          .editor-scroll .film-title-peek{display:block;margin:0 auto 26px;}
+          .editor-scroll .page{display:block;margin:0 auto 80px;}
+          .film-title-peek{position:relative;z-index:1;height:270px;min-height:270px;flex:0 0 270px;padding:116px 24px 0;border-radius:0;}
+          .page{position:relative;z-index:1;}
+          .reference-tools{display:flex;align-items:center;gap:2px;margin-left:10px;padding-left:10px;border-left:1px solid var(--line)}
+          .reference-tools .icon-btn{width:32px;height:32px}
+          .drafts-strip{display:flex;align-items:center;gap:18px;height:44px;padding:0 16px;border-bottom:1px solid var(--line);font-size:12px;font-weight:700;color:#777771}
+          .drafts-strip .active{color:#171717;position:relative}
+          .drafts-strip .active:after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:2px;background:#171717}
+          .draft-card{margin:10px 0 12px;padding:14px 16px;border:1px solid #e1e1dc;background:#fff;box-shadow:0 5px 18px rgba(0,0,0,.055)}
+          .draft-card-title{font-size:14px;font-weight:750}
+          .draft-card-meta{margin-top:6px;color:#888883;font-size:11px;line-height:1.45}
+          .draft-actions{display:flex;gap:16px;margin-top:15px;color:#555550;font-size:11px;font-weight:700}
+          .import-button{width:100%;height:40px;margin:8px 0 18px;border:0;background:#f7f7f4;color:#333330;font-size:12px;font-weight:700;cursor:pointer}
+          .import-button:hover{background:#eeeeea}
+          .editor-top-tools{display:flex;align-items:center;gap:2px}
+          .editor-top-tools .icon-btn{width:32px;height:32px}
+          .floating-editor-bar{position:absolute;bottom:14px;left:50%;z-index:20;transform:translateX(-50%);display:flex;align-items:center;gap:1px;padding:5px;border:1px solid var(--line);background:#fff;box-shadow:0 8px 28px rgba(0,0,0,.12)}
+          .floating-editor-bar .format-btn{height:31px;min-width:31px}
+          .page-counter{position:absolute;right:16px;bottom:12px;z-index:20;padding:8px 10px;border:1px solid var(--line);background:#fff;font-size:10px;color:#666661}
+          @media(max-width:900px){.reference-tools{display:none}.drafts-strip{gap:12px}.film-title-peek{width:calc(100% - 24px);min-width:0}.page{width:calc(100% - 24px);min-width:0}}
+          '''
+
+          if '/* Editor flow and reference-layout details */' not in s:
+              s=s.replace('</style>', css + '\n</style>', 1)
+
+          # Move the title page into the same scrolling column as the screenplay.
+          anchor = '<div class="film-title-peek" id="filmTitlePeek">Sentient Mass</div>\n<section class="workspace">'
+          if anchor in s:
+              replacement = '<section class="workspace">'
+              s=s.replace(anchor, replacement, 1)
+          if 'const moveTitleIntoEditor=' not in s:
+              marker = 'const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], app=$(\'#app\'),editor=$(\'#scriptEditor\'),toast=$(\'#toast\');'
+              inject = marker + '\nconst moveTitleIntoEditor=()=>{const title=$(\'#filmTitlePeek\'),scroll=$(\'.editor-scroll\'),page=$(\'.page\');if(title&&scroll&&page&&!scroll.contains(title)){scroll.insertBefore(title,page)}};'
+              if marker not in s:
+                  raise SystemExit('Missing JS initialization anchor')
+              s=s.replace(marker,inject,1)
+          if 'moveTitleIntoEditor();' not in s:
+              s=s.replace('stats();scenes();renderElements();renderAnnotations();', 'moveTitleIntoEditor();stats();scenes();renderElements();renderAnnotations();', 1)
+
+          # Add a compact reference-style top utility row without disturbing existing controls.
+          old = '<div class="top-left"><button class="icon-btn" id="leftMenuButton"><i data-lucide="menu"></i></button><div class="script-title">Sentient Mass</div>'
+          new = '<div class="top-left"><div class="editor-top-tools"><button class="icon-btn" title="Home"><i data-lucide="home"></i></button><button class="icon-btn" title="Library"><i data-lucide="layout-grid"></i></button><button class="icon-btn" title="Search"><i data-lucide="search"></i></button><button class="icon-btn" title="Notifications"><i data-lucide="bell"></i></button></div><button class="icon-btn" id="leftMenuButton" title="Contents"><i data-lucide="menu"></i></button><div class="script-title">Sentient Mass</div>'
+          if old in s and 'title="Home"' not in s:
+              s=s.replace(old,new,1)
+
+          # Add reference-style right utility icons next to the existing controls.
+          old = '<button class="icon-btn" id="rightBarToggle" title="Creative workspace"><i data-lucide="panel-right"></i></button><div class="avatar">B</div>'
+          new = '<button class="icon-btn" id="rightBarToggle" title="Creative workspace"><i data-lucide="panel-right"></i></button><div class="reference-tools"><button class="icon-btn" title="Share"><i data-lucide="share-2"></i></button><button class="icon-btn" title="Settings"><i data-lucide="settings"></i></button></div><div class="avatar">B</div>'
+          if old in s and 'title="Share"' not in s:
+              s=s.replace(old,new,1)
+
+          # Add Drafts to the left hierarchy.
+          old = '<div class="side-tabs"><button class="side-tab active" data-tab="contents">CONTENTS</button>'
+          new = '<div class="drafts-strip"><span class="active">DRAFTS</span><span>Current</span><span>All</span></div><div class="draft-card"><div class="draft-card-title">Main Draft</div><div class="draft-card-meta">Created by you. Editing now...</div><div class="draft-actions"><span>＋ Snapshot</span><span>⌘ Branch copy</span></div></div><div class="side-tabs"><button class="side-tab active" data-tab="contents">CONTENTS</button>'
+          if old in s and 'class="drafts-strip"' not in s:
+              s=s.replace(old,new,1)
+
+          # Add import controls to the right element sections.
+          s=s.replace('<div id="characterList"></div></section><section class="element-section">', '<div id="characterList"></div><button class="import-button" id="importCharacters">Import from script</button></section><section class="element-section">', 1)
+          s=s.replace('<div id="locationList"></div></section></div>', '<div id="locationList"></div><button class="import-button" id="importLocations">Import from script</button></section></div>', 1)
+          s=s.replace('<div id="storylineList"></div></section><section class="element-section">', '<div id="storylineList"></div><button class="import-button" id="importStorylines">Import from script</button></section><section class="element-section">', 1)
+
+          # Add a page counter overlay matching the reference composition.
+          marker = '<div class="toast" id="toast">Saved</div></section>'
+          replacement = '<div class="page-counter" id="pageCounter">1 / 1</div><div class="toast" id="toast">Saved</div></section>'
+          if marker in s and 'id="pageCounter"' not in s:
+              s=s.replace(marker,replacement,1)
+
+          # Keep the title page and screenplay in one vertical flow. Remove the old flex behavior.
+          s=s.replace('.film-title-peek{width:min(850px,calc(100% - 40px));min-width:500px;height:180px;flex:0 0 180px;', '.film-title-peek{width:min(850px,calc(100% - 40px));min-width:500px;height:270px;flex:0 0 270px;', 1)
+
+          # Wire the new import buttons to useful local behavior.
+          marker = "$('#elementSave').onclick=()=>{"
+          if 'const importFromScript=' not in s and marker in s:
+              inject = "const importFromScript=(type)=>{const text=editor.innerText.trim();if(!text){msg('Write something in the script first');return}const lines=text.split(/\\n+/).map(x=>x.trim()).filter(Boolean);const existing=elements[type];const found=type==='character'?lines.filter(x=>/^[A-Z][A-Z0-9 .'-]{1,30}$/.test(x)&&x.split(/\\s+/).length<=4):type==='location'?lines.filter(x=>/^(INT\\.|EXT\\.)/.test(x)).map(x=>x.replace(/^(INT\\.|EXT\\.)\\s*/,'')).map(x=>x.replace(/\\s+-\\s+.*/,'')):lines.filter(x=>/story|plot|thread/i.test(x));found.slice(0,12).forEach(name=>{if(!existing.some(x=>x.name===name))existing.push({id:Date.now().toString()+Math.random(),name,description:'',gender:type==='character'?'nonbinary':null,color:type==='character'?colors[existing.length%colors.length]:null,open:false})});saveEl();renderElements();msg('Imported from script')};\n$('#importCharacters').onclick=()=>importFromScript('character');$('#importLocations').onclick=()=>importFromScript('location');$('#importStorylines').onclick=()=>importFromScript('storyline');\n" + marker
+              s=s.replace(marker,inject,1)
+
+          # Update visible page counter whenever stats run.
+          s=s.replace("$('#pageCount').textContent=p+(p===1?' page':' pages')", "$('#pageCount').textContent=p+(p===1?' page':' pages');if($('#pageCounter'))$('#pageCounter').textContent=p+' / '+p", 1)
+
           p.write_text(s)
           PY
-      - name: Commit refined UI
+      - name: Commit layout extension
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
           git diff --cached --quiet && exit 0
-          git commit -m 'refine Auteur UI'
+          git commit -m 'extend Auteur editor layout'
           git push
