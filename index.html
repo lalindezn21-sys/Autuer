@@ -69,7 +69,7 @@ button {
 }
 
 /* =========================================================
-   SIDEBAR
+   LEFT SIDEBAR
 ========================================================= */
 
 .sidebar {
@@ -91,7 +91,7 @@ button {
 .brand-name {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 23px;
-  letter-spacing: -0.045em;
+  letter-spacing: -.045em;
 }
 
 .project-name {
@@ -119,7 +119,6 @@ button {
   font-weight: 800;
   letter-spacing: .06em;
   cursor: pointer;
-  transition: .12s ease;
 }
 
 .side-tab:hover {
@@ -137,11 +136,13 @@ button {
   padding: 4px 10px 20px;
 }
 
-.sidebar-content::-webkit-scrollbar {
+.sidebar-content::-webkit-scrollbar,
+.right-content::-webkit-scrollbar {
   width: 5px;
 }
 
-.sidebar-content::-webkit-scrollbar-thumb {
+.sidebar-content::-webkit-scrollbar-thumb,
+.right-content::-webkit-scrollbar-thumb {
   background: #d0d0cb;
   border-radius: 999px;
 }
@@ -234,7 +235,7 @@ button {
 }
 
 /* =========================================================
-   TOOLBAR
+   TOOLBARS
 ========================================================= */
 
 .sidebar-toolbar {
@@ -253,15 +254,10 @@ button {
   border-radius: 6px;
   background: transparent;
   cursor: pointer;
-  transition: .12s ease;
 }
 
 .sidebar-tool:hover {
   background: var(--hover);
-}
-
-.sidebar-tool.danger:hover {
-  background: #ece8e8;
 }
 
 .sidebar-tool svg {
@@ -277,10 +273,6 @@ button {
 /* =========================================================
    COMMENTS / NOTES
 ========================================================= */
-
-.annotation-list {
-  padding-bottom: 10px;
-}
 
 .annotation {
   position: relative;
@@ -333,7 +325,7 @@ button {
 }
 
 /* =========================================================
-   LEFT FOOTER
+   FOOTER
 ========================================================= */
 
 .sidebar-footer {
@@ -418,15 +410,6 @@ button {
   padding: 4px 10px 20px;
 }
 
-.right-content::-webkit-scrollbar {
-  width: 5px;
-}
-
-.right-content::-webkit-scrollbar-thumb {
-  background: #d0d0cb;
-  border-radius: 999px;
-}
-
 /* =========================================================
    ELEMENT SECTIONS
 ========================================================= */
@@ -469,13 +452,178 @@ button {
   height: 14px;
 }
 
+/* =========================================================
+   STORYLINES
+========================================================= */
+
+.storyline-card {
+  margin: 2px 0 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+  transition:
+    border-color .15s ease,
+    background .15s ease;
+}
+
+.storyline-card:hover {
+  border-color: #d2d2cd;
+}
+
+.storyline-header {
+  display: flex;
+  align-items: center;
+  min-height: 43px;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+
+.storyline-icon {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 27px;
+  margin-right: 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fafaf8;
+}
+
+.storyline-icon svg {
+  width: 13px;
+  height: 13px;
+  color: #74746f;
+}
+
+.storyline-header-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.storyline-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.storyline-meta {
+  margin-top: 2px;
+  color: #999994;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.storyline-chevron {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  transition: transform .18s ease;
+}
+
+.storyline-chevron svg {
+  width: 13px;
+  height: 13px;
+}
+
+.storyline-card.open .storyline-chevron {
+  transform: rotate(180deg);
+}
+
+.storyline-body {
+  display: none;
+  padding: 0 10px 11px;
+  border-top: 1px solid var(--line);
+}
+
+.storyline-card.open .storyline-body {
+  display: block;
+}
+
+.storyline-label {
+  display: block;
+  padding: 10px 0 5px;
+  color: #858580;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.storyline-synopsis {
+  width: 100%;
+  min-height: 105px;
+  padding: 8px;
+  border: 1px solid #e1e1dd;
+  border-radius: 6px;
+  outline: none;
+  background: #fafaf8;
+  color: #161616;
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.storyline-synopsis:focus {
+  border-color: #aaa9a4;
+  background: white;
+}
+
+.storyline-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+.storyline-delete {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.storyline-card:hover .storyline-delete {
+  opacity: 1;
+}
+
+.storyline-delete:hover {
+  background: #ece8e8;
+}
+
+.storyline-delete svg {
+  width: 13px;
+  height: 13px;
+  color: var(--danger);
+}
+
+.storyline-empty {
+  padding: 6px 8px 8px;
+  color: #999994;
+  font-size: 9px;
+}
+
+/* =========================================================
+   CHARACTERS / LOCATIONS
+========================================================= */
+
 .element-item {
   display: flex;
   align-items: center;
   min-height: 42px;
   padding: 7px 8px;
   border-radius: 7px;
-  cursor: pointer;
 }
 
 .element-item:hover {
@@ -551,7 +699,6 @@ button {
   padding: 6px 8px 8px;
   color: #999994;
   font-size: 9px;
-  line-height: 1.5;
 }
 
 /* =========================================================
@@ -660,7 +807,6 @@ button {
   border-radius: 7px;
   background: transparent;
   cursor: pointer;
-  transition: .12s ease;
 }
 
 .icon-btn:hover {
@@ -696,17 +842,17 @@ button {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #888883;
+  background: #777772;
 }
 
 .avatar {
-  width: 30px;
-  height: 30px;
+  width: 29px;
+  height: 29px;
   display: grid;
   place-items: center;
-  margin-left: 7px;
+  margin-left: 5px;
   border-radius: 50%;
-  background: #202020;
+  background: #171717;
   color: white;
   font-size: 10px;
   font-weight: 700;
@@ -720,101 +866,89 @@ button {
   position: relative;
   flex: 1;
   min-height: 0;
+  display: flex;
   overflow: hidden;
-  background: #eeeeeb;
+  background: var(--bg);
 }
 
 .editor-scroll {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  padding: 34px 30px 110px;
-}
-
-.editor-scroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-.editor-scroll::-webkit-scrollbar-thumb {
-  background: #cecec9;
-  border-radius: 999px;
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 35px 20px 100px;
 }
 
 .page-title-bar {
-  width: min(850px, calc(100vw - 600px));
-  height: 38px;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  padding: 0 2px;
+  width: min(850px, calc(100vw - 650px));
+  min-width: 500px;
+  margin: 0 auto 10px;
 }
 
 .page-title {
-  color: #777772;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .02em;
+  color: #858580;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }
 
 .page {
-  width: min(850px, calc(100vw - 600px));
-  min-height: 1080px;
+  width: min(850px, calc(100vw - 650px));
+  min-width: 500px;
+  min-height: 1050px;
   margin: 0 auto;
-  padding: 95px 110px 110px;
+  padding: 95px 105px 120px;
   background: var(--paper);
   box-shadow:
-    0 1px 3px rgba(0,0,0,.05),
-    0 14px 45px rgba(0,0,0,.06);
+    0 1px 2px rgba(0,0,0,.035),
+    0 8px 30px rgba(0,0,0,.025);
 }
 
 .script {
-  min-height: 850px;
+  min-height: 700px;
   outline: none;
-  color: #111;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 12.5px;
+  color: #161616;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 12px;
   line-height: 1.55;
 }
 
-.script div {
-  min-height: 1.55em;
-  margin: 0;
+.script > div {
+  min-height: 19px;
   outline: none;
 }
 
 .script .scene-heading {
-  margin-top: 20px;
+  margin-top: 12px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .script .action {
-  margin-top: 11px;
+  margin: 0;
 }
 
 .script .character {
-  width: 30%;
-  margin-top: 13px;
-  margin-left: 35%;
-  text-align: center;
+  width: 55%;
+  margin: 12px auto 0;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
 .script .parenthetical {
-  width: 42%;
-  margin-left: 29%;
+  width: 55%;
+  margin: 0 auto;
 }
 
 .script .dialogue {
-  width: 56%;
-  margin-left: 22%;
+  width: 65%;
+  margin: 0 auto;
 }
 
 .script .transition {
-  width: 32%;
-  margin-top: 14px;
-  margin-left: auto;
+  margin-top: 12px;
   text-align: right;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -824,85 +958,76 @@ button {
 
 .context-bar {
   position: absolute;
+  bottom: 16px;
   left: 50%;
-  bottom: 22px;
-  transform: translateX(-50%) translateY(8px);
+  z-index: 20;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 3px;
   padding: 5px;
-  background: rgba(255,255,255,.97);
-  border: 1px solid #dcdcd8;
-  border-radius: 9px;
-  box-shadow: 0 8px 30px rgba(0,0,0,.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: .16s ease;
-}
-
-.context-bar.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(250,250,248,.97);
+  box-shadow: 0 5px 20px rgba(0,0,0,.07);
 }
 
 .format-btn {
-  height: 30px;
+  height: 28px;
   padding: 0 9px;
   border: 0;
   border-radius: 5px;
   background: transparent;
-  color: #44443f;
-  font-family: "Courier New", monospace;
-  font-size: 10px;
-  font-weight: 700;
+  color: #666661;
+  font-size: 9px;
+  font-weight: 750;
   cursor: pointer;
 }
 
 .format-btn:hover,
 .format-btn.active {
-  background: #dededb;
-  color: #111;
+  background: var(--active);
+  color: #161616;
 }
 
 .format-divider {
   width: 1px;
   height: 18px;
   margin: 0 3px;
-  background: #dededb;
+  background: var(--line);
 }
 
 /* =========================================================
-   CONTEXT PANEL
+   DOCUMENT PANEL
 ========================================================= */
 
 .context-panel {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 265px;
-  background: rgba(255,255,255,.98);
-  border: 1px solid #dededb;
-  border-radius: 9px;
-  box-shadow: 0 14px 45px rgba(0,0,0,.09);
-  transform: translateX(18px);
+  top: 15px;
+  right: 15px;
+  z-index: 50;
+  width: 255px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 12px 35px rgba(0,0,0,.1);
   opacity: 0;
   pointer-events: none;
-  transition: .18s ease;
-  overflow: hidden;
+  transform: translateY(-5px);
+  transition: .15s ease;
 }
 
 .context-panel.open {
-  transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
+  transform: translateY(0);
 }
 
 .panel-header {
-  height: 45px;
   display: flex;
   align-items: center;
-  padding: 0 13px;
+  height: 45px;
+  padding: 0 10px 0 14px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -911,9 +1036,10 @@ button {
   font-weight: 750;
 }
 
-.panel-close {
-  width: 25px;
-  height: 25px;
+.panel-close,
+.modal-close {
+  width: 27px;
+  height: 27px;
   display: grid;
   place-items: center;
   margin-left: auto;
@@ -923,39 +1049,36 @@ button {
   cursor: pointer;
 }
 
-.panel-close:hover {
+.panel-close:hover,
+.modal-close:hover {
   background: var(--hover);
 }
 
-.panel-close svg {
+.panel-close svg,
+.modal-close svg {
   width: 14px;
   height: 14px;
 }
 
 .panel-body {
-  padding: 13px;
+  padding: 13px 14px;
 }
 
 .panel-section {
-  margin-bottom: 16px;
-}
-
-.panel-section:last-child {
-  margin-bottom: 0;
+  margin-bottom: 14px;
 }
 
 .panel-label {
-  margin-bottom: 6px;
-  color: #898984;
+  color: #858580;
   font-size: 8px;
   font-weight: 800;
-  letter-spacing: .11em;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
 
 .panel-value {
-  font-size: 11px;
-  line-height: 1.45;
+  margin-top: 4px;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -965,12 +1088,12 @@ button {
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  z-index: 200;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(30,30,28,.22);
-  backdrop-filter: blur(4px);
+  padding: 20px;
+  background: rgba(20,20,18,.2);
   opacity: 0;
   pointer-events: none;
   transition: .15s ease;
@@ -982,41 +1105,26 @@ button {
 }
 
 .modal {
-  width: min(430px, calc(100% - 30px));
+  width: 370px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 9px;
   background: white;
-  border: 1px solid #dcdcd8;
-  border-radius: 10px;
-  box-shadow: 0 25px 80px rgba(0,0,0,.15);
+  box-shadow: 0 18px 55px rgba(0,0,0,.16);
   overflow: hidden;
 }
 
 .modal-header {
   display: flex;
   align-items: center;
-  height: 52px;
-  padding: 0 16px;
+  min-height: 47px;
+  padding: 0 10px 0 16px;
   border-bottom: 1px solid var(--line);
 }
 
 .modal-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 750;
-}
-
-.modal-close {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  margin-left: auto;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  cursor: pointer;
-}
-
-.modal-close:hover {
-  background: var(--hover);
 }
 
 .modal-body {
@@ -1098,11 +1206,6 @@ button {
   color: white;
 }
 
-.modal-button.danger {
-  border-color: #b5b0b0;
-  color: #6c5555;
-}
-
 /* =========================================================
    STATUS
 ========================================================= */
@@ -1160,7 +1263,6 @@ button {
 ========================================================= */
 
 @media(max-width:1200px) {
-
   .app.right-open {
     grid-template-columns: 220px minmax(0,1fr) 220px;
   }
@@ -1177,7 +1279,6 @@ button {
 }
 
 @media(max-width:850px) {
-
   .app {
     grid-template-columns: 1fr;
   }
@@ -1190,6 +1291,7 @@ button {
   .page,
   .page-title-bar {
     width: calc(100vw - 28px);
+    min-width: 0;
   }
 
   .page {
@@ -1201,1088 +1303,693 @@ button {
   }
 }
 </style>
-<style>
-/* AUTEUR INLINE STORYLINE EDITOR V1 */
-.storyline-card {
-  margin: 0 0 6px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  overflow: hidden;
-}
-
-.storyline-card:hover {
-  border-color: #d6d6d1;
-}
-
-.storyline-header {
-  width: 100%;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px 9px;
-  border: 0;
-  background: transparent;
-  color: var(--text);
-  text-align: left;
-  cursor: pointer;
-}
-
-.storyline-header:hover {
-  background: var(--hover);
-}
-
-.storyline-header-icon {
-  width: 28px;
-  height: 28px;
-  flex: 0 0 28px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #fff;
-}
-
-.storyline-header-icon svg {
-  width: 13px;
-  height: 13px;
-  color: #74746f;
-}
-
-.storyline-header-copy {
-  min-width: 0;
-  flex: 1;
-}
-
-.storyline-title-closed {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 11px;
-  font-weight: 650;
-}
-
-.storyline-synopsis-closed {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  margin-top: 2px;
-  color: #8a8a85;
-  font-size: 9px;
-}
-
-.storyline-chevron {
-  width: 24px;
-  height: 24px;
-  flex: 0 0 24px;
-  display: grid;
-  place-items: center;
-  color: #888883;
-  transition: transform .16s ease;
-}
-
-.storyline-card.open .storyline-chevron {
-  transform: rotate(180deg);
-}
-
-.storyline-body {
-  display: none;
-  padding: 0 10px 11px;
-  border-top: 1px solid var(--line);
-}
-
-.storyline-card.open .storyline-body {
-  display: block;
-}
-
-.storyline-field-label {
-  display: block;
-  margin: 11px 0 6px;
-  color: #858580;
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-}
-
-.storyline-title-input,
-.storyline-synopsis-input {
-  width: 100%;
-  border: 1px solid #dededb;
-  border-radius: 6px;
-  outline: none;
-  background: #fff;
-  color: #161616;
-}
-
-.storyline-title-input {
-  height: 36px;
-  padding: 0 9px;
-  font-size: 11px;
-  font-weight: 650;
-}
-
-.storyline-synopsis-input {
-  min-height: 112px;
-  padding: 9px;
-  resize: vertical;
-  font-size: 10px;
-  line-height: 1.5;
-  font-family: inherit;
-}
-
-.storyline-title-input:focus,
-.storyline-synopsis-input:focus {
-  border-color: #999994;
-}
-
-.storyline-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 8px;
-}
-
-.storyline-delete {
-  width: 27px;
-  height: 27px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 5px;
-  background: transparent;
-  color: var(--danger);
-  cursor: pointer;
-}
-
-.storyline-delete:hover {
-  background: #ece8e8;
-}
-
-.storyline-delete svg {
-  width: 13px;
-  height: 13px;
-}
-</style>
 </head>
 
 <body>
 
 <div class="app" id="app">
 
-  <!-- =====================================================
-       LEFT SIDEBAR
-  ====================================================== -->
+<!-- =====================================================
+     LEFT SIDEBAR
+====================================================== -->
 
-  <aside class="sidebar">
+<aside class="sidebar">
 
-    <div class="brand">
-      <div class="brand-name">Auteur</div>
-      <div class="project-name">Draft</div>
-    </div>
+  <div class="brand">
+    <div class="brand-name">Auteur</div>
+    <div class="project-name">Draft</div>
+  </div>
 
-    <div class="side-tabs">
+  <div class="side-tabs">
 
-      <button
-        class="side-tab active"
-        data-tab="contents"
-      >
-        CONTENTS
-      </button>
+    <button class="side-tab active" data-tab="contents">
+      CONTENTS
+    </button>
 
-      <button
-        class="side-tab"
-        data-tab="comments"
-      >
-        COMMENTS
-      </button>
+    <button class="side-tab" data-tab="comments">
+      COMMENTS
+    </button>
 
-      <button
-        class="side-tab"
-        data-tab="notes"
-      >
-        NOTES
-      </button>
+    <button class="side-tab" data-tab="notes">
+      NOTES
+    </button>
 
-    </div>
+  </div>
 
-    <div class="sidebar-content">
+  <div class="sidebar-content">
 
-      <div
-        id="contentsPanel"
-      >
+    <div id="contentsPanel">
 
-        <div id="sceneList">
+      <div id="sceneList">
 
-          <div class="empty-state contents-empty">
+        <div class="empty-state contents-empty">
 
-            <div class="empty-icon">
-              <i data-lucide="file-text"></i>
-            </div>
+          <div class="empty-icon">
+            <i data-lucide="file-text"></i>
+          </div>
 
-            <div class="empty-title">
-              No scenes yet
-            </div>
+          <div class="empty-title">
+            No scenes yet
+          </div>
 
-            <div class="empty-text">
-              Your screenplay scenes will appear here as you write.
-            </div>
-
+          <div class="empty-text">
+            Your screenplay scenes will appear here as you write.
           </div>
 
         </div>
 
       </div>
 
-
-      <!-- COMMENTS -->
-
-      <div
-        id="commentsPanel"
-        class="hidden"
-      >
-
-        <div class="sidebar-toolbar">
-
-          <button
-            class="sidebar-tool"
-            id="addCommentButton"
-            title="Create comment"
-          >
-            <i data-lucide="plus"></i>
-          </button>
-
-          <button
-            class="sidebar-tool"
-            id="commentSettingsButton"
-            title="Comment settings"
-          >
-            <i data-lucide="settings-2"></i>
-          </button>
-
-          <div class="sidebar-toolbar-spacer"></div>
-
-          <button
-            class="sidebar-tool danger"
-            id="clearCommentsButton"
-            title="Delete all comments"
-          >
-            <i data-lucide="rotate-ccw"></i>
-          </button>
-
-        </div>
-
-        <div
-          id="commentsList"
-          class="annotation-list"
-        ></div>
-
-      </div>
-
-
-      <!-- NOTES -->
-
-      <div
-        id="notesPanel"
-        class="hidden"
-      >
-
-        <div class="sidebar-toolbar">
-
-          <button
-            class="sidebar-tool"
-            id="addNoteButton"
-            title="Create note"
-          >
-            <i data-lucide="plus"></i>
-          </button>
-
-          <button
-            class="sidebar-tool"
-            id="noteSettingsButton"
-            title="Note settings"
-          >
-            <i data-lucide="settings-2"></i>
-          </button>
-
-          <div class="sidebar-toolbar-spacer"></div>
-
-          <button
-            class="sidebar-tool danger"
-            id="clearNotesButton"
-            title="Delete all notes"
-          >
-            <i data-lucide="rotate-ccw"></i>
-          </button>
-
-        </div>
-
-        <div
-          id="notesList"
-          class="annotation-list"
-        ></div>
-
-      </div>
-
     </div>
 
-    <div class="sidebar-footer">
+    <div id="commentsPanel" class="hidden">
 
-      <span id="pageCount">
-        1 page
-      </span>
+      <div class="sidebar-toolbar">
 
-      <span>
-        Draft 01
-      </span>
-
-    </div>
-
-  </aside>
-
-
-  <!-- =====================================================
-       MAIN
-  ====================================================== -->
-
-  <main class="main">
-
-    <header class="topbar">
-
-      <div class="top-left">
-
-        <button
-          class="icon-btn"
-          title="Menu"
-        >
-          <i data-lucide="menu"></i>
+        <button class="sidebar-tool" id="addCommentButton">
+          <i data-lucide="plus"></i>
         </button>
 
-        <div class="script-title">
+        <button class="sidebar-tool" id="commentSettingsButton">
+          <i data-lucide="settings-2"></i>
+        </button>
+
+        <div class="sidebar-toolbar-spacer"></div>
+
+        <button class="sidebar-tool" id="clearCommentsButton">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+
+      </div>
+
+      <div id="commentsList"></div>
+
+    </div>
+
+    <div id="notesPanel" class="hidden">
+
+      <div class="sidebar-toolbar">
+
+        <button class="sidebar-tool" id="addNoteButton">
+          <i data-lucide="plus"></i>
+        </button>
+
+        <button class="sidebar-tool" id="noteSettingsButton">
+          <i data-lucide="settings-2"></i>
+        </button>
+
+        <div class="sidebar-toolbar-spacer"></div>
+
+        <button class="sidebar-tool" id="clearNotesButton">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+
+      </div>
+
+      <div id="notesList"></div>
+
+    </div>
+
+  </div>
+
+  <div class="sidebar-footer">
+
+    <span id="pageCount">1 page</span>
+    <span>Draft 01</span>
+
+  </div>
+
+</aside>
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="main">
+
+  <header class="topbar">
+
+    <div class="top-left">
+
+      <button class="icon-btn">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="script-title">
+        Sentient Mass
+      </div>
+
+      <div class="save-state">
+        <span class="save-dot"></span>
+        Saved
+      </div>
+
+      <button
+        class="icon-btn"
+        id="rightBarToggle"
+        title="Creative workspace"
+        aria-pressed="false"
+      >
+        <i data-lucide="panel-right"></i>
+      </button>
+
+    </div>
+
+    <div class="top-right">
+
+      <button class="icon-btn" id="documentButton">
+        <i data-lucide="ellipsis"></i>
+      </button>
+
+      <div class="avatar">
+        B
+      </div>
+
+    </div>
+
+  </header>
+
+  <section class="workspace">
+
+    <div class="editor-scroll">
+
+      <div class="page-title-bar">
+
+        <div class="page-title">
           Sentient Mass
         </div>
 
-        <div class="save-state">
+      </div>
 
-          <span class="save-dot"></span>
+      <article class="page">
 
-          Saved
+        <div
+          id="scriptEditor"
+          class="script"
+          contenteditable="true"
+          spellcheck="false"
+        >
+
+          <div class="action"><br></div>
 
         </div>
 
-        <!-- RIGHT BAR TOGGLE -->
+      </article>
 
-        <button
-          class="icon-btn"
-          id="rightBarToggle"
-          title="Creative workspace"
-          aria-label="Toggle creative workspace"
-          aria-pressed="false"
-        >
-          <i data-lucide="panel-right"></i>
+    </div>
+
+    <!-- FORMAT BAR -->
+
+    <div class="context-bar" id="formatBar">
+
+      <button class="format-btn" data-format="scene">
+        SCENE
+      </button>
+
+      <button class="format-btn" data-format="action">
+        ACTION
+      </button>
+
+      <button class="format-btn" data-format="character">
+        CHARACTER
+      </button>
+
+      <button class="format-btn" data-format="parenthetical">
+        ( )
+      </button>
+
+      <button class="format-btn" data-format="dialogue">
+        DIALOGUE
+      </button>
+
+      <button class="format-btn" data-format="transition">
+        TRANSITION
+      </button>
+
+      <div class="format-divider"></div>
+
+      <button class="format-btn" id="boldButton">
+        B
+      </button>
+
+      <button class="format-btn" id="italicButton">
+        <i>I</i>
+      </button>
+
+    </div>
+
+    <!-- DOCUMENT PANEL -->
+
+    <aside class="context-panel" id="contextPanel">
+
+      <div class="panel-header">
+
+        <div class="panel-title">
+          Document
+        </div>
+
+        <button class="panel-close" id="panelClose">
+          <i data-lucide="x"></i>
         </button>
 
       </div>
 
+      <div class="panel-body">
 
-      <div class="top-right">
+        <div class="panel-section">
 
-        <button
-          class="icon-btn"
-          id="documentButton"
-          title="Document"
-        >
-          <i data-lucide="ellipsis"></i>
-        </button>
+          <div class="panel-label">
+            Title
+          </div>
 
-        <div class="avatar">
-          B
-        </div>
-
-      </div>
-
-    </header>
-
-
-    <!-- ===================================================
-         WRITING WORKSPACE
-    ==================================================== -->
-
-    <section class="workspace">
-
-      <div
-        class="editor-scroll"
-        id="editorScroll"
-      >
-
-        <div class="page-title-bar">
-
-          <div class="page-title">
+          <div class="panel-value">
             Sentient Mass
           </div>
 
         </div>
 
-        <article class="page">
+        <div class="panel-section">
 
-          <div
-            id="scriptEditor"
-            class="script"
-            contenteditable="true"
-            spellcheck="false"
-          >
-
-            <div class="action"><br></div>
-
+          <div class="panel-label">
+            Draft
           </div>
 
-        </article>
+          <div class="panel-value">
+            Draft 01
+          </div>
+
+        </div>
+
+        <div class="panel-section">
+
+          <div class="panel-label">
+            Format
+          </div>
+
+          <div class="panel-value">
+            Screenplay · US Letter
+          </div>
+
+        </div>
 
       </div>
 
+    </aside>
 
-      <!-- FORMAT BAR -->
+    <!-- ANNOTATION MODAL -->
 
-      <div
-        class="context-bar"
-        id="formatBar"
-      >
+    <div class="modal-backdrop" id="annotationModal">
 
-        <button
-          class="format-btn"
-          data-format="scene"
-        >
-          SCENE
-        </button>
+      <div class="modal">
 
-        <button
-          class="format-btn"
-          data-format="action"
-        >
-          ACTION
-        </button>
+        <div class="modal-header">
 
-        <button
-          class="format-btn"
-          data-format="character"
-        >
-          CHARACTER
-        </button>
-
-        <button
-          class="format-btn"
-          data-format="parenthetical"
-        >
-          ( )
-        </button>
-
-        <button
-          class="format-btn"
-          data-format="dialogue"
-        >
-          DIALOGUE
-        </button>
-
-        <button
-          class="format-btn"
-          data-format="transition"
-        >
-          TRANSITION
-        </button>
-
-        <div class="format-divider"></div>
-
-        <button
-          class="format-btn"
-          id="boldButton"
-        >
-          B
-        </button>
-
-        <button
-          class="format-btn"
-          id="italicButton"
-        >
-          <i>I</i>
-        </button>
-
-      </div>
-
-
-      <!-- DOCUMENT PANEL -->
-
-      <aside
-        class="context-panel"
-        id="contextPanel"
-      >
-
-        <div class="panel-header">
-
-          <div class="panel-title">
-            Document
+          <div class="modal-title" id="annotationModalTitle">
+            New Comment
           </div>
 
-          <button
-            class="panel-close"
-            id="panelClose"
-          >
+          <button class="modal-close" id="annotationModalClose">
             <i data-lucide="x"></i>
           </button>
 
         </div>
 
-        <div class="panel-body">
+        <div class="modal-body">
 
-          <div class="panel-section">
+          <div class="field-group">
 
-            <div class="panel-label">
+            <label class="field-label" for="annotationTitle">
               Title
-            </div>
+            </label>
 
-            <div class="panel-value">
-              Sentient Mass
-            </div>
-
-          </div>
-
-          <div class="panel-section">
-
-            <div class="panel-label">
-              Draft
-            </div>
-
-            <div class="panel-value">
-              Draft 01
-            </div>
+            <input
+              id="annotationTitle"
+              class="field-input"
+              placeholder="What is this about?"
+            >
 
           </div>
 
-          <div class="panel-section">
+          <div class="field-group">
 
-            <div class="panel-label">
-              Format
-            </div>
+            <label class="field-label" for="annotationBody">
+              Note
+            </label>
 
-            <div class="panel-value">
-              Screenplay · US Letter
-            </div>
+            <textarea
+              id="annotationBody"
+              class="field-textarea"
+              placeholder="Write your thought..."
+            ></textarea>
+
+          </div>
+
+          <div class="field-group">
+
+            <label class="field-label" for="annotationTag">
+              Tag
+            </label>
+
+            <select id="annotationTag" class="field-select">
+              <option>Characters</option>
+              <option>Landscapes</option>
+              <option>Story</option>
+              <option>Dialogue</option>
+              <option>Visuals</option>
+              <option>Research</option>
+              <option>General</option>
+            </select>
 
           </div>
 
         </div>
 
-      </aside>
+        <div class="modal-footer">
 
+          <button class="modal-button" id="annotationCancel">
+            Cancel
+          </button>
 
-      <!-- ANNOTATION MODAL -->
-
-      <div
-        class="modal-backdrop"
-        id="annotationModal"
-      >
-
-        <div class="modal">
-
-          <div class="modal-header">
-
-            <div
-              class="modal-title"
-              id="annotationModalTitle"
-            >
-              New Comment
-            </div>
-
-            <button
-              class="modal-close"
-              id="annotationModalClose"
-            >
-              <i data-lucide="x"></i>
-            </button>
-
-          </div>
-
-          <div class="modal-body">
-
-            <div class="field-group">
-
-              <label
-                class="field-label"
-                for="annotationTitle"
-              >
-                Title
-              </label>
-
-              <input
-                id="annotationTitle"
-                class="field-input"
-                placeholder="What is this about?"
-              >
-
-            </div>
-
-            <div class="field-group">
-
-              <label
-                class="field-label"
-                for="annotationBody"
-              >
-                Note
-              </label>
-
-              <textarea
-                id="annotationBody"
-                class="field-textarea"
-                placeholder="Write your thought..."
-              ></textarea>
-
-            </div>
-
-            <div class="field-group">
-
-              <label
-                class="field-label"
-                for="annotationTag"
-              >
-                Tag
-              </label>
-
-              <select
-                id="annotationTag"
-                class="field-select"
-              >
-
-                <option>Characters</option>
-                <option>Landscapes</option>
-                <option>Story</option>
-                <option>Dialogue</option>
-                <option>Visuals</option>
-                <option>Research</option>
-                <option>General</option>
-
-              </select>
-
-            </div>
-
-          </div>
-
-          <div class="modal-footer">
-
-            <button
-              class="modal-button"
-              id="annotationCancel"
-            >
-              Cancel
-            </button>
-
-            <button
-              class="modal-button primary"
-              id="annotationSave"
-            >
-              Create
-            </button>
-
-          </div>
+          <button class="modal-button primary" id="annotationSave">
+            Create
+          </button>
 
         </div>
 
-      </div>
-
-
-      <!-- =================================================
-           ELEMENT CREATION MODAL
-      ================================================== -->
-
-      <div
-        class="modal-backdrop"
-        id="elementModal"
-      >
-
-        <div class="modal">
-
-          <div class="modal-header">
-
-            <div
-              class="modal-title"
-              id="elementModalTitle"
-            >
-              New Character
-            </div>
-
-            <button
-              class="modal-close"
-              id="elementModalClose"
-            >
-              <i data-lucide="x"></i>
-            </button>
-
-          </div>
-
-          <div class="modal-body">
-
-            <div class="field-group">
-
-              <label
-                class="field-label"
-                for="elementName"
-              >
-                Name
-              </label>
-
-              <input
-                id="elementName"
-                class="field-input"
-                placeholder="Enter a name..."
-              >
-
-            </div>
-
-            <div class="field-group">
-
-              <label
-                class="field-label"
-                for="elementDescription"
-              >
-                Description
-              </label>
-
-              <textarea
-                id="elementDescription"
-                class="field-textarea"
-                placeholder="Describe this element..."
-              ></textarea>
-
-            </div>
-
-          </div>
-
-          <div class="modal-footer">
-
-            <button
-              class="modal-button"
-              id="elementCancel"
-            >
-              Cancel
-            </button>
-
-            <button
-              class="modal-button primary"
-              id="elementSave"
-            >
-              Create
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- =================================================
-           STASH MODAL
-      ================================================== -->
-
-      <div
-        class="modal-backdrop"
-        id="stashModal"
-      >
-
-        <div class="modal">
-
-          <div class="modal-header">
-
-            <div class="modal-title">
-              New Stash Item
-            </div>
-
-            <button
-              class="modal-close"
-              id="stashModalClose"
-            >
-              <i data-lucide="x"></i>
-            </button>
-
-          </div>
-
-          <div class="modal-body">
-
-            <div class="field-group">
-
-              <label
-                class="field-label"
-                for="stashTitle"
-              >
-                Title
-              </label>
-
-              <input
-                id="stashTitle"
-                class="field-input"
-                placeholder="Idea, fragment, reference..."
-              >
-
-            </div>
-
-            <div class="field-group">
-
-              <label
-                class="field-label"
-                for="stashBody"
-              >
-                Content
-              </label>
-
-              <textarea
-                id="stashBody"
-                class="field-textarea"
-                placeholder="Put anything here..."
-              ></textarea>
-
-            </div>
-
-          </div>
-
-          <div class="modal-footer">
-
-            <button
-              class="modal-button"
-              id="stashCancel"
-            >
-              Cancel
-            </button>
-
-            <button
-              class="modal-button primary"
-              id="stashSave"
-            >
-              Add to Stash
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="toast"
-        id="toast"
-      >
-        Saved
-      </div>
-
-    </section>
-
-
-    <footer class="statusbar">
-
-      <div class="status-left">
-
-        <span id="pageStatus">
-          Page 1
-        </span>
-
-        <span id="wordStatus">
-          0 words
-        </span>
-
-      </div>
-
-      <div class="status-right">
-
-        <span>100%</span>
-        <span>Courier Prime</span>
-        <span>US Letter</span>
-
-      </div>
-
-    </footer>
-
-  </main>
-
-
-  <!-- =====================================================
-       RIGHT SIDEBAR
-  ====================================================== -->
-
-  <aside
-    class="right-sidebar"
-    id="rightSidebar"
-  >
-
-    <div class="right-header">
-
-      <div class="right-header-title">
-        Creative Workspace
       </div>
 
     </div>
 
-    <div class="right-tabs">
+    <!-- ELEMENT MODAL -->
 
-      <button
-        class="right-tab active"
-        data-right-tab="elements"
-      >
-        ELEMENTS
-      </button>
+    <div class="modal-backdrop" id="elementModal">
 
-      <button
-        class="right-tab"
-        data-right-tab="stash"
-      >
-        STASH
-      </button>
+      <div class="modal">
 
-    </div>
+        <div class="modal-header">
 
-    <div class="right-content">
+          <div class="modal-title" id="elementModalTitle">
+            New Character
+          </div>
 
-      <!-- ELEMENTS -->
+          <button class="modal-close" id="elementModalClose">
+            <i data-lucide="x"></i>
+          </button>
 
-      <div
-        id="elementsPanel"
-      >
+        </div>
 
-        <!-- STORYLINE -->
+        <div class="modal-body">
 
-        <section class="element-section">
+          <div class="field-group">
 
-          <div class="element-section-header">
+            <label class="field-label" for="elementName">
+              Name
+            </label>
 
-            <div class="element-section-title">
-              STORYLINE
-            </div>
-
-            <button
-              class="element-add"
-              data-element-type="storyline"
-              title="Create storyline"
+            <input
+              id="elementName"
+              class="field-input"
+              placeholder="Enter a name..."
             >
-              <i data-lucide="plus"></i>
-            </button>
 
           </div>
 
-          <div id="storylineList"></div>
+          <div class="field-group">
 
-        </section>
+            <label class="field-label" for="elementDescription">
+              Description
+            </label>
 
-
-        <!-- CHARACTERS -->
-
-        <section class="element-section">
-
-          <div class="element-section-header">
-
-            <div class="element-section-title">
-              CHARACTERS
-            </div>
-
-            <button
-              class="element-add"
-              data-element-type="character"
-              title="Create character"
-            >
-              <i data-lucide="plus"></i>
-            </button>
+            <textarea
+              id="elementDescription"
+              class="field-textarea"
+              placeholder="Describe this element..."
+            ></textarea>
 
           </div>
 
-          <div id="characterList"></div>
+        </div>
 
-        </section>
+        <div class="modal-footer">
 
+          <button class="modal-button" id="elementCancel">
+            Cancel
+          </button>
 
-        <!-- LOCATIONS -->
+          <button class="modal-button primary" id="elementSave">
+            Create
+          </button>
 
-        <section class="element-section">
-
-          <div class="element-section-header">
-
-            <div class="element-section-title">
-              LOCATIONS
-            </div>
-
-            <button
-              class="element-add"
-              data-element-type="location"
-              title="Create location"
-            >
-              <i data-lucide="plus"></i>
-            </button>
-
-          </div>
-
-          <div id="locationList"></div>
-
-        </section>
+        </div>
 
       </div>
 
+    </div>
 
-      <!-- STASH -->
+    <!-- STASH MODAL -->
 
-      <div
-        id="stashPanel"
-        class="hidden"
-      >
+    <div class="modal-backdrop" id="stashModal">
 
-        <div class="sidebar-toolbar">
+      <div class="modal">
+
+        <div class="modal-header">
+
+          <div class="modal-title">
+            New Stash Item
+          </div>
+
+          <button class="modal-close" id="stashModalClose">
+            <i data-lucide="x"></i>
+          </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <div class="field-group">
+
+            <label class="field-label" for="stashTitle">
+              Title
+            </label>
+
+            <input
+              id="stashTitle"
+              class="field-input"
+              placeholder="Idea, fragment, reference..."
+            >
+
+          </div>
+
+          <div class="field-group">
+
+            <label class="field-label" for="stashBody">
+              Content
+            </label>
+
+            <textarea
+              id="stashBody"
+              class="field-textarea"
+              placeholder="Put anything here..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button class="modal-button" id="stashCancel">
+            Cancel
+          </button>
+
+          <button class="modal-button primary" id="stashSave">
+            Add to Stash
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="toast" id="toast">
+      Saved
+    </div>
+
+  </section>
+
+  <footer class="statusbar">
+
+    <div class="status-left">
+
+      <span id="pageStatus">
+        Page 1
+      </span>
+
+      <span id="wordStatus">
+        0 words
+      </span>
+
+    </div>
+
+    <div class="status-right">
+
+      <span>100%</span>
+      <span>Courier Prime</span>
+      <span>US Letter</span>
+
+    </div>
+
+  </footer>
+
+</main>
+
+<!-- =====================================================
+     RIGHT SIDEBAR
+====================================================== -->
+
+<aside class="right-sidebar" id="rightSidebar">
+
+  <div class="right-header">
+
+    <div class="right-header-title">
+      Creative Workspace
+    </div>
+
+  </div>
+
+  <div class="right-tabs">
+
+    <button class="right-tab active" data-right-tab="elements">
+      ELEMENTS
+    </button>
+
+    <button class="right-tab" data-right-tab="stash">
+      STASH
+    </button>
+
+  </div>
+
+  <div class="right-content">
+
+    <!-- ELEMENTS -->
+
+    <div id="elementsPanel">
+
+      <!-- STORYLINE -->
+
+      <section class="element-section">
+
+        <div class="element-section-header">
+
+          <div class="element-section-title">
+            STORYLINE
+          </div>
 
           <button
-            class="sidebar-tool"
-            id="addStashButton"
-            title="Add to stash"
+            class="element-add"
+            data-element-type="storyline"
+            title="Create storyline"
           >
             <i data-lucide="plus"></i>
           </button>
 
-          <div class="sidebar-toolbar-spacer"></div>
+        </div>
+
+        <div id="storylineList"></div>
+
+      </section>
+
+      <!-- CHARACTERS -->
+
+      <section class="element-section">
+
+        <div class="element-section-header">
+
+          <div class="element-section-title">
+            CHARACTERS
+          </div>
 
           <button
-            class="sidebar-tool danger"
-            id="clearStashButton"
-            title="Clear stash"
+            class="element-add"
+            data-element-type="character"
+            title="Create character"
           >
-            <i data-lucide="rotate-ccw"></i>
+            <i data-lucide="plus"></i>
           </button>
 
         </div>
 
-        <div id="stashList"></div>
+        <div id="characterList"></div>
 
-      </div>
+      </section>
+
+      <!-- LOCATIONS -->
+
+      <section class="element-section">
+
+        <div class="element-section-header">
+
+          <div class="element-section-title">
+            LOCATIONS
+          </div>
+
+          <button
+            class="element-add"
+            data-element-type="location"
+            title="Create location"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+        </div>
+
+        <div id="locationList"></div>
+
+      </section>
 
     </div>
 
-  </aside>
+    <!-- STASH -->
+
+    <div id="stashPanel" class="hidden">
+
+      <div class="sidebar-toolbar">
+
+        <button class="sidebar-tool" id="addStashButton">
+          <i data-lucide="plus"></i>
+        </button>
+
+        <div class="sidebar-toolbar-spacer"></div>
+
+        <button class="sidebar-tool" id="clearStashButton">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+
+      </div>
+
+      <div id="stashList"></div>
+
+    </div>
+
+  </div>
+
+</aside>
 
 </div>
-
 
 <script>
 lucide.createIcons();
 
 /* =========================================================
-   CORE ELEMENTS
+   CORE
 ========================================================= */
 
-const app =
-  document.getElementById("app");
-
-const editor =
-  document.getElementById("scriptEditor");
-
-const formatBar =
-  document.getElementById("formatBar");
-
-const contextPanel =
-  document.getElementById("contextPanel");
-
-const toast =
-  document.getElementById("toast");
+const app = document.getElementById("app");
+const editor = document.getElementById("scriptEditor");
+const formatBar = document.getElementById("formatBar");
+const contextPanel = document.getElementById("contextPanel");
+const toast = document.getElementById("toast");
 
 const annotationModal =
   document.getElementById("annotationModal");
@@ -2293,174 +2000,104 @@ const elementModal =
 const stashModal =
   document.getElementById("stashModal");
 
-
 /* =========================================================
    STORAGE
 ========================================================= */
 
-const STORAGE_KEY =
-  "auteur-sentient-mass-v8";
-
-const COMMENTS_KEY =
-  "auteur-comments-v2";
-
-const NOTES_KEY =
-  "auteur-notes-v2";
-
-const ELEMENTS_KEY =
-  "auteur-elements-v1";
-
-const STASH_KEY =
-  "auteur-stash-v1";
-
+const STORAGE_KEY = "auteur-sentient-mass-v9";
+const COMMENTS_KEY = "auteur-comments-v2";
+const NOTES_KEY = "auteur-notes-v2";
+const ELEMENTS_KEY = "auteur-elements-v2";
+const STASH_KEY = "auteur-stash-v1";
 
 /* =========================================================
    STATE
 ========================================================= */
 
 let activeBlock = null;
-
 let annotationMode = "comment";
-
 let elementMode = "character";
 
-let comments =
-  JSON.parse(
-    localStorage.getItem(
-      COMMENTS_KEY
-    ) || "[]"
-  );
-
-let notes =
-  JSON.parse(
-    localStorage.getItem(
-      NOTES_KEY
-    ) || "[]"
-  );
-
-let elements =
-  JSON.parse(
-    localStorage.getItem(
-      ELEMENTS_KEY
-    ) || JSON.stringify({
-      storyline: [],
-      character: [],
-      location: []
-    })
-  );
-
-let stash =
-  JSON.parse(
-    localStorage.getItem(
-      STASH_KEY
-    ) || "[]"
-  );
-
-
-/* =========================================================
-   RIGHT SIDEBAR TOGGLE
-========================================================= */
-
-const rightBarToggle =
-  document.getElementById(
-    "rightBarToggle"
-  );
-
-rightBarToggle.addEventListener(
-  "click",
-  () => {
-
-    const open =
-      app.classList.toggle(
-        "right-open"
-      );
-
-    rightBarToggle.classList.toggle(
-      "active",
-      open
-    );
-
-    rightBarToggle.setAttribute(
-      "aria-pressed",
-      String(open)
-    );
-
-  }
+let comments = JSON.parse(
+  localStorage.getItem(COMMENTS_KEY) || "[]"
 );
 
+let notes = JSON.parse(
+  localStorage.getItem(NOTES_KEY) || "[]"
+);
+
+let elements = JSON.parse(
+  localStorage.getItem(ELEMENTS_KEY) ||
+  JSON.stringify({
+    storyline: [],
+    character: [],
+    location: []
+  })
+);
+
+let stash = JSON.parse(
+  localStorage.getItem(STASH_KEY) || "[]"
+);
+
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
+
+document
+  .getElementById("rightBarToggle")
+  .addEventListener("click", () => {
+
+    const open = app.classList.toggle("right-open");
+
+    const button =
+      document.getElementById("rightBarToggle");
+
+    button.classList.toggle("active", open);
+    button.setAttribute("aria-pressed", String(open));
+
+  });
 
 /* =========================================================
    RIGHT TABS
 ========================================================= */
 
 const rightTabs =
-  document.querySelectorAll(
-    ".right-tab"
-  );
+  document.querySelectorAll(".right-tab");
 
 const elementsPanel =
-  document.getElementById(
-    "elementsPanel"
-  );
+  document.getElementById("elementsPanel");
 
 const stashPanel =
-  document.getElementById(
-    "stashPanel"
-  );
+  document.getElementById("stashPanel");
 
 rightTabs.forEach(tab => {
 
-  tab.addEventListener(
-    "click",
-    () => {
+  tab.addEventListener("click", () => {
 
-      rightTabs.forEach(item => {
-        item.classList.remove(
-          "active"
-        );
-      });
+    rightTabs.forEach(item =>
+      item.classList.remove("active")
+    );
 
-      tab.classList.add(
-        "active"
-      );
+    tab.classList.add("active");
 
-      if (
-        tab.dataset.rightTab ===
-        "elements"
-      ) {
+    if (tab.dataset.rightTab === "elements") {
 
-        elementsPanel
-          .classList.remove(
-            "hidden"
-          );
+      elementsPanel.classList.remove("hidden");
+      stashPanel.classList.add("hidden");
 
-        stashPanel
-          .classList.add(
-            "hidden"
-          );
+    } else {
 
-      } else {
-
-        elementsPanel
-          .classList.add(
-            "hidden"
-          );
-
-        stashPanel
-          .classList.remove(
-            "hidden"
-          );
-
-      }
+      elementsPanel.classList.add("hidden");
+      stashPanel.classList.remove("hidden");
 
     }
-  );
+
+  });
 
 });
 
-
 /* =========================================================
-   SCREENPLAY SAVE
+   DOCUMENT SAVE
 ========================================================= */
 
 function saveDocument(showToast = false) {
@@ -2470,55 +2107,40 @@ function saveDocument(showToast = false) {
     editor.innerHTML
   );
 
-  const saveState =
-    document.querySelector(
-      ".save-state"
-    );
-
-  saveState.innerHTML = `
+  document.querySelector(".save-state").innerHTML = `
     <span class="save-dot"></span>
     Saved
   `;
+
+  updateStats();
+  updateScenes();
 
   if (showToast) {
     showMessage("Saved");
   }
 
-  updateStats();
-  updateScenes();
-
 }
 
 function scheduleSave() {
 
-  const saveState =
-    document.querySelector(
-      ".save-state"
-    );
-
-  saveState.innerHTML = `
+  document.querySelector(".save-state").innerHTML = `
     <span class="save-dot"></span>
     Saving...
   `;
 
-  clearTimeout(
-    window.auteurSaveTimer
-  );
+  clearTimeout(window.auteurSaveTimer);
 
-  window.auteurSaveTimer =
-    setTimeout(
-      () => saveDocument(false),
-      650
-    );
+  window.auteurSaveTimer = setTimeout(
+    () => saveDocument(false),
+    650
+  );
 
 }
 
 function loadDocument() {
 
   const saved =
-    localStorage.getItem(
-      STORAGE_KEY
-    );
+    localStorage.getItem(STORAGE_KEY);
 
   if (saved) {
     editor.innerHTML = saved;
@@ -2527,7 +2149,6 @@ function loadDocument() {
 }
 
 loadDocument();
-
 
 /* =========================================================
    STATS
@@ -2538,148 +2159,85 @@ function updateStats() {
   const text =
     editor.innerText.trim();
 
-  const words =
-    text
-      ? text
-          .split(/\s+/)
-          .filter(Boolean)
-          .length
-      : 0;
+  const words = text
+    ? text.split(/\s+/).filter(Boolean).length
+    : 0;
 
   const pages =
-    Math.max(
-      1,
-      Math.ceil(words / 250)
-    );
+    Math.max(1, Math.ceil(words / 250));
 
-  document.getElementById(
-    "wordStatus"
-  ).textContent =
+  document.getElementById("wordStatus").textContent =
     `${words} words`;
 
-  document.getElementById(
-    "pageStatus"
-  ).textContent =
+  document.getElementById("pageStatus").textContent =
     `Page ${pages}`;
 
-  document.getElementById(
-    "pageCount"
-  ).textContent =
-    `${pages} ${
-      pages === 1
-        ? "page"
-        : "pages"
-    }`;
+  document.getElementById("pageCount").textContent =
+    `${pages} ${pages === 1 ? "page" : "pages"}`;
 
 }
-
 
 /* =========================================================
    LEFT TABS
 ========================================================= */
 
 const leftTabs =
-  document.querySelectorAll(
-    ".side-tab"
-  );
+  document.querySelectorAll(".side-tab");
 
 const leftPanels = {
-
-  contents:
-    document.getElementById(
-      "contentsPanel"
-    ),
-
-  comments:
-    document.getElementById(
-      "commentsPanel"
-    ),
-
-  notes:
-    document.getElementById(
-      "notesPanel"
-    )
-
+  contents: document.getElementById("contentsPanel"),
+  comments: document.getElementById("commentsPanel"),
+  notes: document.getElementById("notesPanel")
 };
 
 leftTabs.forEach(tab => {
 
-  tab.addEventListener(
-    "click",
-    () => {
+  tab.addEventListener("click", () => {
 
-      const target =
-        tab.dataset.tab;
+    const target = tab.dataset.tab;
 
-      leftTabs.forEach(item => {
-        item.classList.remove(
-          "active"
-        );
-      });
+    leftTabs.forEach(item =>
+      item.classList.remove("active")
+    );
 
-      tab.classList.add(
-        "active"
-      );
+    tab.classList.add("active");
 
-      Object.values(
-        leftPanels
-      ).forEach(panel => {
-        panel.classList.add(
-          "hidden"
-        );
-      });
+    Object.values(leftPanels).forEach(panel =>
+      panel.classList.add("hidden")
+    );
 
-      leftPanels[target]
-        .classList.remove(
-          "hidden"
-        );
+    leftPanels[target].classList.remove("hidden");
 
-    }
-  );
+  });
 
 });
 
-
 /* =========================================================
-   EDITOR BLOCK HELPERS
+   EDITOR BLOCKS
 ========================================================= */
 
 function getBlockFromNode(node) {
 
-  if (!node) {
-    return null;
+  if (!node) return null;
+
+  if (node.nodeType === Node.TEXT_NODE) {
+    node = node.parentElement;
   }
 
-  if (
-    node.nodeType ===
-    Node.TEXT_NODE
-  ) {
-    node =
-      node.parentElement;
-  }
-
-  return node.closest(
-    ".script > div"
-  );
+  return node.closest(".script > div");
 
 }
 
 function getCurrentBlock() {
 
-  const selection =
-    window.getSelection();
+  const selection = window.getSelection();
 
-  if (
-    !selection ||
-    !selection.rangeCount
-  ) {
+  if (!selection || !selection.rangeCount) {
     return activeBlock;
   }
 
   return (
-    getBlockFromNode(
-      selection.anchorNode
-    ) ||
+    getBlockFromNode(selection.anchorNode) ||
     activeBlock
   );
 
@@ -2687,129 +2245,77 @@ function getCurrentBlock() {
 
 function setActiveBlock(block) {
 
-  if (!block) {
-    return;
-  }
+  if (!block) return;
 
-  activeBlock =
-    block;
-
-  updateFormatButtons(
-    block
-  );
+  activeBlock = block;
+  updateFormatButtons(block);
 
 }
 
-
 /* =========================================================
-   FORMAT BUTTON STATE
+   FORMATTING
 ========================================================= */
 
-function updateFormatButtons(
-  block
-) {
+function updateFormatButtons(block) {
 
   document
-    .querySelectorAll(
-      ".format-btn[data-format]"
-    )
+    .querySelectorAll(".format-btn[data-format]")
     .forEach(button => {
 
-      button.classList.remove(
-        "active"
-      );
+      button.classList.remove("active");
 
       const format =
         button.dataset.format;
 
       const matches =
         (format === "scene" &&
-          block.classList.contains(
-            "scene-heading"
-          )) ||
-
+          block.classList.contains("scene-heading")) ||
         (format === "action" &&
-          block.classList.contains(
-            "action"
-          )) ||
-
+          block.classList.contains("action")) ||
         (format === "character" &&
-          block.classList.contains(
-            "character"
-          )) ||
-
+          block.classList.contains("character")) ||
         (format === "parenthetical" &&
-          block.classList.contains(
-            "parenthetical"
-          )) ||
-
+          block.classList.contains("parenthetical")) ||
         (format === "dialogue" &&
-          block.classList.contains(
-            "dialogue"
-          )) ||
-
+          block.classList.contains("dialogue")) ||
         (format === "transition" &&
-          block.classList.contains(
-            "transition"
-          ));
+          block.classList.contains("transition"));
 
       if (matches) {
-        button.classList.add(
-          "active"
-        );
+        button.classList.add("active");
       }
 
     });
 
 }
 
-
-/* =========================================================
-   FORMAT BAR
-========================================================= */
-
 function showFormatBar() {
-  formatBar.classList.add(
-    "visible"
-  );
+  formatBar.classList.add("visible");
 }
 
-editor.addEventListener(
-  "focus",
-  () => {
+editor.addEventListener("focus", () => {
 
-    const block =
-      getCurrentBlock();
+  const block = getCurrentBlock();
 
-    if (block) {
-      setActiveBlock(block);
-    }
-
-    showFormatBar();
-
+  if (block) {
+    setActiveBlock(block);
   }
-);
 
-editor.addEventListener(
-  "click",
-  () => {
+  showFormatBar();
 
-    const block =
-      getCurrentBlock();
+});
 
-    if (block) {
-      setActiveBlock(block);
-    }
+editor.addEventListener("click", () => {
 
-    showFormatBar();
+  const block = getCurrentBlock();
 
+  if (block) {
+    setActiveBlock(block);
   }
-);
 
+  showFormatBar();
 
-/* =========================================================
-   FORMAT SCREENPLAY
-========================================================= */
+});
 
 const FORMAT_CLASSES = [
   "scene-heading",
@@ -2823,344 +2329,188 @@ const FORMAT_CLASSES = [
 
 function clearFormat(block) {
 
-  block.classList.remove(
-    ...FORMAT_CLASSES
-  );
-
+  block.classList.remove(...FORMAT_CLASSES);
   block.style.textAlign = "";
 
 }
 
-function placeCaretAtEnd(
-  element
-) {
+function placeCaretAtEnd(element) {
 
-  const range =
-    document.createRange();
+  const range = document.createRange();
 
-  range.selectNodeContents(
-    element
-  );
-
+  range.selectNodeContents(element);
   range.collapse(false);
 
   const selection =
     window.getSelection();
 
   selection.removeAllRanges();
-
-  selection.addRange(
-    range
-  );
+  selection.addRange(range);
 
   editor.focus();
 
 }
 
-function formatBlock(
-  block,
-  format
-) {
+function formatBlock(block, format) {
 
-  if (!block) {
-    return;
-  }
+  if (!block) return;
 
-  let text =
+  const text =
     block.innerText.trim();
 
   clearFormat(block);
 
   if (format === "scene") {
 
-    block.classList.add(
-      "scene-heading"
-    );
+    block.classList.add("scene-heading");
+    block.textContent = text.toUpperCase();
 
-    block.textContent =
-      text.toUpperCase();
+  } else if (format === "action") {
 
-  }
+    block.classList.add("action");
 
-  else if (
-    format === "action"
-  ) {
+  } else if (format === "character") {
 
-    block.classList.add(
-      "action"
-    );
+    block.classList.add("character");
+    block.textContent = text.toUpperCase();
 
-  }
+  } else if (format === "parenthetical") {
 
-  else if (
-    format === "character"
-  ) {
+    block.classList.add("parenthetical");
 
-    block.classList.add(
-      "character"
-    );
-
-    block.textContent =
-      text.toUpperCase();
-
-  }
-
-  else if (
-    format === "parenthetical"
-  ) {
-
-    block.classList.add(
-      "parenthetical"
-    );
-
-    if (
-      text &&
-      !text.startsWith("(")
-    ) {
-
-      block.textContent =
-        `(${text})`;
-
+    if (text && !text.startsWith("(")) {
+      block.textContent = `(${text})`;
     }
 
-  }
+  } else if (format === "dialogue") {
 
-  else if (
-    format === "dialogue"
-  ) {
+    block.classList.add("dialogue");
 
-    block.classList.add(
-      "dialogue"
-    );
+  } else if (format === "transition") {
 
-  }
-
-  else if (
-    format === "transition"
-  ) {
-
-    block.classList.add(
-      "transition"
-    );
-
-    block.textContent =
-      text.toUpperCase();
+    block.classList.add("transition");
+    block.textContent = text.toUpperCase();
 
   }
 
   setActiveBlock(block);
-
-  placeCaretAtEnd(
-    block
-  );
-
+  placeCaretAtEnd(block);
   scheduleSave();
 
 }
 
-
-/* =========================================================
-   FORMAT EVENTS
-========================================================= */
-
 document
-  .querySelectorAll(
-    ".format-btn[data-format]"
-  )
+  .querySelectorAll(".format-btn[data-format]")
   .forEach(button => {
 
-    button.addEventListener(
-      "mousedown",
-      event => {
-        event.preventDefault();
-      }
-    );
+    button.addEventListener("mousedown", event => {
+      event.preventDefault();
+    });
 
-    button.addEventListener(
-      "click",
-      () => {
+    button.addEventListener("click", () => {
 
-        const block =
-          activeBlock ||
-          getCurrentBlock();
+      const block =
+        activeBlock || getCurrentBlock();
 
-        if (!block) {
-          return;
-        }
+      if (!block) return;
 
-        formatBlock(
-          block,
-          button.dataset.format
-        );
+      formatBlock(
+        block,
+        button.dataset.format
+      );
 
-      }
-    );
+    });
 
   });
 
+document
+  .getElementById("boldButton")
+  .addEventListener("click", () => {
+
+    document.execCommand("bold", false, null);
+
+    editor.focus();
+    scheduleSave();
+
+  });
 
 document
-  .getElementById(
-    "boldButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
+  .getElementById("italicButton")
+  .addEventListener("click", () => {
 
-      document.execCommand(
-        "bold",
-        false,
-        null
-      );
+    document.execCommand("italic", false, null);
 
-      editor.focus();
-      scheduleSave();
+    editor.focus();
+    scheduleSave();
 
-    }
-  );
-
-
-document
-  .getElementById(
-    "italicButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      document.execCommand(
-        "italic",
-        false,
-        null
-      );
-
-      editor.focus();
-      scheduleSave();
-
-    }
-  );
-
+  });
 
 /* =========================================================
    SMART ENTER
 ========================================================= */
 
-editor.addEventListener(
-  "keydown",
-  event => {
+editor.addEventListener("keydown", event => {
 
-    if (
-      event.key !==
-      "Enter"
-    ) {
-      return;
-    }
+  if (event.key !== "Enter") return;
 
-    event.preventDefault();
+  event.preventDefault();
 
-    const block =
-      getCurrentBlock();
+  const block = getCurrentBlock();
 
-    if (!block) {
-      return;
-    }
+  if (!block) return;
 
-    let nextFormat =
-      "action";
+  let nextFormat = "action";
 
-    if (
-      block.classList.contains(
-        "character"
-      )
-    ) {
-      nextFormat =
-        "dialogue";
-    }
-
-    else if (
-      block.classList.contains(
-        "parenthetical"
-      )
-    ) {
-      nextFormat =
-        "dialogue";
-    }
-
-    else if (
-      block.classList.contains(
-        "dialogue"
-      )
-    ) {
-      nextFormat =
-        "action";
-    }
-
-    else if (
-      block.classList.contains(
-        "transition"
-      )
-    ) {
-      nextFormat =
-        "scene-heading";
-    }
-
-    const newBlock =
-      document.createElement(
-        "div"
-      );
-
-    newBlock.classList.add(
-      nextFormat
-    );
-
-    newBlock.innerHTML =
-      "<br>";
-
-    block.insertAdjacentElement(
-      "afterend",
-      newBlock
-    );
-
-    setActiveBlock(
-      newBlock
-    );
-
-    placeCaretAtEnd(
-      newBlock
-    );
-
-    scheduleSave();
-
+  if (
+    block.classList.contains("character") ||
+    block.classList.contains("parenthetical")
+  ) {
+    nextFormat = "dialogue";
+  } else if (
+    block.classList.contains("dialogue")
+  ) {
+    nextFormat = "action";
+  } else if (
+    block.classList.contains("transition")
+  ) {
+    nextFormat = "scene-heading";
   }
-);
 
+  const newBlock =
+    document.createElement("div");
+
+  newBlock.classList.add(nextFormat);
+  newBlock.innerHTML = "<br>";
+
+  block.insertAdjacentElement(
+    "afterend",
+    newBlock
+  );
+
+  setActiveBlock(newBlock);
+  placeCaretAtEnd(newBlock);
+
+  scheduleSave();
+
+});
 
 /* =========================================================
    INPUT
 ========================================================= */
 
-editor.addEventListener(
-  "input",
-  () => {
+editor.addEventListener("input", () => {
 
-    const block =
-      getCurrentBlock();
+  const block = getCurrentBlock();
 
-    if (block) {
-      setActiveBlock(
-        block
-      );
-    }
-
-    scheduleSave();
-
-    updateStats();
-
-    updateScenes();
-
+  if (block) {
+    setActiveBlock(block);
   }
-);
 
+  scheduleSave();
+  updateStats();
+  updateScenes();
+
+});
 
 /* =========================================================
    SCENES
@@ -3169,16 +2519,10 @@ editor.addEventListener(
 function updateScenes() {
 
   const headings =
-    [
-      ...editor.querySelectorAll(
-        ".scene-heading"
-      )
-    ];
+    [...editor.querySelectorAll(".scene-heading")];
 
   const sceneList =
-    document.getElementById(
-      "sceneList"
-    );
+    document.getElementById("sceneList");
 
   sceneList.innerHTML = "";
 
@@ -3203,86 +2547,60 @@ function updateScenes() {
     `;
 
     lucide.createIcons();
-
     return;
 
   }
 
-  headings.forEach(
-    (heading, index) => {
+  headings.forEach((heading, index) => {
 
-      const item =
-        document.createElement(
-          "div"
-        );
+    const item =
+      document.createElement("div");
 
-      item.className =
-        "scene-item";
+    item.className = "scene-item";
 
-      if (
-        heading ===
-        activeBlock
-      ) {
-        item.classList.add(
-          "active"
-        );
-      }
-
-      const title =
-        heading.innerText.trim() ||
-        "UNTITLED SCENE";
-
-      item.innerHTML = `
-        <div class="scene-number">
-          ${String(
-            index + 1
-          ).padStart(2, "0")}
-        </div>
-
-        <div class="scene-copy">
-
-          <div class="scene-title">
-            ${escapeHTML(title)}
-          </div>
-
-          <div class="scene-meta">
-            SCENE ${index + 1}
-          </div>
-
-        </div>
-      `;
-
-      item.addEventListener(
-        "click",
-        () => {
-
-          heading.scrollIntoView({
-            behavior:
-              "smooth",
-            block:
-              "center"
-          });
-
-          setActiveBlock(
-            heading
-          );
-
-          placeCaretAtEnd(
-            heading
-          );
-
-        }
-      );
-
-      sceneList.appendChild(
-        item
-      );
-
+    if (heading === activeBlock) {
+      item.classList.add("active");
     }
-  );
+
+    const title =
+      heading.innerText.trim() ||
+      "UNTITLED SCENE";
+
+    item.innerHTML = `
+      <div class="scene-number">
+        ${String(index + 1).padStart(2, "0")}
+      </div>
+
+      <div class="scene-copy">
+
+        <div class="scene-title">
+          ${escapeHTML(title)}
+        </div>
+
+        <div class="scene-meta">
+          SCENE ${index + 1}
+        </div>
+
+      </div>
+    `;
+
+    item.addEventListener("click", () => {
+
+      heading.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+      setActiveBlock(heading);
+      placeCaretAtEnd(heading);
+
+    });
+
+    sceneList.appendChild(item);
+
+  });
 
 }
-
 
 /* =========================================================
    ANNOTATIONS
@@ -3302,9 +2620,7 @@ function saveAnnotations() {
 
 }
 
-function renderEmpty(
-  type
-) {
+function renderEmpty(type) {
 
   const icon =
     type === "comment"
@@ -3341,106 +2657,60 @@ function renderEmpty(
 
 }
 
-function createAnnotationElement(
-  item,
-  type
-) {
+function createAnnotationElement(item, type) {
 
   const element =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
-  element.className =
-    "annotation";
+  element.className = "annotation";
 
   element.innerHTML = `
 
     <div class="annotation-top">
 
       <div class="annotation-title">
-        ${escapeHTML(
-          item.title ||
-          "Untitled"
-        )}
+        ${escapeHTML(item.title || "Untitled")}
       </div>
 
       <div class="annotation-tag">
-        ${escapeHTML(
-          item.tag ||
-          "General"
-        )}
+        ${escapeHTML(item.tag || "General")}
       </div>
 
     </div>
 
     <div class="annotation-body">
-      ${escapeHTML(
-        item.body ||
-        ""
-      )}
+      ${escapeHTML(item.body || "")}
     </div>
 
     <div class="annotation-meta">
-      ${type === "comment"
-        ? "Comment"
-        : "Note"}
-      · ${
-        new Date(
-          item.created
-        ).toLocaleDateString()
-      }
+      ${type === "comment" ? "Comment" : "Note"}
+      · ${new Date(item.created).toLocaleDateString()}
     </div>
 
   `;
 
-  element.addEventListener(
-    "dblclick",
-    () => {
+  element.addEventListener("dblclick", () => {
 
-      if (
-        !confirm(
-          `Delete "${item.title}"?`
-        )
-      ) {
-        return;
-      }
+    if (!confirm(`Delete "${item.title}"?`)) {
+      return;
+    }
 
-      if (
-        type ===
-        "comment"
-      ) {
+    if (type === "comment") {
 
-        comments =
-          comments.filter(
-            x =>
-              x.id !==
-              item.id
-          );
+      comments =
+        comments.filter(x => x.id !== item.id);
 
-      } else {
+    } else {
 
-        notes =
-          notes.filter(
-            x =>
-              x.id !==
-              item.id
-          );
-
-      }
-
-      saveAnnotations();
-
-      renderAnnotations();
-
-      showMessage(
-        `${type === "comment"
-          ? "Comment"
-          : "Note"} deleted`
-      );
+      notes =
+        notes.filter(x => x.id !== item.id);
 
     }
-  );
+
+    saveAnnotations();
+    renderAnnotations();
+
+  });
 
   return element;
 
@@ -3449,70 +2719,44 @@ function createAnnotationElement(
 function renderAnnotations() {
 
   const commentsList =
-    document.getElementById(
-      "commentsList"
-    );
+    document.getElementById("commentsList");
 
   const notesList =
-    document.getElementById(
-      "notesList"
-    );
+    document.getElementById("notesList");
 
   commentsList.innerHTML =
     comments.length
       ? ""
-      : renderEmpty(
-          "comment"
-        );
+      : renderEmpty("comment");
 
   notesList.innerHTML =
     notes.length
       ? ""
-      : renderEmpty(
-          "note"
-        );
+      : renderEmpty("note");
 
-  comments.forEach(
-    item => {
+  comments.forEach(item => {
+    commentsList.appendChild(
+      createAnnotationElement(item, "comment")
+    );
+  });
 
-      commentsList.appendChild(
-        createAnnotationElement(
-          item,
-          "comment"
-        )
-      );
-
-    }
-  );
-
-  notes.forEach(
-    item => {
-
-      notesList.appendChild(
-        createAnnotationElement(
-          item,
-          "note"
-        )
-      );
-
-    }
-  );
+  notes.forEach(item => {
+    notesList.appendChild(
+      createAnnotationElement(item, "note")
+    );
+  });
 
   lucide.createIcons();
 
 }
 
-
 /* =========================================================
    ANNOTATION MODAL
 ========================================================= */
 
-function openAnnotationModal(
-  type
-) {
+function openAnnotationModal(type) {
 
-  annotationMode =
-    type;
+  annotationMode = type;
 
   document.getElementById(
     "annotationModalTitle"
@@ -3521,280 +2765,155 @@ function openAnnotationModal(
       ? "New Comment"
       : "New Note";
 
-  document.getElementById(
-    "annotationTitle"
-  ).value = "";
+  document.getElementById("annotationTitle").value = "";
+  document.getElementById("annotationBody").value = "";
 
-  document.getElementById(
-    "annotationBody"
-  ).value = "";
+  annotationModal.classList.add("open");
 
-  annotationModal.classList.add(
-    "open"
-  );
-
-  setTimeout(
-    () =>
-      document
-        .getElementById(
-          "annotationTitle"
-        )
-        .focus(),
-    80
-  );
+  setTimeout(() => {
+    document
+      .getElementById("annotationTitle")
+      .focus();
+  }, 80);
 
 }
-
 
 function closeAnnotationModal() {
-
-  annotationModal.classList.remove(
-    "open"
-  );
-
+  annotationModal.classList.remove("open");
 }
 
-
 document
-  .getElementById(
-    "addCommentButton"
-  )
+  .getElementById("addCommentButton")
   .addEventListener(
     "click",
-    () =>
-      openAnnotationModal(
-        "comment"
-      )
+    () => openAnnotationModal("comment")
   );
 
-
 document
-  .getElementById(
-    "addNoteButton"
-  )
+  .getElementById("addNoteButton")
   .addEventListener(
     "click",
-    () =>
-      openAnnotationModal(
-        "note"
-      )
+    () => openAnnotationModal("note")
   );
 
-
 document
-  .getElementById(
-    "commentSettingsButton"
-  )
+  .getElementById("commentSettingsButton")
   .addEventListener(
     "click",
-    () =>
-      openAnnotationModal(
-        "comment"
-      )
+    () => openAnnotationModal("comment")
   );
 
-
 document
-  .getElementById(
-    "noteSettingsButton"
-  )
+  .getElementById("noteSettingsButton")
   .addEventListener(
     "click",
-    () =>
-      openAnnotationModal(
-        "note"
-      )
+    () => openAnnotationModal("note")
   );
 
-
 document
-  .getElementById(
-    "annotationSave"
-  )
-  .addEventListener(
-    "click",
-    () => {
+  .getElementById("annotationSave")
+  .addEventListener("click", () => {
 
-      const title =
-        document.getElementById(
-          "annotationTitle"
-        ).value.trim();
+    const title =
+      document.getElementById(
+        "annotationTitle"
+      ).value.trim();
 
-      const body =
-        document.getElementById(
-          "annotationBody"
-        ).value.trim();
+    const body =
+      document.getElementById(
+        "annotationBody"
+      ).value.trim();
 
-      const tag =
-        document.getElementById(
-          "annotationTag"
-        ).value;
+    const tag =
+      document.getElementById(
+        "annotationTag"
+      ).value;
 
-      if (!title && !body) {
-        return;
-      }
+    if (!title && !body) return;
 
-      const annotation = {
+    const annotation = {
+      id: Date.now().toString(),
+      title: title || "Untitled",
+      body,
+      tag,
+      created: Date.now()
+    };
 
-        id:
-          Date.now()
-            .toString(),
-
-        title:
-          title ||
-          "Untitled",
-
-        body,
-
-        tag,
-
-        created:
-          Date.now()
-
-      };
-
-      if (
-        annotationMode ===
-        "comment"
-      ) {
-
-        comments.unshift(
-          annotation
-        );
-
-      } else {
-
-        notes.unshift(
-          annotation
-        );
-
-      }
-
-      saveAnnotations();
-
-      renderAnnotations();
-
-      closeAnnotationModal();
-
-      showMessage(
-        annotationMode ===
-        "comment"
-          ? "Comment created"
-          : "Note created"
-      );
-
+    if (annotationMode === "comment") {
+      comments.unshift(annotation);
+    } else {
+      notes.unshift(annotation);
     }
-  );
 
+    saveAnnotations();
+    renderAnnotations();
+    closeAnnotationModal();
+
+    showMessage(
+      annotationMode === "comment"
+        ? "Comment created"
+        : "Note created"
+    );
+
+  });
 
 document
-  .getElementById(
-    "annotationCancel"
-  )
+  .getElementById("annotationCancel")
   .addEventListener(
     "click",
     closeAnnotationModal
   );
 
 document
-  .getElementById(
-    "annotationModalClose"
-  )
+  .getElementById("annotationModalClose")
   .addEventListener(
     "click",
     closeAnnotationModal
   );
 
+document
+  .getElementById("clearCommentsButton")
+  .addEventListener("click", () => {
+
+    if (!comments.length) {
+      showMessage("No comments to delete");
+      return;
+    }
+
+    if (!confirm("Delete all comments? This cannot be undone.")) {
+      return;
+    }
+
+    comments = [];
+
+    saveAnnotations();
+    renderAnnotations();
+
+    showMessage("All comments deleted");
+
+  });
 
 document
-  .getElementById(
-    "clearCommentsButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
+  .getElementById("clearNotesButton")
+  .addEventListener("click", () => {
 
-      if (!comments.length) {
-        showMessage(
-          "No comments to delete"
-        );
-        return;
-      }
-
-      if (
-        !confirm(
-          "Delete all comments? This cannot be undone."
-        )
-      ) {
-        return;
-      }
-
-      comments = [];
-
-      saveAnnotations();
-
-      renderAnnotations();
-
-      showMessage(
-        "All comments deleted"
-      );
-
+    if (!notes.length) {
+      showMessage("No notes to delete");
+      return;
     }
-  );
 
-
-document
-  .getElementById(
-    "clearNotesButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      if (!notes.length) {
-        showMessage(
-          "No notes to delete"
-        );
-        return;
-      }
-
-      if (
-        !confirm(
-          "Delete all notes? This cannot be undone."
-        )
-      ) {
-        return;
-      }
-
-      notes = [];
-
-      saveAnnotations();
-
-      renderAnnotations();
-
-      showMessage(
-        "All notes deleted"
-      );
-
+    if (!confirm("Delete all notes? This cannot be undone.")) {
+      return;
     }
-  );
 
+    notes = [];
 
-/* =========================================================
-   ELEMENTS STORAGE
-========================================================= */
+    saveAnnotations();
+    renderAnnotations();
 
-function saveElements() {
+    showMessage("All notes deleted");
 
-  localStorage.setItem(
-    ELEMENTS_KEY,
-    JSON.stringify(
-      elements
-    )
-  );
-
-}
-
+  });
 
 /* =========================================================
    ELEMENT CONFIG
@@ -3802,183 +2921,344 @@ function saveElements() {
 
 const elementConfig = {
 
-  storyline: {
-    title:
-      "New Storyline",
-    icon:
-      "git-branch"
-  },
-
   character: {
-    title:
-      "New Character",
-    icon:
-      "user"
+    title: "New Character",
+    icon: "user"
   },
 
   location: {
-    title:
-      "New Location",
-    icon:
-      "map-pin"
+    title: "New Location",
+    icon: "map-pin"
   }
 
 };
 
-
 /* =========================================================
-   CREATE ELEMENT
+   CHARACTER / LOCATION MODAL
 ========================================================= */
 
-function openElementModal(
-  type
-) {
+function openElementModal(type) {
 
-  elementMode =
-    type;
+  elementMode = type;
 
   document.getElementById(
     "elementModalTitle"
   ).textContent =
-    elementConfig[type]
-      .title;
+    elementConfig[type].title;
 
-  document.getElementById(
-    "elementName"
-  ).value = "";
+  document.getElementById("elementName").value = "";
+  document.getElementById("elementDescription").value = "";
 
-  document.getElementById(
-    "elementDescription"
-  ).value = "";
+  elementModal.classList.add("open");
 
-  elementModal.classList.add(
-    "open"
-  );
-
-  setTimeout(
-    () =>
-      document
-        .getElementById(
-          "elementName"
-        )
-        .focus(),
-    80
-  );
+  setTimeout(() => {
+    document
+      .getElementById("elementName")
+      .focus();
+  }, 80);
 
 }
 
-
 document
   .querySelectorAll(
-    ".element-add"
+    '.element-add[data-element-type="character"], .element-add[data-element-type="location"]'
   )
   .forEach(button => {
 
-    button.addEventListener(
-      "click",
-      () => {
+    button.addEventListener("click", () => {
 
-        openElementModal(
-          button.dataset
-            .elementType
-        );
+      openElementModal(
+        button.dataset.elementType
+      );
 
-      }
+    });
+
+  });
+
+document
+  .getElementById("elementSave")
+  .addEventListener("click", () => {
+
+    const name =
+      document.getElementById(
+        "elementName"
+      ).value.trim();
+
+    const description =
+      document.getElementById(
+        "elementDescription"
+      ).value.trim();
+
+    if (!name) return;
+
+    elements[elementMode].push({
+
+      id: Date.now().toString(),
+
+      name,
+
+      description,
+
+      created: Date.now()
+
+    });
+
+    saveElements();
+    renderElements();
+
+    elementModal.classList.remove("open");
+
+    showMessage(
+      `${elementConfig[elementMode].title.replace(
+        "New ",
+        ""
+      )} created`
     );
 
   });
 
+document
+  .getElementById("elementCancel")
+  .addEventListener(
+    "click",
+    () => elementModal.classList.remove("open")
+  );
 
 document
-  .getElementById(
-    "elementSave"
+  .getElementById("elementModalClose")
+  .addEventListener(
+    "click",
+    () => elementModal.classList.remove("open")
+  );
+
+/* =========================================================
+   STORYLINE CREATION
+========================================================= */
+
+/*
+  Storylines deliberately do NOT use the creation modal.
+
+  Clicking + immediately creates an editable storyline card.
+  Clicking the card header toggles it open/closed.
+*/
+
+function createStoryline() {
+
+  const storyline = {
+
+    id: Date.now().toString(),
+
+    name: "Untitled Storyline",
+
+    synopsis: "",
+
+    open: true,
+
+    created: Date.now()
+
+  };
+
+  elements.storyline.unshift(storyline);
+
+  saveElements();
+  renderElements();
+
+  showMessage("Storyline created");
+
+}
+
+document
+  .querySelector(
+    '.element-add[data-element-type="storyline"]'
   )
   .addEventListener(
     "click",
-    () => {
+    createStoryline
+  );
 
-      const name =
-        document.getElementById(
-          "elementName"
-        ).value.trim();
+/* =========================================================
+   STORYLINE RENDERING
+========================================================= */
 
-      const description =
-        document.getElementById(
-          "elementDescription"
-        ).value.trim();
+function renderStorylines() {
 
-      if (!name) {
-        return;
+  const container =
+    document.getElementById("storylineList");
+
+  container.innerHTML = "";
+
+  if (!elements.storyline.length) {
+
+    container.innerHTML = `
+      <div class="storyline-empty">
+        None created yet.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  elements.storyline.forEach(item => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "storyline-card" +
+      (item.open ? " open" : "");
+
+    card.innerHTML = `
+
+      <div class="storyline-header">
+
+        <div class="storyline-icon">
+          <i data-lucide="git-branch"></i>
+        </div>
+
+        <div class="storyline-header-copy">
+
+          <div class="storyline-title">
+            ${escapeHTML(
+              item.name || "Untitled Storyline"
+            )}
+          </div>
+
+          <div class="storyline-meta">
+            STORYLINE
+          </div>
+
+        </div>
+
+        <div class="storyline-chevron">
+          <i data-lucide="chevron-down"></i>
+        </div>
+
+      </div>
+
+      <div class="storyline-body">
+
+        <label class="storyline-label">
+          SYNOPSIS
+        </label>
+
+        <textarea
+          class="storyline-synopsis"
+          placeholder="Write your storyline synopsis..."
+          spellcheck="true"
+        >${escapeHTML(item.synopsis || "")}</textarea>
+
+        <div class="storyline-actions">
+
+          <button
+            class="storyline-delete"
+            title="Delete storyline"
+          >
+            <i data-lucide="trash-2"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+    const header =
+      card.querySelector(".storyline-header");
+
+    const synopsis =
+      card.querySelector(".storyline-synopsis");
+
+    const deleteButton =
+      card.querySelector(".storyline-delete");
+
+    header.addEventListener("click", () => {
+
+      item.open = !item.open;
+
+      saveElements();
+      renderStorylines();
+
+      /*
+        Re-focus the synopsis when opening.
+      */
+      if (item.open) {
+
+        setTimeout(() => {
+
+          const current =
+            document.querySelector(
+              `.storyline-card[data-id="${item.id}"] .storyline-synopsis`
+            );
+
+          if (current) {
+            current.focus();
+          }
+
+        }, 30);
+
       }
 
-      elements[
-        elementMode
-      ].push({
+    });
 
-        id:
-          Date.now()
-            .toString(),
+    card.dataset.id = item.id;
 
-        name,
+    synopsis.addEventListener("input", event => {
 
-        description,
-
-        created:
-          Date.now()
-
-      });
+      item.synopsis =
+        event.target.value;
 
       saveElements();
 
+    });
+
+    deleteButton.addEventListener("click", event => {
+
+      event.stopPropagation();
+
+      if (
+        !confirm(
+          `Delete "${item.name}"?`
+        )
+      ) {
+        return;
+      }
+
+      elements.storyline =
+        elements.storyline.filter(
+          x => x.id !== item.id
+        );
+
+      saveElements();
       renderElements();
 
-      elementModal.classList.remove(
-        "open"
-      );
+      showMessage("Storyline deleted");
 
-      showMessage(
-        `${
-          elementConfig[
-            elementMode
-          ].title.replace(
-            "New ",
-            ""
-          )
-        } created`
-      );
+    });
 
-    }
-  );
+    container.appendChild(card);
 
+  });
 
-document
-  .getElementById(
-    "elementCancel"
-  )
-  .addEventListener(
-    "click",
-    () =>
-      elementModal.classList.remove(
-        "open"
-      )
-  );
+  lucide.createIcons();
 
-
-document
-  .getElementById(
-    "elementModalClose"
-  )
-  .addEventListener(
-    "click",
-    () =>
-      elementModal.classList.remove(
-        "open"
-      )
-  );
-
+}
 
 /* =========================================================
-   RENDER ELEMENTS
+   ELEMENT STORAGE
+========================================================= */
+
+function saveElements() {
+
+  localStorage.setItem(
+    ELEMENTS_KEY,
+    JSON.stringify(elements)
+  );
+
+}
+
+/* =========================================================
+   ELEMENT RENDERING
 ========================================================= */
 
 function renderElementSection(
@@ -3987,15 +3267,11 @@ function renderElementSection(
 ) {
 
   const container =
-    document.getElementById(
-      containerId
-    );
+    document.getElementById(containerId);
 
   container.innerHTML = "";
 
-  if (
-    !elements[type].length
-  ) {
+  if (!elements[type].length) {
 
     container.innerHTML = `
       <div class="element-empty">
@@ -4004,112 +3280,82 @@ function renderElementSection(
     `;
 
     return;
+
   }
 
-  elements[type].forEach(
-    item => {
+  elements[type].forEach(item => {
 
-      const element =
-        document.createElement(
-          "div"
-        );
+    const element =
+      document.createElement("div");
 
-      element.className =
-        "element-item";
+    element.className = "element-item";
 
-      element.innerHTML = `
+    element.innerHTML = `
 
-        <div class="element-icon">
-          <i data-lucide="${
-            elementConfig[type]
-              .icon
-          }"></i>
+      <div class="element-icon">
+        <i data-lucide="${
+          elementConfig[type].icon
+        }"></i>
+      </div>
+
+      <div class="element-copy">
+
+        <div class="element-name">
+          ${escapeHTML(item.name)}
         </div>
 
-        <div class="element-copy">
+        ${
+          item.description
+            ? `
+              <div class="element-description">
+                ${escapeHTML(item.description)}
+              </div>
+            `
+            : ""
+        }
 
-          <div class="element-name">
-            ${escapeHTML(
-              item.name
-            )}
-          </div>
+      </div>
 
-          ${
-            item.description
-              ? `
-                <div class="element-description">
-                  ${escapeHTML(
-                    item.description
-                  )}
-                </div>
-              `
-              : ""
-          }
+      <button
+        class="element-delete"
+        title="Delete"
+      >
+        <i data-lucide="trash-2"></i>
+      </button>
 
-        </div>
+    `;
 
-        <button
-          class="element-delete"
-          title="Delete"
-        >
-          <i data-lucide="trash-2"></i>
-        </button>
+    element
+      .querySelector(".element-delete")
+      .addEventListener("click", event => {
 
-      `;
+        event.stopPropagation();
 
-      element
-        .querySelector(
-          ".element-delete"
-        )
-        .addEventListener(
-          "click",
-          event => {
+        if (!confirm(`Delete "${item.name}"?`)) {
+          return;
+        }
 
-            event.stopPropagation();
+        elements[type] =
+          elements[type].filter(
+            x => x.id !== item.id
+          );
 
-            if (
-              !confirm(
-                `Delete "${item.name}"?`
-              )
-            ) {
-              return;
-            }
+        saveElements();
+        renderElements();
 
-            elements[type] =
-              elements[type]
-                .filter(
-                  x =>
-                    x.id !==
-                    item.id
-                );
+        showMessage("Element deleted");
 
-            saveElements();
+      });
 
-            renderElements();
+    container.appendChild(element);
 
-            showMessage(
-              "Element deleted"
-            );
-
-          }
-        );
-
-      container.appendChild(
-        element
-      );
-
-    }
-  );
+  });
 
 }
 
-
 function renderElements() {
 
-  renderElementSection(
-    "storyline",
-    "storylineList"
-  );
+  renderStorylines();
 
   renderElementSection(
     "character",
@@ -4125,7 +3371,6 @@ function renderElements() {
 
 }
 
-
 /* =========================================================
    STASH
 ========================================================= */
@@ -4134,20 +3379,15 @@ function saveStash() {
 
   localStorage.setItem(
     STASH_KEY,
-    JSON.stringify(
-      stash
-    )
+    JSON.stringify(stash)
   );
 
 }
 
-
 function renderStash() {
 
   const list =
-    document.getElementById(
-      "stashList"
-    );
+    document.getElementById("stashList");
 
   list.innerHTML = "";
 
@@ -4172,573 +3412,273 @@ function renderStash() {
     `;
 
     lucide.createIcons();
-
     return;
 
   }
 
-  stash.forEach(
-    item => {
+  stash.forEach(item => {
 
-      const entry =
-        document.createElement(
-          "div"
-        );
+    const entry =
+      document.createElement("div");
 
-      entry.className =
-        "stash-entry";
+    entry.className = "stash-entry";
 
-      entry.innerHTML = `
+    entry.innerHTML = `
 
-        <div class="stash-entry-icon">
-          <i data-lucide="archive"></i>
+      <div class="stash-entry-icon">
+        <i data-lucide="archive"></i>
+      </div>
+
+      <div class="stash-entry-copy">
+
+        <div class="stash-entry-title">
+          ${escapeHTML(item.title)}
         </div>
 
-        <div class="stash-entry-copy">
-
-          <div class="stash-entry-title">
-            ${escapeHTML(
-              item.title
-            )}
-          </div>
-
-          <div class="stash-entry-body">
-            ${escapeHTML(
-              item.body
-            )}
-          </div>
-
+        <div class="stash-entry-body">
+          ${escapeHTML(item.body)}
         </div>
 
-        <button
-          class="stash-delete"
-          title="Delete"
-        >
-          <i data-lucide="trash-2"></i>
-        </button>
+      </div>
 
-      `;
+      <button
+        class="stash-delete"
+        title="Delete"
+      >
+        <i data-lucide="trash-2"></i>
+      </button>
 
-      entry
-        .querySelector(
-          ".stash-delete"
-        )
-        .addEventListener(
-          "click",
-          () => {
+    `;
 
-            stash =
-              stash.filter(
-                x =>
-                  x.id !==
-                  item.id
-              );
+    entry
+      .querySelector(".stash-delete")
+      .addEventListener("click", () => {
 
-            saveStash();
+        stash =
+          stash.filter(
+            x => x.id !== item.id
+          );
 
-            renderStash();
+        saveStash();
+        renderStash();
 
-            showMessage(
-              "Stash item deleted"
-            );
+        showMessage("Stash item deleted");
 
-          }
-        );
+      });
 
-      list.appendChild(
-        entry
-      );
+    list.appendChild(entry);
 
-    }
-  );
+  });
 
   lucide.createIcons();
 
 }
 
-
-/* =========================================================
-   STASH MODAL
-========================================================= */
-
 function openStashModal() {
 
-  document.getElementById(
-    "stashTitle"
-  ).value = "";
+  document.getElementById("stashTitle").value = "";
+  document.getElementById("stashBody").value = "";
 
-  document.getElementById(
-    "stashBody"
-  ).value = "";
+  stashModal.classList.add("open");
 
-  stashModal.classList.add(
-    "open"
-  );
-
-  setTimeout(
-    () =>
-      document.getElementById(
-        "stashTitle"
-      ).focus(),
-    80
-  );
+  setTimeout(() => {
+    document
+      .getElementById("stashTitle")
+      .focus();
+  }, 80);
 
 }
 
-
 document
-  .getElementById(
-    "addStashButton"
-  )
+  .getElementById("addStashButton")
   .addEventListener(
     "click",
     openStashModal
   );
 
+document
+  .getElementById("stashSave")
+  .addEventListener("click", () => {
+
+    const title =
+      document.getElementById(
+        "stashTitle"
+      ).value.trim();
+
+    const body =
+      document.getElementById(
+        "stashBody"
+      ).value.trim();
+
+    if (!title && !body) return;
+
+    stash.unshift({
+
+      id: Date.now().toString(),
+
+      title: title || "Untitled",
+
+      body,
+
+      created: Date.now()
+
+    });
+
+    saveStash();
+    renderStash();
+
+    stashModal.classList.remove("open");
+
+    showMessage("Added to stash");
+
+  });
 
 document
-  .getElementById(
-    "stashSave"
-  )
+  .getElementById("stashCancel")
   .addEventListener(
     "click",
-    () => {
+    () => stashModal.classList.remove("open")
+  );
 
-      const title =
-        document.getElementById(
-          "stashTitle"
-        ).value.trim();
+document
+  .getElementById("stashModalClose")
+  .addEventListener(
+    "click",
+    () => stashModal.classList.remove("open")
+  );
 
-      const body =
-        document.getElementById(
-          "stashBody"
-        ).value.trim();
+document
+  .getElementById("clearStashButton")
+  .addEventListener("click", () => {
 
-      if (!title && !body) {
-        return;
-      }
+    if (!stash.length) {
 
-      stash.unshift({
-
-        id:
-          Date.now()
-            .toString(),
-
-        title:
-          title ||
-          "Untitled",
-
-        body,
-
-        created:
-          Date.now()
-
-      });
-
-      saveStash();
-
-      renderStash();
-
-      stashModal.classList.remove(
-        "open"
-      );
-
-      showMessage(
-        "Added to stash"
-      );
+      showMessage("Stash is already empty");
+      return;
 
     }
-  );
 
-
-document
-  .getElementById(
-    "stashCancel"
-  )
-  .addEventListener(
-    "click",
-    () =>
-      stashModal.classList.remove(
-        "open"
-      )
-  );
-
-
-document
-  .getElementById(
-    "stashModalClose"
-  )
-  .addEventListener(
-    "click",
-    () =>
-      stashModal.classList.remove(
-        "open"
-      )
-  );
-
-
-document
-  .getElementById(
-    "clearStashButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      if (!stash.length) {
-
-        showMessage(
-          "Stash is already empty"
-        );
-
-        return;
-
-      }
-
-      if (
-        !confirm(
-          "Delete everything in the stash?"
-        )
-      ) {
-        return;
-      }
-
-      stash = [];
-
-      saveStash();
-
-      renderStash();
-
-      showMessage(
-        "Stash cleared"
-      );
-
+    if (!confirm("Delete everything in the stash?")) {
+      return;
     }
-  );
 
+    stash = [];
+
+    saveStash();
+    renderStash();
+
+    showMessage("Stash cleared");
+
+  });
 
 /* =========================================================
    DOCUMENT PANEL
 ========================================================= */
 
 document
-  .getElementById(
-    "documentButton"
-  )
-  .addEventListener(
-    "click",
-    () =>
-      contextPanel.classList.add(
-        "open"
-      )
-  );
+  .getElementById("documentButton")
+  .addEventListener("click", () => {
 
+    contextPanel.classList.add("open");
+
+  });
 
 document
-  .getElementById(
-    "panelClose"
-  )
-  .addEventListener(
-    "click",
-    () =>
-      contextPanel.classList.remove(
-        "open"
-      )
-  );
+  .getElementById("panelClose")
+  .addEventListener("click", () => {
 
+    contextPanel.classList.remove("open");
+
+  });
 
 /* =========================================================
-   ESCAPE
+   ESCAPE + SAVE
 ========================================================= */
 
-document.addEventListener(
-  "keydown",
-  event => {
+document.addEventListener("keydown", event => {
 
-    if (
-      event.key ===
-      "Escape"
-    ) {
+  if (event.key === "Escape") {
 
-      annotationModal.classList.remove(
-        "open"
-      );
-
-      elementModal.classList.remove(
-        "open"
-      );
-
-      stashModal.classList.remove(
-        "open"
-      );
-
-      contextPanel.classList.remove(
-        "open"
-      );
-
-    }
-
-    if (
-      (event.metaKey ||
-       event.ctrlKey) &&
-      event.key.toLowerCase() ===
-        "s"
-    ) {
-
-      event.preventDefault();
-
-      saveDocument(true);
-
-    }
+    annotationModal.classList.remove("open");
+    elementModal.classList.remove("open");
+    stashModal.classList.remove("open");
+    contextPanel.classList.remove("open");
 
   }
-);
 
+  if (
+    (event.metaKey || event.ctrlKey) &&
+    event.key.toLowerCase() === "s"
+  ) {
+
+    event.preventDefault();
+
+    saveDocument(true);
+
+  }
+
+});
 
 /* =========================================================
    TOAST
 ========================================================= */
 
-function showMessage(
-  message
-) {
+function showMessage(message) {
 
-  toast.textContent =
-    message;
+  toast.textContent = message;
 
-  toast.classList.add(
-    "show"
-  );
+  toast.classList.add("show");
 
   clearTimeout(
     window.auteurToastTimer
   );
 
   window.auteurToastTimer =
-    setTimeout(
-      () =>
-        toast.classList.remove(
-          "show"
-        ),
-      1200
-    );
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    }, 1200);
 
 }
-
 
 /* =========================================================
    ESCAPE HTML
 ========================================================= */
 
-function escapeHTML(
-  value
-) {
+function escapeHTML(value) {
 
   return String(value)
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 }
-
 
 /* =========================================================
    INITIALIZE
 ========================================================= */
 
 updateStats();
-
 updateScenes();
-
 renderAnnotations();
-
 renderElements();
-
 renderStash();
 
-setTimeout(
-  () => {
+setTimeout(() => {
 
-    const firstBlock =
-      editor.querySelector(
-        ".script > div"
-      );
+  const firstBlock =
+    editor.querySelector(".script > div");
 
-    if (firstBlock) {
-      setActiveBlock(
-        firstBlock
-      );
-    }
+  if (firstBlock) {
+    setActiveBlock(firstBlock);
+  }
 
-  },
-  100
-);
+}, 100);
 
 </script>
 
-<script>
-(() => {
-  const originalRenderElements = renderElements;
-  let expandedStorylineId = null;
-
-  function saveStorylines() {
-    localStorage.setItem(ELEMENTS_KEY, JSON.stringify(elements));
-  }
-
-  function renderStorylinesInline() {
-    const container = document.getElementById('storylineList');
-    if (!container) return;
-
-    container.innerHTML = '';
-
-    if (!elements.storyline.length) {
-      container.innerHTML = '<div class="element-empty">None created yet.</div>';
-      return;
-    }
-
-    elements.storyline.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'storyline-card' +
-        (expandedStorylineId === item.id ? ' open' : '');
-
-      const synopsis = item.description || '';
-      const title = item.name || 'Untitled Storyline';
-
-      card.innerHTML = `
-        <button class="storyline-header" type="button">
-          <span class="storyline-header-icon">
-            <i data-lucide="git-branch"></i>
-          </span>
-          <span class="storyline-header-copy">
-            <span class="storyline-title-closed">${escapeHTML(title)}</span>
-            <span class="storyline-synopsis-closed">${escapeHTML(synopsis || 'Synopsis')}</span>
-          </span>
-          <span class="storyline-chevron">
-            <i data-lucide="chevron-down"></i>
-          </span>
-        </button>
-
-        <div class="storyline-body">
-          <label class="storyline-field-label">Title</label>
-          <input
-            class="storyline-title-input"
-            type="text"
-            value="${escapeHTML(title)}"
-            aria-label="Storyline title"
-          >
-
-          <label class="storyline-field-label">Synopsis</label>
-          <textarea
-            class="storyline-synopsis-input"
-            placeholder="Write your synopsis..."
-            aria-label="Storyline synopsis"
-          >${escapeHTML(synopsis)}</textarea>
-
-          <div class="storyline-actions">
-            <button class="storyline-delete" type="button" title="Delete storyline">
-              <i data-lucide="trash-2"></i>
-            </button>
-          </div>
-        </div>
-      `;
-
-      const header = card.querySelector('.storyline-header');
-      const titleInput = card.querySelector('.storyline-title-input');
-      const synopsisInput = card.querySelector('.storyline-synopsis-input');
-      const deleteButton = card.querySelector('.storyline-delete');
-
-      header.addEventListener('click', () => {
-        expandedStorylineId =
-          expandedStorylineId === item.id ? null : item.id;
-        renderStorylinesInline();
-
-        if (expandedStorylineId === item.id) {
-          requestAnimationFrame(() => {
-            const input = document.querySelector(
-              `.storyline-card.open .storyline-title-input`
-            );
-            if (input) input.focus();
-          });
-        }
-      });
-
-      titleInput.addEventListener('click', event => event.stopPropagation());
-      synopsisInput.addEventListener('click', event => event.stopPropagation());
-      deleteButton.addEventListener('click', event => {
-        event.stopPropagation();
-        if (!confirm(`Delete "${item.name || 'Untitled Storyline'}"?`)) return;
-
-        elements.storyline = elements.storyline.filter(x => x.id !== item.id);
-        if (expandedStorylineId === item.id) expandedStorylineId = null;
-        saveStorylines();
-        renderElements();
-        showMessage('Storyline deleted');
-      });
-
-      titleInput.addEventListener('input', () => {
-        item.name = titleInput.value || 'Untitled Storyline';
-        saveStorylines();
-      });
-
-      synopsisInput.addEventListener('input', () => {
-        item.description = synopsisInput.value;
-        saveStorylines();
-      });
-
-      container.appendChild(card);
-    });
-
-    lucide.createIcons();
-  }
-
-  renderElements = function() {
-    originalRenderElements();
-    renderStorylinesInline();
-  };
-
-  document.querySelectorAll('.element-add[data-element-type="storyline"]').forEach(button => {
-    button.addEventListener('click', event => {
-      event.stopImmediatePropagation();
-      elementModal.classList.remove('open');
-
-      const item = {
-        id: Date.now().toString(),
-        name: 'Untitled Storyline',
-        description: '',
-        created: Date.now()
-      };
-
-      elements.storyline.push(item);
-      expandedStorylineId = item.id;
-      saveStorylines();
-      renderElements();
-
-      requestAnimationFrame(() => {
-        const input = document.querySelector('.storyline-card.open .storyline-title-input');
-        if (input) input.focus();
-      });
-    }, true);
-  });
-
-  renderStorylinesInline();
-})();
-</script>
 </body>
 </html>
