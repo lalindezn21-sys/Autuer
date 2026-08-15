@@ -3,46 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Auteur</title>
+<title>Auteur — Screenwriting</title>
 
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-:root {
-  --bg: #f7f7f5;
-  --surface: #ffffff;
-  --surface-2: #f3f3f0;
-  --surface-3: #eeeeeb;
-
-  --text: #171717;
-  --muted: #777772;
-  --muted-2: #999994;
-
-  --line: #deded9;
-  --line-dark: #cccc c7;
-
-  --purple: #7654c7;
-  --purple-light: #eee9fb;
-  --purple-mid: #d8cef2;
-  --purple-dark: #6041ac;
-
-  --hover: #f0edf8;
-
-  --sidebar-width: 285px;
-  --right-sidebar-width: 315px;
-
-  --topbar-height: 54px;
-  --status-height: 34px;
-
-  --ui-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-              Helvetica, Arial, sans-serif;
-
-  --script-font: "Courier Prime", "Courier New", monospace;
-}
-
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --bg: #f1f1ee;
+  --panel: #fafaf8;
+  --paper: #ffffff;
+  --line: #e3e3df;
+  --hover: #ededeb;
+  --active: #e6e6e2;
+  --text: #161616;
+  --muted: #81817c;
+  --soft: #f4f4f1;
+  --danger: #775b5b;
 }
 
 html,
@@ -50,14 +30,26 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-}
-
-body {
   overflow: hidden;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--ui-font);
-  font-size: 13px;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
 }
 
 /* =========================================================
@@ -65,23 +57,15 @@ body {
 ========================================================= */
 
 .app {
-  width: 100vw;
-  height: 100vh;
-
   display: grid;
-  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-
-  background: var(--bg);
-
-  transition:
-    grid-template-columns .22s ease;
+  grid-template-columns: 255px minmax(0, 1fr) 0;
+  width: 100%;
+  height: 100%;
+  transition: grid-template-columns .22s ease;
 }
 
 .app.right-open {
-  grid-template-columns:
-    var(--sidebar-width)
-    minmax(0, 1fr)
-    var(--right-sidebar-width);
+  grid-template-columns: 255px minmax(0, 1fr) 255px;
 }
 
 /* =========================================================
@@ -89,192 +73,117 @@ body {
 ========================================================= */
 
 .sidebar {
-  min-width: 0;
-
   display: flex;
   flex-direction: column;
-
-  background: #fafaf8;
+  min-width: 0;
+  background: var(--panel);
   border-right: 1px solid var(--line);
-
-  overflow: hidden;
 }
 
 .brand {
-  height: 70px;
-
-  padding: 16px 20px 13px;
-
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
   border-bottom: 1px solid var(--line);
 }
 
 .brand-name {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 21px;
-  font-weight: 600;
-  letter-spacing: -.02em;
+  font-size: 23px;
+  letter-spacing: -.045em;
 }
 
 .project-name {
-  margin-top: 3px;
-
+  margin-left: auto;
   color: var(--muted);
-
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
 }
 
 .side-tabs {
-  height: 46px;
-
-  display: flex;
-  align-items: stretch;
-
-  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 13px 12px 10px;
 }
 
 .side-tab {
-  flex: 1;
-
+  height: 34px;
   border: 0;
-  border-bottom: 2px solid transparent;
-
+  border-radius: 6px;
   background: transparent;
-
-  color: #8a8a85;
-
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 800;
-  letter-spacing: .07em;
-
+  letter-spacing: .06em;
   cursor: pointer;
 }
 
 .side-tab:hover {
-  color: var(--text);
   background: var(--hover);
 }
 
 .side-tab.active {
-  color: var(--purple);
-  border-bottom-color: var(--purple);
+  background: var(--active);
 }
 
 .sidebar-content {
   flex: 1;
-
   min-height: 0;
-
-  overflow: auto;
+  overflow-y: auto;
+  padding: 4px 10px 20px;
 }
 
-.sidebar-toolbar {
-  height: 48px;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 14px;
-
-  border-bottom: 1px solid var(--line);
+.sidebar-content::-webkit-scrollbar,
+.right-content::-webkit-scrollbar {
+  width: 5px;
 }
 
-.sidebar-toolbar-spacer {
-  flex: 1;
+.sidebar-content::-webkit-scrollbar-thumb,
+.right-content::-webkit-scrollbar-thumb {
+  background: #d0d0cb;
+  border-radius: 999px;
 }
-
-.sidebar-tool {
-  width: 32px;
-  height: 32px;
-
-  display: grid;
-  place-items: center;
-
-  border: 0;
-  border-radius: 7px;
-
-  background: transparent;
-  color: #777772;
-
-  cursor: pointer;
-}
-
-.sidebar-tool:hover {
-  background: var(--hover);
-  color: var(--purple);
-}
-
-.sidebar-tool.danger:hover {
-  color: #8b4c4c;
-}
-
-.sidebar-tool svg {
-  width: 16px;
-  height: 16px;
-}
-
-.sidebar-footer {
-  height: 36px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 18px;
-
-  border-top: 1px solid var(--line);
-
-  color: #888883;
-
-  font-size: 11px;
-}
-
-/* =========================================================
-   EMPTY STATES
-========================================================= */
 
 .empty-state {
-  padding: 44px 22px;
-
+  padding: 45px 18px;
   text-align: center;
 }
 
 .empty-icon {
-  width: 40px;
-  height: 40px;
-
-  margin: 0 auto 12px;
-
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
-
-  border-radius: 10px;
-
-  background: #ecece8;
-  color: #999994;
+  margin: 0 auto 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
 }
 
 .empty-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
+  color: #888883;
 }
 
 .empty-title {
-  margin-bottom: 6px;
-
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .empty-text {
-  max-width: 210px;
+  max-width: 185px;
+  margin: 5px auto 0;
+  color: #8b8b86;
+  font-size: 9px;
+  line-height: 1.5;
+}
 
-  margin: 0 auto;
-
-  color: var(--muted);
-
-  font-size: 11px;
-  line-height: 1.55;
+.contents-empty {
+  padding-top: 65px;
 }
 
 /* =========================================================
@@ -282,13 +191,14 @@ body {
 ========================================================= */
 
 .scene-item {
-  display: flex;
-  gap: 12px;
-
-  padding: 13px 18px;
-
-  border-left: 3px solid transparent;
-
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 7px;
+  align-items: center;
+  min-height: 46px;
+  padding: 6px 8px;
+  margin-bottom: 2px;
+  border-radius: 7px;
   cursor: pointer;
 }
 
@@ -297,17 +207,13 @@ body {
 }
 
 .scene-item.active {
-  background: var(--purple-light);
-  border-left-color: var(--purple);
+  background: var(--active);
 }
 
 .scene-number {
-  min-width: 24px;
-
-  color: #999994;
-
+  color: #8b8b86;
   font-size: 10px;
-  font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
 .scene-copy {
@@ -316,24 +222,543 @@ body {
 
 .scene-title {
   overflow: hidden;
-
-  color: var(--text);
-
-  font-size: 12px;
-  font-weight: 650;
-
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 650;
 }
 
 .scene-meta {
-  margin-top: 4px;
-
-  color: #999994;
-
+  margin-top: 2px;
+  color: #8b8b86;
   font-size: 9px;
+}
+
+/* =========================================================
+   TOOLBARS
+========================================================= */
+
+.sidebar-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 9px 10px;
+}
+
+.sidebar-tool {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sidebar-tool:hover {
+  background: var(--hover);
+}
+
+.sidebar-tool svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.7;
+}
+
+.sidebar-toolbar-spacer {
+  flex: 1;
+}
+
+/* =========================================================
+   COMMENTS / NOTES
+========================================================= */
+
+.annotation {
+  position: relative;
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.annotation:hover {
+  background: var(--hover);
+}
+
+.annotation-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.annotation-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
   font-weight: 700;
+}
+
+.annotation-tag {
+  flex-shrink: 0;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: #ededeb;
+  color: #777772;
+  font-size: 8px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.annotation-body {
+  margin-top: 5px;
+  color: #777772;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.annotation-meta {
+  margin-top: 7px;
+  color: #999994;
+  font-size: 8px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.sidebar-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
+  color: #858580;
+  font-size: 10px;
+}
+
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
+
+.right-sidebar {
+  min-width: 0;
+  width: 255px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(12px);
+  transition:
+    opacity .18s ease,
+    transform .22s ease;
+}
+
+.app.right-open .right-sidebar {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.right-header {
+  height: 64px;
+  flex: 0 0 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.right-header-title {
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.right-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  padding: 13px 12px 10px;
+}
+
+.right-tab {
+  height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 9px;
+  font-weight: 800;
   letter-spacing: .06em;
+  cursor: pointer;
+}
+
+.right-tab:hover {
+  background: var(--hover);
+}
+
+.right-tab.active {
+  background: var(--active);
+}
+
+.right-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 10px 20px;
+}
+
+/* =========================================================
+   ELEMENT SECTIONS
+========================================================= */
+
+.element-section {
+  margin-bottom: 20px;
+}
+
+.element-section-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px 7px;
+}
+
+.element-section-title {
+  color: #858580;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.element-add {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.element-add:hover {
+  background: var(--hover);
+}
+
+.element-add svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* =========================================================
+   STORYLINES
+========================================================= */
+
+.storyline-card {
+  margin: 2px 0 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+  transition:
+    border-color .15s ease,
+    background .15s ease;
+}
+
+.storyline-card:hover {
+  border-color: #d2d2cd;
+}
+
+.storyline-header {
+  display: flex;
+  align-items: center;
+  min-height: 43px;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+
+.storyline-icon {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 27px;
+  margin-right: 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fafaf8;
+}
+
+.storyline-icon svg {
+  width: 13px;
+  height: 13px;
+  color: #74746f;
+}
+
+.storyline-header-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.storyline-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.storyline-meta {
+  margin-top: 2px;
+  color: #999994;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.storyline-chevron {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  transition: transform .18s ease;
+}
+
+.storyline-chevron svg {
+  width: 13px;
+  height: 13px;
+}
+
+.storyline-card.open .storyline-chevron {
+  transform: rotate(180deg);
+}
+
+.storyline-body {
+  display: none;
+  padding: 0 10px 11px;
+  border-top: 1px solid var(--line);
+}
+
+.storyline-card.open .storyline-body {
+  display: block;
+}
+
+.storyline-label {
+  display: block;
+  padding: 10px 0 5px;
+  color: #858580;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.storyline-synopsis {
+  width: 100%;
+  min-height: 105px;
+  padding: 8px;
+  border: 1px solid #e1e1dd;
+  border-radius: 6px;
+  outline: none;
+  background: #fafaf8;
+  color: #161616;
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.storyline-synopsis:focus {
+  border-color: #aaa9a4;
+  background: white;
+}
+
+.storyline-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+.storyline-delete {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.storyline-card:hover .storyline-delete {
+  opacity: 1;
+}
+
+.storyline-delete:hover {
+  background: #ece8e8;
+}
+
+.storyline-delete svg {
+  width: 13px;
+  height: 13px;
+  color: var(--danger);
+}
+
+.storyline-empty {
+  padding: 6px 8px 8px;
+  color: #999994;
+  font-size: 9px;
+}
+
+/* =========================================================
+   CHARACTERS / LOCATIONS
+========================================================= */
+
+.element-item {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 7px 8px;
+  border-radius: 7px;
+}
+
+.element-item:hover {
+  background: var(--hover);
+}
+
+.element-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-right: 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+}
+
+.element-icon svg {
+  width: 13px;
+  height: 13px;
+  color: #74746f;
+}
+
+.element-copy {
+  min-width: 0;
+}
+
+.element-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.element-description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+  color: #8a8a85;
+  font-size: 9px;
+}
+
+.element-delete {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.element-item:hover .element-delete {
+  opacity: 1;
+}
+
+.element-delete:hover {
+  background: #e8e5e3;
+}
+
+.element-delete svg {
+  width: 13px;
+  height: 13px;
+  color: var(--danger);
+}
+
+.element-empty {
+  padding: 6px 8px 8px;
+  color: #999994;
+  font-size: 9px;
+}
+
+/* =========================================================
+   STASH
+========================================================= */
+
+.stash-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.stash-entry-icon {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #ededeb;
+}
+
+.stash-entry-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.stash-entry-copy {
+  min-width: 0;
+}
+
+.stash-entry-title {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.stash-entry-body {
+  margin-top: 3px;
+  color: #858580;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.stash-delete {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.stash-entry:hover .stash-delete {
+  opacity: 1;
+}
+
+.stash-delete svg {
+  width: 13px;
+  height: 13px;
 }
 
 /* =========================================================
@@ -341,73 +766,66 @@ body {
 ========================================================= */
 
 .main {
-  min-width: 0;
-  min-height: 0;
-
   display: flex;
   flex-direction: column;
-
-  position: relative;
-
-  background: var(--bg);
+  min-width: 0;
+  min-height: 0;
 }
 
 .topbar {
-  height: var(--topbar-height);
-  flex: 0 0 var(--topbar-height);
-
+  height: 64px;
+  flex: 0 0 64px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  padding: 0 17px;
-
+  padding: 0 20px;
+  background: rgba(250,250,248,.96);
   border-bottom: 1px solid var(--line);
-
-  background: rgba(250, 250, 248, .96);
 }
 
 .top-left,
 .top-right {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 5px;
+}
+
+.top-left {
+  min-width: 0;
+}
+
+.top-right {
+  margin-left: auto;
 }
 
 .icon-btn {
   width: 34px;
   height: 34px;
-
-  display: grid;
-  place-items: center;
-
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   border-radius: 7px;
-
   background: transparent;
-
-  color: #777772;
-
   cursor: pointer;
 }
 
-.icon-btn:hover,
+.icon-btn:hover {
+  background: var(--hover);
+}
+
 .icon-btn.active {
-  background: var(--purple-light);
-  color: var(--purple);
+  background: var(--active);
 }
 
 .icon-btn svg {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.7;
 }
 
 .script-title {
-  margin-left: 4px;
-
-  color: #30302d;
-
-  font-size: 14px;
+  margin-left: 7px;
+  font-size: 13px;
   font-weight: 650;
 }
 
@@ -415,37 +833,29 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-
-  margin-left: 5px;
-
-  color: #888883;
-
-  font-size: 11px;
+  margin-left: 12px;
+  color: #858580;
+  font-size: 10px;
 }
 
 .save-dot {
-  width: 6px;
-  height: 6px;
-
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-
-  background: #75a878;
+  background: #777772;
 }
 
 .avatar {
-  width: 30px;
-  height: 30px;
-
+  width: 29px;
+  height: 29px;
   display: grid;
   place-items: center;
-
+  margin-left: 5px;
   border-radius: 50%;
-
-  background: #242421;
+  background: #171717;
   color: white;
-
-  font-size: 11px;
-  font-weight: 800;
+  font-size: 10px;
+  font-weight: 700;
 }
 
 /* =========================================================
@@ -454,129 +864,92 @@ body {
 
 .workspace {
   position: relative;
-
   flex: 1;
-
   min-height: 0;
-
   display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
 }
 
 .editor-scroll {
   flex: 1;
-
-  min-height: 0;
-
-  overflow: auto;
-
-  padding: 25px 25px 100px;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 35px 20px 100px;
 }
 
 .page-title-bar {
-  width: min(850px, calc(100vw - 450px));
-
-  margin: 0 auto 16px;
+  width: min(850px, calc(100vw - 650px));
+  min-width: 500px;
+  margin: 0 auto 10px;
 }
 
 .page-title {
-  color: #777772;
-
-  font-size: 12px;
-  font-weight: 650;
+  color: #858580;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }
 
-/* =========================================================
-   SCRIPT PAGE
-========================================================= */
-
 .page {
-  width: min(850px, calc(100vw - 450px));
-
+  width: min(850px, calc(100vw - 650px));
+  min-width: 500px;
   min-height: 1050px;
-
   margin: 0 auto;
-
-  padding: 95px 105px;
-
-  background: white;
-
-  border: 1px solid #e3e3df;
-
+  padding: 95px 105px 120px;
+  background: var(--paper);
   box-shadow:
-    0 3px 15px rgba(0,0,0,.035);
+    0 1px 2px rgba(0,0,0,.035),
+    0 8px 30px rgba(0,0,0,.025);
 }
 
 .script {
-  min-height: 850px;
-
+  min-height: 700px;
   outline: none;
-
-  color: #111;
-
-  font-family: var(--script-font);
-
-  font-size: 14px;
-
-  line-height: 1.45;
+  color: #161616;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 .script > div {
-  min-height: 20px;
-
+  min-height: 19px;
   outline: none;
-
-  white-space: pre-wrap;
 }
 
 .script .scene-heading {
-  margin-top: 16px;
-
+  margin-top: 12px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .script .action {
-  margin: 8px 0;
+  margin: 0;
 }
 
 .script .character {
-  width: 45%;
-
-  margin-top: 18px;
-  margin-left: 27.5%;
-
-  text-align: center;
-
+  width: 55%;
+  margin: 12px auto 0;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .script .parenthetical {
-  width: 45%;
-
-  margin-left: 27.5%;
-
-  text-align: left;
+  width: 55%;
+  margin: 0 auto;
 }
 
 .script .dialogue {
-  width: 60%;
-
-  margin-left: 20%;
+  width: 65%;
+  margin: 0 auto;
 }
 
 .script .transition {
-  margin-top: 16px;
-
+  margin-top: 12px;
   text-align: right;
-
   font-weight: 700;
   text-transform: uppercase;
-}
-
-.script > div:focus {
-  outline: none;
 }
 
 /* =========================================================
@@ -585,76 +958,42 @@ body {
 
 .context-bar {
   position: absolute;
-
-  left: 50%;
   bottom: 16px;
-
-  transform:
-    translate(-50%, 12px);
-
+  left: 50%;
+  z-index: 20;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 4px;
-
-  padding: 6px;
-
+  gap: 3px;
+  padding: 5px;
   border: 1px solid var(--line);
-
-  border-radius: 10px;
-
-  background: rgba(255,255,255,.97);
-
-  box-shadow:
-    0 7px 28px rgba(0,0,0,.08);
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  transition:
-    opacity .16s ease,
-    transform .16s ease;
-}
-
-.context-bar.visible {
-  opacity: 1;
-
-  transform:
-    translate(-50%, 0);
-
-  pointer-events: auto;
+  border-radius: 8px;
+  background: rgba(250,250,248,.97);
+  box-shadow: 0 5px 20px rgba(0,0,0,.07);
 }
 
 .format-btn {
-  height: 30px;
-
-  padding: 0 11px;
-
+  height: 28px;
+  padding: 0 9px;
   border: 0;
-  border-radius: 6px;
-
+  border-radius: 5px;
   background: transparent;
-
-  color: #777772;
-
-  font-size: 10px;
-  font-weight: 800;
-
+  color: #666661;
+  font-size: 9px;
+  font-weight: 750;
   cursor: pointer;
 }
 
 .format-btn:hover,
 .format-btn.active {
-  background: var(--purple-light);
-  color: var(--purple);
+  background: var(--active);
+  color: #161616;
 }
 
 .format-divider {
   width: 1px;
-  height: 20px;
-
+  height: 18px;
   margin: 0 3px;
-
   background: var(--line);
 }
 
@@ -664,701 +1003,82 @@ body {
 
 .context-panel {
   position: absolute;
-
-  top: 0;
-  right: 0;
-  bottom: 0;
-
-  z-index: 30;
-
-  width: 320px;
-
+  top: 15px;
+  right: 15px;
+  z-index: 50;
+  width: 255px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   background: white;
-
-  border-left: 1px solid var(--line);
-
-  box-shadow:
-    -10px 0 35px rgba(0,0,0,.07);
-
-  transform: translateX(100%);
-
-  transition: transform .22s ease;
+  box-shadow: 0 12px 35px rgba(0,0,0,.1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-5px);
+  transition: .15s ease;
 }
 
 .context-panel.open {
-  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .panel-header {
-  height: 55px;
-
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  padding: 0 17px;
-
+  height: 45px;
+  padding: 0 10px 0 14px;
   border-bottom: 1px solid var(--line);
 }
 
 .panel-title {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 750;
 }
 
 .panel-close,
 .modal-close {
-  width: 31px;
-  height: 31px;
-
+  width: 27px;
+  height: 27px;
   display: grid;
   place-items: center;
-
+  margin-left: auto;
   border: 0;
-  border-radius: 6px;
-
+  border-radius: 5px;
   background: transparent;
-
-  color: #777772;
-
   cursor: pointer;
 }
 
 .panel-close:hover,
 .modal-close:hover {
   background: var(--hover);
-  color: var(--purple);
+}
+
+.panel-close svg,
+.modal-close svg {
+  width: 14px;
+  height: 14px;
 }
 
 .panel-body {
-  padding: 20px;
+  padding: 13px 14px;
 }
 
 .panel-section {
-  padding: 15px 0;
-
-  border-bottom: 1px solid var(--line);
+  margin-bottom: 14px;
 }
 
 .panel-label {
-  margin-bottom: 6px;
-
-  color: #8b8b86;
-
-  font-size: 10px;
+  color: #858580;
+  font-size: 8px;
   font-weight: 800;
-  letter-spacing: .07em;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
 
 .panel-value {
-  color: #272724;
-
-  font-size: 13px;
-}
-
-/* =========================================================
-   RIGHT SIDEBAR
-========================================================= */
-
-.right-sidebar {
-  min-width: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  background: #fafaf8;
-
-  border-left: 1px solid var(--line);
-
-  overflow: hidden;
-}
-
-.right-header {
-  height: 70px;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 20px;
-
-  border-bottom: 1px solid var(--line);
-}
-
-.right-header-title {
-  font-size: 14px;
-  font-weight: 750;
-}
-
-.right-tabs {
-  height: 46px;
-
-  display: flex;
-
-  border-bottom: 1px solid var(--line);
-}
-
-.right-tab {
-  flex: 1;
-
-  border: 0;
-  border-bottom: 2px solid transparent;
-
-  background: transparent;
-
-  color: #898984;
-
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .07em;
-
-  cursor: pointer;
-}
-
-.right-tab:hover {
-  color: var(--text);
-  background: var(--hover);
-}
-
-.right-tab.active {
-  color: var(--purple);
-  border-bottom-color: var(--purple);
-}
-
-.right-content {
-  flex: 1;
-
-  min-height: 0;
-
-  overflow: auto;
-}
-
-/* =========================================================
-   ELEMENT SECTIONS
-========================================================= */
-
-.element-section {
-  border-bottom: 1px solid var(--line);
-}
-
-.element-section-header {
-  min-height: 49px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 17px;
-}
-
-.element-section-title {
-  color: #777772;
-
-  font-size: 10px;
-  font-weight: 850;
-  letter-spacing: .08em;
-}
-
-.element-add {
-  width: 30px;
-  height: 30px;
-
-  display: grid;
-  place-items: center;
-
-  border: 0;
-  border-radius: 7px;
-
-  background: transparent;
-
-  color: #777772;
-
-  cursor: pointer;
-}
-
-.element-add:hover {
-  background: var(--purple-light);
-  color: var(--purple);
-}
-
-.element-add svg {
-  width: 16px;
-  height: 16px;
-}
-
-.element-empty {
-  padding: 0 18px 17px;
-
-  color: #a0a09b;
-
-  font-size: 11px;
-}
-
-/* =========================================================
-   STORYLINE / CHARACTER CARDS
-========================================================= */
-
-.element-card {
-  margin: 0 11px 10px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 9px;
-
-  overflow: hidden;
-
-  background: white;
-
-  transition:
-    border-color .15s ease,
-    box-shadow .15s ease;
-}
-
-.element-card:hover {
-  border-color: var(--purple-mid);
-}
-
-.element-card.expanded {
-  border-color: var(--purple-mid);
-
-  box-shadow:
-    0 4px 14px rgba(118,84,199,.08);
-}
-
-.element-card-header {
-  min-height: 58px;
-
-  display: flex;
-  align-items: center;
-
-  padding: 10px 12px;
-
-  cursor: pointer;
-
-  user-select: none;
-}
-
-.element-card-header:hover {
-  background: #faf9fd;
-}
-
-.element-card-chevron {
-  width: 26px;
-  height: 26px;
-
-  display: grid;
-  place-items: center;
-
-  margin-right: 3px;
-
-  color: #999994;
-
-  transition: transform .18s ease;
-}
-
-.element-card.expanded .element-card-chevron {
-  transform: rotate(90deg);
-}
-
-.element-card-icon {
-  width: 32px;
-  height: 32px;
-
-  flex: 0 0 32px;
-
-  display: grid;
-  place-items: center;
-
-  margin-right: 10px;
-
-  border-radius: 8px;
-
-  background: var(--purple-light);
-  color: var(--purple);
-}
-
-.element-card-icon svg {
-  width: 16px;
-  height: 16px;
-}
-
-.element-card-copy {
-  min-width: 0;
-  flex: 1;
-}
-
-.element-card-name {
-  overflow: hidden;
-
-  font-size: 13px;
-  font-weight: 750;
-
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.element-card-meta {
   margin-top: 4px;
-
-  color: #969691;
-
   font-size: 10px;
-}
-
-.element-card-delete {
-  width: 28px;
-  height: 28px;
-
-  display: grid;
-  place-items: center;
-
-  border: 0;
-  border-radius: 6px;
-
-  background: transparent;
-
-  color: #a09f9a;
-
-  opacity: 0;
-
-  cursor: pointer;
-}
-
-.element-card:hover .element-card-delete {
-  opacity: 1;
-}
-
-.element-card-delete:hover {
-  background: #f5e9e9;
-  color: #9a5252;
-}
-
-.element-card-delete svg {
-  width: 14px;
-  height: 14px;
-}
-
-.element-card-body {
-  display: none;
-
-  padding: 0 14px 15px;
-
-  border-top: 1px solid var(--line);
-}
-
-.element-card.expanded .element-card-body {
-  display: block;
-}
-
-.card-label {
-  margin-top: 14px;
-  margin-bottom: 7px;
-
-  color: #898984;
-
-  font-size: 10px;
-  font-weight: 850;
-  letter-spacing: .07em;
-}
-
-.card-textarea {
-  width: 100%;
-
-  min-height: 130px;
-
-  padding: 10px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 7px;
-
-  outline: none;
-
-  resize: vertical;
-
-  background: #fcfcfb;
-
-  color: var(--text);
-
-  font-family: var(--ui-font);
-
-  font-size: 12px;
-
-  line-height: 1.55;
-}
-
-.card-textarea:focus {
-  border-color: var(--purple);
-  box-shadow: 0 0 0 2px var(--purple-light);
-}
-
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-top: 11px;
-}
-
-.card-hint {
-  color: #a0a09b;
-
-  font-size: 10px;
-}
-
-/* =========================================================
-   CHARACTER COLORS
-========================================================= */
-
-.character-card.color-purple {
-  --character-color: #7654c7;
-}
-
-.character-card.color-blue {
-  --character-color: #4e78c4;
-}
-
-.character-card.color-green {
-  --character-color: #4d9163;
-}
-
-.character-card.color-red {
-  --character-color: #b65b5b;
-}
-
-.character-card.color-orange {
-  --character-color: #c57b3d;
-}
-
-.character-card.color-pink {
-  --character-color: #b45b8d;
-}
-
-.character-card.color-teal {
-  --character-color: #3e8d8a;
-}
-
-.character-card.color-gray {
-  --character-color: #777772;
-}
-
-.character-card {
-  border-left: 3px solid var(--character-color, var(--purple));
-}
-
-.character-card .element-card-icon {
-  background: color-mix(
-    in srgb,
-    var(--character-color, var(--purple)) 13%,
-    white
-  );
-
-  color: var(--character-color, var(--purple));
-}
-
-.character-card .element-card-name {
-  color: var(--character-color, var(--text));
-}
-
-/* =========================================================
-   CHARACTER CONTROLS
-========================================================= */
-
-.character-controls {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 10px;
-}
-
-.character-control {
-  min-width: 0;
-}
-
-.character-select {
-  width: 100%;
-  height: 37px;
-
-  padding: 0 9px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 7px;
-
-  outline: none;
-
-  background: white;
-
-  color: var(--text);
-
-  font-family: var(--ui-font);
-
-  font-size: 12px;
-
-  cursor: pointer;
-}
-
-.character-select:focus {
-  border-color: var(--purple);
-}
-
-.gender-symbol {
-  margin-right: 5px;
-
-  font-size: 15px;
-}
-
-/* =========================================================
-   STASH
-========================================================= */
-
-.stash-entry {
-  display: flex;
-  gap: 10px;
-
-  padding: 14px 17px;
-
-  border-bottom: 1px solid var(--line);
-}
-
-.stash-entry-icon {
-  width: 30px;
-  height: 30px;
-
-  flex: 0 0 30px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 7px;
-
-  background: #eeeeeb;
-
-  color: #888883;
-}
-
-.stash-entry-icon svg {
-  width: 15px;
-  height: 15px;
-}
-
-.stash-entry-copy {
-  min-width: 0;
-  flex: 1;
-}
-
-.stash-entry-title {
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.stash-entry-body {
-  margin-top: 5px;
-
-  color: #777772;
-
-  font-size: 11px;
-
-  line-height: 1.45;
-
-  white-space: pre-wrap;
-}
-
-.stash-delete {
-  width: 27px;
-  height: 27px;
-
-  display: grid;
-  place-items: center;
-
-  align-self: flex-start;
-
-  border: 0;
-  border-radius: 6px;
-
-  background: transparent;
-
-  color: #999994;
-
-  cursor: pointer;
-}
-
-.stash-delete:hover {
-  background: #f5e9e9;
-  color: #985050;
-}
-
-.stash-delete svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* =========================================================
-   ANNOTATIONS
-========================================================= */
-
-.annotation {
-  padding: 15px 17px;
-
-  border-bottom: 1px solid var(--line);
-
-  cursor: default;
-}
-
-.annotation:hover {
-  background: #faf9fd;
-}
-
-.annotation-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 10px;
-}
-
-.annotation-title {
-  min-width: 0;
-
-  overflow: hidden;
-
-  font-size: 12px;
-  font-weight: 750;
-
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.annotation-tag {
-  padding: 4px 7px;
-
-  border-radius: 5px;
-
-  background: var(--purple-light);
-  color: var(--purple);
-
-  font-size: 9px;
-  font-weight: 800;
-}
-
-.annotation-body {
-  margin-top: 8px;
-
-  color: #666661;
-
-  font-size: 11px;
-  line-height: 1.5;
-
-  white-space: pre-wrap;
-}
-
-.annotation-meta {
-  margin-top: 8px;
-
-  color: #a0a09b;
-
-  font-size: 9px;
 }
 
 /* =========================================================
@@ -1367,69 +1087,55 @@ body {
 
 .modal-backdrop {
   position: absolute;
-
   inset: 0;
-
-  z-index: 200;
-
-  display: none;
-
+  z-index: 100;
+  display: flex;
   align-items: center;
   justify-content: center;
-
-  background: rgba(20,20,18,.24);
-
-  backdrop-filter: blur(2px);
+  padding: 20px;
+  background: rgba(20,20,18,.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: .15s ease;
 }
 
 .modal-backdrop.open {
-  display: flex;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .modal {
-  width: min(450px, calc(100% - 32px));
-
-  overflow: hidden;
-
+  width: 370px;
+  max-width: 100%;
   border: 1px solid var(--line);
-
-  border-radius: 10px;
-
+  border-radius: 9px;
   background: white;
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.16);
+  box-shadow: 0 18px 55px rgba(0,0,0,.16);
+  overflow: hidden;
 }
 
 .modal-header {
-  height: 52px;
-
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  padding: 0 16px;
-
+  min-height: 47px;
+  padding: 0 10px 0 16px;
   border-bottom: 1px solid var(--line);
 }
 
 .modal-title {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 750;
 }
 
 .modal-body {
-  padding: 18px;
+  padding: 16px;
 }
 
 .field-label {
   display: block;
-
   margin-bottom: 7px;
-
   color: #858580;
-
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -1439,81 +1145,54 @@ body {
 .field-select,
 .field-textarea {
   width: 100%;
-
-  border: 1px solid var(--line);
-
-  border-radius: 7px;
-
+  border: 1px solid #dededb;
+  border-radius: 6px;
   outline: none;
-
   background: white;
-
-  color: var(--text);
-
-  font-family: var(--ui-font);
-
-  font-size: 12px;
+  color: #161616;
+  font-size: 11px;
 }
 
 .field-input,
 .field-select {
-  height: 39px;
-
+  height: 36px;
   padding: 0 10px;
 }
 
 .field-textarea {
-  min-height: 110px;
-
+  min-height: 100px;
   padding: 10px;
-
   resize: vertical;
-
   line-height: 1.5;
 }
 
 .field-input:focus,
 .field-select:focus,
 .field-textarea:focus {
-  border-color: var(--purple);
-
-  box-shadow:
-    0 0 0 2px var(--purple-light);
+  border-color: #999994;
 }
 
 .field-group {
-  margin-bottom: 16px;
+  margin-bottom: 15px;
 }
 
 .modal-footer {
   display: flex;
   justify-content: flex-end;
-
-  gap: 8px;
-
-  padding: 13px 16px;
-
+  gap: 7px;
+  padding: 12px 16px;
   border-top: 1px solid var(--line);
-
   background: #fafaf8;
 }
 
 .modal-button {
-  height: 34px;
-
-  padding: 0 14px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 7px;
-
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #dcdcd8;
+  border-radius: 6px;
   background: white;
-
-  color: var(--text);
-
-  font-size: 11px;
-  font-weight: 700;
-
+  font-size: 10px;
+  font-weight: 650;
   cursor: pointer;
 }
 
@@ -1522,19 +1201,9 @@ body {
 }
 
 .modal-button.primary {
-  border-color: var(--purple);
-
-  background: var(--purple);
-
+  border-color: #171717;
+  background: #171717;
   color: white;
-}
-
-.modal-button.primary:hover {
-  background: var(--purple-dark);
-}
-
-.modal-button.danger {
-  color: #765555;
 }
 
 /* =========================================================
@@ -1542,75 +1211,47 @@ body {
 ========================================================= */
 
 .statusbar {
-  height: var(--status-height);
-  flex: 0 0 var(--status-height);
-
+  height: 30px;
+  flex: 0 0 30px;
   display: flex;
   align-items: center;
-
-  padding: 0 17px;
-
+  padding: 0 16px;
   border-top: 1px solid var(--line);
-
   background: #fafaf8;
-
   color: #83837e;
-
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .status-left,
 .status-right {
   display: flex;
   align-items: center;
-
-  gap: 16px;
+  gap: 14px;
 }
 
 .status-right {
   margin-left: auto;
 }
 
-/* =========================================================
-   TOAST
-========================================================= */
-
 .toast {
   position: absolute;
-
-  top: 18px;
+  top: 20px;
   left: 50%;
-
   z-index: 300;
-
-  transform:
-    translate(-50%, -10px);
-
-  padding: 10px 14px;
-
+  transform: translate(-50%, -12px);
+  padding: 9px 13px;
   border-radius: 7px;
-
-  background: #22221f;
-
+  background: #171717;
   color: white;
-
-  font-size: 11px;
-  font-weight: 650;
-
+  font-size: 10px;
   opacity: 0;
-
   pointer-events: none;
-
-  transition:
-    opacity .18s ease,
-    transform .18s ease;
+  transition: .18s ease;
 }
 
 .toast.show {
   opacity: 1;
-
-  transform:
-    translate(-50%, 0);
+  transform: translate(-50%, 0);
 }
 
 .hidden {
@@ -1621,31 +1262,24 @@ body {
    RESPONSIVE
 ========================================================= */
 
-@media(max-width: 1200px) {
-
-  :root {
-    --sidebar-width: 255px;
-    --right-sidebar-width: 280px;
+@media(max-width:1200px) {
+  .app.right-open {
+    grid-template-columns: 220px minmax(0,1fr) 220px;
   }
 
   .page,
   .page-title-bar {
-    width: min(780px, calc(100vw - 430px));
+    width: min(760px, calc(100vw - 520px));
   }
 
   .page {
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 80px;
+    padding-right: 80px;
   }
 }
 
-@media(max-width: 900px) {
-
+@media(max-width:850px) {
   .app {
-    grid-template-columns: 1fr;
-  }
-
-  .app.right-open {
     grid-template-columns: 1fr;
   }
 
@@ -1657,10 +1291,11 @@ body {
   .page,
   .page-title-bar {
     width: calc(100vw - 28px);
+    min-width: 0;
   }
 
   .page {
-    padding: 65px 55px;
+    padding: 70px 55px;
   }
 
   .editor-scroll {
@@ -1674,688 +1309,674 @@ body {
 
 <div class="app" id="app">
 
-  <!-- =====================================================
-       LEFT SIDEBAR
-  ====================================================== -->
+<!-- =====================================================
+     LEFT SIDEBAR
+====================================================== -->
 
-  <aside class="sidebar">
+<aside class="sidebar">
 
-    <div class="brand">
-      <div class="brand-name">Auteur</div>
-      <div class="project-name">Draft</div>
-    </div>
+  <div class="brand">
+    <div class="brand-name">Auteur</div>
+    <div class="project-name">Draft</div>
+  </div>
 
-    <div class="side-tabs">
+  <div class="side-tabs">
 
-      <button class="side-tab active" data-tab="contents">
-        CONTENTS
-      </button>
+    <button class="side-tab active" data-tab="contents">
+      CONTENTS
+    </button>
 
-      <button class="side-tab" data-tab="comments">
-        COMMENTS
-      </button>
+    <button class="side-tab" data-tab="comments">
+      COMMENTS
+    </button>
 
-      <button class="side-tab" data-tab="notes">
-        NOTES
-      </button>
+    <button class="side-tab" data-tab="notes">
+      NOTES
+    </button>
 
-    </div>
+  </div>
 
-    <div class="sidebar-content">
+  <div class="sidebar-content">
 
-      <div id="contentsPanel">
+    <div id="contentsPanel">
 
-        <div id="sceneList">
+      <div id="sceneList">
 
-          <div class="empty-state contents-empty">
+        <div class="empty-state contents-empty">
 
-            <div class="empty-icon">
-              <i data-lucide="file-text"></i>
-            </div>
+          <div class="empty-icon">
+            <i data-lucide="file-text"></i>
+          </div>
 
-            <div class="empty-title">
-              No scenes yet
-            </div>
+          <div class="empty-title">
+            No scenes yet
+          </div>
 
-            <div class="empty-text">
-              Your screenplay scenes will appear here as you write.
-            </div>
-
+          <div class="empty-text">
+            Your screenplay scenes will appear here as you write.
           </div>
 
         </div>
 
       </div>
 
-      <!-- COMMENTS -->
-
-      <div id="commentsPanel" class="hidden">
-
-        <div class="sidebar-toolbar">
-
-          <button class="sidebar-tool" id="addCommentButton">
-            <i data-lucide="plus"></i>
-          </button>
-
-          <button class="sidebar-tool" id="commentSettingsButton">
-            <i data-lucide="settings-2"></i>
-          </button>
-
-          <div class="sidebar-toolbar-spacer"></div>
-
-          <button class="sidebar-tool danger" id="clearCommentsButton">
-            <i data-lucide="rotate-ccw"></i>
-          </button>
-
-        </div>
-
-        <div id="commentsList" class="annotation-list"></div>
-
-      </div>
-
-      <!-- NOTES -->
-
-      <div id="notesPanel" class="hidden">
-
-        <div class="sidebar-toolbar">
-
-          <button class="sidebar-tool" id="addNoteButton">
-            <i data-lucide="plus"></i>
-          </button>
-
-          <button class="sidebar-tool" id="noteSettingsButton">
-            <i data-lucide="settings-2"></i>
-          </button>
-
-          <div class="sidebar-toolbar-spacer"></div>
-
-          <button class="sidebar-tool danger" id="clearNotesButton">
-            <i data-lucide="rotate-ccw"></i>
-          </button>
-
-        </div>
-
-        <div id="notesList" class="annotation-list"></div>
-
-      </div>
-
     </div>
 
-    <div class="sidebar-footer">
+    <div id="commentsPanel" class="hidden">
 
-      <span id="pageCount">
-        1 page
-      </span>
+      <div class="sidebar-toolbar">
 
-      <span>
-        Draft 01
-      </span>
-
-    </div>
-
-  </aside>
-
-
-  <!-- =====================================================
-       MAIN
-  ====================================================== -->
-
-  <main class="main">
-
-    <header class="topbar">
-
-      <div class="top-left">
-
-        <button class="icon-btn" title="Menu">
-          <i data-lucide="menu"></i>
+        <button class="sidebar-tool" id="addCommentButton">
+          <i data-lucide="plus"></i>
         </button>
 
-        <div class="script-title">
+        <button class="sidebar-tool" id="commentSettingsButton">
+          <i data-lucide="settings-2"></i>
+        </button>
+
+        <div class="sidebar-toolbar-spacer"></div>
+
+        <button class="sidebar-tool" id="clearCommentsButton">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+
+      </div>
+
+      <div id="commentsList"></div>
+
+    </div>
+
+    <div id="notesPanel" class="hidden">
+
+      <div class="sidebar-toolbar">
+
+        <button class="sidebar-tool" id="addNoteButton">
+          <i data-lucide="plus"></i>
+        </button>
+
+        <button class="sidebar-tool" id="noteSettingsButton">
+          <i data-lucide="settings-2"></i>
+        </button>
+
+        <div class="sidebar-toolbar-spacer"></div>
+
+        <button class="sidebar-tool" id="clearNotesButton">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+
+      </div>
+
+      <div id="notesList"></div>
+
+    </div>
+
+  </div>
+
+  <div class="sidebar-footer">
+
+    <span id="pageCount">1 page</span>
+    <span>Draft 01</span>
+
+  </div>
+
+</aside>
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="main">
+
+  <header class="topbar">
+
+    <div class="top-left">
+
+      <button class="icon-btn">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="script-title">
+        Sentient Mass
+      </div>
+
+      <div class="save-state">
+        <span class="save-dot"></span>
+        Saved
+      </div>
+
+      <button
+        class="icon-btn"
+        id="rightBarToggle"
+        title="Creative workspace"
+        aria-pressed="false"
+      >
+        <i data-lucide="panel-right"></i>
+      </button>
+
+    </div>
+
+    <div class="top-right">
+
+      <button class="icon-btn" id="documentButton">
+        <i data-lucide="ellipsis"></i>
+      </button>
+
+      <div class="avatar">
+        B
+      </div>
+
+    </div>
+
+  </header>
+
+  <section class="workspace">
+
+    <div class="editor-scroll">
+
+      <div class="page-title-bar">
+
+        <div class="page-title">
           Sentient Mass
         </div>
 
-        <div class="save-state">
-          <span class="save-dot"></span>
-          Saved
+      </div>
+
+      <article class="page">
+
+        <div
+          id="scriptEditor"
+          class="script"
+          contenteditable="true"
+          spellcheck="false"
+        >
+
+          <div class="action"><br></div>
+
         </div>
 
-        <button
-          class="icon-btn"
-          id="rightBarToggle"
-          title="Creative workspace"
-          aria-pressed="false"
-        >
-          <i data-lucide="panel-right"></i>
+      </article>
+
+    </div>
+
+    <!-- FORMAT BAR -->
+
+    <div class="context-bar" id="formatBar">
+
+      <button class="format-btn" data-format="scene">
+        SCENE
+      </button>
+
+      <button class="format-btn" data-format="action">
+        ACTION
+      </button>
+
+      <button class="format-btn" data-format="character">
+        CHARACTER
+      </button>
+
+      <button class="format-btn" data-format="parenthetical">
+        ( )
+      </button>
+
+      <button class="format-btn" data-format="dialogue">
+        DIALOGUE
+      </button>
+
+      <button class="format-btn" data-format="transition">
+        TRANSITION
+      </button>
+
+      <div class="format-divider"></div>
+
+      <button class="format-btn" id="boldButton">
+        B
+      </button>
+
+      <button class="format-btn" id="italicButton">
+        <i>I</i>
+      </button>
+
+    </div>
+
+    <!-- DOCUMENT PANEL -->
+
+    <aside class="context-panel" id="contextPanel">
+
+      <div class="panel-header">
+
+        <div class="panel-title">
+          Document
+        </div>
+
+        <button class="panel-close" id="panelClose">
+          <i data-lucide="x"></i>
         </button>
 
       </div>
 
-      <div class="top-right">
+      <div class="panel-body">
 
-        <button
-          class="icon-btn"
-          id="documentButton"
-          title="Document"
-        >
-          <i data-lucide="ellipsis"></i>
-        </button>
+        <div class="panel-section">
 
-        <div class="avatar">
-          B
-        </div>
+          <div class="panel-label">
+            Title
+          </div>
 
-      </div>
-
-    </header>
-
-
-    <section class="workspace">
-
-      <div class="editor-scroll" id="editorScroll">
-
-        <div class="page-title-bar">
-
-          <div class="page-title">
+          <div class="panel-value">
             Sentient Mass
           </div>
 
         </div>
 
-        <article class="page">
+        <div class="panel-section">
 
-          <div
-            id="scriptEditor"
-            class="script"
-            contenteditable="true"
-            spellcheck="false"
-          >
-
-            <div class="action"><br></div>
-
+          <div class="panel-label">
+            Draft
           </div>
 
-        </article>
+          <div class="panel-value">
+            Draft 01
+          </div>
+
+        </div>
+
+        <div class="panel-section">
+
+          <div class="panel-label">
+            Format
+          </div>
+
+          <div class="panel-value">
+            Screenplay · US Letter
+          </div>
+
+        </div>
 
       </div>
 
+    </aside>
 
-      <!-- FORMAT BAR -->
+    <!-- ANNOTATION MODAL -->
 
-      <div class="context-bar" id="formatBar">
+    <div class="modal-backdrop" id="annotationModal">
 
-        <button class="format-btn" data-format="scene">
-          SCENE
-        </button>
+      <div class="modal">
 
-        <button class="format-btn" data-format="action">
-          ACTION
-        </button>
+        <div class="modal-header">
 
-        <button class="format-btn" data-format="character">
-          CHARACTER
-        </button>
-
-        <button class="format-btn" data-format="parenthetical">
-          ( )
-        </button>
-
-        <button class="format-btn" data-format="dialogue">
-          DIALOGUE
-        </button>
-
-        <button class="format-btn" data-format="transition">
-          TRANSITION
-        </button>
-
-        <div class="format-divider"></div>
-
-        <button class="format-btn" id="boldButton">
-          B
-        </button>
-
-        <button class="format-btn" id="italicButton">
-          <i>I</i>
-        </button>
-
-      </div>
-
-
-      <!-- DOCUMENT PANEL -->
-
-      <aside class="context-panel" id="contextPanel">
-
-        <div class="panel-header">
-
-          <div class="panel-title">
-            Document
+          <div class="modal-title" id="annotationModalTitle">
+            New Comment
           </div>
 
-          <button class="panel-close" id="panelClose">
+          <button class="modal-close" id="annotationModalClose">
             <i data-lucide="x"></i>
           </button>
 
         </div>
 
-        <div class="panel-body">
+        <div class="modal-body">
 
-          <div class="panel-section">
-            <div class="panel-label">Title</div>
-            <div class="panel-value">Sentient Mass</div>
-          </div>
+          <div class="field-group">
 
-          <div class="panel-section">
-            <div class="panel-label">Draft</div>
-            <div class="panel-value">Draft 01</div>
-          </div>
+            <label class="field-label" for="annotationTitle">
+              Title
+            </label>
 
-          <div class="panel-section">
-            <div class="panel-label">Format</div>
-            <div class="panel-value">
-              Screenplay · US Letter
-            </div>
-          </div>
-
-        </div>
-
-      </aside>
-
-
-      <!-- =================================================
-           ANNOTATION MODAL
-      ================================================== -->
-
-      <div class="modal-backdrop" id="annotationModal">
-
-        <div class="modal">
-
-          <div class="modal-header">
-
-            <div class="modal-title" id="annotationModalTitle">
-              New Comment
-            </div>
-
-            <button class="modal-close" id="annotationModalClose">
-              <i data-lucide="x"></i>
-            </button>
+            <input
+              id="annotationTitle"
+              class="field-input"
+              placeholder="What is this about?"
+            >
 
           </div>
 
-          <div class="modal-body">
+          <div class="field-group">
 
-            <div class="field-group">
+            <label class="field-label" for="annotationBody">
+              Note
+            </label>
 
-              <label class="field-label" for="annotationTitle">
-                Title
-              </label>
-
-              <input
-                id="annotationTitle"
-                class="field-input"
-                placeholder="What is this about?"
-              >
-
-            </div>
-
-            <div class="field-group">
-
-              <label class="field-label" for="annotationBody">
-                Note
-              </label>
-
-              <textarea
-                id="annotationBody"
-                class="field-textarea"
-                placeholder="Write your thought..."
-              ></textarea>
-
-            </div>
-
-            <div class="field-group">
-
-              <label class="field-label" for="annotationTag">
-                Tag
-              </label>
-
-              <select id="annotationTag" class="field-select">
-                <option>Characters</option>
-                <option>Landscapes</option>
-                <option>Story</option>
-                <option>Dialogue</option>
-                <option>Visuals</option>
-                <option>Research</option>
-                <option>General</option>
-              </select>
-
-            </div>
+            <textarea
+              id="annotationBody"
+              class="field-textarea"
+              placeholder="Write your thought..."
+            ></textarea>
 
           </div>
 
-          <div class="modal-footer">
+          <div class="field-group">
 
-            <button class="modal-button" id="annotationCancel">
-              Cancel
-            </button>
+            <label class="field-label" for="annotationTag">
+              Tag
+            </label>
 
-            <button class="modal-button primary" id="annotationSave">
-              Create
-            </button>
+            <select id="annotationTag" class="field-select">
+              <option>Characters</option>
+              <option>Landscapes</option>
+              <option>Story</option>
+              <option>Dialogue</option>
+              <option>Visuals</option>
+              <option>Research</option>
+              <option>General</option>
+            </select>
 
           </div>
 
         </div>
 
-      </div>
+        <div class="modal-footer">
 
+          <button class="modal-button" id="annotationCancel">
+            Cancel
+          </button>
 
-      <!-- =================================================
-           LOCATION MODAL
-      ================================================== -->
-
-      <div class="modal-backdrop" id="elementModal">
-
-        <div class="modal">
-
-          <div class="modal-header">
-
-            <div class="modal-title" id="elementModalTitle">
-              New Location
-            </div>
-
-            <button class="modal-close" id="elementModalClose">
-              <i data-lucide="x"></i>
-            </button>
-
-          </div>
-
-          <div class="modal-body">
-
-            <div class="field-group">
-
-              <label class="field-label" for="elementName">
-                Name
-              </label>
-
-              <input
-                id="elementName"
-                class="field-input"
-                placeholder="Enter a location..."
-              >
-
-            </div>
-
-            <div class="field-group">
-
-              <label class="field-label" for="elementDescription">
-                Description
-              </label>
-
-              <textarea
-                id="elementDescription"
-                class="field-textarea"
-                placeholder="Describe this location..."
-              ></textarea>
-
-            </div>
-
-          </div>
-
-          <div class="modal-footer">
-
-            <button class="modal-button" id="elementCancel">
-              Cancel
-            </button>
-
-            <button class="modal-button primary" id="elementSave">
-              Create
-            </button>
-
-          </div>
+          <button class="modal-button primary" id="annotationSave">
+            Create
+          </button>
 
         </div>
 
-      </div>
-
-
-      <!-- =================================================
-           STASH MODAL
-      ================================================== -->
-
-      <div class="modal-backdrop" id="stashModal">
-
-        <div class="modal">
-
-          <div class="modal-header">
-
-            <div class="modal-title">
-              New Stash Item
-            </div>
-
-            <button class="modal-close" id="stashModalClose">
-              <i data-lucide="x"></i>
-            </button>
-
-          </div>
-
-          <div class="modal-body">
-
-            <div class="field-group">
-
-              <label class="field-label" for="stashTitle">
-                Title
-              </label>
-
-              <input
-                id="stashTitle"
-                class="field-input"
-                placeholder="Idea, fragment, reference..."
-              >
-
-            </div>
-
-            <div class="field-group">
-
-              <label class="field-label" for="stashBody">
-                Content
-              </label>
-
-              <textarea
-                id="stashBody"
-                class="field-textarea"
-                placeholder="Put anything here..."
-              ></textarea>
-
-            </div>
-
-          </div>
-
-          <div class="modal-footer">
-
-            <button class="modal-button" id="stashCancel">
-              Cancel
-            </button>
-
-            <button class="modal-button primary" id="stashSave">
-              Add to Stash
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="toast" id="toast">
-        Saved
-      </div>
-
-    </section>
-
-
-    <footer class="statusbar">
-
-      <div class="status-left">
-
-        <span id="pageStatus">
-          Page 1
-        </span>
-
-        <span id="wordStatus">
-          0 words
-        </span>
-
-      </div>
-
-      <div class="status-right">
-
-        <span>100%</span>
-        <span>Courier Prime</span>
-        <span>US Letter</span>
-
-      </div>
-
-    </footer>
-
-  </main>
-
-
-  <!-- =====================================================
-       RIGHT SIDEBAR
-  ====================================================== -->
-
-  <aside class="right-sidebar" id="rightSidebar">
-
-    <div class="right-header">
-
-      <div class="right-header-title">
-        Creative Workspace
       </div>
 
     </div>
 
-    <div class="right-tabs">
+    <!-- ELEMENT MODAL -->
 
-      <button class="right-tab active" data-right-tab="elements">
-        ELEMENTS
-      </button>
+    <div class="modal-backdrop" id="elementModal">
 
-      <button class="right-tab" data-right-tab="stash">
-        STASH
-      </button>
+      <div class="modal">
 
-    </div>
+        <div class="modal-header">
 
-    <div class="right-content">
+          <div class="modal-title" id="elementModalTitle">
+            New Character
+          </div>
 
-      <!-- ELEMENTS -->
+          <button class="modal-close" id="elementModalClose">
+            <i data-lucide="x"></i>
+          </button>
 
-      <div id="elementsPanel">
+        </div>
 
-        <!-- STORYLINE -->
+        <div class="modal-body">
 
-        <section class="element-section">
+          <div class="field-group">
 
-          <div class="element-section-header">
+            <label class="field-label" for="elementName">
+              Name
+            </label>
 
-            <div class="element-section-title">
-              STORYLINE
-            </div>
-
-            <button
-              class="element-add"
-              data-element-type="storyline"
-              title="Create storyline"
+            <input
+              id="elementName"
+              class="field-input"
+              placeholder="Enter a name..."
             >
-              <i data-lucide="plus"></i>
-            </button>
 
           </div>
 
-          <div id="storylineList"></div>
+          <div class="field-group">
 
-        </section>
+            <label class="field-label" for="elementDescription">
+              Description
+            </label>
 
-
-        <!-- CHARACTERS -->
-
-        <section class="element-section">
-
-          <div class="element-section-header">
-
-            <div class="element-section-title">
-              CHARACTERS
-            </div>
-
-            <button
-              class="element-add"
-              data-element-type="character"
-              title="Create character"
-            >
-              <i data-lucide="plus"></i>
-            </button>
+            <textarea
+              id="elementDescription"
+              class="field-textarea"
+              placeholder="Describe this element..."
+            ></textarea>
 
           </div>
 
-          <div id="characterList"></div>
+        </div>
 
-        </section>
+        <div class="modal-footer">
 
+          <button class="modal-button" id="elementCancel">
+            Cancel
+          </button>
 
-        <!-- LOCATIONS -->
+          <button class="modal-button primary" id="elementSave">
+            Create
+          </button>
 
-        <section class="element-section">
-
-          <div class="element-section-header">
-
-            <div class="element-section-title">
-              LOCATIONS
-            </div>
-
-            <button
-              class="element-add"
-              data-element-type="location"
-              title="Create location"
-            >
-              <i data-lucide="plus"></i>
-            </button>
-
-          </div>
-
-          <div id="locationList"></div>
-
-        </section>
+        </div>
 
       </div>
 
+    </div>
 
-      <!-- STASH -->
+    <!-- STASH MODAL -->
 
-      <div id="stashPanel" class="hidden">
+    <div class="modal-backdrop" id="stashModal">
 
-        <div class="sidebar-toolbar">
+      <div class="modal">
 
-          <button class="sidebar-tool" id="addStashButton">
+        <div class="modal-header">
+
+          <div class="modal-title">
+            New Stash Item
+          </div>
+
+          <button class="modal-close" id="stashModalClose">
+            <i data-lucide="x"></i>
+          </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <div class="field-group">
+
+            <label class="field-label" for="stashTitle">
+              Title
+            </label>
+
+            <input
+              id="stashTitle"
+              class="field-input"
+              placeholder="Idea, fragment, reference..."
+            >
+
+          </div>
+
+          <div class="field-group">
+
+            <label class="field-label" for="stashBody">
+              Content
+            </label>
+
+            <textarea
+              id="stashBody"
+              class="field-textarea"
+              placeholder="Put anything here..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button class="modal-button" id="stashCancel">
+            Cancel
+          </button>
+
+          <button class="modal-button primary" id="stashSave">
+            Add to Stash
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="toast" id="toast">
+      Saved
+    </div>
+
+  </section>
+
+  <footer class="statusbar">
+
+    <div class="status-left">
+
+      <span id="pageStatus">
+        Page 1
+      </span>
+
+      <span id="wordStatus">
+        0 words
+      </span>
+
+    </div>
+
+    <div class="status-right">
+
+      <span>100%</span>
+      <span>Courier Prime</span>
+      <span>US Letter</span>
+
+    </div>
+
+  </footer>
+
+</main>
+
+<!-- =====================================================
+     RIGHT SIDEBAR
+====================================================== -->
+
+<aside class="right-sidebar" id="rightSidebar">
+
+  <div class="right-header">
+
+    <div class="right-header-title">
+      Creative Workspace
+    </div>
+
+  </div>
+
+  <div class="right-tabs">
+
+    <button class="right-tab active" data-right-tab="elements">
+      ELEMENTS
+    </button>
+
+    <button class="right-tab" data-right-tab="stash">
+      STASH
+    </button>
+
+  </div>
+
+  <div class="right-content">
+
+    <!-- ELEMENTS -->
+
+    <div id="elementsPanel">
+
+      <!-- STORYLINE -->
+
+      <section class="element-section">
+
+        <div class="element-section-header">
+
+          <div class="element-section-title">
+            STORYLINE
+          </div>
+
+          <button
+            class="element-add"
+            data-element-type="storyline"
+            title="Create storyline"
+          >
             <i data-lucide="plus"></i>
           </button>
 
-          <div class="sidebar-toolbar-spacer"></div>
+        </div>
 
-          <button class="sidebar-tool danger" id="clearStashButton">
-            <i data-lucide="rotate-ccw"></i>
+        <div id="storylineList"></div>
+
+      </section>
+
+      <!-- CHARACTERS -->
+
+      <section class="element-section">
+
+        <div class="element-section-header">
+
+          <div class="element-section-title">
+            CHARACTERS
+          </div>
+
+          <button
+            class="element-add"
+            data-element-type="character"
+            title="Create character"
+          >
+            <i data-lucide="plus"></i>
           </button>
 
         </div>
 
-        <div id="stashList"></div>
+        <div id="characterList"></div>
 
-      </div>
+      </section>
+
+      <!-- LOCATIONS -->
+
+      <section class="element-section">
+
+        <div class="element-section-header">
+
+          <div class="element-section-title">
+            LOCATIONS
+          </div>
+
+          <button
+            class="element-add"
+            data-element-type="location"
+            title="Create location"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+
+        </div>
+
+        <div id="locationList"></div>
+
+      </section>
 
     </div>
 
-  </aside>
+    <!-- STASH -->
+
+    <div id="stashPanel" class="hidden">
+
+      <div class="sidebar-toolbar">
+
+        <button class="sidebar-tool" id="addStashButton">
+          <i data-lucide="plus"></i>
+        </button>
+
+        <div class="sidebar-toolbar-spacer"></div>
+
+        <button class="sidebar-tool" id="clearStashButton">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+
+      </div>
+
+      <div id="stashList"></div>
+
+    </div>
+
+  </div>
+
+</aside>
 
 </div>
-
 
 <script>
 lucide.createIcons();
@@ -2379,26 +2000,15 @@ const elementModal =
 const stashModal =
   document.getElementById("stashModal");
 
-
 /* =========================================================
    STORAGE
 ========================================================= */
 
-const STORAGE_KEY =
-  "auteur-sentient-mass-v9";
-
-const COMMENTS_KEY =
-  "auteur-comments-v3";
-
-const NOTES_KEY =
-  "auteur-notes-v3";
-
-const ELEMENTS_KEY =
-  "auteur-elements-v2";
-
-const STASH_KEY =
-  "auteur-stash-v2";
-
+const STORAGE_KEY = "auteur-sentient-mass-v9";
+const COMMENTS_KEY = "auteur-comments-v2";
+const NOTES_KEY = "auteur-notes-v2";
+const ELEMENTS_KEY = "auteur-elements-v2";
+const STASH_KEY = "auteur-stash-v1";
 
 /* =========================================================
    STATE
@@ -2406,33 +2016,28 @@ const STASH_KEY =
 
 let activeBlock = null;
 let annotationMode = "comment";
-let elementMode = "location";
+let elementMode = "character";
 
-let comments =
-  JSON.parse(
-    localStorage.getItem(COMMENTS_KEY) || "[]"
-  );
+let comments = JSON.parse(
+  localStorage.getItem(COMMENTS_KEY) || "[]"
+);
 
-let notes =
-  JSON.parse(
-    localStorage.getItem(NOTES_KEY) || "[]"
-  );
+let notes = JSON.parse(
+  localStorage.getItem(NOTES_KEY) || "[]"
+);
 
-let elements =
-  JSON.parse(
-    localStorage.getItem(ELEMENTS_KEY) ||
-    JSON.stringify({
-      storyline: [],
-      character: [],
-      location: []
-    })
-  );
+let elements = JSON.parse(
+  localStorage.getItem(ELEMENTS_KEY) ||
+  JSON.stringify({
+    storyline: [],
+    character: [],
+    location: []
+  })
+);
 
-let stash =
-  JSON.parse(
-    localStorage.getItem(STASH_KEY) || "[]"
-  );
-
+let stash = JSON.parse(
+  localStorage.getItem(STASH_KEY) || "[]"
+);
 
 /* =========================================================
    RIGHT SIDEBAR
@@ -2442,21 +2047,15 @@ document
   .getElementById("rightBarToggle")
   .addEventListener("click", () => {
 
-    const open =
-      app.classList.toggle("right-open");
+    const open = app.classList.toggle("right-open");
 
     const button =
       document.getElementById("rightBarToggle");
 
     button.classList.toggle("active", open);
-
-    button.setAttribute(
-      "aria-pressed",
-      String(open)
-    );
+    button.setAttribute("aria-pressed", String(open));
 
   });
-
 
 /* =========================================================
    RIGHT TABS
@@ -2481,9 +2080,7 @@ rightTabs.forEach(tab => {
 
     tab.classList.add("active");
 
-    if (
-      tab.dataset.rightTab === "elements"
-    ) {
+    if (tab.dataset.rightTab === "elements") {
 
       elementsPanel.classList.remove("hidden");
       stashPanel.classList.add("hidden");
@@ -2499,9 +2096,8 @@ rightTabs.forEach(tab => {
 
 });
 
-
 /* =========================================================
-   DOCUMENT
+   DOCUMENT SAVE
 ========================================================= */
 
 function saveDocument(showToast = false) {
@@ -2511,10 +2107,7 @@ function saveDocument(showToast = false) {
     editor.innerHTML
   );
 
-  const saveState =
-    document.querySelector(".save-state");
-
-  saveState.innerHTML = `
+  document.querySelector(".save-state").innerHTML = `
     <span class="save-dot"></span>
     Saved
   `;
@@ -2528,27 +2121,21 @@ function saveDocument(showToast = false) {
 
 }
 
-
 function scheduleSave() {
 
-  const saveState =
-    document.querySelector(".save-state");
-
-  saveState.innerHTML = `
+  document.querySelector(".save-state").innerHTML = `
     <span class="save-dot"></span>
     Saving...
   `;
 
   clearTimeout(window.auteurSaveTimer);
 
-  window.auteurSaveTimer =
-    setTimeout(
-      () => saveDocument(false),
-      650
-    );
+  window.auteurSaveTimer = setTimeout(
+    () => saveDocument(false),
+    650
+  );
 
 }
-
 
 function loadDocument() {
 
@@ -2563,7 +2150,6 @@ function loadDocument() {
 
 loadDocument();
 
-
 /* =========================================================
    STATS
 ========================================================= */
@@ -2573,34 +2159,23 @@ function updateStats() {
   const text =
     editor.innerText.trim();
 
-  const words =
-    text
-      ? text
-          .split(/\s+/)
-          .filter(Boolean)
-          .length
-      : 0;
+  const words = text
+    ? text.split(/\s+/).filter(Boolean).length
+    : 0;
 
   const pages =
-    Math.max(
-      1,
-      Math.ceil(words / 250)
-    );
+    Math.max(1, Math.ceil(words / 250));
 
-  document.getElementById("wordStatus")
-    .textContent =
+  document.getElementById("wordStatus").textContent =
     `${words} words`;
 
-  document.getElementById("pageStatus")
-    .textContent =
+  document.getElementById("pageStatus").textContent =
     `Page ${pages}`;
 
-  document.getElementById("pageCount")
-    .textContent =
+  document.getElementById("pageCount").textContent =
     `${pages} ${pages === 1 ? "page" : "pages"}`;
 
 }
-
 
 /* =========================================================
    LEFT TABS
@@ -2610,24 +2185,16 @@ const leftTabs =
   document.querySelectorAll(".side-tab");
 
 const leftPanels = {
-
-  contents:
-    document.getElementById("contentsPanel"),
-
-  comments:
-    document.getElementById("commentsPanel"),
-
-  notes:
-    document.getElementById("notesPanel")
-
+  contents: document.getElementById("contentsPanel"),
+  comments: document.getElementById("commentsPanel"),
+  notes: document.getElementById("notesPanel")
 };
 
 leftTabs.forEach(tab => {
 
   tab.addEventListener("click", () => {
 
-    const target =
-      tab.dataset.tab;
+    const target = tab.dataset.tab;
 
     leftTabs.forEach(item =>
       item.classList.remove("active")
@@ -2635,32 +2202,25 @@ leftTabs.forEach(tab => {
 
     tab.classList.add("active");
 
-    Object.values(leftPanels)
-      .forEach(panel =>
-        panel.classList.add("hidden")
-      );
+    Object.values(leftPanels).forEach(panel =>
+      panel.classList.add("hidden")
+    );
 
-    leftPanels[target]
-      .classList.remove("hidden");
+    leftPanels[target].classList.remove("hidden");
 
   });
 
 });
 
-
 /* =========================================================
-   EDITOR BLOCK HELPERS
+   EDITOR BLOCKS
 ========================================================= */
 
 function getBlockFromNode(node) {
 
-  if (!node) {
-    return null;
-  }
+  if (!node) return null;
 
-  if (
-    node.nodeType === Node.TEXT_NODE
-  ) {
+  if (node.nodeType === Node.TEXT_NODE) {
     node = node.parentElement;
   }
 
@@ -2668,52 +2228,38 @@ function getBlockFromNode(node) {
 
 }
 
-
 function getCurrentBlock() {
 
-  const selection =
-    window.getSelection();
+  const selection = window.getSelection();
 
-  if (
-    !selection ||
-    !selection.rangeCount
-  ) {
+  if (!selection || !selection.rangeCount) {
     return activeBlock;
   }
 
   return (
-    getBlockFromNode(
-      selection.anchorNode
-    ) ||
+    getBlockFromNode(selection.anchorNode) ||
     activeBlock
   );
 
 }
 
-
 function setActiveBlock(block) {
 
-  if (!block) {
-    return;
-  }
+  if (!block) return;
 
   activeBlock = block;
-
   updateFormatButtons(block);
 
 }
 
-
 /* =========================================================
-   FORMAT
+   FORMATTING
 ========================================================= */
 
 function updateFormatButtons(block) {
 
   document
-    .querySelectorAll(
-      ".format-btn[data-format]"
-    )
+    .querySelectorAll(".format-btn[data-format]")
     .forEach(button => {
 
       button.classList.remove("active");
@@ -2724,19 +2270,14 @@ function updateFormatButtons(block) {
       const matches =
         (format === "scene" &&
           block.classList.contains("scene-heading")) ||
-
         (format === "action" &&
           block.classList.contains("action")) ||
-
         (format === "character" &&
           block.classList.contains("character")) ||
-
         (format === "parenthetical" &&
           block.classList.contains("parenthetical")) ||
-
         (format === "dialogue" &&
           block.classList.contains("dialogue")) ||
-
         (format === "transition" &&
           block.classList.contains("transition"));
 
@@ -2748,13 +2289,9 @@ function updateFormatButtons(block) {
 
 }
 
-
 function showFormatBar() {
-
   formatBar.classList.add("visible");
-
 }
-
 
 editor.addEventListener("focus", () => {
 
@@ -2768,7 +2305,6 @@ editor.addEventListener("focus", () => {
 
 });
 
-
 editor.addEventListener("click", () => {
 
   const block = getCurrentBlock();
@@ -2781,7 +2317,6 @@ editor.addEventListener("click", () => {
 
 });
 
-
 const FORMAT_CLASSES = [
   "scene-heading",
   "action",
@@ -2792,44 +2327,33 @@ const FORMAT_CLASSES = [
   "blank"
 ];
 
-
 function clearFormat(block) {
 
-  block.classList.remove(
-    ...FORMAT_CLASSES
-  );
-
+  block.classList.remove(...FORMAT_CLASSES);
   block.style.textAlign = "";
 
 }
 
-
 function placeCaretAtEnd(element) {
 
-  const range =
-    document.createRange();
+  const range = document.createRange();
 
   range.selectNodeContents(element);
-
   range.collapse(false);
 
   const selection =
     window.getSelection();
 
   selection.removeAllRanges();
-
   selection.addRange(range);
 
   editor.focus();
 
 }
 
-
 function formatBlock(block, format) {
 
-  if (!block) {
-    return;
-  }
+  if (!block) return;
 
   const text =
     block.innerText.trim();
@@ -2839,126 +2363,87 @@ function formatBlock(block, format) {
   if (format === "scene") {
 
     block.classList.add("scene-heading");
+    block.textContent = text.toUpperCase();
 
-    block.textContent =
-      text.toUpperCase();
-
-  }
-
-  else if (format === "action") {
+  } else if (format === "action") {
 
     block.classList.add("action");
 
-  }
-
-  else if (format === "character") {
+  } else if (format === "character") {
 
     block.classList.add("character");
+    block.textContent = text.toUpperCase();
 
-    block.textContent =
-      text.toUpperCase();
-
-  }
-
-  else if (format === "parenthetical") {
+  } else if (format === "parenthetical") {
 
     block.classList.add("parenthetical");
 
-    if (
-      text &&
-      !text.startsWith("(")
-    ) {
-
-      block.textContent =
-        `(${text})`;
-
+    if (text && !text.startsWith("(")) {
+      block.textContent = `(${text})`;
     }
 
-  }
-
-  else if (format === "dialogue") {
+  } else if (format === "dialogue") {
 
     block.classList.add("dialogue");
 
-  }
-
-  else if (format === "transition") {
+  } else if (format === "transition") {
 
     block.classList.add("transition");
-
-    block.textContent =
-      text.toUpperCase();
+    block.textContent = text.toUpperCase();
 
   }
 
   setActiveBlock(block);
-
   placeCaretAtEnd(block);
-
   scheduleSave();
 
 }
 
-
 document
-  .querySelectorAll(
-    ".format-btn[data-format]"
-  )
+  .querySelectorAll(".format-btn[data-format]")
   .forEach(button => {
 
-    button.addEventListener(
-      "mousedown",
-      event => event.preventDefault()
-    );
+    button.addEventListener("mousedown", event => {
+      event.preventDefault();
+    });
 
-    button.addEventListener(
-      "click",
-      () => {
+    button.addEventListener("click", () => {
 
-        const block =
-          activeBlock ||
-          getCurrentBlock();
+      const block =
+        activeBlock || getCurrentBlock();
 
-        if (!block) {
-          return;
-        }
+      if (!block) return;
 
-        formatBlock(
-          block,
-          button.dataset.format
-        );
+      formatBlock(
+        block,
+        button.dataset.format
+      );
 
-      }
-    );
+    });
 
   });
-
 
 document
   .getElementById("boldButton")
   .addEventListener("click", () => {
 
-    document.execCommand("bold");
+    document.execCommand("bold", false, null);
 
     editor.focus();
-
     scheduleSave();
 
   });
-
 
 document
   .getElementById("italicButton")
   .addEventListener("click", () => {
 
-    document.execCommand("italic");
+    document.execCommand("italic", false, null);
 
     editor.focus();
-
     scheduleSave();
 
   });
-
 
 /* =========================================================
    SMART ENTER
@@ -2966,18 +2451,13 @@ document
 
 editor.addEventListener("keydown", event => {
 
-  if (event.key !== "Enter") {
-    return;
-  }
+  if (event.key !== "Enter") return;
 
   event.preventDefault();
 
-  const block =
-    getCurrentBlock();
+  const block = getCurrentBlock();
 
-  if (!block) {
-    return;
-  }
+  if (!block) return;
 
   let nextFormat = "action";
 
@@ -2985,32 +2465,21 @@ editor.addEventListener("keydown", event => {
     block.classList.contains("character") ||
     block.classList.contains("parenthetical")
   ) {
-
     nextFormat = "dialogue";
-
-  }
-
-  else if (
+  } else if (
     block.classList.contains("dialogue")
   ) {
-
     nextFormat = "action";
-
-  }
-
-  else if (
+  } else if (
     block.classList.contains("transition")
   ) {
-
     nextFormat = "scene-heading";
-
   }
 
   const newBlock =
     document.createElement("div");
 
   newBlock.classList.add(nextFormat);
-
   newBlock.innerHTML = "<br>";
 
   block.insertAdjacentElement(
@@ -3019,13 +2488,11 @@ editor.addEventListener("keydown", event => {
   );
 
   setActiveBlock(newBlock);
-
   placeCaretAtEnd(newBlock);
 
   scheduleSave();
 
 });
-
 
 /* =========================================================
    INPUT
@@ -3033,20 +2500,17 @@ editor.addEventListener("keydown", event => {
 
 editor.addEventListener("input", () => {
 
-  const block =
-    getCurrentBlock();
+  const block = getCurrentBlock();
 
   if (block) {
     setActiveBlock(block);
   }
 
   scheduleSave();
-
   updateStats();
   updateScenes();
 
 });
-
 
 /* =========================================================
    SCENES
@@ -3055,11 +2519,7 @@ editor.addEventListener("input", () => {
 function updateScenes() {
 
   const headings =
-    [
-      ...editor.querySelectorAll(
-        ".scene-heading"
-      )
-    ];
+    [...editor.querySelectorAll(".scene-heading")];
 
   const sceneList =
     document.getElementById("sceneList");
@@ -3069,7 +2529,7 @@ function updateScenes() {
   if (!headings.length) {
 
     sceneList.innerHTML = `
-      <div class="empty-state">
+      <div class="empty-state contents-empty">
 
         <div class="empty-icon">
           <i data-lucide="file-text"></i>
@@ -3087,7 +2547,6 @@ function updateScenes() {
     `;
 
     lucide.createIcons();
-
     return;
 
   }
@@ -3133,7 +2592,6 @@ function updateScenes() {
       });
 
       setActiveBlock(heading);
-
       placeCaretAtEnd(heading);
 
     });
@@ -3143,7 +2601,6 @@ function updateScenes() {
   });
 
 }
-
 
 /* =========================================================
    ANNOTATIONS
@@ -3162,7 +2619,6 @@ function saveAnnotations() {
   );
 
 }
-
 
 function renderEmpty(type) {
 
@@ -3201,7 +2657,6 @@ function renderEmpty(type) {
 
 }
 
-
 function createAnnotationElement(item, type) {
 
   const element =
@@ -3229,49 +2684,37 @@ function createAnnotationElement(item, type) {
 
     <div class="annotation-meta">
       ${type === "comment" ? "Comment" : "Note"}
-      ·
-      ${new Date(item.created).toLocaleDateString()}
+      · ${new Date(item.created).toLocaleDateString()}
     </div>
 
   `;
 
   element.addEventListener("dblclick", () => {
 
-    if (
-      !confirm(`Delete "${item.title}"?`)
-    ) {
+    if (!confirm(`Delete "${item.title}"?`)) {
       return;
     }
 
     if (type === "comment") {
 
       comments =
-        comments.filter(
-          x => x.id !== item.id
-        );
+        comments.filter(x => x.id !== item.id);
 
     } else {
 
       notes =
-        notes.filter(
-          x => x.id !== item.id
-        );
+        notes.filter(x => x.id !== item.id);
 
     }
 
     saveAnnotations();
     renderAnnotations();
 
-    showMessage(
-      `${type === "comment" ? "Comment" : "Note"} deleted`
-    );
-
   });
 
   return element;
 
 }
-
 
 function renderAnnotations() {
 
@@ -3292,31 +2735,20 @@ function renderAnnotations() {
       : renderEmpty("note");
 
   comments.forEach(item => {
-
     commentsList.appendChild(
-      createAnnotationElement(
-        item,
-        "comment"
-      )
+      createAnnotationElement(item, "comment")
     );
-
   });
 
   notes.forEach(item => {
-
     notesList.appendChild(
-      createAnnotationElement(
-        item,
-        "note"
-      )
+      createAnnotationElement(item, "note")
     );
-
   });
 
   lucide.createIcons();
 
 }
-
 
 /* =========================================================
    ANNOTATION MODAL
@@ -3333,33 +2765,22 @@ function openAnnotationModal(type) {
       ? "New Comment"
       : "New Note";
 
-  document.getElementById(
-    "annotationTitle"
-  ).value = "";
-
-  document.getElementById(
-    "annotationBody"
-  ).value = "";
+  document.getElementById("annotationTitle").value = "";
+  document.getElementById("annotationBody").value = "";
 
   annotationModal.classList.add("open");
 
   setTimeout(() => {
-
     document
       .getElementById("annotationTitle")
       .focus();
-
   }, 80);
 
 }
 
-
 function closeAnnotationModal() {
-
   annotationModal.classList.remove("open");
-
 }
-
 
 document
   .getElementById("addCommentButton")
@@ -3368,14 +2789,12 @@ document
     () => openAnnotationModal("comment")
   );
 
-
 document
   .getElementById("addNoteButton")
   .addEventListener(
     "click",
     () => openAnnotationModal("note")
   );
-
 
 document
   .getElementById("commentSettingsButton")
@@ -3384,7 +2803,6 @@ document
     () => openAnnotationModal("comment")
   );
 
-
 document
   .getElementById("noteSettingsButton")
   .addEventListener(
@@ -3392,45 +2810,33 @@ document
     () => openAnnotationModal("note")
   );
 
-
 document
   .getElementById("annotationSave")
   .addEventListener("click", () => {
 
     const title =
-      document
-        .getElementById("annotationTitle")
-        .value
-        .trim();
+      document.getElementById(
+        "annotationTitle"
+      ).value.trim();
 
     const body =
-      document
-        .getElementById("annotationBody")
-        .value
-        .trim();
+      document.getElementById(
+        "annotationBody"
+      ).value.trim();
 
     const tag =
-      document
-        .getElementById("annotationTag")
-        .value;
+      document.getElementById(
+        "annotationTag"
+      ).value;
 
-    if (!title && !body) {
-      return;
-    }
+    if (!title && !body) return;
 
     const annotation = {
-
       id: Date.now().toString(),
-
-      title:
-        title || "Untitled",
-
+      title: title || "Untitled",
       body,
-
       tag,
-
       created: Date.now()
-
     };
 
     if (annotationMode === "comment") {
@@ -3441,7 +2847,6 @@ document
 
     saveAnnotations();
     renderAnnotations();
-
     closeAnnotationModal();
 
     showMessage(
@@ -3452,7 +2857,6 @@ document
 
   });
 
-
 document
   .getElementById("annotationCancel")
   .addEventListener(
@@ -3460,14 +2864,12 @@ document
     closeAnnotationModal
   );
 
-
 document
   .getElementById("annotationModalClose")
   .addEventListener(
     "click",
     closeAnnotationModal
   );
-
 
 document
   .getElementById("clearCommentsButton")
@@ -3478,11 +2880,7 @@ document
       return;
     }
 
-    if (
-      !confirm(
-        "Delete all comments? This cannot be undone."
-      )
-    ) {
+    if (!confirm("Delete all comments? This cannot be undone.")) {
       return;
     }
 
@@ -3495,7 +2893,6 @@ document
 
   });
 
-
 document
   .getElementById("clearNotesButton")
   .addEventListener("click", () => {
@@ -3505,11 +2902,7 @@ document
       return;
     }
 
-    if (
-      !confirm(
-        "Delete all notes? This cannot be undone."
-      )
-    ) {
+    if (!confirm("Delete all notes? This cannot be undone.")) {
       return;
     }
 
@@ -3522,6 +2915,334 @@ document
 
   });
 
+/* =========================================================
+   ELEMENT CONFIG
+========================================================= */
+
+const elementConfig = {
+
+  character: {
+    title: "New Character",
+    icon: "user"
+  },
+
+  location: {
+    title: "New Location",
+    icon: "map-pin"
+  }
+
+};
+
+/* =========================================================
+   CHARACTER / LOCATION MODAL
+========================================================= */
+
+function openElementModal(type) {
+
+  elementMode = type;
+
+  document.getElementById(
+    "elementModalTitle"
+  ).textContent =
+    elementConfig[type].title;
+
+  document.getElementById("elementName").value = "";
+  document.getElementById("elementDescription").value = "";
+
+  elementModal.classList.add("open");
+
+  setTimeout(() => {
+    document
+      .getElementById("elementName")
+      .focus();
+  }, 80);
+
+}
+
+document
+  .querySelectorAll(
+    '.element-add[data-element-type="character"], .element-add[data-element-type="location"]'
+  )
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      openElementModal(
+        button.dataset.elementType
+      );
+
+    });
+
+  });
+
+document
+  .getElementById("elementSave")
+  .addEventListener("click", () => {
+
+    const name =
+      document.getElementById(
+        "elementName"
+      ).value.trim();
+
+    const description =
+      document.getElementById(
+        "elementDescription"
+      ).value.trim();
+
+    if (!name) return;
+
+    elements[elementMode].push({
+
+      id: Date.now().toString(),
+
+      name,
+
+      description,
+
+      created: Date.now()
+
+    });
+
+    saveElements();
+    renderElements();
+
+    elementModal.classList.remove("open");
+
+    showMessage(
+      `${elementConfig[elementMode].title.replace(
+        "New ",
+        ""
+      )} created`
+    );
+
+  });
+
+document
+  .getElementById("elementCancel")
+  .addEventListener(
+    "click",
+    () => elementModal.classList.remove("open")
+  );
+
+document
+  .getElementById("elementModalClose")
+  .addEventListener(
+    "click",
+    () => elementModal.classList.remove("open")
+  );
+
+/* =========================================================
+   STORYLINE CREATION
+========================================================= */
+
+/*
+  Storylines deliberately do NOT use the creation modal.
+
+  Clicking + immediately creates an editable storyline card.
+  Clicking the card header toggles it open/closed.
+*/
+
+function createStoryline() {
+
+  const storyline = {
+
+    id: Date.now().toString(),
+
+    name: "Untitled Storyline",
+
+    synopsis: "",
+
+    open: true,
+
+    created: Date.now()
+
+  };
+
+  elements.storyline.unshift(storyline);
+
+  saveElements();
+  renderElements();
+
+  showMessage("Storyline created");
+
+}
+
+document
+  .querySelector(
+    '.element-add[data-element-type="storyline"]'
+  )
+  .addEventListener(
+    "click",
+    createStoryline
+  );
+
+/* =========================================================
+   STORYLINE RENDERING
+========================================================= */
+
+function renderStorylines() {
+
+  const container =
+    document.getElementById("storylineList");
+
+  container.innerHTML = "";
+
+  if (!elements.storyline.length) {
+
+    container.innerHTML = `
+      <div class="storyline-empty">
+        None created yet.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  elements.storyline.forEach(item => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "storyline-card" +
+      (item.open ? " open" : "");
+
+    card.innerHTML = `
+
+      <div class="storyline-header">
+
+        <div class="storyline-icon">
+          <i data-lucide="git-branch"></i>
+        </div>
+
+        <div class="storyline-header-copy">
+
+          <div class="storyline-title">
+            ${escapeHTML(
+              item.name || "Untitled Storyline"
+            )}
+          </div>
+
+          <div class="storyline-meta">
+            STORYLINE
+          </div>
+
+        </div>
+
+        <div class="storyline-chevron">
+          <i data-lucide="chevron-down"></i>
+        </div>
+
+      </div>
+
+      <div class="storyline-body">
+
+        <label class="storyline-label">
+          SYNOPSIS
+        </label>
+
+        <textarea
+          class="storyline-synopsis"
+          placeholder="Write your storyline synopsis..."
+          spellcheck="true"
+        >${escapeHTML(item.synopsis || "")}</textarea>
+
+        <div class="storyline-actions">
+
+          <button
+            class="storyline-delete"
+            title="Delete storyline"
+          >
+            <i data-lucide="trash-2"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+    const header =
+      card.querySelector(".storyline-header");
+
+    const synopsis =
+      card.querySelector(".storyline-synopsis");
+
+    const deleteButton =
+      card.querySelector(".storyline-delete");
+
+    header.addEventListener("click", () => {
+
+      item.open = !item.open;
+
+      saveElements();
+      renderStorylines();
+
+      /*
+        Re-focus the synopsis when opening.
+      */
+      if (item.open) {
+
+        setTimeout(() => {
+
+          const current =
+            document.querySelector(
+              `.storyline-card[data-id="${item.id}"] .storyline-synopsis`
+            );
+
+          if (current) {
+            current.focus();
+          }
+
+        }, 30);
+
+      }
+
+    });
+
+    card.dataset.id = item.id;
+
+    synopsis.addEventListener("input", event => {
+
+      item.synopsis =
+        event.target.value;
+
+      saveElements();
+
+    });
+
+    deleteButton.addEventListener("click", event => {
+
+      event.stopPropagation();
+
+      if (
+        !confirm(
+          `Delete "${item.name}"?`
+        )
+      ) {
+        return;
+      }
+
+      elements.storyline =
+        elements.storyline.filter(
+          x => x.id !== item.id
+        );
+
+      saveElements();
+      renderElements();
+
+      showMessage("Storyline deleted");
+
+    });
+
+    container.appendChild(card);
+
+  });
+
+  lucide.createIcons();
+
+}
 
 /* =========================================================
    ELEMENT STORAGE
@@ -3536,699 +3257,8 @@ function saveElements() {
 
 }
 
-
 /* =========================================================
-   CREATE INLINE ELEMENT
-========================================================= */
-
-function createInlineElement(type) {
-
-  const item = {
-
-    id: Date.now().toString(),
-
-    name:
-      type === "storyline"
-        ? "Untitled Storyline"
-        : "Untitled Character",
-
-    description: "",
-
-    bio: "",
-
-    gender: "unspecified",
-
-    color: "purple",
-
-    created: Date.now(),
-
-    expanded: true
-
-  };
-
-  elements[type].unshift(item);
-
-  saveElements();
-
-  renderElements();
-
-  requestAnimationFrame(() => {
-
-    const card =
-      document.querySelector(
-        `[data-element-id="${item.id}"]`
-      );
-
-    if (!card) {
-      return;
-    }
-
-    card.classList.add("expanded");
-
-    const input =
-      card.querySelector(
-        ".element-name-input"
-      );
-
-    if (input) {
-
-      input.focus();
-
-      input.select();
-
-    }
-
-  });
-
-}
-
-
-function createLocation() {
-
-  elementMode = "location";
-
-  document.getElementById(
-    "elementModalTitle"
-  ).textContent =
-    "New Location";
-
-  document.getElementById(
-    "elementName"
-  ).value = "";
-
-  document.getElementById(
-    "elementDescription"
-  ).value = "";
-
-  elementModal.classList.add("open");
-
-  setTimeout(() => {
-
-    document
-      .getElementById("elementName")
-      .focus();
-
-  }, 80);
-
-}
-
-
-document
-  .querySelectorAll(".element-add")
-  .forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      const type =
-        button.dataset.elementType;
-
-      if (
-        type === "storyline" ||
-        type === "character"
-      ) {
-
-        createInlineElement(type);
-
-      } else {
-
-        createLocation();
-
-      }
-
-    });
-
-  });
-
-
-/* =========================================================
-   INLINE CARD RENDERING
-========================================================= */
-
-function renderStorylineCard(item) {
-
-  const card =
-    document.createElement("div");
-
-  card.className =
-    "element-card storyline-card";
-
-  card.dataset.elementId =
-    item.id;
-
-  if (item.expanded) {
-    card.classList.add("expanded");
-  }
-
-  card.innerHTML = `
-
-    <div class="element-card-header">
-
-      <div class="element-card-chevron">
-        <i data-lucide="chevron-right"></i>
-      </div>
-
-      <div class="element-card-icon">
-        <i data-lucide="git-branch"></i>
-      </div>
-
-      <div class="element-card-copy">
-
-        <div
-          class="element-card-name"
-        >
-          ${escapeHTML(
-            item.name ||
-            "Untitled Storyline"
-          )}
-        </div>
-
-        <div class="element-card-meta">
-          ${item.bio || item.description
-            ? "Storyline"
-            : "Click to write"}
-        </div>
-
-      </div>
-
-      <button
-        class="element-card-delete"
-        title="Delete storyline"
-      >
-        <i data-lucide="trash-2"></i>
-      </button>
-
-    </div>
-
-    <div class="element-card-body">
-
-      <div class="card-label">
-        TITLE
-      </div>
-
-      <input
-        class="field-input element-name-input"
-        value="${escapeAttribute(
-          item.name ||
-          "Untitled Storyline"
-        )}"
-      >
-
-      <div class="card-label">
-        SYNOPSIS
-      </div>
-
-      <textarea
-        class="card-textarea element-description-input"
-        placeholder="Write the synopsis..."
-      >${escapeHTML(
-        item.description || ""
-      )}</textarea>
-
-      <div class="card-footer">
-
-        <span class="card-hint">
-          Autosaved
-        </span>
-
-      </div>
-
-    </div>
-  `;
-
-  setupInlineCardEvents(
-    card,
-    item,
-    "storyline"
-  );
-
-  return card;
-
-}
-
-
-function renderCharacterCard(item) {
-
-  const color =
-    item.color || "purple";
-
-  const gender =
-    item.gender || "unspecified";
-
-  const genderSymbols = {
-    female: "♀",
-    male: "♂",
-    nonbinary: "⚧",
-    other: "○",
-    unspecified: "?"
-  };
-
-  const genderNames = {
-    female: "Female",
-    male: "Male",
-    nonbinary: "Non-binary",
-    other: "Other",
-    unspecified: "Unspecified"
-  };
-
-  const card =
-    document.createElement("div");
-
-  card.className =
-    `element-card character-card color-${color}`;
-
-  card.dataset.elementId =
-    item.id;
-
-  if (item.expanded) {
-    card.classList.add("expanded");
-  }
-
-  card.innerHTML = `
-
-    <div class="element-card-header">
-
-      <div class="element-card-chevron">
-        <i data-lucide="chevron-right"></i>
-      </div>
-
-      <div class="element-card-icon">
-        <span class="gender-symbol">
-          ${genderSymbols[gender]}
-        </span>
-      </div>
-
-      <div class="element-card-copy">
-
-        <div class="element-card-name">
-          ${escapeHTML(
-            item.name ||
-            "Untitled Character"
-          )}
-        </div>
-
-        <div class="element-card-meta">
-          ${genderNames[gender]}
-        </div>
-
-      </div>
-
-      <button
-        class="element-card-delete"
-        title="Delete character"
-      >
-        <i data-lucide="trash-2"></i>
-      </button>
-
-    </div>
-
-    <div class="element-card-body">
-
-      <div class="card-label">
-        NAME
-      </div>
-
-      <input
-        class="field-input element-name-input"
-        value="${escapeAttribute(
-          item.name ||
-          "Untitled Character"
-        )}"
-      >
-
-      <div class="card-label">
-        BIO
-      </div>
-
-      <textarea
-        class="card-textarea element-bio-input"
-        placeholder="Write this character's bio..."
-      >${escapeHTML(
-        item.bio || ""
-      )}</textarea>
-
-      <div class="character-controls">
-
-        <div class="character-control">
-
-          <div class="card-label">
-            GENDER
-          </div>
-
-          <select class="character-select gender-select">
-
-            <option value="unspecified"
-              ${gender === "unspecified" ? "selected" : ""}>
-              ? Unspecified
-            </option>
-
-            <option value="female"
-              ${gender === "female" ? "selected" : ""}>
-              ♀ Female
-            </option>
-
-            <option value="male"
-              ${gender === "male" ? "selected" : ""}>
-              ♂ Male
-            </option>
-
-            <option value="nonbinary"
-              ${gender === "nonbinary" ? "selected" : ""}>
-              ⚧ Non-binary
-            </option>
-
-            <option value="other"
-              ${gender === "other" ? "selected" : ""}>
-              ○ Other
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="character-control">
-
-          <div class="card-label">
-            COLOR
-          </div>
-
-          <select class="character-select color-select">
-
-            <option value="purple"
-              ${color === "purple" ? "selected" : ""}>
-              Purple
-            </option>
-
-            <option value="blue"
-              ${color === "blue" ? "selected" : ""}>
-              Blue
-            </option>
-
-            <option value="green"
-              ${color === "green" ? "selected" : ""}>
-              Green
-            </option>
-
-            <option value="red"
-              ${color === "red" ? "selected" : ""}>
-              Red
-            </option>
-
-            <option value="orange"
-              ${color === "orange" ? "selected" : ""}>
-              Orange
-            </option>
-
-            <option value="pink"
-              ${color === "pink" ? "selected" : ""}>
-              Pink
-            </option>
-
-            <option value="teal"
-              ${color === "teal" ? "selected" : ""}>
-              Teal
-            </option>
-
-            <option value="gray"
-              ${color === "gray" ? "selected" : ""}>
-              Gray
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-      <div class="card-footer">
-
-        <span class="card-hint">
-          Autosaved
-        </span>
-
-      </div>
-
-    </div>
-  `;
-
-  setupInlineCardEvents(
-    card,
-    item,
-    "character"
-  );
-
-  return card;
-
-}
-
-
-/* =========================================================
-   INLINE EVENTS
-========================================================= */
-
-function setupInlineCardEvents(
-  card,
-  item,
-  type
-) {
-
-  const header =
-    card.querySelector(
-      ".element-card-header"
-    );
-
-  const deleteButton =
-    card.querySelector(
-      ".element-card-delete"
-    );
-
-  const nameInput =
-    card.querySelector(
-      ".element-name-input"
-    );
-
-  const descriptionInput =
-    card.querySelector(
-      ".element-description-input"
-    );
-
-  const bioInput =
-    card.querySelector(
-      ".element-bio-input"
-    );
-
-  const genderSelect =
-    card.querySelector(
-      ".gender-select"
-    );
-
-  const colorSelect =
-    card.querySelector(
-      ".color-select"
-    );
-
-
-  header.addEventListener("click", event => {
-
-    if (
-      event.target.closest(
-        ".element-card-delete"
-      )
-    ) {
-      return;
-    }
-
-    const isExpanded =
-      card.classList.toggle("expanded");
-
-    item.expanded =
-      isExpanded;
-
-    saveElements();
-
-  });
-
-
-  deleteButton.addEventListener(
-    "click",
-    event => {
-
-      event.stopPropagation();
-
-      if (
-        !confirm(
-          `Delete "${item.name}"?`
-        )
-      ) {
-        return;
-      }
-
-      elements[type] =
-        elements[type].filter(
-          x => x.id !== item.id
-        );
-
-      saveElements();
-
-      renderElements();
-
-      showMessage(
-        `${type === "character"
-          ? "Character"
-          : "Storyline"} deleted`
-      );
-
-    }
-  );
-
-
-  nameInput.addEventListener(
-    "click",
-    event => event.stopPropagation()
-  );
-
-
-  nameInput.addEventListener(
-    "input",
-    () => {
-
-      item.name =
-        nameInput.value ||
-        (
-          type === "character"
-            ? "Untitled Character"
-            : "Untitled Storyline"
-        );
-
-      saveElements();
-
-      updateCardHeader(card, item, type);
-
-    }
-  );
-
-
-  if (descriptionInput) {
-
-    descriptionInput.addEventListener(
-      "click",
-      event => event.stopPropagation()
-    );
-
-    descriptionInput.addEventListener(
-      "input",
-      () => {
-
-        item.description =
-          descriptionInput.value;
-
-        saveElements();
-
-      }
-    );
-
-  }
-
-
-  if (bioInput) {
-
-    bioInput.addEventListener(
-      "click",
-      event => event.stopPropagation()
-    );
-
-    bioInput.addEventListener(
-      "input",
-      () => {
-
-        item.bio =
-          bioInput.value;
-
-        saveElements();
-
-      }
-    );
-
-  }
-
-
-  if (genderSelect) {
-
-    genderSelect.addEventListener(
-      "click",
-      event => event.stopPropagation()
-    );
-
-    genderSelect.addEventListener(
-      "change",
-      () => {
-
-        item.gender =
-          genderSelect.value;
-
-        saveElements();
-
-        renderElements();
-
-      }
-    );
-
-  }
-
-
-  if (colorSelect) {
-
-    colorSelect.addEventListener(
-      "click",
-      event => event.stopPropagation()
-    );
-
-    colorSelect.addEventListener(
-      "change",
-      () => {
-
-        item.color =
-          colorSelect.value;
-
-        saveElements();
-
-        renderElements();
-
-      }
-    );
-
-  }
-
-}
-
-
-function updateCardHeader(
-  card,
-  item,
-  type
-) {
-
-  const name =
-    card.querySelector(
-      ".element-card-name"
-    );
-
-  if (name) {
-
-    name.textContent =
-      item.name ||
-      (
-        type === "character"
-          ? "Untitled Character"
-          : "Untitled Storyline"
-      );
-
-  }
-
-}
-
-
-/* =========================================================
-   ELEMENTS RENDER
+   ELEMENT RENDERING
 ========================================================= */
 
 function renderElementSection(
@@ -4255,126 +3285,77 @@ function renderElementSection(
 
   elements[type].forEach(item => {
 
-    let card;
+    const element =
+      document.createElement("div");
 
-    if (type === "storyline") {
+    element.className = "element-item";
 
-      card =
-        renderStorylineCard(item);
+    element.innerHTML = `
 
-    }
-
-    else if (type === "character") {
-
-      card =
-        renderCharacterCard(item);
-
-    }
-
-    else {
-
-      card =
-        renderLocationItem(item);
-
-    }
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-function renderLocationItem(item) {
-
-  const element =
-    document.createElement("div");
-
-  element.className =
-    "element-card";
-
-  element.dataset.elementId =
-    item.id;
-
-  element.innerHTML = `
-
-    <div class="element-card-header">
-
-      <div class="element-card-icon">
-        <i data-lucide="map-pin"></i>
+      <div class="element-icon">
+        <i data-lucide="${
+          elementConfig[type].icon
+        }"></i>
       </div>
 
-      <div class="element-card-copy">
+      <div class="element-copy">
 
-        <div class="element-card-name">
+        <div class="element-name">
           ${escapeHTML(item.name)}
         </div>
 
         ${
           item.description
             ? `
-              <div class="element-card-meta">
-                ${escapeHTML(
-                  item.description
-                )}
+              <div class="element-description">
+                ${escapeHTML(item.description)}
               </div>
             `
-            : `
-              <div class="element-card-meta">
-                Location
-              </div>
-            `
+            : ""
         }
 
       </div>
 
       <button
-        class="element-card-delete"
-        title="Delete location"
+        class="element-delete"
+        title="Delete"
       >
         <i data-lucide="trash-2"></i>
       </button>
 
-    </div>
-  `;
+    `;
 
-  element
-    .querySelector(".element-card-delete")
-    .addEventListener("click", event => {
+    element
+      .querySelector(".element-delete")
+      .addEventListener("click", event => {
 
-      event.stopPropagation();
+        event.stopPropagation();
 
-      if (
-        !confirm(
-          `Delete "${item.name}"?`
-        )
-      ) {
-        return;
-      }
+        if (!confirm(`Delete "${item.name}"?`)) {
+          return;
+        }
 
-      elements.location =
-        elements.location.filter(
-          x => x.id !== item.id
-        );
+        elements[type] =
+          elements[type].filter(
+            x => x.id !== item.id
+          );
 
-      saveElements();
-      renderElements();
+        saveElements();
+        renderElements();
 
-      showMessage("Location deleted");
+        showMessage("Element deleted");
 
-    });
+      });
 
-  return element;
+    container.appendChild(element);
+
+  });
 
 }
 
-
 function renderElements() {
 
-  renderElementSection(
-    "storyline",
-    "storylineList"
-  );
+  renderStorylines();
 
   renderElementSection(
     "character",
@@ -4390,72 +3371,6 @@ function renderElements() {
 
 }
 
-
-/* =========================================================
-   LOCATION MODAL
-========================================================= */
-
-document
-  .getElementById("elementSave")
-  .addEventListener("click", () => {
-
-    const name =
-      document
-        .getElementById("elementName")
-        .value
-        .trim();
-
-    const description =
-      document
-        .getElementById("elementDescription")
-        .value
-        .trim();
-
-    if (!name) {
-      return;
-    }
-
-    elements.location.unshift({
-
-      id:
-        Date.now().toString(),
-
-      name,
-
-      description,
-
-      created:
-        Date.now()
-
-    });
-
-    saveElements();
-
-    renderElements();
-
-    elementModal.classList.remove("open");
-
-    showMessage("Location created");
-
-  });
-
-
-document
-  .getElementById("elementCancel")
-  .addEventListener(
-    "click",
-    () => elementModal.classList.remove("open")
-  );
-
-
-document
-  .getElementById("elementModalClose")
-  .addEventListener(
-    "click",
-    () => elementModal.classList.remove("open")
-  );
-
-
 /* =========================================================
    STASH
 ========================================================= */
@@ -4468,7 +3383,6 @@ function saveStash() {
   );
 
 }
-
 
 function renderStash() {
 
@@ -4498,7 +3412,6 @@ function renderStash() {
     `;
 
     lucide.createIcons();
-
     return;
 
   }
@@ -4508,8 +3421,7 @@ function renderStash() {
     const entry =
       document.createElement("div");
 
-    entry.className =
-      "stash-entry";
+    entry.className = "stash-entry";
 
     entry.innerHTML = `
 
@@ -4535,6 +3447,7 @@ function renderStash() {
       >
         <i data-lucide="trash-2"></i>
       </button>
+
     `;
 
     entry
@@ -4561,33 +3474,20 @@ function renderStash() {
 
 }
 
-
-/* =========================================================
-   STASH MODAL
-========================================================= */
-
 function openStashModal() {
 
-  document.getElementById(
-    "stashTitle"
-  ).value = "";
-
-  document.getElementById(
-    "stashBody"
-  ).value = "";
+  document.getElementById("stashTitle").value = "";
+  document.getElementById("stashBody").value = "";
 
   stashModal.classList.add("open");
 
   setTimeout(() => {
-
     document
       .getElementById("stashTitle")
       .focus();
-
   }, 80);
 
 }
-
 
 document
   .getElementById("addStashButton")
@@ -4596,39 +3496,31 @@ document
     openStashModal
   );
 
-
 document
   .getElementById("stashSave")
   .addEventListener("click", () => {
 
     const title =
-      document
-        .getElementById("stashTitle")
-        .value
-        .trim();
+      document.getElementById(
+        "stashTitle"
+      ).value.trim();
 
     const body =
-      document
-        .getElementById("stashBody")
-        .value
-        .trim();
+      document.getElementById(
+        "stashBody"
+      ).value.trim();
 
-    if (!title && !body) {
-      return;
-    }
+    if (!title && !body) return;
 
     stash.unshift({
 
-      id:
-        Date.now().toString(),
+      id: Date.now().toString(),
 
-      title:
-        title || "Untitled",
+      title: title || "Untitled",
 
       body,
 
-      created:
-        Date.now()
+      created: Date.now()
 
     });
 
@@ -4641,14 +3533,12 @@ document
 
   });
 
-
 document
   .getElementById("stashCancel")
   .addEventListener(
     "click",
     () => stashModal.classList.remove("open")
   );
-
 
 document
   .getElementById("stashModalClose")
@@ -4657,7 +3547,6 @@ document
     () => stashModal.classList.remove("open")
   );
 
-
 document
   .getElementById("clearStashButton")
   .addEventListener("click", () => {
@@ -4665,16 +3554,11 @@ document
     if (!stash.length) {
 
       showMessage("Stash is already empty");
-
       return;
 
     }
 
-    if (
-      !confirm(
-        "Delete everything in the stash?"
-      )
-    ) {
+    if (!confirm("Delete everything in the stash?")) {
       return;
     }
 
@@ -4687,31 +3571,28 @@ document
 
   });
 
-
 /* =========================================================
    DOCUMENT PANEL
 ========================================================= */
 
 document
   .getElementById("documentButton")
-  .addEventListener(
-    "click",
-    () =>
-      contextPanel.classList.add("open")
-  );
+  .addEventListener("click", () => {
 
+    contextPanel.classList.add("open");
+
+  });
 
 document
   .getElementById("panelClose")
-  .addEventListener(
-    "click",
-    () =>
-      contextPanel.classList.remove("open")
-  );
+  .addEventListener("click", () => {
 
+    contextPanel.classList.remove("open");
+
+  });
 
 /* =========================================================
-   ESCAPE / SAVE
+   ESCAPE + SAVE
 ========================================================= */
 
 document.addEventListener("keydown", event => {
@@ -4719,11 +3600,8 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
 
     annotationModal.classList.remove("open");
-
     elementModal.classList.remove("open");
-
     stashModal.classList.remove("open");
-
     contextPanel.classList.remove("open");
 
   }
@@ -4741,15 +3619,13 @@ document.addEventListener("keydown", event => {
 
 });
 
-
 /* =========================================================
    TOAST
 ========================================================= */
 
 function showMessage(message) {
 
-  toast.textContent =
-    message;
+  toast.textContent = message;
 
   toast.classList.add("show");
 
@@ -4758,14 +3634,13 @@ function showMessage(message) {
   );
 
   window.auteurToastTimer =
-    setTimeout(
-      () =>
-        toast.classList.remove("show"),
-      1200
-    );
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    }, 1200);
 
 }
-
 
 /* =========================================================
    ESCAPE HTML
@@ -4782,26 +3657,14 @@ function escapeHTML(value) {
 
 }
 
-
-function escapeAttribute(value) {
-
-  return escapeHTML(value);
-
-}
-
-
 /* =========================================================
    INITIALIZE
 ========================================================= */
 
 updateStats();
-
 updateScenes();
-
 renderAnnotations();
-
 renderElements();
-
 renderStash();
 
 setTimeout(() => {
@@ -4810,9 +3673,7 @@ setTimeout(() => {
     editor.querySelector(".script > div");
 
   if (firstBlock) {
-
     setActiveBlock(firstBlock);
-
   }
 
 }, 100);
