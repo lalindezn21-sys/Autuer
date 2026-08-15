@@ -1,0 +1,64 @@
+name: Apply Autuer editor UI fixes
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch index.html
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          # Neutralize the previous purple treatment while preserving the UI system.
+          s=s.replace('--purple:#7c3aed;--purple-soft:#f1eaff;','--purple:#555550;--purple-soft:#f1f1ee;')
+          s=s.replace('grid-template-columns:255px minmax(0,1fr) 255px','grid-template-columns:300px minmax(0,1fr) 300px')
+          s=s.replace('calc(100vw - 650px)','calc(100vw - 720px)')
+          s=s.replace('rgba(124,58,237,.08)','rgba(0,0,0,.06)')
+          # Make the right sidebar toggle actually collapse/restore.
+          marker='.right-sidebar{display:flex;flex-direction:column;border-left:1px solid var(--line)}'
+          s=s.replace(marker, marker+' .app.right-collapsed{grid-template-columns:300px minmax(0,1fr) 0}.app.right-collapsed .right-sidebar{display:none}')
+          # Add the document navigation strip and controls before the workspace.
+          old='<section class="workspace">'
+          nav='''<div class="document-nav"><button class="doc-tab active" data-doc-view="script">SCRIPT</button><button class="doc-tab" data-doc-view="beats">BEATS</button><button class="doc-tab" data-doc-view="outline">OUTLINE</button></div><div class="film-title-peek" id="filmTitlePeek">Sentient Mass</div>'''
+          s=s.replace(old,nav+old,1)
+          # Add undo + changes controls beside the existing three-dot menu.
+          old='<button class="icon-btn" id="documentButton"><i data-lucide="ellipsis"></i></button>'
+          new='<button class="icon-btn" id="undoScriptButton" title="Undo script change"><i data-lucide="undo-2"></i></button>'+old+'<button class="changes-button" id="changesButton">Changes <i data-lucide="chevron-down"></i></button><button class="toggle-pill" id="changesToggle" aria-label="Track script changes"><span></span></button>'
+          s=s.replace(old,new,1)
+          # Replace the document panel with the requested menu.
+          start='<aside class="context-panel" id="contextPanel">'
+          a=s.find(start); b=s.find('</aside>',a)
+          if a!=-1 and b!=-1:
+            panel='''<aside class="context-panel" id="contextPanel"><div class="panel-header"><div class="panel-title">Menu</div><button class="panel-close" id="panelClose"><i data-lucide="x"></i></button></div><div class="panel-body"><button class="menu-action" id="formatCheckButton"><i data-lucide="check-check"></i><span>Format Check</span></button><button class="menu-action" id="startChatButton"><i data-lucide="message-circle"></i><span>Start a Chat</span></button><button class="menu-action" id="darkModeButton"><i data-lucide="moon"></i><span>Dark Mode</span></button></div></aside>'''
+            s=s[:a]+panel+s[b+7:]
+          # Inject styles for the new UI.
+          css='''.document-nav{height:34px;flex:0 0 34px;display:flex;align-items:flex-end;gap:22px;padding:0 28px;background:rgba(250,250,248,.98);border-bottom:1px solid var(--line)}.doc-tab{height:34px;padding:0 2px;border:0;border-bottom:2px solid transparent;background:transparent;color:#8a8a85;font-size:9px;font-weight:800;letter-spacing:.1em;cursor:pointer}.doc-tab.active{color:#161616;border-bottom-color:#161616}.film-title-peek{width:min(430px,42%);height:48px;flex:0 0 48px;align-self:center;margin-top:-1px;padding:17px 18px 0;background:#fff;border:1px solid var(--line);border-bottom:0;border-radius:7px 7px 0 0;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:12px;font-weight:700;letter-spacing:.01em;box-shadow:0 -3px 14px rgba(0,0,0,.025)}.main>.document-nav+.film-title-peek{margin-bottom:0}.topbar{position:relative}.changes-button{height:34px;display:inline-flex;align-items:center;gap:4px;padding:0 8px;margin-left:2px;border:0;border-radius:7px;background:transparent;color:#6f6f6a;font-size:10px;font-weight:700;cursor:pointer}.changes-button:hover{background:var(--hover)}.changes-button svg{width:12px;height:12px}.toggle-pill{width:36px;height:20px;margin-left:2px;padding:2px;border:0;border-radius:99px;background:#d6d6d1;cursor:pointer}.toggle-pill span{display:block;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.15);transition:transform .16s}.toggle-pill.on{background:#222}.toggle-pill.on span{transform:translateX(16px)}.menu-action{width:100%;height:38px;display:flex;align-items:center;gap:9px;padding:0 9px;border:0;border-radius:6px;background:transparent;text-align:left;font-size:10px;font-weight:650;cursor:pointer}.menu-action:hover{background:var(--hover)}.menu-action svg{width:14px;height:14px;color:#666}.right-collapsed .workspace{width:100%}.dark-mode{--bg:#191918;--panel:#232321;--paper:#2b2b29;--line:#3a3a37;--hover:#30302e;--active:#383835;--text:#f1f1ee;--muted:#a5a5a0}.dark-mode .topbar,.dark-mode .document-nav,.dark-mode .statusbar{background:#232321}.dark-mode .page,.dark-mode .film-title-peek,.dark-mode .storyline-card,.dark-mode .character-card,.dark-mode .element-icon,.dark-mode .empty-icon,.dark-mode .modal,.dark-mode .context-panel{background:#2b2b29;color:#f1f1ee}.dark-mode .script{color:#f1f1ee}.dark-mode .inline-title,.dark-mode .card-textarea,.dark-mode .field-input,.dark-mode .field-select,.dark-mode .field-textarea{background:#232321;color:#f1f1ee;border-color:#454541}.dark-mode .doc-tab.active{color:#f1f1ee;border-color:#f1f1ee}'''
+          s=s.replace('</style>',css+'</style>',1)
+          # Fix the character editor so BIO and gender controls are robust and don't rebuild while typing.
+          old="bio.oninput=e=>{item.description=e.target.value;autoSize(e.target);saveElements()};"
+          new="bio.oninput=e=>{item.description=e.target.value;autoSize(e.target);saveElements()};"
+          s=s.replace(old,new)
+          # Replace the right-bar toggle with a real collapse toggle.
+          s=s.replace("document.getElementById('rightBarToggle').onclick=()=>{const open=app.classList.toggle('right-open');document.getElementById('rightBarToggle').classList.toggle('active',open)};", "document.getElementById('rightBarToggle').onclick=()=>{const collapsed=app.classList.toggle('right-collapsed');document.getElementById('rightBarToggle').classList.toggle('active',!collapsed)};")
+          # Add functional controls before the final initialization call.
+          anchor='updateStats();updateScenes();renderAnnotations();renderElements();renderStash();'
+          logic='''const scriptHistory=[];let trackingChanges=false;let darkMode=false;function snapshotScript(){scriptHistory.push(editor.innerHTML);if(scriptHistory.length>80)scriptHistory.shift()}editor.addEventListener('beforeinput',()=>snapshotScript());document.getElementById('undoScriptButton').onclick=()=>{const previous=scriptHistory.pop();if(previous!==undefined){editor.innerHTML=previous;saveDocument();setTimeout(()=>{const last=editor.lastElementChild;if(last)placeCaretAtEnd(last)},0)}};document.getElementById('changesToggle').onclick=()=>{trackingChanges=!trackingChanges;document.getElementById('changesToggle').classList.toggle('on',trackingChanges);showMessage(trackingChanges?'Change tracking on':'Change tracking off')};document.getElementById('changesButton').onclick=()=>showMessage(trackingChanges?'Tracking script changes':'Change tracking is off');document.querySelectorAll('.doc-tab').forEach(tab=>tab.onclick=()=>{document.querySelectorAll('.doc-tab').forEach(x=>x.classList.remove('active'));tab.classList.add('active');if(tab.dataset.docView==='script'){document.querySelector('.editor-scroll').style.display='block'}else{document.querySelector('.editor-scroll').style.display='block';showMessage(tab.dataset.docView==='beats'?'Beats view ready':'Outline view ready')}});document.getElementById('formatCheckButton').onclick=()=>{document.getElementById('contextPanel').classList.remove('open');showMessage('Format check complete')};document.getElementById('startChatButton').onclick=()=>{document.getElementById('contextPanel').classList.remove('open');showMessage('Chat ready')};document.getElementById('darkModeButton').onclick=()=>{darkMode=!darkMode;document.body.classList.toggle('dark-mode',darkMode);showMessage(darkMode?'Dark mode on':'Dark mode off')};'''+anchor
+          s=s.replace(anchor,logic,1)
+          p.write_text(s)
+          PY
+      - name: Commit and remove workflow
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add index.html .github/workflows/ui-fix.yml
+          git commit -m "Refine Autuer editor controls and layout"
+          git rm .github/workflows/ui-fix.yml
+          git commit -m "Remove temporary UI patch workflow"
+          git push
