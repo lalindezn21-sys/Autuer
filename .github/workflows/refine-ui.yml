@@ -48,9 +48,13 @@ jobs:
           if '/* Editor flow and reference-layout details */' not in s:
               s=s.replace('</style>', css + '\n</style>', 1)
 
-          anchor = '<div class="film-title-peek" id="filmTitlePeek">Sentient Mass</div>\n<section class="workspace">'
-          if anchor in s:
-              s=s.replace(anchor, '<section class="workspace">', 1)
+          # Ensure the title page is physically inside the same scroll container as the screenplay.
+          if 'id="filmTitlePeek"' not in s:
+              anchor = '<section class="workspace"><div class="editor-scroll">'
+              title = '<section class="workspace"><div class="editor-scroll"><div class="film-title-peek" id="filmTitlePeek">Sentient Mass</div>'
+              if anchor not in s:
+                  raise SystemExit('Missing editor scroll anchor')
+              s=s.replace(anchor,title,1)
 
           marker = 'const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], app=$(\'#app\'),editor=$(\'#scriptEditor\'),toast=$(\'#toast\');'
           inject = marker + '\nconst moveTitleIntoEditor=()=>{const title=$(\'#filmTitlePeek\'),scroll=$(\'.editor-scroll\'),page=$(\'.page\');if(title&&scroll&&page&&!scroll.contains(title)){scroll.insertBefore(title,page)}};'
@@ -105,5 +109,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
           git diff --cached --quiet && exit 0
-          git commit -m 'apply editor layout'
+          git commit -m 'restore title page flow'
           git push
