@@ -6,15 +6,48 @@
 <title>Auteur</title>
 <style>
 html,body{margin:0;width:100%;height:100%;background:#fff}
-body{display:flex;align-items:center;justify-content:center;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.hero{font-size:86px;font-weight:550;letter-spacing:-3.5px;line-height:1.02;color:#181613;text-align:center;transform:translateY(-100px);white-space:nowrap}
+body{display:flex;align-items:center;justify-content:center;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+.hero{font-size:104px;font-weight:500;letter-spacing:-4.5px;line-height:1.02;color:#181613;text-align:center;transform:translateY(-125px);white-space:nowrap}
 .hero .top,.hero .bottom{display:block}
+.pill{display:inline-flex;align-items:center;justify-content:center;padding:.08em .34em .12em;border-radius:999px;background:rgba(24,22,19,.45);color:#fff;min-width:3.7em;will-change:transform,background-color}
 </style>
 </head>
 <body>
 <div class="hero">
   <span class="top">Where idealists and</span>
-  <span class="bottom">Auteur build together.</span>
+  <span class="bottom"><span class="pill" id="animatedWord">build</span> together.</span>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script>
+const word = document.getElementById('animatedWord');
+const words = [
+  {text:'create', color:'#7C3AED'},
+  {text:'scale', color:'#2563EB'},
+  {text:'jam', color:'#F97316'}
+];
+let index = -1;
+
+function cycleWord(){
+  const next = words[index = (index + 1) % words.length];
+
+  gsap.timeline()
+    .to(word, {duration:.28, y:14, scale:.88, opacity:0, ease:'power2.in'})
+    .call(() => {
+      word.textContent = next.text;
+      word.setAttribute('aria-label', next.text);
+    })
+    .fromTo(word,
+      {y:-14, scale:1.08, opacity:0, backgroundColor:next.color},
+      {duration:.55, y:0, scale:1, opacity:1, ease:'back.out(1.7)'}
+    );
+}
+
+cycleWord();
+gsap.delayedCall(3, function repeat(){
+  cycleWord();
+  gsap.delayedCall(3, repeat);
+});
+</script>
 </body>
 </html>
