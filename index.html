@@ -1,5 +1,181 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Auteur</title><style>
-:root{--bg:#f4f4f2;--side:#ebebe8;--paper:#fff;--ink:#151515;--muted:#777772;--line:#deded9;--soft:#f0f0ed;--accent:#111;--orange:#ff6a00;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:14px}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{height:100vh;display:flex;overflow:hidden}.side{width:250px;background:var(--side);border-right:1px solid #d8d8d3;padding:14px 10px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;padding:8px 10px 18px;font-weight:800;font-size:15px}.mark{width:28px;height:28px;background:#151515;color:white;border-radius:8px;display:grid;place-items:center;font-weight:800}.quick{display:grid;gap:2px}.quick button,.page{border:0;background:transparent;border-radius:8px;text-align:left;padding:9px 10px;color:#5f5f5a;display:flex;gap:10px;align-items:center}.quick button:hover,.page:hover,.page.active{background:#deded9;color:#111}.ico{width:18px;text-align:center}.private{font-size:10px;letter-spacing:1px;color:#85857f;font-weight:800;padding:22px 10px 8px}.pages{overflow:auto;flex:1}.page{width:100%;font-size:13px}.bottom{border-top:1px solid #d7d7d2;padding-top:8px}.main{flex:1;min-width:0;background:var(--paper);display:flex;flex-direction:column}.bar{height:50px;border-bottom:1px solid #ecece8;display:flex;align-items:center;padding:0 20px;gap:9px;color:#888}.bar button{border:0;background:transparent;border-radius:7px;padding:7px 9px;color:#666}.bar button:hover{background:var(--soft);color:#111}.crumb{font-size:13px;color:#777}.crumb b{color:#222}.grow{flex:1}.kbd{font-size:10px;border:1px solid #ddd!important;padding:3px 6px!important}.content{width:min(1040px,100%);margin:auto;overflow:auto;flex:1;padding:72px 74px 120px}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:42px}.hero h1{font-size:52px;line-height:1;letter-spacing:-2.8px;margin:0 0 10px}.hero p{margin:0;color:#888}.new{background:#111!important;color:white!important;border-radius:9px!important;padding:11px 15px!important;font-weight:700}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.3px;color:#999;font-weight:800;margin-bottom:10px}.callout{background:#f1f1ee;border-radius:12px;padding:20px 22px;line-height:1.55;margin-bottom:36px}.modules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.module{background:#fff;border:1px solid var(--line);border-radius:14px;padding:21px;min-height:170px;transition:.16s}.module:hover{transform:translateY(-2px);box-shadow:0 12px 30px #0000000b;border-color:#c9c9c4}.module .symbol{font-size:24px;margin-bottom:27px}.module h3{font-size:16px;margin:0 0 6px}.module p{font-size:12px;color:#888;line-height:1.5;margin:0}.section-head{display:flex;align-items:end;justify-content:space-between;margin:46px 0 14px}.section-head h2{font-size:22px;letter-spacing:-.8px;margin:0}.table-wrap{border:1px solid var(--line);border-radius:12px;overflow:hidden}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px 14px;border-bottom:1px solid #e8e8e4}.table th{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#999;background:#fafaf8}.table td{font-size:13px}.table tbody tr:hover{background:#fafaf8}.table tr:last-child td{border-bottom:0}.tag{background:#eee;border-radius:6px;padding:4px 7px;font-size:10px}.progress{width:100px;height:5px;background:#e7e7e3;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;background:#161616}.titlebar{display:flex;align-items:center;gap:14px;margin-bottom:8px}.cover{font-size:46px}.page-title{font-size:48px;letter-spacing:-2.5px;margin:0;outline:0}.sub{color:#888;margin:0 0 34px}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{border:1px solid var(--line);border-radius:12px;padding:20px}.panel h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999;margin:0 0 12px}.editable{min-height:42px;line-height:1.65;outline:0;border-radius:7px;padding:5px}.editable:hover{background:#fafaf8}.scene{border:1px dashed #ccc;border-radius:9px;padding:13px;color:#999}.search{position:fixed;top:60px;left:270px;width:390px;background:white;border:1px solid #d9d9d5;border-radius:12px;padding:10px;box-shadow:0 20px 60px #0002;z-index:20}.search input{width:100%;border:0;outline:0;padding:9px}.result{padding:9px;border-radius:7px}.result:hover{background:var(--soft)}.modal-bg{position:fixed;inset:0;background:#0005;display:grid;place-items:center;z-index:30}.modal{width:520px;max-width:calc(100% - 30px);background:#fff;border-radius:14px;padding:25px;box-shadow:0 25px 80px #0003}.modal h2{margin:0 0 20px;font-size:23px}.modal label{display:block;font-size:10px;font-weight:800;color:#888;text-transform:uppercase;margin:12px 0 6px}.modal input,.modal textarea,.modal select{width:100%;border:1px solid #d9d9d4;border-radius:8px;padding:10px;outline:0}.modal textarea{height:90px;resize:vertical}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.actions button{border:0;border-radius:8px;padding:9px 14px}.hidden{display:none!important}@media(max-width:850px){.side{width:215px}.content{padding:45px 28px}.modules{grid-template-columns:1fr 1fr}.hero{display:block}.hero .new{margin-top:18px}}@media(max-width:600px){.side{display:none}.content{padding:35px 18px}.hero h1{font-size:39px}.modules,.two{grid-template-columns:1fr}.module{min-height:145px}.search{left:15px;width:calc(100% - 30px)}}
-</style></head><body><div class="app"><aside class="side"><div class="brand"><span class="mark">A</span>Auteur</div><div class="quick"><button onclick="show('home')"><span class="ico">⌂</span>Home</button><button onclick="show('projects')"><span class="ico">▦</span>Projects</button><button onclick="toggleSearch()"><span class="ico">⌕</span>Search <span class="grow"></span><small>⌘K</small></button></div><div class="private">PRIVATE</div><div class="pages" id="pages"></div><div class="bottom"><button class="quick" style="width:100%;border:0;background:transparent;text-align:left;padding:9px 10px;color:#666">⚙ Settings</button></div></aside><main class="main"><header class="bar"><span>☰</span><div class="crumb">Auteur <span>›</span> <b id="crumb">Home</b></div><span class="grow"></span><button onclick="openModal()">+ New</button></header><div class="search hidden" id="search"><input id="searchInput" placeholder="Search your workspace..."><div id="results"></div></div><main class="content" id="content"></main></main></div><div class="modal-bg hidden" id="modal"><div class="modal"><h2>Create a new page</h2><label>Title</label><input id="newTitle" placeholder="Untitled"><label>Icon</label><input id="newIcon" value="🎬" maxlength="2"><label>Description</label><textarea id="newDesc" placeholder="What are you building?"></textarea><div class="actions"><button onclick="closeModal()">Cancel</button><button class="new" onclick="createPage()">Create</button></div></div></div><script>
-const seed=[{id:'timeless',title:'Timeless Rangers',icon:'🎬',genre:'Adventure',stage:'Concept',progress:72,idea:'A film concept in development.',storylines:['Core story','Character conflict','The larger world'],characters:['Main Character','Rival','Supporting Cast'],notes:'Develop the title, visual language, and central conflict.'},{id:'engineered',title:'Engineered Fear',icon:'🎞️',genre:'Thriller',stage:'Concept',progress:35,idea:'Two criminals discover that their robberies are being used to manufacture fear.',storylines:['The jobs','The organization','The political truth'],characters:['The Robber','The Partner','The Architect'],notes:''}];let pages=JSON.parse(localStorage.getItem('auteur-pages-v3')||'null')||seed,current='home';const $=id=>document.getElementById(id);const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));function save(){localStorage.setItem('auteur-pages-v3',JSON.stringify(pages))}function show(id){current=id;render()}function p(id){return pages.find(x=>x.id===id)}function render(){let x=p(current);$('crumb').textContent=current==='home'?'Home':current==='projects'?'Projects':x?.title||'Home';$('pages').innerHTML=pages.map(x=>`<button class="page ${x.id===current?'active':''}" onclick="show('${x.id}')"><span>${x.icon}</span>${esc(x.title)}</button>`).join('');current==='home'?home():current==='projects'?projects():film(x)}function home(){$('content').innerHTML=`<div class="hero"><div><div class="eyebrow">Creative workspace</div><h1>Make the movie.</h1><p>One place for every idea, character, scene, and decision.</p></div><button class="new" onclick="openModal()">+ New project</button></div><div class="callout"><b>Auteur</b> is your private film-development workspace. Start with a title, then build outward until the movie exists.</div><div class="eyebrow">Workspace</div><div class="modules"><div class="module" onclick="show('projects')"><div class="symbol">▦</div><h3>Projects</h3><p>Your complete slate, stages, genres, and progress.</p></div><div class="module" onclick="openModal()"><div class="symbol">≡</div><h3>Storylines</h3><p>Develop the major story threads inside each film.</p></div><div class="module" onclick="openModal()"><div class="symbol">◉</div><h3>Characters</h3><p>Build arcs, relationships, motivations, and contradictions.</p></div><div class="module" onclick="openModal()"><div class="symbol">◇</div><h3>Scenes</h3><p>Organize the actual sequence of the movie.</p></div><div class="module" onclick="openModal()"><div class="symbol">✎</div><h3>Notes</h3><p>Capture fragments, titles, discoveries, and references.</p></div><div class="module" onclick="openModal()"><div class="symbol">▤</div><h3>Production</h3><p>Move a project from development toward filmmaking.</p></div></div><div class="section-head"><h2>Projects</h2><button onclick="show('projects')">View all</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Project</th><th>Stage</th><th>Genre</th><th>Progress</th></tr></thead><tbody>${pages.map(row).join('')}</tbody></table></div>`}function row(x){return `<tr onclick="show('${x.id}')"><td>${x.icon} ${esc(x.title)}</td><td><span class="tag">${esc(x.stage)}</span></td><td>${esc(x.genre)}</td><td><div class="progress"><span style="width:${x.progress}%"></span></div></td></tr>`}function projects(){$('content').innerHTML=`<div class="hero"><div><div class="eyebrow">Film slate</div><h1>Projects</h1><p>Everything you're developing, in one view.</p></div><button class="new" onclick="openModal()">+ New project</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Project</th><th>Stage</th><th>Genre</th><th>Progress</th></tr></thead><tbody>${pages.map(row).join('')}</tbody></table></div>`}function film(x){$('content').innerHTML=`<div class="titlebar"><div class="cover">${x.icon}</div><h1 class="page-title" contenteditable onblur="rename('${x.id}',this.innerText)">${esc(x.title)}</h1></div><p class="sub">${esc(x.genre)} · ${esc(x.stage)}</p><div class="callout"><b>Core idea</b><div class="editable" contenteditable onblur="update('${x.id}','idea',this.innerText)">${esc(x.idea)}</div></div><div class="two"><div class="panel"><h3>Storylines</h3>${x.storylines.map(s=>`<div class="editable">• ${esc(s)}</div>`).join('')}</div><div class="panel"><h3>Characters</h3>${x.characters.map(s=>`<div class="editable">• ${esc(s)}</div>`).join('')}</div></div><div class="section-head"><h2>Scenes</h2><button>+ Add scene</button></div><div class="scene">Start building the sequence of the film...</div><div class="section-head"><h2>Notes</h2></div><div class="editable" contenteditable onblur="update('${x.id}','notes',this.innerText)">${esc(x.notes||'Write anything about this film...')}</div>`}function rename(id,v){let x=p(id);x.title=v.trim()||'Untitled';save();render()}function update(id,k,v){p(id)[k]=v;save()}function openModal(){$('modal').classList.remove('hidden');$('newTitle').focus()}function closeModal(){$('modal').classList.add('hidden')}function createPage(){let title=$('newTitle').value.trim()||'Untitled',id='p'+Date.now();pages.push({id,title,icon:$('newIcon').value||'🎬',genre:'',stage:'Concept',progress:0,idea:$('newDesc').value,storylines:[],characters:[],notes:''});save();closeModal();$('newTitle').value='';$('newDesc').value='';show(id)}function toggleSearch(){$('search').classList.toggle('hidden');$('searchInput').focus()}$('searchInput').oninput=e=>{$('results').innerHTML=pages.filter(x=>x.title.toLowerCase().includes(e.target.value.toLowerCase())).map(x=>`<div class="result" onclick="show('${x.id}');$('search').classList.add('hidden')">${x.icon} ${esc(x.title)}</div>`).join('')};document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();toggleSearch()}if(e.key==='Escape'){$('search').classList.add('hidden');closeModal()}});render();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Unified System - Professional Screenwriting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'page': 'var(--page)',
+                        'surface': 'var(--surface)',
+                        'elevated': 'var(--elevated)',
+                        'border': 'var(--border)',
+                        'ink': 'var(--ink)',
+                        'gray': 'var(--gray)',
+                        'accent': 'var(--accent)',
+                    },
+                    fontFamily: {
+                        sans: ['SF Pro Display', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        script: ['Courier Prime', 'monospace'],
+                    },
+                    borderRadius: {
+                        'jumbo': '3rem',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        pulseOpacity: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.4' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    animation: {
+                        marquee: 'marquee 30s linear infinite',
+                        pulseDot: 'pulseOpacity 2s ease-in-out infinite',
+                        fadeInUp: 'fadeInUp 0.5s ease-out forwards',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        :root {
+            --page: #fff5f5; /* Very light cherry tinted background */
+            --surface: #ffe3e3;
+            --elevated: #ffffff;
+            --border: #ffd1d1;
+            --ink: #1a0000;
+            --gray: #8b4d4d;
+            --accent: #ff0033; /* Cherry Bright Red */
+            --glow: rgba(255,0,51,0.05);
+        }
+        .dark {
+            --page: #0a0000; /* Deep black-red */
+            --surface: #1a0000;
+            --elevated: #240000;
+            --border: #3d0000;
+            --ink: #ffebeb;
+            --gray: #a88a8a;
+            --accent: #ff0033;
+            --glow: rgba(255,0,51,0.1);
+        }
+        body { font-feature-settings: "cv11", "salt", "ss01"; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .command-palette {
+            transform: scale(0.98) translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .command-palette.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .grid-pattern {
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, transparent, var(--border), transparent);
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="bg-page text-ink antialiased font-sans tracking-tight transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 grid-pattern opacity-[0.4] pointer-events-none -z-10"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+
+    <!-- Command Palette -->
+    <div id="commandPalette" class="command-palette fixed inset-0 z-[10000] flex items-start justify-center pt-[15vh] px-4 bg-black/60 backdrop-blur-md">
+        <div class="w-full max-w-2xl bg-elevated border border-border rounded-xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
+            <div class="flex items-center px-6 py-5 border-b border-border">
+                <i class="fa-solid fa-terminal text-gray mr-4 text-sm"></i>
+                <input type="text" placeholder="Execute command..." class="flex-1 bg-transparent border-none outline-none text-ink text-xl placeholder:text-gray/30 font-mono tracking-tighter">
+                <kbd class="px-2 py-1 bg-surface border border-border rounded text-[10px] text-gray uppercase font-mono shadow-sm">Esc</kbd>
+            </div>
+            <div class="max-h-[60vh] overflow-y-auto p-3">
+                <div class="text-[10px] font-bold text-gray/50 uppercase tracking-[0.2em] px-4 py-3">System Methods</div>
+                <div class="space-y-1">
+                    <button class="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-surface text-left transition-all group">
+                        <div class="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center group-hover:border-accent/30">
+                            <i class="fa-solid fa-file-invoice w-4 text-gray group-hover:text-accent"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium">Draft.init()</div>
+                            <div class="text-[10px] text-gray">Initialize new screenplay script</div>
+                        </div>
+                        <kbd class="text-[10px] text-gray/40 font-mono">⌘N</kbd>
+                    </button>
+                    <button class="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-surface text-left transition-all group">
+                        <div class="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center group-hover:border-accent/30">
+                            <i class="fa-solid fa-microchip w-4 text-gray group-hover:text-accent"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium">Production.board()</div>
+                            <div class="text-[10px] text-gray">Open interactive stripboard</div>
+                        </div>
+                        <kbd class="text-[10px] text-gray/40 font-mono">⌘B</kbd>
+                    </button>
+                    <button class="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-surface text-left transition-all group">
+                        <div class="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center group-hover:border-accent/30">
+                            <i class="fa-solid fa-satellite-dish w-4 text-gray group-hover:text-accent"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium">Network.sync()</div>
+                            <div class="text-[10px] text-gray">Manage real-time collaboration</div>
+                        </div>
+                        <kbd class="text-[10px] text-gray/40 font-mono">⌘T</kbd>
+                    </button>
+                </div>
+            </div>
+            <div class="p-4 border-t border-border bg-surface/30 flex justify-between items-center text-[10px] text-gray font-mono">
+                <div>SYSTEM_VERSION: 1.0.4-STABLE</div>
+                <div class="flex gap-4">
+                    <span>INDEX: <span class="text-ink">0x4F</span></span>
+                    <span>STATUS: <span class="text-accent uppercase">Online</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-[9999
