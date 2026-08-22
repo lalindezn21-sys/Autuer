@@ -7,15 +7,15 @@
 <style>
 html,body{margin:0;width:100%;height:100%;background:#fff}
 body{display:flex;align-items:center;justify-content:center;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
-.hero{font-size:104px;font-weight:500;letter-spacing:-4.5px;line-height:1.02;color:#181613;text-align:center;transform:translateY(-125px);white-space:nowrap}
+.hero{font-size:112px;font-weight:525;letter-spacing:-5px;line-height:1.02;color:#181613;text-align:center;transform:translateY(-145px);white-space:nowrap}
 .hero .top,.hero .bottom{display:block}
-.pill{display:inline-flex;align-items:center;justify-content:center;padding:.08em .34em .12em;border-radius:999px;background:rgba(24,22,19,.45);color:#fff;min-width:3.7em;will-change:transform,background-color}
+.pill{display:inline-flex;align-items:center;justify-content:center;padding:.035em .22em .065em;border-radius:999px;background:rgba(24,22,19,.18);color:#fff;min-width:2.75em;will-change:transform,background-color,opacity}
 </style>
 </head>
 <body>
 <div class="hero">
   <span class="top">Where idealists and</span>
-  <span class="bottom"><span class="pill" id="animatedWord">build</span> together.</span>
+  <span class="bottom"><span class="pill" id="animatedWord">create</span> with auteur.</span>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
@@ -26,24 +26,32 @@ const words = [
   {text:'scale', color:'#2563EB'},
   {text:'jam', color:'#F97316'}
 ];
-let index = -1;
+let index = 0;
+word.textContent = words[0].text;
+word.style.backgroundColor = words[0].color;
 
 function cycleWord(){
   const next = words[index = (index + 1) % words.length];
+  const tl = gsap.timeline();
 
-  gsap.timeline()
-    .to(word, {duration:.28, y:14, scale:.88, opacity:0, ease:'power2.in'})
-    .call(() => {
-      word.textContent = next.text;
-      word.setAttribute('aria-label', next.text);
-    })
-    .fromTo(word,
-      {y:-14, scale:1.08, opacity:0, backgroundColor:next.color},
-      {duration:.55, y:0, scale:1, opacity:1, ease:'back.out(1.7)'}
-    );
+  tl.to(word, {
+    duration:.45,
+    opacity:0,
+    scale:.97,
+    ease:'power1.inOut'
+  })
+  .call(() => {
+    word.textContent = next.text;
+  })
+  .to(word, {
+    duration:.75,
+    opacity:1,
+    scale:1,
+    backgroundColor:next.color,
+    ease:'power1.inOut'
+  });
 }
 
-cycleWord();
 gsap.delayedCall(3, function repeat(){
   cycleWord();
   gsap.delayedCall(3, repeat);
