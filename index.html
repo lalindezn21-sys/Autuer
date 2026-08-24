@@ -1,181 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <script>
-        window.FontAwesomeConfig = {
-          autoReplaceSvg: 'nest'
-        };
-      </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Unified System - Professional Screenwriting</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'page': 'var(--page)',
-                        'surface': 'var(--surface)',
-                        'elevated': 'var(--elevated)',
-                        'border': 'var(--border)',
-                        'ink': 'var(--ink)',
-                        'gray': 'var(--gray)',
-                        'accent': 'var(--accent)',
-                    },
-                    fontFamily: {
-                        sans: ['SF Pro Display', 'Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        script: ['Courier Prime', 'monospace'],
-                    },
-                    borderRadius: {
-                        'jumbo': '3rem',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(0)' },
-                            '100%': { transform: 'translateX(-50%)' },
-                        },
-                        pulseOpacity: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0.4' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    },
-                    animation: {
-                        marquee: 'marquee 30s linear infinite',
-                        pulseDot: 'pulseOpacity 2s ease-in-out infinite',
-                        fadeInUp: 'fadeInUp 0.5s ease-out forwards',
-                    },
-                },
-            },
-        };
-    </script>
-    <style>
-        :root {
-            --page: #fff5f5; /* Very light cherry tinted background */
-            --surface: #ffe3e3;
-            --elevated: #ffffff;
-            --border: #ffd1d1;
-            --ink: #1a0000;
-            --gray: #8b4d4d;
-            --accent: #ff0033; /* Cherry Bright Red */
-            --glow: rgba(255,0,51,0.05);
-        }
-        .dark {
-            --page: #0a0000; /* Deep black-red */
-            --surface: #1a0000;
-            --elevated: #240000;
-            --border: #3d0000;
-            --ink: #ffebeb;
-            --gray: #a88a8a;
-            --accent: #ff0033;
-            --glow: rgba(255,0,51,0.1);
-        }
-        body { font-feature-settings: "cv11", "salt", "ss01"; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .command-palette {
-            transform: scale(0.98) translateY(-10px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .command-palette.active {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .grid-pattern {
-            background-image: radial-gradient(var(--border) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        .glow-border {
-            position: relative;
-        }
-        .glow-border::after {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            background: linear-gradient(45deg, transparent, var(--border), transparent);
-            z-index: -1;
-            border-radius: inherit;
-            opacity: 0.5;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUTEUR — Screenwriting Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090909;--panel:#111;--panel2:#171717;--line:#262626;--text:#f4f3ef;--muted:#888;--dim:#555;--red:#ff4058;--blue:#70a7ff;--purple:#ad8cff;--orange:#ffad62;--green:#72e6a8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif}button,input{font:inherit}button{cursor:pointer}.grain{position:fixed;inset:0;pointer-events:none;opacity:.025;z-index:99;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}.orb{position:fixed;width:700px;height:700px;left:-350px;top:-350px;background:radial-gradient(circle,rgba(255,64,88,.09),transparent 65%);pointer-events:none}.orb2{position:fixed;width:800px;height:800px;right:-400px;top:20%;background:radial-gradient(circle,rgba(112,167,255,.06),transparent 65%);pointer-events:none}
+nav{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 40px;position:sticky;top:0;z-index:20;background:rgba(9,9,9,.82);backdrop-filter:blur(20px)}.brand{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700;letter-spacing:.3em}.mark{width:27px;height:27px;border:1px solid #555;display:grid;place-items:center;transform:rotate(45deg);font:11px 'DM Mono';}.mark span{transform:rotate(-45deg)}.navlinks{display:flex;gap:30px;margin:auto}.navlinks a{color:#777;text-decoration:none;font-size:12px}.navlinks a.active,.navlinks a:hover{color:#fff}.right{display:flex;gap:10px;align-items:center}.icon{width:35px;height:35px;border:1px solid var(--line);border-radius:9px;background:transparent;color:#888}.icon:hover{color:#fff;background:var(--panel2)}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#eee;color:#111;font-size:11px;font-weight:700}
+main{max-width:1400px;margin:auto;padding:68px 40px 100px}.eyebrow{font:10px 'DM Mono';letter-spacing:.2em;text-transform:uppercase;color:#777;margin-bottom:18px}.hero{display:flex;justify-content:space-between;align-items:end;margin-bottom:55px}.hero h1{font:500 clamp(56px,8vw,112px)/.86 'Playfair Display';letter-spacing:-.06em;margin:0}.hero h1 span{color:#666}.actions{display:flex;gap:9px}.primary,.secondary{padding:12px 18px;border-radius:8px;font-size:12px;font-weight:600}.primary{background:#f4f3ef;color:#090909}.primary:hover{background:#fff}.secondary{background:var(--panel2);border:1px solid var(--line);color:#eee}
+.search{height:56px;border:1px solid var(--line);background:var(--panel);border-radius:12px;display:flex;align-items:center;padding:0 17px;margin-bottom:54px}.search span{color:#666;font-size:19px;margin-right:12px}.search input{background:none;border:0;outline:0;color:#fff;flex:1;font-size:13px}.search input::placeholder{color:#555}.kbd{font:10px 'DM Mono';color:#666;border:1px solid var(--line);padding:5px 8px;border-radius:5px}.section{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.section b{font-size:12px}.section span{font:10px 'DM Mono';color:#555}
+.projects{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:70px}.project{background:var(--panel);border:1px solid var(--line);border-radius:17px;overflow:hidden;cursor:pointer;transition:.3s}.project:hover{transform:translateY(-6px);border-color:#3b3b3b}.cover{height:215px;padding:21px;display:flex;align-items:end;position:relative;overflow:hidden}.cover:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(125deg,transparent 0 54px,rgba(255,255,255,.045) 55px 56px)}.c1{background:radial-gradient(circle at 75% 25%,#72242e,transparent 28%),linear-gradient(135deg,#241014,#090909)}.c2{background:radial-gradient(circle at 25% 30%,#25466e,transparent 30%),linear-gradient(135deg,#101b29,#080909)}.c3{background:radial-gradient(circle at 70% 70%,#4a356e,transparent 28%),linear-gradient(135deg,#1b1424,#090909)}.c4{background:radial-gradient(circle at 30% 65%,#70431e,transparent 28%),linear-gradient(135deg,#21160d,#090909)}.num{position:absolute;right:17px;top:17px;font:10px 'DM Mono';color:#777}.cover h2{position:relative;margin:0;font:500 28px/1 'Playfair Display';letter-spacing:-.035em}.info{padding:16px 18px}.inforow{display:flex;justify-content:space-between;color:#777;font-size:10px}.bar{height:2px;background:#292929;margin-top:14px}.bar i{display:block;height:100%;background:#eee}
+.workspace{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;margin-bottom:70px}.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:24px}.cardtop{display:flex;justify-content:space-between;margin-bottom:30px}.label{font:9px 'DM Mono';letter-spacing:.15em;text-transform:uppercase;color:#666;margin-bottom:7px}.title{font-size:18px;font-weight:600}.script{border-left:2px solid #292929;padding-left:22px;font:12px/1.8 'DM Mono';color:#aaa}.script .head{color:#fff;margin-bottom:14px}.script .char{margin:12px 0 0 140px;color:#eee}.script .dialogue{max-width:390px;margin-left:80px;color:#ddd}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:17px}.stat strong{display:block;font:34px 'Playfair Display';margin-bottom:4px}.stat small{font:9px 'DM Mono';color:#666;text-transform:uppercase;letter-spacing:.1em}
+.tools{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:70px}.tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:19px;transition:.25s}.tool:hover{background:var(--panel2);transform:translateY(-3px)}.tool .ti{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;color:#777;margin-bottom:16px}.tool b{display:block;font-size:11px;margin-bottom:6px}.tool p{font-size:10px;line-height:1.5;color:#666;margin:0}
+.activity{border-top:1px solid var(--line)}.row{display:grid;grid-template-columns:1fr 1fr 150px 70px;padding:17px 4px;border-bottom:1px solid var(--line);font-size:11px}.row .muted{color:#666}.row time{font:9px 'DM Mono';color:#555}.saved{color:var(--green);font:9px 'DM Mono';text-align:right}footer{border-top:1px solid var(--line);padding:28px 40px;display:flex;justify-content:space-between;color:#555;font:9px 'DM Mono'}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(12px);display:none;place-items:center;z-index:50}.modal.open{display:grid}.box{width:min(520px,calc(100% - 30px));background:#111;border:1px solid #333;border-radius:17px;padding:28px;box-shadow:0 40px 100px #000}.box h2{font:500 34px 'Playfair Display';margin:0 0 7px}.box p{font-size:11px;color:#777;margin:0 0 24px}.box input{width:100%;padding:14px;background:#181818;border:1px solid #292929;border-radius:8px;color:#fff;outline:0}.modal-actions{display:flex;justify-content:end;gap:8px;margin-top:12px}
+@media(max-width:1050px){.projects{grid-template-columns:1fr 1fr}.tools{grid-template-columns:repeat(3,1fr)}.workspace{grid-template-columns:1fr}}@media(max-width:680px){nav{padding:0 20px}.navlinks{display:none}main{padding:48px 20px}.hero{display:block}.hero h1{font-size:64px;margin-bottom:30px}.projects{grid-template-columns:1fr}.tools{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr 1fr;gap:8px}footer{padding:25px 20px}}
+</style>
 </head>
-<body class="bg-page text-ink antialiased font-sans tracking-tight transition-colors duration-500 overflow-x-hidden">
-
-    <!-- Ambient Background -->
-    <div class="fixed inset-0 grid-pattern opacity-[0.4] pointer-events-none -z-10"></div>
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
-
-    <!-- Command Palette -->
-    <div id="commandPalette" class="command-palette fixed inset-0 z-[10000] flex items-start justify-center pt-[15vh] px-4 bg-black/60 backdrop-blur-md">
-        <div class="w-full max-w-2xl bg-elevated border border-border rounded-xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
-            <div class="flex items-center px-6 py-5 border-b border-border">
-                <i class="fa-solid fa-terminal text-gray mr-4 text-sm"></i>
-                <input type="text" placeholder="Execute command..." class="flex-1 bg-transparent border-none outline-none text-ink text-xl placeholder:text-gray/30 font-mono tracking-tighter">
-                <kbd class="px-2 py-1 bg-surface border border-border rounded text-[10px] text-gray uppercase font-mono shadow-sm">Esc</kbd>
-            </div>
-            <div class="max-h-[60vh] overflow-y-auto p-3">
-                <div class="text-[10px] font-bold text-gray/50 uppercase tracking-[0.2em] px-4 py-3">System Methods</div>
-                <div class="space-y-1">
-                    <button class="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-surface text-left transition-all group">
-                        <div class="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center group-hover:border-accent/30">
-                            <i class="fa-solid fa-file-invoice w-4 text-gray group-hover:text-accent"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="text-sm font-medium">Draft.init()</div>
-                            <div class="text-[10px] text-gray">Initialize new screenplay script</div>
-                        </div>
-                        <kbd class="text-[10px] text-gray/40 font-mono">⌘N</kbd>
-                    </button>
-                    <button class="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-surface text-left transition-all group">
-                        <div class="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center group-hover:border-accent/30">
-                            <i class="fa-solid fa-microchip w-4 text-gray group-hover:text-accent"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="text-sm font-medium">Production.board()</div>
-                            <div class="text-[10px] text-gray">Open interactive stripboard</div>
-                        </div>
-                        <kbd class="text-[10px] text-gray/40 font-mono">⌘B</kbd>
-                    </button>
-                    <button class="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-surface text-left transition-all group">
-                        <div class="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center group-hover:border-accent/30">
-                            <i class="fa-solid fa-satellite-dish w-4 text-gray group-hover:text-accent"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="text-sm font-medium">Network.sync()</div>
-                            <div class="text-[10px] text-gray">Manage real-time collaboration</div>
-                        </div>
-                        <kbd class="text-[10px] text-gray/40 font-mono">⌘T</kbd>
-                    </button>
-                </div>
-            </div>
-            <div class="p-4 border-t border-border bg-surface/30 flex justify-between items-center text-[10px] text-gray font-mono">
-                <div>SYSTEM_VERSION: 1.0.4-STABLE</div>
-                <div class="flex gap-4">
-                    <span>INDEX: <span class="text-ink">0x4F</span></span>
-                    <span>STATUS: <span class="text-accent uppercase">Online</span></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-[9999
+<body>
+<div class="orb"></div><div class="orb2"></div><div class="grain"></div>
+<nav><div class="brand"><div class="mark"><span>A</span></div>AUTEUR</div><div class="navlinks"><a class="active" href="#">Studio</a><a href="#projects">Projects</a><a href="#tools">Tools</a><a href="#activity">Archive</a></div><div class="right"><button class="icon" onclick="toggleSearch()">⌕</button><div class="avatar">NL</div></div></nav>
+<main>
+<section class="hero"><div><div class="eyebrow">Screenwriting Studio / 01</div><h1>Make something<br><span>worth watching.</span></h1></div><div class="actions"><button class="secondary" onclick="newProject()">Import</button><button class="primary" onclick="newProject()">+ New Project</button></div></section>
+<div class="search" id="search"><span>⌕</span><input id="searchInput" placeholder="Search projects, scenes, characters..." autocomplete="off"><div class="kbd">⌘ K</div></div>
+<div class="section" id="projects"><b>Active Projects</b><span>04 PROJECTS</span></div>
+<section class="projects">
+<article class="project" data-name="Drown and Thirst It Is" onclick="openProject(this.dataset.name)"><div class="cover c1"><div class="num">01</div><h2>Drown and<br>Thirst It Is</h2></div><div class="info"><div class="inforow"><span>Feature Screenplay</span><span>68%</span></div><div class="bar"><i style="width:68%"></i></div></div></article>
+<article class="project" data-name="Engineered Fear" onclick="openProject(this.dataset.name)"><div class="cover c2"><div class="num">02</div><h2>Engineered<br>Fear</h2></div><div class="info"><div class="inforow"><span>Feature Screenplay</span><span>42%</span></div><div class="bar"><i style="width:42%"></i></div></div></article>
+<article class="project" data-name="Sentient Mass" onclick="openProject(this.dataset.name)"><div class="cover c3"><div class="num">03</div><h2>Sentient<br>Mass</h2></div><div class="info"><div class="inforow"><span>Feature Screenplay</span><span>50%</span></div><div class="bar"><i style="width:50%"></i></div></div></article>
+<article class="project" data-name="What We Do When Afraid" onclick="openProject(this.dataset.name)"><div class="cover c4"><div class="num">04</div><h2>What We Do<br>When Afraid</h2></div><div class="info"><div class="inforow"><span>Feature Screenplay</span><span>24%</span></div><div class="bar"><i style="width:24%"></i></div></div></article>
+</section>
+<div class="section"><b>Continue Writing</b><span>LAST SESSION · 19:42</span></div>
+<section class="workspace"><div class="card"><div class="cardtop"><div><div class="label">Drown and Thirst It Is</div><div class="title">Scene 47 · The Competition</div></div><button class="icon" onclick="openProject('Drown and Thirst It Is')">↗</button></div><div class="script"><div class="head">INT. CONCERT HALL — NIGHT</div><div>The room has gone silent.</div><div>Two musicians sit beneath opposite pools of light.</div><div class="char">JERMAINE</div><div class="dialogue">You still think this is about winning?</div><div class="char">MIA</div><div class="dialogue">No. I think it's about who gets remembered.</div></div></div><div class="card"><div class="cardtop"><div><div class="label">Studio Overview</div><div class="title">Your Numbers</div></div></div><div class="stats"><div class="stat"><strong>14</strong><small>Projects</small></div><div class="stat"><strong>287</strong><small>Pages</small></div><div class="stat"><strong>91k</strong><small>Words</small></div><div class="stat"><strong>43h</strong><small>Written</small></div></div></div></section>
+<div class="section" id="tools"><b>Studio Tools</b><span>WORKFLOW</span></div>
+<section class="tools"><div class="tool"><div class="ti">▤</div><b>Screenplay</b><p>Industry-standard screenplay formatting.</p></div><div class="tool"><div class="ti">◎</div><b>Characters</b><p>Characters, relationships and conflicts.</p></div><div class="tool"><div class="ti">◈</div><b>Story Map</b><p>See the architecture of your story.</p></div><div class="tool"><div class="ti">✦</div><b>Ideas</b><p>Capture fragments before they vanish.</p></div><div class="tool"><div class="ti">↗</div><b>Export</b><p>Prepare scripts for production.</p></div></section>
+<div class="section" id="activity"><b>Recent Activity</b><span>LIVE ARCHIVE</span></div><section class="activity"><div class="row"><span>Scene 47 edited</span><span class="muted">Drown and Thirst It Is</span><time>19:42 TODAY</time><span class="saved">SAVED</span></div><div class="row"><span>Character added</span><span class="muted">Engineered Fear</span><time>18:17 TODAY</time><span class="saved">SAVED</span></div><div class="row"><span>Project created</span><span class="muted">What We Do When Afraid</span><time>YESTERDAY</time><span class="saved">SAVED</span></div><div class="row"><span>Story map updated</span><span class="muted">Sentient Mass</span><time>AUG 21</time><span class="saved">SAVED</span></div></section>
+</main>
+<footer><span>AUTEUR / SCREENWRITING STUDIO</span><span>BUILD 02.26 · ALL SYSTEMS NOMINAL</span></footer>
+<div class="modal" id="modal"><div class="box"><div class="eyebrow">New Project</div><h2>Begin something.</h2><p>Give the project a title. Everything else can come later.</p><input id="projectName" placeholder="Project title..."><div class="modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button><button class="primary" onclick="createProject()">Create Project</button></div></div></div>
+<script>
+const modal=document.getElementById('modal'),nameInput=document.getElementById('projectName'),search=document.getElementById('search'),input=document.getElementById('searchInput');
+function newProject(){modal.classList.add('open');setTimeout(()=>nameInput.focus(),50)}function closeModal(){modal.classList.remove('open');nameInput.value=''}function createProject(){const n=nameInput.value.trim();if(!n)return nameInput.focus();closeModal();alert('Project created: '+n+'\n\nThe screenplay workspace is ready.') }function openProject(n){alert(n+'\n\nOpening screenplay workspace...')}function toggleSearch(){search.scrollIntoView({behavior:'smooth'});input.focus()}input.addEventListener('input',()=>{const q=input.value.toLowerCase().trim();document.querySelectorAll('.project').forEach(p=>p.style.display=!q||p.dataset.name.toLowerCase().includes(q)?'':'none')});modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();toggleSearch()}if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
