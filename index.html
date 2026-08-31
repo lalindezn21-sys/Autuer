@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FFFFFF">
   <title>L21 Production Studio Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --amber: #FFBF00;
@@ -13,11 +16,13 @@
       --peach: #FFD3AC;
       --white: #FFFFFF;
       --ink: #111111;
-      --muted: #707070;
-      --line: #E8E8E8;
-      --soft: #F7F7F5;
-      --sidebar: 238px;
-      --radius: 16px;
+      --muted: #626262;
+      --quiet: #8A8A8A;
+      --line: #D8D8D8;
+      --line-strong: #B9B9B9;
+      --soft: #F4F4F2;
+      --sidebar: 224px;
+      --radius: 12px;
     }
 
     * { box-sizing: border-box; }
@@ -26,8 +31,9 @@
       margin: 0;
       background: var(--white);
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Inter Tight", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     button, input { font: inherit; }
@@ -43,283 +49,343 @@
       position: fixed;
       inset: 0 auto 0 0;
       width: var(--sidebar);
-      border-right: 1px solid var(--line);
+      border-right: 1px solid var(--line-strong);
       background: var(--white);
-      padding: 25px 18px 20px;
+      padding: 20px 14px 16px;
       display: flex;
       flex-direction: column;
-      z-index: 10;
+      z-index: 20;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 2px 9px 28px;
+      padding: 0 8px 22px;
+      border-bottom: 1px solid var(--line-strong);
       font-weight: 800;
-      letter-spacing: -0.06em;
-      font-size: 25px;
+      letter-spacing: -0.065em;
+      font-size: 24px;
     }
 
     .brand-mark {
-      width: 30px;
-      height: 30px;
-      border-radius: 9px;
+      width: 31px;
+      height: 31px;
+      border-radius: 8px;
       background: var(--amber);
       display: grid;
       place-items: center;
-      font-size: 12px;
-      letter-spacing: -0.04em;
+      font-size: 10px;
+      letter-spacing: -0.05em;
+      font-weight: 800;
     }
 
     .nav-label {
-      padding: 0 10px 8px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      color: #999;
+      padding: 18px 10px 7px;
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--quiet);
     }
 
-    .nav {
-      display: grid;
-      gap: 3px;
-    }
+    .nav { display: grid; gap: 2px; }
 
     .nav button {
       width: 100%;
       border: 0;
       background: transparent;
-      border-radius: 11px;
-      padding: 11px 10px;
+      border-radius: 8px;
+      padding: 9px 10px;
       text-align: left;
-      color: #555;
-      font-weight: 650;
-      font-size: 14px;
-      transition: .18s ease;
+      color: #4D4D4D;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background .15s ease, color .15s ease;
     }
 
     .nav button:hover { background: var(--soft); color: var(--ink); }
-    .nav button.active { background: var(--amber); color: var(--ink); }
+    .nav button.active { background: var(--amber); color: var(--ink); font-weight: 700; }
 
     .sidebar-bottom { margin-top: auto; }
     .version {
-      margin: 16px 10px 0;
-      color: #aaa;
-      font-size: 10px;
-      letter-spacing: .08em;
+      margin: 14px 10px 0;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      color: var(--quiet);
+      font-family: "DM Mono", monospace;
+      font-size: 8px;
+      letter-spacing: .04em;
       text-transform: uppercase;
     }
 
     .main {
       grid-column: 2;
       min-width: 0;
-      padding-bottom: 70px;
+      padding-bottom: 38px;
     }
 
     .topbar {
-      height: 76px;
-      padding: 0 38px;
-      border-bottom: 1px solid var(--line);
+      height: 62px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--line-strong);
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,.94);
-      backdrop-filter: blur(12px);
-      z-index: 5;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      z-index: 10;
     }
 
     .breadcrumb {
-      font-size: 11px;
-      font-weight: 750;
-      letter-spacing: .1em;
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .04em;
       text-transform: uppercase;
     }
 
-    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
 
     .search {
-      width: 205px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 9px 12px;
+      width: 190px;
+      height: 34px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      padding: 7px 11px;
       outline: none;
       background: var(--white);
-      font-size: 13px;
+      font-size: 12px;
+      color: var(--ink);
     }
 
-    .search:focus { border-color: var(--azure); }
+    .search::placeholder { color: #8A8A8A; }
+    .search:focus { border-color: var(--azure); box-shadow: 0 0 0 2px rgba(0,127,255,.10); }
 
     .new-btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 10px 14px;
+      height: 34px;
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      padding: 0 13px;
       background: var(--ink);
       color: var(--white);
-      font-size: 12px;
-      font-weight: 750;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .01em;
     }
 
+    .new-btn:hover { background: var(--amber); color: var(--ink); border-color: var(--amber); }
+
     .content {
-      max-width: 1440px;
+      max-width: 1500px;
       margin: 0 auto;
-      padding: 46px 38px 0;
+      padding: 28px 28px 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      align-items: end;
+      gap: 32px;
+      padding-bottom: 23px;
+      border-bottom: 2px solid var(--ink);
     }
 
     .eyebrow {
-      margin-bottom: 8px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .13em;
+      margin-bottom: 5px;
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .07em;
       text-transform: uppercase;
       color: var(--muted);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(40px, 5vw, 68px);
-      line-height: .96;
+      font-size: clamp(38px, 4.5vw, 62px);
+      line-height: .91;
       letter-spacing: -.065em;
-      max-width: 850px;
+      font-weight: 800;
+      max-width: 760px;
     }
 
     .intro {
-      margin: 15px 0 35px;
-      max-width: 650px;
+      margin: 0;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.55;
+      font-size: 13px;
+      line-height: 1.4;
+      max-width: 280px;
+      justify-self: end;
     }
 
-    .section { margin-top: 42px; }
+    .section { margin-top: 24px; }
+
     .section-head {
       display: flex;
       justify-content: space-between;
-      align-items: end;
-      margin-bottom: 13px;
+      align-items: center;
+      min-height: 26px;
+      margin-bottom: 8px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--line-strong);
     }
 
     .section-title {
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: .1em;
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .06em;
       text-transform: uppercase;
     }
 
-    .section-meta { font-size: 11px; color: #999; }
+    .section-meta {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      color: var(--quiet);
+      text-transform: uppercase;
+    }
 
     .bento {
       display: grid;
-      grid-template-columns: minmax(0, 1.65fr) minmax(240px, .8fr) minmax(220px, .72fr);
-      grid-template-rows: 235px 175px;
-      gap: 12px;
+      grid-template-columns: minmax(0, 1.7fr) minmax(210px, .75fr) minmax(210px, .75fr);
+      grid-template-rows: 145px 145px;
+      gap: 9px;
     }
 
     .tile {
       position: relative;
       min-width: 0;
       overflow: hidden;
-      border: 1px solid var(--line);
+      border: 1px solid var(--line-strong);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 17px;
       background: var(--white);
-      transition: transform .18s ease, border-color .18s ease;
+      transition: transform .15s ease, border-color .15s ease;
     }
 
-    .tile:hover { transform: translateY(-2px); border-color: #cfcfcf; }
+    .tile:hover { transform: translateY(-1px); border-color: var(--ink); }
 
     .featured {
       grid-row: 1 / 3;
       background: var(--peach);
-      border-color: transparent;
+      border-color: #D8B28D;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
     }
 
-    .featured .tile-kicker { color: #7b5c3d; }
+    .featured .tile-kicker { color: #674D37; }
+
     .tile-kicker {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .12em;
+      font-family: "DM Mono", monospace;
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: .06em;
       text-transform: uppercase;
-      color: #888;
+      color: #777;
     }
 
     .featured h2 {
-      margin: 8px 0 7px;
-      max-width: 570px;
-      font-size: clamp(30px, 4vw, 52px);
-      line-height: .95;
-      letter-spacing: -.06em;
+      margin: 5px 0 5px;
+      max-width: 620px;
+      font-size: clamp(28px, 3.4vw, 47px);
+      line-height: .9;
+      letter-spacing: -.065em;
+      font-weight: 800;
     }
 
-    .tile-copy { color: #666; font-size: 13px; line-height: 1.45; max-width: 520px; }
+    .tile-copy { color: #5F5F5F; font-size: 11px; line-height: 1.35; max-width: 520px; }
 
     .tile-number {
-      font-size: 43px;
-      line-height: 1;
+      font-size: 37px;
+      line-height: .9;
       letter-spacing: -.06em;
       font-weight: 800;
-      margin-top: 26px;
+      margin-top: 22px;
     }
 
     .tile-action {
       position: absolute;
-      right: 18px;
-      top: 18px;
-      width: 34px;
-      height: 34px;
-      border: 0;
-      border-radius: 50%;
+      right: 12px;
+      top: 12px;
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(17,17,17,.22);
+      border-radius: 7px;
       display: grid;
       place-items: center;
-      background: var(--soft);
-      font-weight: 800;
+      background: rgba(255,255,255,.65);
+      font-weight: 700;
+      font-size: 13px;
     }
 
-    .quick { background: var(--amber); border-color: transparent; }
-    .quick .tile-action { background: rgba(255,255,255,.6); }
+    .quick { background: var(--amber); border-color: #D9A400; }
+    .quick .tile-action { background: rgba(255,255,255,.58); }
 
-    .activity { background: var(--azure); border-color: transparent; color: var(--white); }
-    .activity .tile-kicker, .activity .tile-copy { color: rgba(255,255,255,.78); }
-    .activity .tile-action { background: var(--white); }
+    .activity { background: var(--azure); border-color: #006CCF; color: var(--white); }
+    .activity .tile-kicker, .activity .tile-copy { color: rgba(255,255,255,.82); }
+    .activity .tile-action { background: var(--white); border-color: transparent; }
 
     .projects {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: 1.35fr 1fr 1fr;
+      gap: 9px;
     }
 
     .project {
-      min-height: 190px;
-      border: 1px solid var(--line);
+      min-height: 145px;
+      border: 1px solid var(--line-strong);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background: var(--white);
+      transition: transform .15s ease, border-color .15s ease;
     }
 
+    .project:hover { transform: translateY(-1px); border-color: var(--ink); }
     .project:first-child { background: var(--soft); }
     .project-top { display: flex; justify-content: space-between; gap: 12px; }
-    .project-index { font-size: 10px; font-weight: 800; color: #aaa; }
-    .project h3 { margin: 36px 0 7px; font-size: 23px; line-height: 1; letter-spacing: -.045em; }
-    .project p { margin: 0; color: #777; font-size: 12px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 15px; }
-    .tag { padding: 5px 8px; border-radius: 7px; background: var(--white); border: 1px solid var(--line); font-size: 9px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
-    .project:first-child .tag { background: var(--amber); border-color: transparent; }
+
+    .project-index {
+      font-family: "DM Mono", monospace;
+      font-size: 8px;
+      font-weight: 500;
+      color: #858585;
+      letter-spacing: .04em;
+    }
+
+    .project h3 { margin: 22px 0 4px; font-size: 21px; line-height: .96; letter-spacing: -.045em; font-weight: 800; }
+    .project p { margin: 0; color: #707070; font-size: 10px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+
+    .tag {
+      padding: 4px 6px;
+      border-radius: 5px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      font-family: "DM Mono", monospace;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .project:first-child .tag { background: var(--amber); border-color: #D9A400; }
 
     .lower-grid {
       display: grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 12px;
+      grid-template-columns: 1.4fr .6fr;
+      gap: 9px;
     }
 
     .activity-list, .tool-list {
-      border: 1px solid var(--line);
+      border: 1px solid var(--line-strong);
       border-radius: var(--radius);
       overflow: hidden;
       background: var(--white);
@@ -328,25 +394,26 @@
     .activity-row, .tool-row {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 15px 18px;
+      gap: 11px;
+      min-height: 40px;
+      padding: 9px 13px;
       border-bottom: 1px solid var(--line);
     }
+
     .activity-row:last-child, .tool-row:last-child { border-bottom: 0; }
-    .dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; background: var(--azure); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: var(--azure); }
     .dot.amber { background: var(--amber); }
     .dot.red { background: var(--red); }
-    .activity-row strong, .tool-row strong { font-size: 12px; }
-    .activity-row span, .tool-row span { margin-left: auto; color: #999; font-size: 10px; }
-
+    .activity-row strong, .tool-row strong { font-size: 10px; font-weight: 600; }
+    .activity-row span, .tool-row span { margin-left: auto; color: #888; font-family: "DM Mono", monospace; font-size: 8px; }
     .tool-row { justify-content: space-between; }
-    .tool-row strong { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+    .tool-row strong { font-family: "DM Mono", monospace; font-size: 9px; text-transform: uppercase; letter-spacing: .04em; }
     .tool-row span { margin: 0; }
 
-    .empty { display: none; }
-
     @media (max-width: 1050px) {
-      .bento { grid-template-columns: 1.4fr 1fr; grid-template-rows: 250px 170px 170px; }
+      .hero { grid-template-columns: 1fr; gap: 10px; }
+      .intro { justify-self: start; max-width: 560px; }
+      .bento { grid-template-columns: 1.4fr 1fr; grid-template-rows: 175px 135px 135px; }
       .featured { grid-row: 1 / 3; }
       .activity { grid-column: 1 / 3; }
       .projects { grid-template-columns: 1fr 1fr; }
@@ -355,18 +422,19 @@
 
     @media (max-width: 760px) {
       :root { --sidebar: 0px; }
-      .sidebar { position: static; width: 100%; height: auto; border-right: 0; border-bottom: 1px solid var(--line); padding: 14px; }
+      .sidebar { position: static; width: 100%; height: auto; border-right: 0; border-bottom: 1px solid var(--line-strong); padding: 12px; }
       .app { display: block; }
-      .brand { padding: 4px 5px 13px; }
+      .brand { padding: 2px 5px 11px; }
       .nav { grid-template-columns: repeat(4, 1fr); }
       .nav-label, .sidebar-bottom { display: none; }
-      .nav button { text-align: center; font-size: 11px; }
-      .topbar { padding: 0 18px; }
+      .nav button { text-align: center; font-size: 10px; padding: 8px 5px; }
+      .topbar { padding: 0 15px; }
       .search { display: none; }
-      .content { padding: 32px 18px 0; }
+      .content { padding: 20px 15px 0; }
+      .hero { padding-bottom: 18px; }
       .bento, .projects, .lower-grid { grid-template-columns: 1fr; }
       .bento { grid-template-rows: auto; }
-      .featured, .activity { grid-row: auto; grid-column: auto; min-height: 280px; }
+      .featured, .activity { grid-row: auto; grid-column: auto; min-height: 220px; }
       .project:last-child { grid-column: auto; }
     }
   </style>
@@ -385,7 +453,7 @@
       <div class="sidebar-bottom">
         <div class="nav-label">System</div>
         <nav class="nav"><button data-page="settings">Settings</button></nav>
-        <div class="version">Production Studio Pro · 01</div>
+        <div class="version">L21 Production Studio Pro · 01</div>
       </div>
     </aside>
 
@@ -399,12 +467,16 @@
       </header>
 
       <div class="content" id="dashboard">
-        <div class="eyebrow">Production Studio Pro</div>
-        <h1>Your filmmaking workspace.</h1>
-        <p class="intro">A connected space for developing stories, building worlds, organizing production, and turning ideas into films.</p>
+        <section class="hero">
+          <div>
+            <div class="eyebrow">Production Studio Pro / Dashboard</div>
+            <h1>Your filmmaking workspace.</h1>
+          </div>
+          <p class="intro">Develop stories, build worlds, organize production, and move ideas from first thought to finished film.</p>
+        </section>
 
         <section class="section">
-          <div class="section-head"><div class="section-title">Continue working</div><div class="section-meta">1 active project</div></div>
+          <div class="section-head"><div class="section-title">Continue working</div><div class="section-meta">01 active project</div></div>
           <div class="bento">
             <article class="tile featured">
               <div class="tile-kicker">Featured project · Drama / Psychological</div>
@@ -426,7 +498,7 @@
             <article class="tile activity">
               <div class="tile-kicker">Recent activity</div>
               <div class="tile-number">04</div>
-              <div class="tile-copy">Recent changes across your projects and development tools.</div>
+              <div class="tile-copy">Recent changes across projects and development tools.</div>
               <button class="tile-action" aria-label="View activity">→</button>
             </article>
           </div>
@@ -481,13 +553,10 @@
         button.classList.add('active');
         const page = button.dataset.page;
         breadcrumb.textContent = button.textContent;
-        if (page !== 'dashboard') {
-          document.querySelector('h1').textContent = button.textContent;
-          document.querySelector('.intro').textContent = 'This workspace is part of the L21 foundation and is ready for its dedicated production tools.';
-        } else {
-          document.querySelector('h1').textContent = 'Your filmmaking workspace.';
-          document.querySelector('.intro').textContent = 'A connected space for developing stories, building worlds, organizing production, and turning ideas into films.';
-        }
+        document.querySelector('h1').textContent = page === 'dashboard' ? 'Your filmmaking workspace.' : button.textContent;
+        document.querySelector('.intro').textContent = page === 'dashboard'
+          ? 'Develop stories, build worlds, organize production, and move ideas from first thought to finished film.'
+          : 'This workspace is part of the L21 foundation and is ready for its dedicated production tools.';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
